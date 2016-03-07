@@ -29,6 +29,7 @@ import com.jeometry.model.scalar.ScalarSupplier;
 /**
  * Represents a vector defined by its Y coordinate, and a random X coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class YVector extends XyVector {

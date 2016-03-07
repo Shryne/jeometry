@@ -26,6 +26,7 @@ package com.jeometry.model.scalar;
 /**
  * A scalar represented as the division of a scalar by another scalar.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class Division implements Scalar {

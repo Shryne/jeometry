@@ -31,6 +31,7 @@ import com.jeometry.op.Times;
 /**
  * A point defined by belonging to a line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class PointInLine implements Vector {

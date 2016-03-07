@@ -28,6 +28,7 @@ import com.jeometry.model.scalar.ScalarSupplier;
 /**
  * Represents a random vector or a point.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class RandomVector extends XyVector {

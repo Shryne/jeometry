@@ -26,6 +26,7 @@ package com.jeometry.model.scalar;
 /**
  * A scalar represented as the scalar sum of two scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public final class Add implements Scalar {

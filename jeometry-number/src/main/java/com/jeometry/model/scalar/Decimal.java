@@ -26,6 +26,7 @@ package com.jeometry.model.scalar;
 /**
  * A {@link ScalarSupplier} implementation based on double.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class Decimal implements ScalarSupplier {

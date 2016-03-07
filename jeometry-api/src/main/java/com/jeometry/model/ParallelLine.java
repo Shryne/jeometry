@@ -28,6 +28,7 @@ import com.jeometry.model.scalar.ScalarSupplier;
 /**
  * A line defined by being parallel to another line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class ParallelLine implements Line {

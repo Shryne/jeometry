@@ -33,6 +33,7 @@ import com.jeometry.model.scalar.ScalarSupplier;
 /**
  * A point defined by not belonging to a line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public final class PointOutsideLine implements Vector {

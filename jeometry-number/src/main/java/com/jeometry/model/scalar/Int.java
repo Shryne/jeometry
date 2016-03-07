@@ -26,6 +26,7 @@ package com.jeometry.model.scalar;
 /**
  * A {@link ScalarSupplier} implementation based on integers.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class Int implements ScalarSupplier {

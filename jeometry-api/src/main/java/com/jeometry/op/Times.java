@@ -30,6 +30,7 @@ import com.jeometry.model.scalar.Scalar;
 /**
  * A vector represented as the multiplication of a vector by a scalar.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public final class Times implements Vector {

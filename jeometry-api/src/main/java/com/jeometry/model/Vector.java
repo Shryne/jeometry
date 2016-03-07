@@ -28,6 +28,7 @@ import com.jeometry.model.scalar.Scalar;
 /**
  * Vector interface. Represents a 2 dimension vector or a point.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public interface Vector {

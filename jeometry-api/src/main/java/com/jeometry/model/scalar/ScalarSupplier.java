@@ -31,6 +31,7 @@ package com.jeometry.model.scalar;
  * <li>Compare two scalars</li>
  * </ul>
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public interface ScalarSupplier {

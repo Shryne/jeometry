@@ -28,6 +28,7 @@ import com.jeometry.model.scalar.Scalar;
 /**
  * Represents a vector defined by its coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class XyVector implements Vector {

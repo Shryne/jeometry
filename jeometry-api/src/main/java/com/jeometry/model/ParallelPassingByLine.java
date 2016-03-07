@@ -27,6 +27,7 @@ package com.jeometry.model;
  * A line defined by being parallel to another line, and passing by a given
  * point.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public final class ParallelPassingByLine implements Line {

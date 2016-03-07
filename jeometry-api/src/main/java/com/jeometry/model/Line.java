@@ -27,6 +27,7 @@ package com.jeometry.model;
  * Line interface describing a line by a direction and a point belonging to the
  * line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public interface Line {

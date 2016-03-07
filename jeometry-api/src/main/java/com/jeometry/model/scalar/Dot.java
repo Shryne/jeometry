@@ -28,6 +28,7 @@ import com.jeometry.model.Vector;
 /**
  * Class representing dot operation (scalar product) between 2 vectors.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public final class Dot {

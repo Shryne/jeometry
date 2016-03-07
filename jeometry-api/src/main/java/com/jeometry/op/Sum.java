@@ -30,6 +30,7 @@ import com.jeometry.model.scalar.Scalar;
 /**
  * A vector represented as the sum of two vectors.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public final class Sum implements Vector {

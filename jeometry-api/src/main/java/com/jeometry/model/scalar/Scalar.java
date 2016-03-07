@@ -26,6 +26,7 @@ package com.jeometry.model.scalar;
 /**
  * Scalar interface. An abstract (annontation-like) to represent a scalar.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public interface Scalar {
@@ -34,7 +35,8 @@ public interface Scalar {
      * Minimal representation of a scalar holding a reference to an object.
      * @author Hamdi Douss (douss.hamdi@gmail.com)
      * @param <T> Holded object type.
-     * @since 0.1
+     * @version $Id$
+ * @since 0.1
      */
     static class Default<T> implements Scalar {
         /**

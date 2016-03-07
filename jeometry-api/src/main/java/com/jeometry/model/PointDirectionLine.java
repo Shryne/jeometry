@@ -26,6 +26,7 @@ package com.jeometry.model;
 /**
  * A line defined by a point to pass by and a direction.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
  * @since 0.1
  */
 public class PointDirectionLine implements Line {
