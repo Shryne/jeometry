@@ -21,48 +21,24 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model;
+
+import com.jeometry.model.scalar.Scalar;
+import com.jeometry.model.scalar.ScalarSupplier;
 
 /**
- * A scalar represented as the difference between two scalars.
+ * Represents a vector defined by its Y coordinate, and a random X coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @since 0.1
  */
-public final class Diff implements Scalar {
-    /**
-     * First operand.
-     */
-    private final Scalar first;
-
-    /**
-     * Second operand.
-     */
-    private final Scalar second;
-
+public class YVector extends XyVector {
     /**
      * Constructor.
-     * @param first First operand (minuend)
-     * @param second Second operand (subtrahend)
+     * @param supp Scalar supplier for randomization
+     * @param ycoor Y coordinate
      */
-    public Diff(final Scalar first, final Scalar second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    /**
-     * Gives first operand (minuend).
-     * @return The first operand of the difference.
-     */
-    public Scalar first() {
-        return this.first;
-    }
-
-    /**
-     * Gives second operand (subtrahend).
-     * @return The second operand of the difference.
-     */
-    public Scalar second() {
-        return this.second;
+    public YVector(final ScalarSupplier supp, final Scalar ycoor) {
+        super(supp.random(), ycoor);
     }
 
 }

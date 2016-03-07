@@ -21,48 +21,62 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model;
+
+import com.jeometry.model.scalar.Scalar;
 
 /**
- * A scalar represented as the difference between two scalars.
+ * Represents a vector defined by its coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @since 0.1
  */
-public final class Diff implements Scalar {
-    /**
-     * First operand.
-     */
-    private final Scalar first;
+public class XyVector implements Vector {
 
     /**
-     * Second operand.
+     * X coordinate.
      */
-    private final Scalar second;
+    private Scalar xcoor;
+
+    /**
+     * Y coordinate.
+     */
+    private Scalar ycoor;
 
     /**
      * Constructor.
-     * @param first First operand (minuend)
-     * @param second Second operand (subtrahend)
+     * @param xcoor X coordinate
+     * @param ycoor Y coordinate
      */
-    public Diff(final Scalar first, final Scalar second) {
-        this.first = first;
-        this.second = second;
+    public XyVector(final Scalar xcoor, final Scalar ycoor) {
+        super();
+        this.xcoor = xcoor;
+        this.ycoor = ycoor;
+    }
+
+    @Override
+    public final Scalar x() {
+        return this.xcoor;
+    }
+
+    @Override
+    public final Scalar y() {
+        return this.ycoor;
     }
 
     /**
-     * Gives first operand (minuend).
-     * @return The first operand of the difference.
+     * Modifies X coordinate of the vector.
+     * @param x New X coordinate
      */
-    public Scalar first() {
-        return this.first;
+    public final void setX(final Scalar x) {
+        this.xcoor = x;
     }
 
     /**
-     * Gives second operand (subtrahend).
-     * @return The second operand of the difference.
+     * Modifies Y Coordinate of the vector.
+     * @param y New Y coordinate
      */
-    public Scalar second() {
-        return this.second;
+    public final void setY(final Scalar y) {
+        this.ycoor = y;
     }
 
 }

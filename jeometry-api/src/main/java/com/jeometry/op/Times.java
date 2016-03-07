@@ -1,28 +1,68 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016-2016, Hamdi Douss
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+ * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package com.jeometry.op;
 
 import com.jeometry.model.Vector;
 import com.jeometry.model.scalar.Multiplication;
 import com.jeometry.model.scalar.Scalar;
 
-public class Times implements Vector {
+/**
+ * A vector represented as the multiplication of a vector by a scalar.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @since 0.1
+ */
+public final class Times implements Vector {
 
-	private final transient Vector v;
-	private final transient Scalar s;
+    /**
+     * Vector.
+     */
+    private final transient Vector vector;
 
-	public Times(Vector v, Scalar s) {
-		super();
-		this.v = v;
-		this.s = s;
-	}
+    /**
+     * Scalar.
+     */
+    private final transient Scalar scalar;
 
-	@Override
-	public Scalar x() {
-		return new Multiplication(this.v.x(), s);
-	}
+    /**
+     * Constructor.
+     * @param vector Vector to multiply
+     * @param scalar Scalar by which to multiply
+     */
+    public Times(final Vector vector, final Scalar scalar) {
+        super();
+        this.vector = vector;
+        this.scalar = scalar;
+    }
 
-	@Override
-	public Scalar y() {
-		return new Multiplication(this.v.y(), s);
-	}
+    @Override
+    public Scalar x() {
+        return new Multiplication(this.vector.x(), this.scalar);
+    }
+
+    @Override
+    public Scalar y() {
+        return new Multiplication(this.vector.y(), this.scalar);
+    }
 
 }
