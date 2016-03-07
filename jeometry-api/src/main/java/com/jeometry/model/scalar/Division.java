@@ -29,7 +29,7 @@ package com.jeometry.model.scalar;
  * @version $Id$
  * @since 0.1
  */
-public class Division implements Scalar {
+public final class Division implements Scalar {
     /**
      * First operand.
      */
@@ -55,7 +55,7 @@ public class Division implements Scalar {
      * @return The first operand of the division.
      */
     public Scalar first() {
-        return first;
+        return this.first;
     }
 
     /**
@@ -63,7 +63,7 @@ public class Division implements Scalar {
      * @return The second operand of the sum.
      */
     public Scalar second() {
-        return second;
+        return this.second;
     }
 
 }

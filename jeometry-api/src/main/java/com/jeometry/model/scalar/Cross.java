@@ -29,22 +29,21 @@ import com.jeometry.model.Vector;
  * Class representing cross operation (vectorial product) between 2 vectors.
  * Since we operate in a 2D space, the main value of the cross operation is a
  * scalar representing the norm of the operation.
- * 
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class Cross {
+public final class Cross {
 
     /**
      * First operand.
      */
-    private Vector second;
+    private final Vector second;
 
     /**
      * Second operand.
      */
-    private Vector first;
+    private final Vector first;
 
     /**
      * Constructor.
@@ -78,8 +77,8 @@ public class Cross {
      */
     public Scalar value() {
         return new Diff(
-            new Multiplication(this.first.x(), this.second.y()),
-            new Multiplication(this.second.x(), this.first.y())
+            new Multiplication(this.first.xcoor(), this.second.ycoor()),
+            new Multiplication(this.second.xcoor(), this.first.ycoor())
         );
     }
 

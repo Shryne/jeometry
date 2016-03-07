@@ -29,7 +29,7 @@ package com.jeometry.model;
  * @version $Id$
  * @since 0.1
  */
-public class PointDirectionLine implements Line {
+public final class PointDirectionLine implements Line {
 
     /**
      * Direction.
@@ -54,15 +54,15 @@ public class PointDirectionLine implements Line {
 
     @Override
     public Vector direction() {
-        return direction;
+        return this.direction;
     }
 
     /**
      * Modifies the direction of the line.
-     * @param direction New direction of the line
+     * @param dir New direction of the line
      */
-    public void setDirection(Vector direction) {
-        this.direction = direction;
+    public void setDirection(final Vector dir) {
+        this.direction = dir;
     }
 
     @Override
@@ -72,9 +72,9 @@ public class PointDirectionLine implements Line {
 
     /**
      * Modifies the point that should belong to the line.
-     * @param point New point to pass by.
+     * @param pnt New point to pass by.
      */
-    public void setPoint(Vector point) {
-        this.point = point;
+    public void setPoint(final Vector pnt) {
+        this.point = pnt;
     }
 }

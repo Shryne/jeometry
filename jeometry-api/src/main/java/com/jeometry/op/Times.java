@@ -57,13 +57,13 @@ public final class Times implements Vector {
     }
 
     @Override
-    public Scalar x() {
-        return new Multiplication(this.vector.x(), this.scalar);
+    public Scalar xcoor() {
+        return new Multiplication(this.vector.xcoor(), this.scalar);
     }
 
     @Override
-    public Scalar y() {
-        return new Multiplication(this.vector.y(), this.scalar);
+    public Scalar ycoor() {
+        return new Multiplication(this.vector.ycoor(), this.scalar);
     }
 
 }

@@ -34,7 +34,7 @@ import com.jeometry.op.Times;
  * @version $Id$
  * @since 0.1
  */
-public class PointInLine implements Vector {
+public final class PointInLine implements Vector {
 
     /**
      * The line to belong to.
@@ -58,17 +58,17 @@ public class PointInLine implements Vector {
     }
 
     @Override
-    public Scalar x() {
+    public Scalar xcoor() {
         return new Sum(
             new Times(this.line.direction(), this.factor), this.line.point()
-        ).x();
+        ).xcoor();
     }
 
     @Override
-    public Scalar y() {
+    public Scalar ycoor() {
         return new Sum(
             new Times(this.line.direction(), this.factor), this.line.point()
-        ).y();
+        ).ycoor();
     }
 
 }

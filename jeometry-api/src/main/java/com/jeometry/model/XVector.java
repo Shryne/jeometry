@@ -23,8 +23,8 @@
  */
 package com.jeometry.model;
 
-import com.jeometry.model.scalar.ScalarSupplier;
 import com.jeometry.model.scalar.Scalar;
+import com.jeometry.model.scalar.ScalarSupplier;
 
 /**
  * Represents a vector defined by its X coordinate, and a random Y coordinate.

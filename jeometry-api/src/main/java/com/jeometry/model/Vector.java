@@ -37,12 +37,12 @@ public interface Vector {
      * X coordinate of the vector.
      * @return X coordinate
      */
-    Scalar x();
+    Scalar xcoor();
 
     /**
      * Y coordinate of the vector.
      * @return Y coordinate
      */
-    Scalar y();
+    Scalar ycoor();
 
 }

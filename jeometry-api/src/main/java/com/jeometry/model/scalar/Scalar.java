@@ -34,11 +34,11 @@ public interface Scalar {
     /**
      * Minimal representation of a scalar holding a reference to an object.
      * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @param <T> Holded object type.
      * @version $Id$
- * @since 0.1
+     * @param <T> Holded object type.
+     * @since 0.1
      */
-    static class Default<T> implements Scalar {
+    class Default<T> implements Scalar {
         /**
          * Wrapped object.
          */

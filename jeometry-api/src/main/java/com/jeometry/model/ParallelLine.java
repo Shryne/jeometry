@@ -31,7 +31,7 @@ import com.jeometry.model.scalar.ScalarSupplier;
  * @version $Id$
  * @since 0.1
  */
-public class ParallelLine implements Line {
+public final class ParallelLine implements Line {
     /**
      * The line to be parallel to.
      */
@@ -47,7 +47,7 @@ public class ParallelLine implements Line {
      * @param parallel The line to be parallel to
      * @param supp A scalar supplier used for randomization.
      */
-    public ParallelLine(Line parallel, ScalarSupplier supp) {
+    public ParallelLine(final Line parallel, final ScalarSupplier supp) {
         super();
         this.parallel = parallel;
         this.point = new PointOutsideLine(this.parallel, supp);

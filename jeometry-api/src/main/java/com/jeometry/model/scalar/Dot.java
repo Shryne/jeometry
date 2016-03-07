@@ -75,8 +75,8 @@ public final class Dot {
      */
     public Scalar value() {
         return new Add(
-            new Multiplication(this.second.x(), this.first.x()),
-            new Multiplication(this.second.y(), this.first.y())
+            new Multiplication(this.second.xcoor(), this.first.xcoor()),
+            new Multiplication(this.second.ycoor(), this.first.ycoor())
         );
     }
 

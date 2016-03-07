@@ -38,12 +38,12 @@ public final class Sum implements Vector {
     /**
      * First operand.
      */
-    private Vector first;
+    private final Vector first;
 
     /**
      * Second operand.
      */
-    private Vector second;
+    private final Vector second;
 
     /**
      * Constructor.
@@ -56,13 +56,13 @@ public final class Sum implements Vector {
     }
 
     @Override
-    public Scalar x() {
-        return new Add(this.first.x(), this.second.x());
+    public Scalar xcoor() {
+        return new Add(this.first.xcoor(), this.second.xcoor());
     }
 
     @Override
-    public Scalar y() {
-        return new Add(this.first.y(), this.second.y());
+    public Scalar ycoor() {
+        return new Add(this.first.ycoor(), this.second.ycoor());
     }
 
 }

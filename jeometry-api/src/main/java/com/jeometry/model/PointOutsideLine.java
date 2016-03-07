@@ -64,12 +64,12 @@ public final class PointOutsideLine implements Vector {
     }
 
     @Override
-    public Scalar x() {
+    public Scalar xcoor() {
         return this.xcoor;
     }
 
     @Override
-    public Scalar y() {
+    public Scalar ycoor() {
         return this.ycoor;
     }
 
@@ -81,7 +81,7 @@ public final class PointOutsideLine implements Vector {
     private Scalar getXOutsideLine(final ScalarSupplier supp) {
         final Vector dir = this.line.direction();
         Scalar candidate = supp.random();
-        if (supp.equals(dir.x(), supp.addIdentity())) {
+        if (supp.equals(dir.xcoor(), supp.addIdentity())) {
             candidate = supp.other(supp.addIdentity());
         }
         return candidate;
@@ -95,11 +95,11 @@ public final class PointOutsideLine implements Vector {
     private Scalar getYOutsideLine(final ScalarSupplier supp) {
         Scalar candidate = supp.random();
         final Vector dir = this.line.direction();
-        if (!supp.equals(dir.x(), supp.addIdentity())) {
+        if (!supp.equals(dir.xcoor(), supp.addIdentity())) {
             final Vector point = this.line.point();
-            final Scalar slope = new Division(dir.y(), dir.x());
+            final Scalar slope = new Division(dir.ycoor(), dir.xcoor());
             final Scalar intercept = new Diff(
-                point.y(), new Multiplication(slope, point.x())
+                point.ycoor(), new Multiplication(slope, point.xcoor())
             );
             candidate = supp.other(
                 new Add(intercept, new Multiplication(slope, this.xcoor))

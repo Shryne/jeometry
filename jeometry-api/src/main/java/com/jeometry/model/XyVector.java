@@ -55,29 +55,29 @@ public class XyVector implements Vector {
     }
 
     @Override
-    public final Scalar x() {
+    public final Scalar xcoor() {
         return this.xcoor;
     }
 
     @Override
-    public final Scalar y() {
+    public final Scalar ycoor() {
         return this.ycoor;
     }
 
     /**
      * Modifies X coordinate of the vector.
-     * @param x New X coordinate
+     * @param xcor New X coordinate
      */
-    public final void setX(final Scalar x) {
-        this.xcoor = x;
+    public final void setX(final Scalar xcor) {
+        this.xcoor = xcor;
     }
 
     /**
      * Modifies Y Coordinate of the vector.
-     * @param y New Y coordinate
+     * @param ycor New Y coordinate
      */
-    public final void setY(final Scalar y) {
-        this.ycoor = y;
+    public final void setY(final Scalar ycor) {
+        this.ycoor = ycor;
     }
 
 }

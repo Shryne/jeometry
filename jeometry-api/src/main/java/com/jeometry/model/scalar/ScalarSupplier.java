@@ -24,7 +24,7 @@
 package com.jeometry.model.scalar;
 
 /**
- * Interface describing a field of scalars, giving the capability to:<br>
+ * Interface describing a field of scalars. Giving the capability to:<br>
  * <ul>
  * <li>Generate random scalars</li>
  * <li>Define the sum identity</li>

@@ -55,13 +55,13 @@ public final class Minus implements Vector {
     }
 
     @Override
-    public Scalar x() {
-        return new Diff(this.first.x(), this.second.x());
+    public Scalar xcoor() {
+        return new Diff(this.first.xcoor(), this.second.xcoor());
     }
 
     @Override
-    public Scalar y() {
-        return new Diff(this.first.y(), this.second.y());
+    public Scalar ycoor() {
+        return new Diff(this.first.ycoor(), this.second.ycoor());
     }
 
 }
