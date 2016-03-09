@@ -21,25 +21,42 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.vector;
+package com.jeometry.model.geometry.line;
 
-import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
+import com.jeometry.model.algebra.vector.CoordVector;
 
 /**
- * Represents a vector defined by its Y coordinate, and a random X coordinate.
+ * Represents a 2D vector defined by (x,y) coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class YVector extends XyVector {
+public class XyVector extends CoordVector {
+
     /**
      * Constructor.
-     * @param field Field for scalar randomization
+     * @param xcoor X coordinate
      * @param ycoor Y coordinate
      */
-    public YVector(final Field field, final Scalar ycoor) {
-        super(field.random(), ycoor);
+    public XyVector(final Scalar xcoor, final Scalar ycoor) {
+        super(xcoor, ycoor);
+    }
+
+    /**
+     * Modifies X coordinate of the vector.
+     * @param xcor New X coordinate
+     */
+    public final void setX(final Scalar xcor) {
+        super.setCoor(0, xcor);
+    }
+
+    /**
+     * Modifies Y Coordinate of the vector.
+     * @param ycor New Y coordinate
+     */
+    public final void setY(final Scalar ycor) {
+        super.setCoor(1, ycor);
     }
 
 }

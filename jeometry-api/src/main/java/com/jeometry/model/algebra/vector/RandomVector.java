@@ -24,6 +24,7 @@
 package com.jeometry.model.algebra.vector;
 
 import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.geometry.line.XyVector;
 
 /**
  * Represents a random vector or a point.
@@ -36,7 +37,7 @@ public class RandomVector extends XyVector {
      * Constructor.
      * @param field Field for scalar randomization
      */
-    public RandomVector(final Field field) {
+    public RandomVector(final Field<?> field) {
         super(field.random(), field.random());
     }
 

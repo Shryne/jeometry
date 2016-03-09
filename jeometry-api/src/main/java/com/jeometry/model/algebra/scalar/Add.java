@@ -24,46 +24,32 @@
 package com.jeometry.model.algebra.scalar;
 
 /**
- * A scalar represented as the scalar sum of two scalars.
+ * A scalar represented as the scalar sum of a set of scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 public final class Add implements Scalar {
-    /**
-     * First operand.
-     */
-    private final Scalar foperand;
 
     /**
-     * Second operand.
+     * Addition operands.
      */
-    private final Scalar soperand;
+    private final Scalar[] operands;
 
     /**
      * Constructor.
-     * @param first First operand
-     * @param second Second operand
+     * @param operands Addition operands
      */
-    public Add(final Scalar first, final Scalar second) {
-        this.foperand = first;
-        this.soperand = second;
+    public Add(final Scalar... operands) {
+        this.operands = operands;
     }
 
     /**
-     * Gives first operand.
-     * @return The first operand of the sum.
+     * Gives the addition operands.
+     * @return Operands of the sum.
      */
-    public Scalar first() {
-        return this.foperand;
-    }
-
-    /**
-     * Gives second operand.
-     * @return The second operand of the sum.
-     */
-    public Scalar second() {
-        return this.soperand;
+    public Scalar[] operands() {
+        return this.operands;
     }
 
 }

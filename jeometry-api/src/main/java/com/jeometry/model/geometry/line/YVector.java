@@ -21,45 +21,26 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.vector;
+package com.jeometry.model.geometry.line;
 
-import com.jeometry.model.algebra.scalar.Add;
+import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * A vector represented as the sum of a set of vectors.
+ * Represents a 2D vector defined by its Y coordinate,
+ * and a random X coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Sum implements Vect {
-
-    /**
-     * Sum operands.
-     */
-    private final Vect[] operands;
-
+public class YVector extends XyVector {
     /**
      * Constructor.
-     * @param operands Sum operands
+     * @param field Field for scalar randomization
+     * @param ycoor Y coordinate
      */
-    public Sum(final Vect... operands) {
-        this.operands = operands;
+    public YVector(final Field<?> field, final Scalar ycoor) {
+        super(field.random(), ycoor);
     }
 
-	@Override
-	public Scalar[] coors() {
-		final Scalar[] fcoors = this.operands[0].coors();
-		final int num = this.operands.length;
-		final int dim = fcoors.length;
-        Scalar[] result = new Scalar[dim];
-		for (int i = 0; i < dim; ++i) {
-			final Scalar[] coor = new Scalar[num];
-			for (int j = 0; j < num; ++j) {
-				 coor[j] = this.operands[j].coors()[i];
-			}
-			result[i] = new Add(coor);
-		}
-        return result;
-	}
 }

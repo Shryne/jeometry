@@ -52,24 +52,18 @@ public final class PointInLine implements Vect {
      * @param line The line to belong to
      * @param field Field for scalar randomization
      */
-    public PointInLine(final Line line, final Field field) {
+    public PointInLine(final Line line, final Field<?> field) {
         super();
         this.line = line;
         this.factor = field.random();
     }
 
-    @Override
-    public Scalar xcoor() {
-        return new Sum(
-            new Times(this.line.direction(), this.factor), this.line.point()
-        ).xcoor();
-    }
-
-    @Override
-    public Scalar ycoor() {
-        return new Sum(
-            new Times(this.line.direction(), this.factor), this.line.point()
-        ).ycoor();
-    }
+	@Override
+	public Scalar[] coors() {
+		return new Scalar[]{
+			new Sum(new Times(this.line.direction(), this.factor), this.line.point()).coors()[0],
+			new Sum(new Times(this.line.direction(), this.factor), this.line.point()).coors()[1]
+		};
+	}
 
 }

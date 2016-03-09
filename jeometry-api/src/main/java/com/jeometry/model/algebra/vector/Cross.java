@@ -79,8 +79,8 @@ public final class Cross {
      */
     public Scalar value() {
         return new Diff(
-            new Multiplication(this.foperand.xcoor(), this.soperand.ycoor()),
-            new Multiplication(this.soperand.xcoor(), this.foperand.ycoor())
+            new Multiplication(this.foperand.coors()[0], this.soperand.coors()[1]),
+            new Multiplication(this.soperand.coors()[0], this.foperand.coors()[1])
         );
     }
 

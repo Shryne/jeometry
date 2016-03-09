@@ -24,46 +24,32 @@
 package com.jeometry.model.algebra.scalar;
 
 /**
- * A scalar represented as the multiplication of two scalars.
+ * A scalar represented as the multiplication of a set of scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 public final class Multiplication implements Scalar {
-    /**
-     * First operand.
-     */
-    private final Scalar foperand;
 
-    /**
-     * Second operand.
+	/**
+     * Multiplication operands.
      */
-    private final Scalar soperand;
+    private final Scalar[] operands;
 
     /**
      * Constructor.
-     * @param first First operand
-     * @param second Second operand
+     * @param operands Multiplication operands
      */
-    public Multiplication(final Scalar first, final Scalar second) {
-        this.foperand = first;
-        this.soperand = second;
+    public Multiplication(final Scalar... operands) {
+        this.operands = operands;
     }
 
     /**
-     * Gives first operand.
-     * @return The first operand of the multiplication
+     * Gives the multiplication operands.
+     * @return Operands of the multiplication.
      */
-    public Scalar first() {
-        return this.foperand;
-    }
-
-    /**
-     * Gives second operand.
-     * @return The second operand of the multiplication
-     */
-    public Scalar second() {
-        return this.soperand;
+    public Scalar[] operands() {
+        return this.operands;
     }
 
 }

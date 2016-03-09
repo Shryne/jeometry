@@ -48,7 +48,7 @@ public final class ParallelLine implements Line {
      * @param parallel The line to be parallel to
      * @param field Field for scalar randomization
      */
-    public ParallelLine(final Line parallel, final Field field) {
+    public ParallelLine(final Line parallel, final Field<?> field) {
         super();
         this.parallel = parallel;
         this.pnt = new PointOutsideLine(this.parallel, field);

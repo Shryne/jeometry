@@ -57,21 +57,11 @@ public final class PointOutsideLine implements Vect {
      * @param line The line to avoid belonging to
      * @param field Field for scalar operations
      */
-    public PointOutsideLine(final Line line, final Field field) {
+    public PointOutsideLine(final Line line, final Field<?> field) {
         super();
         this.line = line;
         this.xvalue = this.getXOutsideLine(field);
         this.yvalue = this.getYOutsideLine(field);
-    }
-
-    @Override
-    public Scalar xcoor() {
-        return this.xvalue;
-    }
-
-    @Override
-    public Scalar ycoor() {
-        return this.yvalue;
     }
 
     /**
@@ -79,10 +69,10 @@ public final class PointOutsideLine implements Vect {
      * @param field Field for scalar operations
      * @return X coordinate
      */
-    private Scalar getXOutsideLine(final Field field) {
+    private Scalar getXOutsideLine(final Field<?> field) {
         final Vect dir = this.line.direction();
         Scalar candidate = field.random();
-        if (field.equals(dir.xcoor(), field.addIdentity())) {
+        if (field.equals(dir.coors()[0], field.addIdentity())) {
             candidate = field.other(field.addIdentity());
         }
         return candidate;
@@ -93,14 +83,14 @@ public final class PointOutsideLine implements Vect {
      * @param field Field for scalar operations
      * @return Y coordinate
      */
-    private Scalar getYOutsideLine(final Field field) {
+    private Scalar getYOutsideLine(final Field<?> field) {
         Scalar candidate = field.random();
         final Vect dir = this.line.direction();
-        if (!field.equals(dir.xcoor(), field.addIdentity())) {
+        if (!field.equals(dir.coors()[0], field.addIdentity())) {
             final Vect point = this.line.point();
-            final Scalar slope = new Division(dir.ycoor(), dir.xcoor());
+            final Scalar slope = new Division(dir.coors()[1], dir.coors()[0]);
             final Scalar intercept = new Diff(
-                point.ycoor(), new Multiplication(slope, point.xcoor())
+                point.coors()[1], new Multiplication(slope, point.coors()[0])
             );
             candidate = field.other(
                 new Add(intercept, new Multiplication(slope, this.xvalue))
@@ -108,4 +98,9 @@ public final class PointOutsideLine implements Vect {
         }
         return candidate;
     }
+
+	@Override
+	public Scalar[] coors() {
+		return new Scalar[]{this.xvalue, this.yvalue};
+	}
 }

@@ -26,7 +26,7 @@ package com.jeometry.model.algebra.vector;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Vector interface. Represents a 2 dimension vector or a point.
+ * Vector interface. Represents an n-dimension vector.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -34,15 +34,9 @@ import com.jeometry.model.algebra.scalar.Scalar;
 public interface Vect {
 
     /**
-     * X coordinate of the vector.
-     * @return X coordinate
+     * Vector coordinates.
+     * @return Coordinate
      */
-    Scalar xcoor();
-
-    /**
-     * Y coordinate of the vector.
-     * @return Y coordinate
-     */
-    Scalar ycoor();
+    Scalar[] coors();
 
 }

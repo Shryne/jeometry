@@ -23,23 +23,42 @@
  */
 package com.jeometry.model.algebra.vector;
 
-import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Represents a vector defined by its X coordinate, and a random Y coordinate.
+ * Represents a vector defined by its coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class XVector extends XyVector {
+public class CoordVector implements Vect {
+
+    /**
+     * Coordinates.
+     */
+    private Scalar[] coors;
+
     /**
      * Constructor.
-     * @param field Field for scalar randomization
-     * @param xcoor X coordinate
+     * @param coor Vector coordinates
      */
-    public XVector(final Scalar xcoor, final Field field) {
-        super(xcoor, field.random());
+    public CoordVector(final Scalar... coor) {
+        super();
+        this.coors = coor;
     }
+
+    /**
+     * Modifies a coordinate of the vector.
+     * @param axis The base component to which the new coordinate is applied.
+     * @param cor New coordinate
+     */
+    public final void setCoor(final int axis, final Scalar cor) {
+        this.coors[axis] = cor;
+    }
+
+	@Override
+	public Scalar[] coors() {
+		return this.coors;
+	}
 
 }
