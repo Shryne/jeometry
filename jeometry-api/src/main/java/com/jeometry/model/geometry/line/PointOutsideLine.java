@@ -64,6 +64,11 @@ public final class PointOutsideLine implements Vect {
         this.yvalue = this.getYOutsideLine(field);
     }
 
+    @Override
+    public Scalar[] coors() {
+        return new Scalar[] {this.xvalue, this.yvalue};
+    }
+
     /**
      * Ensures generated X coordinate is outside line.
      * @param field Field for scalar operations
@@ -98,9 +103,4 @@ public final class PointOutsideLine implements Vect {
         }
         return candidate;
     }
-
-	@Override
-	public Scalar[] coors() {
-		return new Scalar[]{this.xvalue, this.yvalue};
-	}
 }

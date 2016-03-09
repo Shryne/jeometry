@@ -55,13 +55,13 @@ public final class Times implements Vect {
         this.scalar = scalar;
     }
 
-	@Override
-	public Scalar[] coors() {
-		final Scalar[] coors = this.vector.coors();
-		Scalar[] result = new Scalar[coors.length];
-		for (int i = 0; i < coors.length; ++i) {
-			result[i] = new Multiplication(coors[i], this.scalar);
-		}
+    @Override
+    public Scalar[] coors() {
+        final Scalar[] coors = this.vector.coors();
+        final Scalar[] result = new Scalar[coors.length];
+        for (int idx = 0; idx < coors.length; ++idx) {
+            result[idx] = new Multiplication(coors[idx], this.scalar);
+        }
         return result;
-	}
+    }
 }

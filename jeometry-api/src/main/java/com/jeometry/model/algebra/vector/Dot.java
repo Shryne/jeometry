@@ -76,13 +76,13 @@ public final class Dot {
      * @return Dot product value.
      */
     public Scalar value() {
-    	final Scalar[] fcoors = this.foperand.coors();
-    	final Scalar[] scoors = this.soperand.coors();
-		final int dim = fcoors.length;
-        Scalar[] multis = new Scalar[dim];
-		for (int i = 0; i < dim; ++i) {
-			multis[i] = new Multiplication(fcoors[i], scoors[i]);
-		}
+        final Scalar[] fcoors = this.foperand.coors();
+        final Scalar[] scoors = this.soperand.coors();
+        final int dim = fcoors.length;
+        final Scalar[] multis = new Scalar[dim];
+        for (int axis = 0; axis < dim; ++axis) {
+            multis[axis] = new Multiplication(fcoors[axis], scoors[axis]);
+        }
         return new Add(multis);
     }
 

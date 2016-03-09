@@ -31,7 +31,7 @@ package com.jeometry.model.algebra.scalar;
  */
 public final class Multiplication implements Scalar {
 
-	/**
+    /**
      * Multiplication operands.
      */
     private final Scalar[] operands;

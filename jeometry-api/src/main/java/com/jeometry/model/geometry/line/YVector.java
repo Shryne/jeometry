@@ -27,8 +27,8 @@ import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Represents a 2D vector defined by its Y coordinate,
- * and a random X coordinate.
+ * Represents a 2D vector defined by its Y coordinate, and a random X
+ * coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1

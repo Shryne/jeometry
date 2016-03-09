@@ -47,19 +47,19 @@ public final class Sum implements Vect {
         this.operands = operands;
     }
 
-	@Override
-	public Scalar[] coors() {
-		final Scalar[] fcoors = this.operands[0].coors();
-		final int num = this.operands.length;
-		final int dim = fcoors.length;
-        Scalar[] result = new Scalar[dim];
-		for (int i = 0; i < dim; ++i) {
-			final Scalar[] coor = new Scalar[num];
-			for (int j = 0; j < num; ++j) {
-				 coor[j] = this.operands[j].coors()[i];
-			}
-			result[i] = new Add(coor);
-		}
+    @Override
+    public Scalar[] coors() {
+        final Scalar[] fcoors = this.operands[0].coors();
+        final int num = this.operands.length;
+        final int dim = fcoors.length;
+        final Scalar[] result = new Scalar[dim];
+        for (int axis = 0; axis < dim; ++axis) {
+            final Scalar[] coor = new Scalar[num];
+            for (int vect = 0; vect < num; ++vect) {
+                coor[vect] = this.operands[vect].coors()[axis];
+            }
+            result[axis] = new Add(coor);
+        }
         return result;
-	}
+    }
 }

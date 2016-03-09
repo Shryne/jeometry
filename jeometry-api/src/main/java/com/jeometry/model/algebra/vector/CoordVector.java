@@ -56,9 +56,9 @@ public class CoordVector implements Vect {
         this.coors[axis] = cor;
     }
 
-	@Override
-	public Scalar[] coors() {
-		return this.coors;
-	}
+    @Override
+    public final Scalar[] coors() {
+        return this.coors;
+    }
 
 }

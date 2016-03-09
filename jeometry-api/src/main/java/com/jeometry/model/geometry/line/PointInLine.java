@@ -58,12 +58,16 @@ public final class PointInLine implements Vect {
         this.factor = field.random();
     }
 
-	@Override
-	public Scalar[] coors() {
-		return new Scalar[]{
-			new Sum(new Times(this.line.direction(), this.factor), this.line.point()).coors()[0],
-			new Sum(new Times(this.line.direction(), this.factor), this.line.point()).coors()[1]
-		};
-	}
+    @Override
+    public Scalar[] coors() {
+        return new Scalar[] {
+            new Sum(
+                new Times(this.line.direction(), this.factor), this.line.point()
+            ).coors()[0],
+            new Sum(
+                new Times(this.line.direction(), this.factor), this.line.point()
+            ).coors()[1],
+        };
+    }
 
 }

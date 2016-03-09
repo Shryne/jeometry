@@ -40,12 +40,12 @@ public final class Cross {
     /**
      * First operand.
      */
-    private final Vect foperand;
+    private final Vect fop;
 
     /**
      * Second operand.
      */
-    private final Vect soperand;
+    private final Vect sop;
 
     /**
      * Constructor.
@@ -53,8 +53,8 @@ public final class Cross {
      * @param second Second operand
      */
     public Cross(final Vect first, final Vect second) {
-        this.foperand = first;
-        this.soperand = second;
+        this.fop = first;
+        this.sop = second;
     }
 
     /**
@@ -62,7 +62,7 @@ public final class Cross {
      * @return The first operand of the cross.
      */
     public Vect first() {
-        return this.foperand;
+        return this.fop;
     }
 
     /**
@@ -70,7 +70,7 @@ public final class Cross {
      * @return The second operand of the cross.
      */
     public Vect second() {
-        return this.soperand;
+        return this.sop;
     }
 
     /**
@@ -79,8 +79,8 @@ public final class Cross {
      */
     public Scalar value() {
         return new Diff(
-            new Multiplication(this.foperand.coors()[0], this.soperand.coors()[1]),
-            new Multiplication(this.soperand.coors()[0], this.foperand.coors()[1])
+            new Multiplication(this.fop.coors()[0], this.sop.coors()[1]),
+            new Multiplication(this.sop.coors()[0], this.fop.coors()[1])
         );
     }
 
