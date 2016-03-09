@@ -21,29 +21,31 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.geometry.line;
+package com.jeometry.geometry.twod;
 
-import com.jeometry.model.algebra.vector.Vect;
+import com.jeometry.model.algebra.scalar.Scalar;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * Line interface describing a line by a direction and a point belonging to the
- * line.
+ * Tests for {@link XyVector}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Line {
-
+public final class XyVectorTest {
     /**
-     * Gives the direction of the Line.
-     * @return Direction.
+     * {@link XyVector} returns true coordinates.
      */
-    Vect direction();
-
-    /**
-     * Gives a Point belonging to the Line.
-     * @return A point by which the line passes
-     */
-    Vect point();
-
+    @Test
+    public void buildsAVector() {
+        final Scalar.Default<Double> xcoor = new Scalar.Default<>(2.);
+        final Scalar.Default<Double> ycoor = new Scalar.Default<>(1.);
+        final XyVector vector = new XyVector(xcoor, ycoor);
+        final Scalar[] coords = vector.coords();
+        Assert.assertEquals(coords[0], xcoor);
+        Assert.assertEquals(coords[1], ycoor);
+        Assert.assertEquals(vector.xcoor(), xcoor);
+        Assert.assertEquals(vector.ycoor(), ycoor);
+    }
 }

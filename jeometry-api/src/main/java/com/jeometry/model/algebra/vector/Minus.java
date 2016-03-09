@@ -54,9 +54,9 @@ public final class Minus implements Vect {
     }
 
     @Override
-    public Scalar[] coors() {
-        final Scalar[] fcoors = this.first.coors();
-        final Scalar[] scoors = this.second.coors();
+    public Scalar[] coords() {
+        final Scalar[] fcoors = this.first.coords();
+        final Scalar[] scoors = this.second.coords();
         final int dim = fcoors.length;
         final Scalar[] result = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {

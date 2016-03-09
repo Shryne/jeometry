@@ -21,4 +21,23 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.geometry.line;
+package com.jeometry.geometry.twod;
+
+import com.jeometry.model.algebra.field.Field;
+
+/**
+ * Represents a random vector or a point.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+public class RandomVector extends XyVector {
+    /**
+     * Constructor.
+     * @param field Field for scalar randomization
+     */
+    public RandomVector(final Field<?> field) {
+        super(field.random(), field.random());
+    }
+
+}

@@ -21,8 +21,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.geometry.line;
+package com.jeometry.geometry.twod;
 
+import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Add;
 import com.jeometry.model.algebra.scalar.Diff;
@@ -37,7 +38,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
-public final class PointOutsideLine implements Vect {
+public final class DynPointOutsideLine implements Vect {
 
     /**
      * The line that this point should not belong to.
@@ -46,58 +47,90 @@ public final class PointOutsideLine implements Vect {
     /**
      * X coordinate.
      */
-    private final Scalar xvalue;
+    private Scalar xvalue;
     /**
      * Y coordinate.
      */
-    private final Scalar yvalue;
+    private Scalar yvalue;
+
+    /**
+     * Field for scalar operations.
+     */
+    private final Field<?> field;
 
     /**
      * Constructor.
      * @param line The line to avoid belonging to
      * @param field Field for scalar operations
      */
-    public PointOutsideLine(final Line line, final Field<?> field) {
+    public DynPointOutsideLine(final Line line, final Field<?> field) {
         super();
         this.line = line;
-        this.xvalue = this.getXOutsideLine(field);
-        this.yvalue = this.getYOutsideLine(field);
+        this.field = field;
+        this.xvalue = this.getXOutsideLine();
+        this.yvalue = this.getYOutsideLine();
     }
 
     @Override
-    public Scalar[] coors() {
+    public Scalar[] coords() {
+        if (!this.check()) {
+            this.xvalue = this.getXOutsideLine();
+            this.yvalue = this.getYOutsideLine();
+        }
         return new Scalar[] {this.xvalue, this.yvalue};
     }
 
     /**
+     * Checks if this point is still outside the line.
+     * @return True if this point is still outside the line
+     */
+    private boolean check() {
+        final Vect dir = this.line.direction();
+        boolean result = false;
+        final Scalar zero = this.field.addIdentity();
+        if (this.field.equals(dir.coords()[0], zero)) {
+            result = !this.field.equals(this.xvalue, zero);
+        } else {
+            final Vect point = this.line.point();
+            final Scalar slope = new Division(dir.coords()[1], dir.coords()[0]);
+            final Scalar intercept = new Diff(
+                point.coords()[1], new Multiplication(slope, point.coords()[0])
+            );
+            result = !this.field.equals(
+                new Add(intercept, new Multiplication(slope, this.xvalue)),
+                this.yvalue
+            );
+        }
+        return result;
+    }
+
+    /**
      * Ensures generated X coordinate is outside line.
-     * @param field Field for scalar operations
      * @return X coordinate
      */
-    private Scalar getXOutsideLine(final Field<?> field) {
+    private Scalar getXOutsideLine() {
         final Vect dir = this.line.direction();
-        Scalar candidate = field.random();
-        if (field.equals(dir.coors()[0], field.addIdentity())) {
-            candidate = field.other(field.addIdentity());
+        Scalar candidate = this.field.random();
+        if (this.field.equals(dir.coords()[0], this.field.addIdentity())) {
+            candidate = this.field.other(this.field.addIdentity());
         }
         return candidate;
     }
 
     /**
      * Ensures generated Y coordinate is outside line.
-     * @param field Field for scalar operations
      * @return Y coordinate
      */
-    private Scalar getYOutsideLine(final Field<?> field) {
-        Scalar candidate = field.random();
+    private Scalar getYOutsideLine() {
+        Scalar candidate = this.field.random();
         final Vect dir = this.line.direction();
-        if (!field.equals(dir.coors()[0], field.addIdentity())) {
+        if (!this.field.equals(dir.coords()[0], this.field.addIdentity())) {
             final Vect point = this.line.point();
-            final Scalar slope = new Division(dir.coors()[1], dir.coors()[0]);
+            final Scalar slope = new Division(dir.coords()[1], dir.coords()[0]);
             final Scalar intercept = new Diff(
-                point.coors()[1], new Multiplication(slope, point.coors()[0])
+                point.coords()[1], new Multiplication(slope, point.coords()[0])
             );
-            candidate = field.other(
+            candidate = this.field.other(
                 new Add(intercept, new Multiplication(slope, this.xvalue))
             );
         }

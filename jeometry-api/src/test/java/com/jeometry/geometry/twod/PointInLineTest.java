@@ -21,4 +21,14 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.op;
+package com.jeometry.geometry.twod;
+
+/**
+ * Tests for {@link PointInLine}.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+public final class PointInLineTest {
+
+}

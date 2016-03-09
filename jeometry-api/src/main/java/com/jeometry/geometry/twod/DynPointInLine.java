@@ -21,42 +21,56 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.geometry.line;
+package com.jeometry.geometry.twod;
 
+import com.jeometry.geometry.twod.line.Line;
+import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.CoordVector;
+import com.jeometry.model.algebra.vector.Sum;
+import com.jeometry.model.algebra.vector.Times;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Represents a 2D vector defined by (x,y) coordinates.
+ * A point defined by belonging to a line. The point is dynamic regarding
+ * to the passed line, which means that it is ensured that this point remains
+ * belonging to the line even if modifications occur on the line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class XyVector extends CoordVector {
+public final class DynPointInLine implements Vect {
+
+    /**
+     * The line to belong to.
+     */
+    private final Line line;
+
+    /**
+     * A random scalar.
+     */
+    private final Scalar factor;
 
     /**
      * Constructor.
-     * @param xcoor X coordinate
-     * @param ycoor Y coordinate
+     * @param line The line to belong to
+     * @param field Field for scalar randomization
      */
-    public XyVector(final Scalar xcoor, final Scalar ycoor) {
-        super(xcoor, ycoor);
+    public DynPointInLine(final Line line, final Field<?> field) {
+        super();
+        this.line = line;
+        this.factor = field.random();
     }
 
-    /**
-     * Modifies X coordinate of the vector.
-     * @param xcor New X coordinate
-     */
-    public final void setX(final Scalar xcor) {
-        super.setCoor(0, xcor);
-    }
-
-    /**
-     * Modifies Y Coordinate of the vector.
-     * @param ycor New Y coordinate
-     */
-    public final void setY(final Scalar ycor) {
-        super.setCoor(1, ycor);
+    @Override
+    public Scalar[] coords() {
+        return new Scalar[] {
+            new Sum(
+                new Times(this.line.direction(), this.factor), this.line.point()
+            ).coords()[0],
+            new Sum(
+                new Times(this.line.direction(), this.factor), this.line.point()
+            ).coords()[1],
+        };
     }
 
 }

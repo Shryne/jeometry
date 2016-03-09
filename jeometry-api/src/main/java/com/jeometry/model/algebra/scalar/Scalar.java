@@ -23,6 +23,8 @@
  */
 package com.jeometry.model.algebra.scalar;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * Scalar interface. An abstract (annontation-like) to represent a scalar.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
@@ -38,6 +40,7 @@ public interface Scalar {
      * @param <T> Holded object type.
      * @since 0.1
      */
+    @EqualsAndHashCode
     class Default<T> implements Scalar {
         /**
          * Wrapped object.
@@ -59,6 +62,5 @@ public interface Scalar {
         public final T value() {
             return this.origin;
         }
-
     }
 }

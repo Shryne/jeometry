@@ -21,47 +21,26 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.vector;
+package com.jeometry.geometry.twod;
 
-import com.jeometry.model.algebra.scalar.Multiplication;
+import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * A vector represented as the multiplication of a vector by a scalar.
+ * Represents a 2D vector defined by its X coordinate, and a random Y
+ * coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Times implements Vect {
-
-    /**
-     * Vector.
-     */
-    private final transient Vect vector;
-
-    /**
-     * Scalar.
-     */
-    private final transient Scalar scalar;
-
+public class XVector extends XyVector {
     /**
      * Constructor.
-     * @param vector Vector to multiply
-     * @param scalar Scalar by which to multiply
+     * @param field Field for scalar randomization
+     * @param xcoor X coordinate
      */
-    public Times(final Vect vector, final Scalar scalar) {
-        super();
-        this.vector = vector;
-        this.scalar = scalar;
+    public XVector(final Scalar xcoor, final Field<?> field) {
+        super(xcoor, field.random());
     }
 
-    @Override
-    public Scalar[] coords() {
-        final Scalar[] coors = this.vector.coords();
-        final Scalar[] result = new Scalar[coors.length];
-        for (int idx = 0; idx < coors.length; ++idx) {
-            result[idx] = new Multiplication(coors[idx], this.scalar);
-        }
-        return result;
-    }
 }

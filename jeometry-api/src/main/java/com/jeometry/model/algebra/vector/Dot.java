@@ -76,8 +76,8 @@ public final class Dot {
      * @return Dot product value.
      */
     public Scalar value() {
-        final Scalar[] fcoors = this.foperand.coors();
-        final Scalar[] scoors = this.soperand.coors();
+        final Scalar[] fcoors = this.foperand.coords();
+        final Scalar[] scoors = this.soperand.coords();
         final int dim = fcoors.length;
         final Scalar[] multis = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {

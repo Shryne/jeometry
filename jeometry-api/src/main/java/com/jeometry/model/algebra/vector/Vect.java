@@ -37,6 +37,6 @@ public interface Vect {
      * Vector coordinates.
      * @return Coordinate
      */
-    Scalar[] coors();
+    Scalar[] coords();
 
 }

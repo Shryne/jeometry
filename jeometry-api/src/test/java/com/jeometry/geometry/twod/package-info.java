@@ -21,47 +21,4 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.vector;
-
-import com.jeometry.model.algebra.scalar.Multiplication;
-import com.jeometry.model.algebra.scalar.Scalar;
-
-/**
- * A vector represented as the multiplication of a vector by a scalar.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
- */
-public final class Times implements Vect {
-
-    /**
-     * Vector.
-     */
-    private final transient Vect vector;
-
-    /**
-     * Scalar.
-     */
-    private final transient Scalar scalar;
-
-    /**
-     * Constructor.
-     * @param vector Vector to multiply
-     * @param scalar Scalar by which to multiply
-     */
-    public Times(final Vect vector, final Scalar scalar) {
-        super();
-        this.vector = vector;
-        this.scalar = scalar;
-    }
-
-    @Override
-    public Scalar[] coords() {
-        final Scalar[] coors = this.vector.coords();
-        final Scalar[] result = new Scalar[coors.length];
-        for (int idx = 0; idx < coors.length; ++idx) {
-            result[idx] = new Multiplication(coors[idx], this.scalar);
-        }
-        return result;
-    }
-}
+package com.jeometry.geometry.twod;

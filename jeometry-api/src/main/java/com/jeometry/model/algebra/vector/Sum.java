@@ -48,15 +48,15 @@ public final class Sum implements Vect {
     }
 
     @Override
-    public Scalar[] coors() {
-        final Scalar[] fcoors = this.operands[0].coors();
+    public Scalar[] coords() {
+        final Scalar[] fcoors = this.operands[0].coords();
         final int num = this.operands.length;
         final int dim = fcoors.length;
         final Scalar[] result = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {
             final Scalar[] coor = new Scalar[num];
             for (int vect = 0; vect < num; ++vect) {
-                coor[vect] = this.operands[vect].coors()[axis];
+                coor[vect] = this.operands[vect].coords()[axis];
             }
             result[axis] = new Add(coor);
         }

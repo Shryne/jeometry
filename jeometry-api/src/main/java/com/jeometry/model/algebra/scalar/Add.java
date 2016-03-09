@@ -23,6 +23,8 @@
  */
 package com.jeometry.model.algebra.scalar;
 
+import java.util.Arrays;
+
 /**
  * A scalar represented as the scalar sum of a set of scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
@@ -34,14 +36,14 @@ public final class Add implements Scalar {
     /**
      * Addition operands.
      */
-    private final Scalar[] operands;
+    private final Scalar[] opers;
 
     /**
      * Constructor.
      * @param operands Addition operands
      */
     public Add(final Scalar... operands) {
-        this.operands = operands;
+        this.opers = operands;
     }
 
     /**
@@ -49,7 +51,7 @@ public final class Add implements Scalar {
      * @return Operands of the sum.
      */
     public Scalar[] operands() {
-        return this.operands;
+        return Arrays.copyOf(this.opers, this.opers.length);
     }
 
 }

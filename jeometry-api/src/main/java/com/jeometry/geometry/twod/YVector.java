@@ -21,24 +21,26 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.vector;
+package com.jeometry.geometry.twod;
 
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.geometry.line.XyVector;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Represents a random vector or a point.
+ * Represents a 2D vector defined by its Y coordinate, and a random X
+ * coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class RandomVector extends XyVector {
+public class YVector extends XyVector {
     /**
      * Constructor.
      * @param field Field for scalar randomization
+     * @param ycoor Y coordinate
      */
-    public RandomVector(final Field<?> field) {
-        super(field.random(), field.random());
+    public YVector(final Field<?> field, final Scalar ycoor) {
+        super(field.random(), ycoor);
     }
 
 }

@@ -21,62 +21,58 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.geometry.line;
+package com.jeometry.geometry.twod;
 
-import com.jeometry.model.algebra.vector.Vect;
+import com.jeometry.model.algebra.scalar.Scalar;
+import com.jeometry.model.algebra.vector.FixedVector;
 
 /**
- * A line defined by a point to pass by and a direction.
+ * Represents a 2D vector defined by (x,y) coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class PointDirectionLine implements Line {
-
-    /**
-     * Direction.
-     */
-    private Vect dir;
-
-    /**
-     * Point belonging to the line.
-     */
-    private Vect pnt;
+public class XyVector extends FixedVector {
 
     /**
      * Constructor.
-     * @param direction Direction of the line
-     * @param point Point belonging to the line
+     * @param xcoor X coordinate
+     * @param ycoor Y coordinate
      */
-    public PointDirectionLine(final Vect direction, final Vect point) {
-        super();
-        this.dir = direction;
-        this.pnt = point;
-    }
-
-    @Override
-    public Vect direction() {
-        return this.dir;
+    public XyVector(final Scalar xcoor, final Scalar ycoor) {
+        super(xcoor, ycoor);
     }
 
     /**
-     * Modifies the direction of the line.
-     * @param direction New direction of the line
+     * Gives the X coordinate.
+     * @return X coordinate of the point
      */
-    public void setDirection(final Vect direction) {
-        this.dir = direction;
-    }
-
-    @Override
-    public Vect point() {
-        return this.pnt;
+    public final Scalar xcoor() {
+        return this.coords()[0];
     }
 
     /**
-     * Modifies the point that should belong to the line.
-     * @param point New point to pass by.
+     * Gives the Y coordinate.
+     * @return Y coordinate of the point
      */
-    public void setPoint(final Vect point) {
-        this.pnt = point;
+    public final Scalar ycoor() {
+        return this.coords()[1];
     }
+
+    /**
+     * Modifies X coordinate of the vector.
+     * @param xcor New X coordinate
+     */
+    public final void setX(final Scalar xcor) {
+        this.setCoor(0, xcor);
+    }
+
+    /**
+     * Modifies Y Coordinate of the vector.
+     * @param ycor New Y coordinate
+     */
+    public final void setY(final Scalar ycor) {
+        this.setCoor(1, ycor);
+    }
+
 }

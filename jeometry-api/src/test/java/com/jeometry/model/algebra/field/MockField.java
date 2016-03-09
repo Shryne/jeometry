@@ -21,44 +21,58 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.vector;
+package com.jeometry.model.algebra.field;
 
 import com.jeometry.model.algebra.scalar.Scalar;
+import java.util.Random;
 
 /**
- * Represents a vector defined by its coordinates.
+ * Mock field for {@link Double}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class CoordVector implements Vect {
+public final class MockField implements Field<Double> {
 
     /**
-     * Coordinates.
+     * Bound integer to get a random number.
      */
-    private Scalar[] coors;
+    private static final Integer FOUR = 4;
 
     /**
-     * Constructor.
-     * @param coor Vector coordinates
+     * Tolerance to assume to doubles are equal.
      */
-    public CoordVector(final Scalar... coor) {
-        super();
-        this.coors = coor;
-    }
+    private static final Double TOLERANCE = 1.e-4;
 
-    /**
-     * Modifies a coordinate of the vector.
-     * @param axis The base component to which the new coordinate is applied.
-     * @param cor New coordinate
-     */
-    public final void setCoor(final int axis, final Scalar cor) {
-        this.coors[axis] = cor;
+    @Override
+    public Scalar random() {
+        return new Scalar.Default<Double>(
+            Double.valueOf(new Random().nextInt(MockField.FOUR))
+        );
     }
 
     @Override
-    public final Scalar[] coors() {
-        return this.coors;
+    public Scalar other(final Scalar scalar) {
+        return new Scalar.Default<Double>(
+            ((Scalar.Default<Double>) scalar).value() + 1
+        );
+    }
+
+    @Override
+    public Scalar addIdentity() {
+        return new Scalar.Default<Double>((double) 0);
+    }
+
+    @Override
+    public boolean equals(final Scalar scalar, final Scalar other) {
+        final Double first = ((Scalar.Default<Double>) scalar).value();
+        final Double second = ((Scalar.Default<Double>) scalar).value();
+        return Math.abs(first - second) < MockField.TOLERANCE;
+    }
+
+    @Override
+    public Double actual(final Scalar scalar) {
+        return ((Scalar.Default<Double>) scalar).value();
     }
 
 }

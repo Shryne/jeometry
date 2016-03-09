@@ -21,38 +21,38 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.geometry.line;
+package com.jeometry.geometry.twod.line;
 
+import com.jeometry.geometry.twod.PointOutsideLine;
+import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * A line defined by being parallel to another line, and passing by a given
- * point.
+ * A line defined by being parallel to another line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ParallelPassingByLine implements Line {
-
-    /**
-     * The point to pass by.
-     */
-    private final Vect pnt;
-
+public final class ParallelLine implements Line {
     /**
      * The line to be parallel to.
      */
     private final Line parallel;
 
     /**
-     * Constructor.
-     * @param point The point to pass by
-     * @param parallel The line to be parallel to
+     * A point by which this line passes.
      */
-    public ParallelPassingByLine(final Vect point, final Line parallel) {
+    private final Vect pnt;
+
+    /**
+     * Constructor.
+     * @param parallel The line to be parallel to
+     * @param field Field for scalar randomization
+     */
+    public ParallelLine(final Line parallel, final Field<?> field) {
         super();
-        this.pnt = point;
         this.parallel = parallel;
+        this.pnt = new PointOutsideLine(this.parallel, field);
     }
 
     @Override

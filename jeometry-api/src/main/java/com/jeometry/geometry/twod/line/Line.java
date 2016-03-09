@@ -21,53 +21,28 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.geometry.line;
+package com.jeometry.geometry.twod.line;
 
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Sum;
-import com.jeometry.model.algebra.vector.Times;
 import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * A point defined by belonging to a line.
+ * Line interface describing a line by a direction and a point belonging to the
+ * line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class PointInLine implements Vect {
+public interface Line {
 
     /**
-     * The line to belong to.
+     * Gives the direction of the Line.
+     * @return Direction.
      */
-    private final Line line;
+    Vect direction();
 
     /**
-     * A random scalar.
+     * Gives a Point belonging to the Line.
+     * @return A point by which the line passes
      */
-    private final Scalar factor;
-
-    /**
-     * Constructor.
-     * @param line The line to belong to
-     * @param field Field for scalar randomization
-     */
-    public PointInLine(final Line line, final Field<?> field) {
-        super();
-        this.line = line;
-        this.factor = field.random();
-    }
-
-    @Override
-    public Scalar[] coors() {
-        return new Scalar[] {
-            new Sum(
-                new Times(this.line.direction(), this.factor), this.line.point()
-            ).coors()[0],
-            new Sum(
-                new Times(this.line.direction(), this.factor), this.line.point()
-            ).coors()[1],
-        };
-    }
-
+    Vect point();
 }

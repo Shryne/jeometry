@@ -23,65 +23,43 @@
  */
 package com.jeometry.model.algebra.vector;
 
-import com.jeometry.model.algebra.scalar.Diff;
-import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
+import java.util.Arrays;
 
 /**
- * Class representing cross operation (vectorial product) between 2 vectors.
- * Since we operate in a 2D space, the main value of the cross operation is a
- * scalar representing the norm of the operation.
+ * Represents a vector defined by fixed coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Cross {
+public class FixedVector implements Vect {
 
     /**
-     * First operand.
+     * Coordinates.
      */
-    private final Vect fop;
-
-    /**
-     * Second operand.
-     */
-    private final Vect sop;
+    private Scalar[] coors;
 
     /**
      * Constructor.
-     * @param first First operand
-     * @param second Second operand
+     * @param coor Vector coordinates
      */
-    public Cross(final Vect first, final Vect second) {
-        this.fop = first;
-        this.sop = second;
+    public FixedVector(final Scalar... coor) {
+        super();
+        this.coors = coor;
     }
 
     /**
-     * Gives first operand.
-     * @return The first operand of the cross.
+     * Modifies a coordinate of the vector.
+     * @param axis The base component to which the new coordinate is applied.
+     * @param cor New coordinate
      */
-    public Vect first() {
-        return this.fop;
+    public final void setCoor(final int axis, final Scalar cor) {
+        this.coors[axis] = cor;
     }
 
-    /**
-     * Gives second operand.
-     * @return The second operand of the cross.
-     */
-    public Vect second() {
-        return this.sop;
-    }
-
-    /**
-     * Calculates the norm of the cross product.
-     * @return Cross product value.
-     */
-    public Scalar value() {
-        return new Diff(
-            new Multiplication(this.fop.coords()[0], this.sop.coords()[1]),
-            new Multiplication(this.sop.coords()[0], this.fop.coords()[1])
-        );
+    @Override
+    public final Scalar[] coords() {
+        return Arrays.copyOf(this.coors, this.coors.length);
     }
 
 }

@@ -23,6 +23,8 @@
  */
 package com.jeometry.model.algebra.scalar;
 
+import java.util.Arrays;
+
 /**
  * A scalar represented as the multiplication of a set of scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
@@ -34,14 +36,14 @@ public final class Multiplication implements Scalar {
     /**
      * Multiplication operands.
      */
-    private final Scalar[] operands;
+    private final Scalar[] opers;
 
     /**
      * Constructor.
      * @param operands Multiplication operands
      */
     public Multiplication(final Scalar... operands) {
-        this.operands = operands;
+        this.opers = operands;
     }
 
     /**
@@ -49,7 +51,7 @@ public final class Multiplication implements Scalar {
      * @return Operands of the multiplication.
      */
     public Scalar[] operands() {
-        return this.operands;
+        return Arrays.copyOf(this.opers, this.opers.length);
     }
 
 }

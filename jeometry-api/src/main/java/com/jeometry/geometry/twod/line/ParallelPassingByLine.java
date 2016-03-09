@@ -21,4 +21,48 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.geometry.twod.line;
+
+import com.jeometry.model.algebra.vector.Vect;
+
+/**
+ * A line defined by being parallel to another line, and passing by a given
+ * point.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+public final class ParallelPassingByLine implements Line {
+
+    /**
+     * The point to pass by.
+     */
+    private final Vect pnt;
+
+    /**
+     * The line to be parallel to.
+     */
+    private final Line parallel;
+
+    /**
+     * Constructor.
+     * @param point The point to pass by
+     * @param parallel The line to be parallel to
+     */
+    public ParallelPassingByLine(final Vect point, final Line parallel) {
+        super();
+        this.pnt = point;
+        this.parallel = parallel;
+    }
+
+    @Override
+    public Vect direction() {
+        return this.parallel.direction();
+    }
+
+    @Override
+    public Vect point() {
+        return this.pnt;
+    }
+
+}
