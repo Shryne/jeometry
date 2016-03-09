@@ -21,46 +21,47 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
+package com.jeometry.model.algebra.vector;
 
-import com.jeometry.model.scalar.ScalarSupplier;
+import com.jeometry.model.algebra.scalar.Add;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * A line defined by being parallel to another line.
+ * A vector represented as the sum of two vectors.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ParallelLine implements Line {
-    /**
-     * The line to be parallel to.
-     */
-    private final Line parallel;
+public final class Sum implements Vect {
 
     /**
-     * A point by which this line passes.
+     * First operand.
      */
-    private final Vector point;
+    private final Vect first;
+
+    /**
+     * Second operand.
+     */
+    private final Vect second;
 
     /**
      * Constructor.
-     * @param parallel The line to be parallel to
-     * @param supp A scalar supplier used for randomization.
+     * @param second First operand
+     * @param first Second operand
      */
-    public ParallelLine(final Line parallel, final ScalarSupplier supp) {
-        super();
-        this.parallel = parallel;
-        this.point = new PointOutsideLine(this.parallel, supp);
+    public Sum(final Vect first, final Vect second) {
+        this.first = first;
+        this.second = second;
     }
 
     @Override
-    public Vector direction() {
-        return this.parallel.direction();
+    public Scalar xcoor() {
+        return new Add(this.first.xcoor(), this.second.xcoor());
     }
 
     @Override
-    public Vector point() {
-        return this.point;
+    public Scalar ycoor() {
+        return new Add(this.first.ycoor(), this.second.ycoor());
     }
 
 }

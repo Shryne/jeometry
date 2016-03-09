@@ -21,25 +21,4 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
-
-import com.jeometry.model.scalar.Scalar;
-import com.jeometry.model.scalar.ScalarSupplier;
-
-/**
- * Represents a vector defined by its X coordinate, and a random Y coordinate.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
- */
-public class XVector extends XyVector {
-    /**
-     * Constructor.
-     * @param supp Scalar supplier for randomization
-     * @param xcoor X coordinate
-     */
-    public XVector(final Scalar xcoor, final ScalarSupplier supp) {
-        super(xcoor, supp.random());
-    }
-
-}
+package com.jeometry.model.algebra.vector;

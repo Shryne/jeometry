@@ -21,27 +21,25 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
+package com.jeometry.model.algebra.vector;
+
+import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Line interface describing a line by a direction and a point belonging to the
- * line.
+ * Represents a vector defined by its X coordinate, and a random Y coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Line {
-
+public class XVector extends XyVector {
     /**
-     * Gives the direction of the Line.
-     * @return Direction.
+     * Constructor.
+     * @param field Field for scalar randomization
+     * @param xcoor X coordinate
      */
-    Vector direction();
-
-    /**
-     * Gives a Point belonging to the Line.
-     * @return A point by which the line passes
-     */
-    Vector point();
+    public XVector(final Scalar xcoor, final Field field) {
+        super(xcoor, field.random());
+    }
 
 }

@@ -21,44 +21,48 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.geometry.line;
+
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Scalar interface. An abstract (annontation-like) to represent a scalar.
+ * A line defined by being parallel to another line, and passing by a given
+ * point.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Scalar {
+public final class ParallelPassingByLine implements Line {
 
     /**
-     * Minimal representation of a scalar holding a reference to an object.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @param <T> Holded object type.
-     * @since 0.1
+     * The point to pass by.
      */
-    class Default<T> implements Scalar {
-        /**
-         * Wrapped object.
-         */
-        private final T origin;
+    private final Vect pnt;
 
-        /**
-         * Constructor.
-         * @param num Wrapped object.
-         */
-        public Default(final T num) {
-            this.origin = num;
-        }
+    /**
+     * The line to be parallel to.
+     */
+    private final Line parallel;
 
-        /**
-         * Gives the object representing the scalar.
-         * @return The wrapped object
-         */
-        public final T value() {
-            return this.origin;
-        }
-
+    /**
+     * Constructor.
+     * @param point The point to pass by
+     * @param parallel The line to be parallel to
+     */
+    public ParallelPassingByLine(final Vect point, final Line parallel) {
+        super();
+        this.pnt = point;
+        this.parallel = parallel;
     }
+
+    @Override
+    public Vect direction() {
+        return this.parallel.direction();
+    }
+
+    @Override
+    public Vect point() {
+        return this.pnt;
+    }
+
 }

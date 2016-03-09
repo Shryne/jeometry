@@ -23,13 +23,16 @@
  */
 package com.jeometry.model.scalar;
 
+import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.algebra.scalar.Scalar;
+
 /**
- * A {@link ScalarSupplier} implementation based on double.
+ * A {@link Field} implementation based on double.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class Decimal implements ScalarSupplier {
+public class Decimal implements Field {
 
     /**
      * Minimum value to generate when randomizing a scalar.

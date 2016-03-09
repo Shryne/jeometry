@@ -21,63 +21,49 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
-
-import com.jeometry.model.scalar.Scalar;
+package com.jeometry.model.algebra.scalar;
 
 /**
- * Represents a vector defined by its coordinates.
+ * A scalar represented as the difference between two scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class XyVector implements Vector {
+public final class Diff implements Scalar {
+    /**
+     * First operand.
+     */
+    private final Scalar foperand;
 
     /**
-     * X coordinate.
+     * Second operand.
      */
-    private Scalar xcoor;
-
-    /**
-     * Y coordinate.
-     */
-    private Scalar ycoor;
+    private final Scalar soperand;
 
     /**
      * Constructor.
-     * @param xcoor X coordinate
-     * @param ycoor Y coordinate
+     * @param first First operand (minuend)
+     * @param second Second operand (subtrahend)
      */
-    public XyVector(final Scalar xcoor, final Scalar ycoor) {
-        super();
-        this.xcoor = xcoor;
-        this.ycoor = ycoor;
-    }
-
-    @Override
-    public final Scalar xcoor() {
-        return this.xcoor;
-    }
-
-    @Override
-    public final Scalar ycoor() {
-        return this.ycoor;
+    public Diff(final Scalar first, final Scalar second) {
+        this.foperand = first;
+        this.soperand = second;
     }
 
     /**
-     * Modifies X coordinate of the vector.
-     * @param xcor New X coordinate
+     * Gives first operand (minuend).
+     * @return The first operand of the difference.
      */
-    public final void setX(final Scalar xcor) {
-        this.xcoor = xcor;
+    public Scalar first() {
+        return this.foperand;
     }
 
     /**
-     * Modifies Y Coordinate of the vector.
-     * @param ycor New Y coordinate
+     * Gives second operand (subtrahend).
+     * @return The second operand of the difference.
      */
-    public final void setY(final Scalar ycor) {
-        this.ycoor = ycor;
+    public Scalar second() {
+        return this.soperand;
     }
 
 }

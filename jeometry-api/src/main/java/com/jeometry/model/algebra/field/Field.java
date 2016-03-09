@@ -21,28 +21,47 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
+package com.jeometry.model.algebra.field;
 
-import com.jeometry.model.scalar.Scalar;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Vector interface. Represents a 2 dimension vector or a point.
+ * Interface describing a field of scalars. Giving the capability to:<br>
+ * <ul>
+ * <li>Generate random scalars</li>
+ * <li>Define the sum identity</li>
+ * <li>Compare two scalars</li>
+ * </ul>
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Vector {
+public interface Field {
 
     /**
-     * X coordinate of the vector.
-     * @return X coordinate
+     * Generates a random scalar.
+     * @return A random scalar
      */
-    Scalar xcoor();
+    Scalar random();
 
     /**
-     * Y coordinate of the vector.
-     * @return Y coordinate
+     * Generates a random scalar other than a given scalar.
+     * @param scalar The scalar to be different to.
+     * @return A random scalar different from given one.
      */
-    Scalar ycoor();
+    Scalar other(final Scalar scalar);
 
+    /**
+     * Gives a scalar representing the sum identity.
+     * @return The sum identity scalar.
+     */
+    Scalar addIdentity();
+
+    /**
+     * Operates equality on scalars.
+     * @param scalar First scalar
+     * @param other Second scalar
+     * @return True if the two scalars are considered equal
+     */
+    boolean equals(final Scalar scalar, final Scalar other);
 }

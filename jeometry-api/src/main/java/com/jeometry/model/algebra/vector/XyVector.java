@@ -21,23 +21,63 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
+package com.jeometry.model.algebra.vector;
 
-import com.jeometry.model.scalar.ScalarSupplier;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Represents a random vector or a point.
+ * Represents a vector defined by its coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class RandomVector extends XyVector {
+public class XyVector implements Vect {
+
+    /**
+     * X coordinate.
+     */
+    private Scalar xvalue;
+
+    /**
+     * Y coordinate.
+     */
+    private Scalar yvalue;
+
     /**
      * Constructor.
-     * @param supp Scalar supplier for randomization
+     * @param xcoor X coordinate
+     * @param ycoor Y coordinate
      */
-    public RandomVector(final ScalarSupplier supp) {
-        super(supp.random(), supp.random());
+    public XyVector(final Scalar xcoor, final Scalar ycoor) {
+        super();
+        this.xvalue = xcoor;
+        this.yvalue = ycoor;
+    }
+
+    @Override
+    public final Scalar xcoor() {
+        return this.xvalue;
+    }
+
+    @Override
+    public final Scalar ycoor() {
+        return this.yvalue;
+    }
+
+    /**
+     * Modifies X coordinate of the vector.
+     * @param xcor New X coordinate
+     */
+    public final void setX(final Scalar xcor) {
+        this.xvalue = xcor;
+    }
+
+    /**
+     * Modifies Y Coordinate of the vector.
+     * @param ycor New Y coordinate
+     */
+    public final void setY(final Scalar ycor) {
+        this.yvalue = ycor;
     }
 
 }

@@ -21,49 +21,67 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.algebra.vector;
+
+import com.jeometry.model.algebra.scalar.Diff;
+import com.jeometry.model.algebra.scalar.Multiplication;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * A scalar represented as the difference between two scalars.
+ * Class representing cross operation (vectorial product) between 2 vectors.
+ * Since we operate in a 2D space, the main value of the cross operation is a
+ * scalar representing the norm of the operation.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Diff implements Scalar {
+public final class Cross {
+
     /**
      * First operand.
      */
-    private final Scalar first;
+    private final Vect foperand;
 
     /**
      * Second operand.
      */
-    private final Scalar second;
+    private final Vect soperand;
 
     /**
      * Constructor.
-     * @param first First operand (minuend)
-     * @param second Second operand (subtrahend)
+     * @param first First operand
+     * @param second Second operand
      */
-    public Diff(final Scalar first, final Scalar second) {
-        this.first = first;
-        this.second = second;
+    public Cross(final Vect first, final Vect second) {
+        this.foperand = first;
+        this.soperand = second;
     }
 
     /**
-     * Gives first operand (minuend).
-     * @return The first operand of the difference.
+     * Gives first operand.
+     * @return The first operand of the cross.
      */
-    public Scalar first() {
-        return this.first;
+    public Vect first() {
+        return this.foperand;
     }
 
     /**
-     * Gives second operand (subtrahend).
-     * @return The second operand of the difference.
+     * Gives second operand.
+     * @return The second operand of the cross.
      */
-    public Scalar second() {
-        return this.second;
+    public Vect second() {
+        return this.soperand;
+    }
+
+    /**
+     * Calculates the norm of the cross product.
+     * @return Cross product value.
+     */
+    public Scalar value() {
+        return new Diff(
+            new Multiplication(this.foperand.xcoor(), this.soperand.ycoor()),
+            new Multiplication(this.soperand.xcoor(), this.foperand.ycoor())
+        );
     }
 
 }

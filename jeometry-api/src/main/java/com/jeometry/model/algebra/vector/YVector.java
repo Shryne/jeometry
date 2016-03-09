@@ -21,49 +21,25 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.algebra.vector;
+
+import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * A scalar represented as the scalar sum of two scalars.
+ * Represents a vector defined by its Y coordinate, and a random X coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Add implements Scalar {
-    /**
-     * First operand.
-     */
-    private final Scalar first;
-
-    /**
-     * Second operand.
-     */
-    private final Scalar second;
-
+public class YVector extends XyVector {
     /**
      * Constructor.
-     * @param first First operand
-     * @param second Second operand
+     * @param field Field for scalar randomization
+     * @param ycoor Y coordinate
      */
-    public Add(final Scalar first, final Scalar second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    /**
-     * Gives first operand.
-     * @return The first operand of the sum.
-     */
-    public Scalar first() {
-        return this.first;
-    }
-
-    /**
-     * Gives second operand.
-     * @return The second operand of the sum.
-     */
-    public Scalar second() {
-        return this.second;
+    public YVector(final Field field, final Scalar ycoor) {
+        super(field.random(), ycoor);
     }
 
 }

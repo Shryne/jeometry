@@ -21,49 +21,65 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.algebra.vector;
+
+import com.jeometry.model.algebra.scalar.Add;
+import com.jeometry.model.algebra.scalar.Multiplication;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * A scalar represented as the division of a scalar by another scalar.
+ * Class representing dot operation (scalar product) between 2 vectors.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Division implements Scalar {
+public final class Dot {
+
     /**
      * First operand.
      */
-    private final Scalar first;
+    private final Vect foperand;
 
     /**
      * Second operand.
      */
-    private final Scalar second;
+    private final Vect soperand;
 
     /**
      * Constructor.
-     * @param first First operand (dividend)
-     * @param second Second operand (divisor)
+     * @param first First operand
+     * @param second Second operand
      */
-    public Division(final Scalar first, final Scalar second) {
-        this.first = first;
-        this.second = second;
+    public Dot(final Vect first, final Vect second) {
+        this.foperand = first;
+        this.soperand = second;
     }
 
     /**
-     * Gives first operand (dividend).
-     * @return The first operand of the division.
+     * Gives first operand.
+     * @return The first operand of the product.
      */
-    public Scalar first() {
-        return this.first;
+    public Vect first() {
+        return this.foperand;
     }
 
     /**
-     * Gives second operand (divisor).
-     * @return The second operand of the sum.
+     * Gives second operand.
+     * @return The second operand of the product.
      */
-    public Scalar second() {
-        return this.second;
+    public Vect second() {
+        return this.soperand;
+    }
+
+    /**
+     * Calculates the the dot product.
+     * @return Dot product value.
+     */
+    public Scalar value() {
+        return new Add(
+            new Multiplication(this.soperand.xcoor(), this.foperand.xcoor()),
+            new Multiplication(this.soperand.ycoor(), this.foperand.ycoor())
+        );
     }
 
 }

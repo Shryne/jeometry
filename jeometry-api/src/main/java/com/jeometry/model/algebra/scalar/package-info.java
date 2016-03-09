@@ -21,47 +21,4 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.op;
-
-import com.jeometry.model.Vector;
-import com.jeometry.model.scalar.Diff;
-import com.jeometry.model.scalar.Scalar;
-
-/**
- * A vector represented as the difference between two vectors.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
- */
-public final class Minus implements Vector {
-    /**
-     * First operand.
-     */
-    private Vector first;
-
-    /**
-     * Second operand.
-     */
-    private Vector second;
-
-    /**
-     * Constructor.
-     * @param first First operand (minuend)
-     * @param second Second operand (subtrahend)
-     */
-    public Minus(final Vector first, final Vector second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    @Override
-    public Scalar xcoor() {
-        return new Diff(this.first.xcoor(), this.second.xcoor());
-    }
-
-    @Override
-    public Scalar ycoor() {
-        return new Diff(this.first.ycoor(), this.second.ycoor());
-    }
-
-}
+package com.jeometry.model.algebra.scalar;

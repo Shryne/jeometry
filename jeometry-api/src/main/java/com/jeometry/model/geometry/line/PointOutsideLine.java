@@ -21,14 +21,15 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
+package com.jeometry.model.geometry.line;
 
-import com.jeometry.model.scalar.Add;
-import com.jeometry.model.scalar.Diff;
-import com.jeometry.model.scalar.Division;
-import com.jeometry.model.scalar.Multiplication;
-import com.jeometry.model.scalar.Scalar;
-import com.jeometry.model.scalar.ScalarSupplier;
+import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.algebra.scalar.Add;
+import com.jeometry.model.algebra.scalar.Diff;
+import com.jeometry.model.algebra.scalar.Division;
+import com.jeometry.model.algebra.scalar.Multiplication;
+import com.jeometry.model.algebra.scalar.Scalar;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
  * A point defined by not belonging to a line.
@@ -36,73 +37,73 @@ import com.jeometry.model.scalar.ScalarSupplier;
  * @version $Id$
  * @since 0.1
  */
-public final class PointOutsideLine implements Vector {
+public final class PointOutsideLine implements Vect {
 
     /**
      * The line that this point should not belong to.
      */
-    private Line line;
+    private final Line line;
     /**
      * X coordinate.
      */
-    private Scalar xcoor;
+    private final Scalar xvalue;
     /**
      * Y coordinate.
      */
-    private Scalar ycoor;
+    private final Scalar yvalue;
 
     /**
      * Constructor.
      * @param line The line to avoid belonging to
-     * @param supp Scalar supplier for scalar operations
+     * @param field Field for scalar operations
      */
-    public PointOutsideLine(final Line line, final ScalarSupplier supp) {
+    public PointOutsideLine(final Line line, final Field field) {
         super();
         this.line = line;
-        this.xcoor = this.getXOutsideLine(supp);
-        this.ycoor = this.getYOutsideLine(supp);
+        this.xvalue = this.getXOutsideLine(field);
+        this.yvalue = this.getYOutsideLine(field);
     }
 
     @Override
     public Scalar xcoor() {
-        return this.xcoor;
+        return this.xvalue;
     }
 
     @Override
     public Scalar ycoor() {
-        return this.ycoor;
+        return this.yvalue;
     }
 
     /**
      * Ensures generated X coordinate is outside line.
-     * @param supp Scalar supplier for scalar operations
+     * @param field Field for scalar operations
      * @return X coordinate
      */
-    private Scalar getXOutsideLine(final ScalarSupplier supp) {
-        final Vector dir = this.line.direction();
-        Scalar candidate = supp.random();
-        if (supp.equals(dir.xcoor(), supp.addIdentity())) {
-            candidate = supp.other(supp.addIdentity());
+    private Scalar getXOutsideLine(final Field field) {
+        final Vect dir = this.line.direction();
+        Scalar candidate = field.random();
+        if (field.equals(dir.xcoor(), field.addIdentity())) {
+            candidate = field.other(field.addIdentity());
         }
         return candidate;
     }
 
     /**
      * Ensures generated Y coordinate is outside line.
-     * @param supp Scalar supplier for scalar operations
+     * @param field Field for scalar operations
      * @return Y coordinate
      */
-    private Scalar getYOutsideLine(final ScalarSupplier supp) {
-        Scalar candidate = supp.random();
-        final Vector dir = this.line.direction();
-        if (!supp.equals(dir.xcoor(), supp.addIdentity())) {
-            final Vector point = this.line.point();
+    private Scalar getYOutsideLine(final Field field) {
+        Scalar candidate = field.random();
+        final Vect dir = this.line.direction();
+        if (!field.equals(dir.xcoor(), field.addIdentity())) {
+            final Vect point = this.line.point();
             final Scalar slope = new Division(dir.ycoor(), dir.xcoor());
             final Scalar intercept = new Diff(
                 point.ycoor(), new Multiplication(slope, point.xcoor())
             );
-            candidate = supp.other(
-                new Add(intercept, new Multiplication(slope, this.xcoor))
+            candidate = field.other(
+                new Add(intercept, new Multiplication(slope, this.xvalue))
             );
         }
         return candidate;

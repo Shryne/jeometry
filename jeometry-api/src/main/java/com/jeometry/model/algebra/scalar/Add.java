@@ -21,48 +21,49 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.op;
-
-import com.jeometry.model.Vector;
-import com.jeometry.model.scalar.Add;
-import com.jeometry.model.scalar.Scalar;
+package com.jeometry.model.algebra.scalar;
 
 /**
- * A vector represented as the sum of two vectors.
+ * A scalar represented as the scalar sum of two scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Sum implements Vector {
-
+public final class Add implements Scalar {
     /**
      * First operand.
      */
-    private final Vector first;
+    private final Scalar foperand;
 
     /**
      * Second operand.
      */
-    private final Vector second;
+    private final Scalar soperand;
 
     /**
      * Constructor.
-     * @param second First operand
-     * @param first Second operand
+     * @param first First operand
+     * @param second Second operand
      */
-    public Sum(final Vector first, final Vector second) {
-        this.first = first;
-        this.second = second;
+    public Add(final Scalar first, final Scalar second) {
+        this.foperand = first;
+        this.soperand = second;
     }
 
-    @Override
-    public Scalar xcoor() {
-        return new Add(this.first.xcoor(), this.second.xcoor());
+    /**
+     * Gives first operand.
+     * @return The first operand of the sum.
+     */
+    public Scalar first() {
+        return this.foperand;
     }
 
-    @Override
-    public Scalar ycoor() {
-        return new Add(this.first.ycoor(), this.second.ycoor());
+    /**
+     * Gives second operand.
+     * @return The second operand of the sum.
+     */
+    public Scalar second() {
+        return this.soperand;
     }
 
 }

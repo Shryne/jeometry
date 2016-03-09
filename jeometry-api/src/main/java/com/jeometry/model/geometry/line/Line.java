@@ -21,63 +21,29 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.geometry.line;
 
-import com.jeometry.model.Vector;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Class representing dot operation (scalar product) between 2 vectors.
+ * Line interface describing a line by a direction and a point belonging to the
+ * line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Dot {
+public interface Line {
 
     /**
-     * First operand.
+     * Gives the direction of the Line.
+     * @return Direction.
      */
-    private Vector first;
+    Vect direction();
 
     /**
-     * Second operand.
+     * Gives a Point belonging to the Line.
+     * @return A point by which the line passes
      */
-    private Vector second;
-
-    /**
-     * Constructor.
-     * @param first First operand
-     * @param second Second operand
-     */
-    public Dot(final Vector first, final Vector second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    /**
-     * Gives first operand.
-     * @return The first operand of the product.
-     */
-    public Vector first() {
-        return this.first;
-    }
-
-    /**
-     * Gives second operand.
-     * @return The second operand of the product.
-     */
-    public Vector second() {
-        return this.second;
-    }
-
-    /**
-     * Calculates the the dot product.
-     * @return Dot product value.
-     */
-    public Scalar value() {
-        return new Add(
-            new Multiplication(this.second.xcoor(), this.first.xcoor()),
-            new Multiplication(this.second.ycoor(), this.first.ycoor())
-        );
-    }
+    Vect point();
 
 }

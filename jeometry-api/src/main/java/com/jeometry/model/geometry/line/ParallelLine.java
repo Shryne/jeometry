@@ -21,45 +21,47 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.geometry.line;
+
+import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Interface describing a field of scalars. Giving the capability to:<br>
- * <ul>
- * <li>Generate random scalars</li>
- * <li>Define the sum identity</li>
- * <li>Compare two scalars</li>
- * </ul>
+ * A line defined by being parallel to another line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface ScalarSupplier {
+public final class ParallelLine implements Line {
+    /**
+     * The line to be parallel to.
+     */
+    private final Line parallel;
 
     /**
-     * Generates a random scalar.
-     * @return A random scalar
+     * A point by which this line passes.
      */
-    Scalar random();
+    private final Vect pnt;
 
     /**
-     * Generates a random scalar other than a given scalar.
-     * @param scalar The scalar to be different to.
-     * @return A random scalar different from given one.
+     * Constructor.
+     * @param parallel The line to be parallel to
+     * @param field Field for scalar randomization
      */
-    Scalar other(final Scalar scalar);
+    public ParallelLine(final Line parallel, final Field field) {
+        super();
+        this.parallel = parallel;
+        this.pnt = new PointOutsideLine(this.parallel, field);
+    }
 
-    /**
-     * Gives a scalar representing the sum identity.
-     * @return The sum identity scalar.
-     */
-    Scalar addIdentity();
+    @Override
+    public Vect direction() {
+        return this.parallel.direction();
+    }
 
-    /**
-     * Operates equality on scalars.
-     * @param scalar First scalar
-     * @param other Second scalar
-     * @return True if the two scalars are considered equal
-     */
-    boolean equals(final Scalar scalar, final Scalar other);
+    @Override
+    public Vect point() {
+        return this.pnt;
+    }
+
 }

@@ -21,60 +21,28 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
+package com.jeometry.model.algebra.vector;
+
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * A line defined by a point to pass by and a direction.
+ * Vector interface. Represents a 2 dimension vector or a point.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class PointDirectionLine implements Line {
+public interface Vect {
 
     /**
-     * Direction.
+     * X coordinate of the vector.
+     * @return X coordinate
      */
-    private Vector direction;
+    Scalar xcoor();
 
     /**
-     * Point belonging to the line.
+     * Y coordinate of the vector.
+     * @return Y coordinate
      */
-    private Vector point;
+    Scalar ycoor();
 
-    /**
-     * Constructor.
-     * @param direction Direction of the line
-     * @param point Point belonging to the line
-     */
-    public PointDirectionLine(final Vector direction, final Vector point) {
-        super();
-        this.direction = direction;
-        this.point = point;
-    }
-
-    @Override
-    public Vector direction() {
-        return this.direction;
-    }
-
-    /**
-     * Modifies the direction of the line.
-     * @param dir New direction of the line
-     */
-    public void setDirection(final Vector dir) {
-        this.direction = dir;
-    }
-
-    @Override
-    public Vector point() {
-        return this.point;
-    }
-
-    /**
-     * Modifies the point that should belong to the line.
-     * @param pnt New point to pass by.
-     */
-    public void setPoint(final Vector pnt) {
-        this.point = pnt;
-    }
 }

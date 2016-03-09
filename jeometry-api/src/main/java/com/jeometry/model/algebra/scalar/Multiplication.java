@@ -21,7 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.algebra.scalar;
 
 /**
  * A scalar represented as the multiplication of two scalars.
@@ -33,12 +33,12 @@ public final class Multiplication implements Scalar {
     /**
      * First operand.
      */
-    private final Scalar first;
+    private final Scalar foperand;
 
     /**
      * Second operand.
      */
-    private final Scalar second;
+    private final Scalar soperand;
 
     /**
      * Constructor.
@@ -46,8 +46,8 @@ public final class Multiplication implements Scalar {
      * @param second Second operand
      */
     public Multiplication(final Scalar first, final Scalar second) {
-        this.first = first;
-        this.second = second;
+        this.foperand = first;
+        this.soperand = second;
     }
 
     /**
@@ -55,7 +55,7 @@ public final class Multiplication implements Scalar {
      * @return The first operand of the multiplication
      */
     public Scalar first() {
-        return this.first;
+        return this.foperand;
     }
 
     /**
@@ -63,7 +63,7 @@ public final class Multiplication implements Scalar {
      * @return The second operand of the multiplication
      */
     public Scalar second() {
-        return this.second;
+        return this.soperand;
     }
 
 }

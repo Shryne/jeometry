@@ -21,49 +21,44 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.op;
-
-import com.jeometry.model.Vector;
-import com.jeometry.model.scalar.Multiplication;
-import com.jeometry.model.scalar.Scalar;
+package com.jeometry.model.algebra.scalar;
 
 /**
- * A vector represented as the multiplication of a vector by a scalar.
+ * Scalar interface. An abstract (annontation-like) to represent a scalar.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Times implements Vector {
+public interface Scalar {
 
     /**
-     * Vector.
+     * Minimal representation of a scalar holding a reference to an object.
+     * @author Hamdi Douss (douss.hamdi@gmail.com)
+     * @version $Id$
+     * @param <T> Holded object type.
+     * @since 0.1
      */
-    private final transient Vector vector;
+    class Default<T> implements Scalar {
+        /**
+         * Wrapped object.
+         */
+        private final T origin;
 
-    /**
-     * Scalar.
-     */
-    private final transient Scalar scalar;
+        /**
+         * Constructor.
+         * @param num Wrapped object.
+         */
+        public Default(final T num) {
+            this.origin = num;
+        }
 
-    /**
-     * Constructor.
-     * @param vector Vector to multiply
-     * @param scalar Scalar by which to multiply
-     */
-    public Times(final Vector vector, final Scalar scalar) {
-        super();
-        this.vector = vector;
-        this.scalar = scalar;
+        /**
+         * Gives the object representing the scalar.
+         * @return The wrapped object
+         */
+        public final T value() {
+            return this.origin;
+        }
+
     }
-
-    @Override
-    public Scalar xcoor() {
-        return new Multiplication(this.vector.xcoor(), this.scalar);
-    }
-
-    @Override
-    public Scalar ycoor() {
-        return new Multiplication(this.vector.ycoor(), this.scalar);
-    }
-
 }

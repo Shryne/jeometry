@@ -21,25 +21,62 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
+package com.jeometry.model.geometry.line;
 
-import com.jeometry.model.scalar.Scalar;
-import com.jeometry.model.scalar.ScalarSupplier;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Represents a vector defined by its Y coordinate, and a random X coordinate.
+ * A line defined by a point to pass by and a direction.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class YVector extends XyVector {
+public final class PointDirectionLine implements Line {
+
+    /**
+     * Direction.
+     */
+    private Vect dir;
+
+    /**
+     * Point belonging to the line.
+     */
+    private Vect pnt;
+
     /**
      * Constructor.
-     * @param supp Scalar supplier for randomization
-     * @param ycoor Y coordinate
+     * @param direction Direction of the line
+     * @param point Point belonging to the line
      */
-    public YVector(final ScalarSupplier supp, final Scalar ycoor) {
-        super(supp.random(), ycoor);
+    public PointDirectionLine(final Vect direction, final Vect point) {
+        super();
+        this.dir = direction;
+        this.pnt = point;
     }
 
+    @Override
+    public Vect direction() {
+        return this.dir;
+    }
+
+    /**
+     * Modifies the direction of the line.
+     * @param direction New direction of the line
+     */
+    public void setDirection(final Vect direction) {
+        this.dir = direction;
+    }
+
+    @Override
+    public Vect point() {
+        return this.pnt;
+    }
+
+    /**
+     * Modifies the point that should belong to the line.
+     * @param point New point to pass by.
+     */
+    public void setPoint(final Vect point) {
+        this.pnt = point;
+    }
 }

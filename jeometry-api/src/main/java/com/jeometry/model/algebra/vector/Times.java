@@ -21,65 +21,48 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.algebra.vector;
 
-import com.jeometry.model.Vector;
+import com.jeometry.model.algebra.scalar.Multiplication;
+import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Class representing cross operation (vectorial product) between 2 vectors.
- * Since we operate in a 2D space, the main value of the cross operation is a
- * scalar representing the norm of the operation.
+ * A vector represented as the multiplication of a vector by a scalar.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Cross {
+public final class Times implements Vect {
 
     /**
-     * First operand.
+     * Vector.
      */
-    private final Vector second;
+    private final transient Vect vector;
 
     /**
-     * Second operand.
+     * Scalar.
      */
-    private final Vector first;
+    private final transient Scalar scalar;
 
     /**
      * Constructor.
-     * @param first First operand
-     * @param second Second operand
+     * @param vector Vector to multiply
+     * @param scalar Scalar by which to multiply
      */
-    public Cross(final Vector first, final Vector second) {
-        this.first = first;
-        this.second = second;
+    public Times(final Vect vector, final Scalar scalar) {
+        super();
+        this.vector = vector;
+        this.scalar = scalar;
     }
 
-    /**
-     * Gives first operand.
-     * @return The first operand of the cross.
-     */
-    public Vector first() {
-        return this.first;
+    @Override
+    public Scalar xcoor() {
+        return new Multiplication(this.vector.xcoor(), this.scalar);
     }
 
-    /**
-     * Gives second operand.
-     * @return The second operand of the cross.
-     */
-    public Vector second() {
-        return this.second;
-    }
-
-    /**
-     * Calculates the norm of the cross product.
-     * @return Cross product value.
-     */
-    public Scalar value() {
-        return new Diff(
-            new Multiplication(this.first.xcoor(), this.second.ycoor()),
-            new Multiplication(this.second.xcoor(), this.first.ycoor())
-        );
+    @Override
+    public Scalar ycoor() {
+        return new Multiplication(this.vector.ycoor(), this.scalar);
     }
 
 }

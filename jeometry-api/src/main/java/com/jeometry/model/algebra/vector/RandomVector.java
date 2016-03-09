@@ -21,46 +21,23 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model;
+package com.jeometry.model.algebra.vector;
+
+import com.jeometry.model.algebra.field.Field;
 
 /**
- * A line defined by being parallel to another line, and passing by a given
- * point.
+ * Represents a random vector or a point.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ParallelPassingByLine implements Line {
-
-    /**
-     * The point to pass by.
-     */
-    private Vector point;
-
-    /**
-     * The line to be parallel to.
-     */
-    private Line parallel;
-
+public class RandomVector extends XyVector {
     /**
      * Constructor.
-     * @param point The point to pass by
-     * @param parallel The line to be parallel to
+     * @param field Field for scalar randomization
      */
-    public ParallelPassingByLine(final Vector point, final Line parallel) {
-        super();
-        this.point = point;
-        this.parallel = parallel;
-    }
-
-    @Override
-    public Vector direction() {
-        return this.parallel.direction();
-    }
-
-    @Override
-    public Vector point() {
-        return this.point;
+    public RandomVector(final Field field) {
+        super(field.random(), field.random());
     }
 
 }
