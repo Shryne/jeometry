@@ -26,50 +26,21 @@ package com.jeometry.model.algebra.field;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Interface describing a field of scalars. Giving the capability to:<br>
- * <ul>
- * <li>Generate random scalars</li>
- * <li>Define the sum identity</li>
- * <li>Compare two scalars</li>
- * </ul>
+ * Abstract Field implementation.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */
-public interface Field<T> {
+public abstract class AbstractField<T> implements Field<T> {
 
-    /**
-     * Generates a random scalar.
-     * @return A random scalar
-     */
-    Scalar random();
+    @Override
+    public final Scalar other(final Scalar scalar) {
+        Scalar result = this.random();
+        while (this.equals(result, scalar)) {
+            result = this.random();
+        }
+        return result;
+    }
 
-    /**
-     * Generates a random scalar other than a given scalar.
-     * @param scalar The scalar to be different to.
-     * @return A random scalar different from given one.
-     */
-    Scalar other(final Scalar scalar);
-
-    /**
-     * Gives a scalar representing the sum identity.
-     * @return The sum identity scalar.
-     */
-    Scalar addIdentity();
-
-    /**
-     * Operates equality on scalars.
-     * @param scalar First scalar
-     * @param other Second scalar
-     * @return True if the two scalars are considered equal
-     */
-    boolean equals(final Scalar scalar, final Scalar other);
-
-    /**
-     * Returns the actual object represented by the given scalar.
-     * @param scalar Scalar
-     * @return The actual object
-     */
-    T actual(final Scalar scalar);
 }

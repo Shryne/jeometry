@@ -32,7 +32,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public class Int implements Field {
+public class Int implements Field<Integer> {
 
     /**
      * Minimum value to generate when randomizing a scalar.
@@ -103,6 +103,16 @@ public class Int implements Field {
             ) < Int.TOLERANCE;
         }
         return false;
+    }
+
+    @Override
+    public Integer actual(Scalar scalar) {
+        if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
+            if (((Scalar.Default<?>)scalar).value() instanceof Integer) {
+                return (Integer) ((Scalar.Default<?>)scalar).value();
+            }
+        }
+        return null;
     }
 
 }

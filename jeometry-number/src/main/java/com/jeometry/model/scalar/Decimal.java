@@ -32,7 +32,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public class Decimal implements Field {
+public class Decimal implements Field<Double> {
 
     /**
      * Minimum value to generate when randomizing a scalar.
@@ -105,6 +105,14 @@ public class Decimal implements Field {
 		return false;
 	}
 
-	
+    @Override
+    public Double actual(Scalar scalar) {
+        if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
+            if (((Scalar.Default<?>)scalar).value() instanceof Double) {
+                return (Double) ((Scalar.Default<?>)scalar).value();
+            }
+        }
+        return null;
+    }
 
 }
