@@ -66,4 +66,37 @@ public final class Diff implements Scalar {
         return this.soperand;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+            + ((foperand == null) ? 0 : foperand.hashCode());
+        result = prime * result
+            + ((soperand == null) ? 0 : soperand.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Diff other = (Diff) obj;
+        if (foperand == null) {
+            if (other.foperand != null)
+                return false;
+        } else if (!foperand.equals(other.foperand))
+            return false;
+        if (soperand == null) {
+            if (other.soperand != null)
+                return false;
+        } else if (!soperand.equals(other.soperand))
+            return false;
+        return true;
+    }
+    
 }

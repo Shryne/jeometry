@@ -24,6 +24,7 @@
 package com.jeometry.model.algebra.scalar;
 
 import java.util.Arrays;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
  * A scalar represented as the multiplication of a set of scalars.
@@ -43,7 +44,7 @@ public final class Multiplication implements Scalar {
      * @param operands Multiplication operands
      */
     public Multiplication(final Scalar... operands) {
-        this.opers = operands;
+        this.opers = Arrays.copyOf(operands, operands.length);
     }
 
     /**
@@ -51,7 +52,29 @@ public final class Multiplication implements Scalar {
      * @return Operands of the multiplication.
      */
     public Scalar[] operands() {
-        return Arrays.copyOf(this.opers, this.opers.length);
+        return this.opers;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.hashCode(opers);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Multiplication other = (Multiplication) obj;
+        return CollectionUtils.isEqualCollection(
+            Arrays.asList(opers), Arrays.asList(other.opers)
+        );
     }
 
 }

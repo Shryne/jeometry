@@ -21,4 +21,31 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-com.jeometry.model.algebra.field;
+package com.jeometry.model.algebra.scalar;
+
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+/**
+ * Tests for {@link Multiplication}.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+public final class MultiplicationTest {
+    /**
+     * {@link Multiplication} respects equals with disregard
+     * to order of operands.
+     */
+    @Test
+    public void multiplicationIsAssociative() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        MatcherAssert.assertThat(
+            new Multiplication(first, second),
+            Matchers.equalTo(new Multiplication(second, first))
+        );
+    }
+}

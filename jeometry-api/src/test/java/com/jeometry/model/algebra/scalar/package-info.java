@@ -21,4 +21,4 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-com.jeometry.model.algebra.field;
+package com.jeometry.model.algebra.scalar;

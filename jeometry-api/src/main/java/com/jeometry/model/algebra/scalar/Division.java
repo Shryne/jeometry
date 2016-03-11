@@ -66,4 +66,37 @@ public final class Division implements Scalar {
         return this.divisor;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+            + ((dividend == null) ? 0 : dividend.hashCode());
+        result = prime * result
+            + ((divisor == null) ? 0 : divisor.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Division other = (Division) obj;
+        if (dividend == null) {
+            if (other.dividend != null)
+                return false;
+        } else if (!dividend.equals(other.dividend))
+            return false;
+        if (divisor == null) {
+            if (other.divisor != null)
+                return false;
+        } else if (!divisor.equals(other.divisor))
+            return false;
+        return true;
+    }
+
 }
