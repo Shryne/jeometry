@@ -23,10 +23,15 @@
  */
 package com.jeometry.model.algebra.field;
 
+import com.jeometry.model.algebra.scalar.Add;
+import com.jeometry.model.algebra.scalar.Diff;
+import com.jeometry.model.algebra.scalar.Division;
+import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Abstract Field implementation.
+ * Abstract Field implementation based on {@link Default} implementation
+ * for returning actual objects.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @param <T> The actual objects constituting the field.
@@ -42,5 +47,66 @@ public abstract class AbstractField<T> implements Field<T> {
         }
         return result;
     }
+
+    @Override
+    public boolean equals(final Scalar scalar, final Scalar other) {
+        final T first = this.actual(scalar);
+        final T second = this.actual(other);
+        return first.equals(second);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public final T actual(final Scalar scalar) {
+        T result = null;
+        if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
+            result = ((Scalar.Default<T>) scalar).value();
+        }
+        if (Add.class.isAssignableFrom(scalar.getClass())) {
+            result = this.actual(this.calculate((Add) scalar));
+        }
+        if (Multiplication.class.isAssignableFrom(scalar.getClass())) {
+            result = this.actual(this.calculate((Multiplication) scalar));
+        }
+        if (Diff.class.isAssignableFrom(scalar.getClass())) {
+            result = this.actual(this.calculate((Diff) scalar));
+        }
+        if (Division.class.isAssignableFrom(scalar.getClass())) {
+            result = this.actual(this.calculate((Division) scalar));
+        }
+        return result;
+    }
+
+    /**
+     * Calculates the passed {@link Add} and returns a scalar
+     * representing the result.
+     * @param add The addition scalar
+     * @return A scalar representing the addition result
+     */
+    protected abstract Scalar calculate(final Add add);
+
+    /**
+     * Calculates the passed {@link Multiplication} and returns a scalar
+     * representing the result.
+     * @param mult The multiplication scalar
+     * @return A scalar representing the multiplication result
+     */
+    protected abstract Scalar calculate(final Multiplication mult);
+
+    /**
+     * Calculates the passed {@link Division} and returns a scalar
+     * representing the result.
+     * @param div The division scalar
+     * @return A scalar representing the division result
+     */
+    protected abstract Scalar calculate(final Division div);
+
+    /**
+     * Calculates the passed {@link Diff} and returns a scalar
+     * representing the result.
+     * @param diff The difference scalar
+     * @return A scalar representing the difference result
+     */
+    protected abstract Scalar calculate(final Diff diff);
 
 }

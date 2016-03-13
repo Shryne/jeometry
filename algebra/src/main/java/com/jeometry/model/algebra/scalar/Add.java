@@ -44,7 +44,7 @@ public final class Add implements Scalar {
      * @param operands Addition operands
      */
     public Add(final Scalar... operands) {
-        this.opers = operands;
+        this.opers = Arrays.copyOf(operands, operands.length);
     }
 
     /**

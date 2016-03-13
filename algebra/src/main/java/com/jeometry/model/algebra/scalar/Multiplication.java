@@ -52,7 +52,7 @@ public final class Multiplication implements Scalar {
      * @return Operands of the multiplication.
      */
     public Scalar[] operands() {
-        return this.opers;
+        return Arrays.copyOf(this.opers, this.opers.length);
     }
 
     @Override

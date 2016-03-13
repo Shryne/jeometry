@@ -82,10 +82,7 @@ public class FixedVector implements Vect {
             return false;
         }
         final FixedVector other = (FixedVector) obj;
-        if (!Arrays.equals(this.coors, other.coors)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(this.coors, other.coors);
     }
 
 }

@@ -42,12 +42,12 @@ public final class LineAnalytics {
     /**
      * Line for which to calculate properties.
      */
-    private Line line;
+    private final Line line;
 
     /**
      * Field of scalars to calculate line properties against.
      */
-    private Field<?> field;
+    private final Field<?> field;
 
     /**
      * Constructor.
@@ -92,9 +92,13 @@ public final class LineAnalytics {
         );
     }
 
+    /**
+     * Checks if the line direction has coordinates on the first dimension.
+     * @return True if the line is vertical
+     */
     public boolean vertical() {
         final Vect dir = this.line.direction();
         return this.field.equals(dir.coords()[0], this.field.addIdentity());
     }
-    
+
 }

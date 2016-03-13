@@ -64,8 +64,13 @@ public interface Scalar {
         public final int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result
-                + ((this.origin == null) ? 0 : this.origin.hashCode());
+            final int hash;
+            if (this.origin == null) {
+                hash = 0;
+            } else {
+                hash = this.origin.hashCode();
+            }
+            result = prime * result + hash;
             return result;
         }
 

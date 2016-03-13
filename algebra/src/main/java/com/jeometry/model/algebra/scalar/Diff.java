@@ -70,10 +70,20 @@ public final class Diff implements Scalar {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result
-            + ((this.foperand == null) ? 0 : this.foperand.hashCode());
-        result = prime * result
-            + ((this.soperand == null) ? 0 : this.soperand.hashCode());
+        final int fhash;
+        if (this.foperand == null) {
+            fhash = 0;
+        } else {
+            fhash = this.foperand.hashCode();
+        }
+        final int shash;
+        if (this.soperand == null) {
+            shash = 0;
+        } else {
+            shash = this.soperand.hashCode();
+        }
+        result = prime * result + fhash;
+        result = prime * result + shash;
         return result;
     }
 

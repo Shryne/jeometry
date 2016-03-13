@@ -24,7 +24,8 @@
 package com.jeometry.geometry.twod;
 
 import com.jeometry.model.algebra.scalar.Scalar;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
@@ -43,9 +44,9 @@ public final class XyVectorTest {
         final Scalar.Default<Double> ycoor = new Scalar.Default<>(1.);
         final XyVector vector = new XyVector(xcoor, ycoor);
         final Scalar[] coords = vector.coords();
-        Assert.assertEquals(coords[0], xcoor);
-        Assert.assertEquals(coords[1], ycoor);
-        Assert.assertEquals(vector.xcoor(), xcoor);
-        Assert.assertEquals(vector.ycoor(), ycoor);
+        MatcherAssert.assertThat(coords[0], Matchers.equalTo(xcoor));
+        MatcherAssert.assertThat(coords[1], Matchers.equalTo(ycoor));
+        MatcherAssert.assertThat(vector.xcoor(), Matchers.equalTo(xcoor));
+        MatcherAssert.assertThat(vector.ycoor(), Matchers.equalTo(ycoor));
     }
 }

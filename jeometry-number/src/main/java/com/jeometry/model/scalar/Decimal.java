@@ -23,7 +23,12 @@
  */
 package com.jeometry.model.scalar;
 
+import com.jeometry.model.algebra.field.AbstractField;
 import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.algebra.scalar.Add;
+import com.jeometry.model.algebra.scalar.Diff;
+import com.jeometry.model.algebra.scalar.Division;
+import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
@@ -32,7 +37,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public class Decimal implements Field<Double> {
+public class Decimal extends AbstractField<Double> {
 
     /**
      * Minimum value to generate when randomizing a scalar.
@@ -79,15 +84,6 @@ public class Decimal implements Field<Double> {
 	}
 
 	@Override
-	public Scalar other(Scalar x) {
-		Scalar result = this.random();
-		while (this.equals(result, x)) {
-		    result = this.random();
-		}
-		return result;
-	}
-
-	@Override
 	public Scalar addIdentity() {
 		return new Scalar.Default<Double>(new Double(0));
 	}
@@ -106,13 +102,69 @@ public class Decimal implements Field<Double> {
 	}
 
     @Override
-    public Double actual(Scalar scalar) {
-        if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
-            if (((Scalar.Default<?>)scalar).value() instanceof Double) {
-                return (Double) ((Scalar.Default<?>)scalar).value();
+    protected Scalar calculate(Add add) {
+        Scalar[] ops = add.operands();
+        Double sum = 0.;
+        for (Scalar scalar : ops) {
+            if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
+                sum += ((Scalar.Default<Double>)scalar).value();
+            } else {
+                sum += this.actual(scalar);
             }
         }
-        return null;
+        return new Scalar.Default<Double>(sum);
+    }
+
+    @Override
+    protected Scalar calculate(Multiplication mult) {
+        Scalar[] ops = mult.operands();
+        Double product = 1.;
+        for (Scalar scalar : ops) {
+            if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
+                product *= ((Scalar.Default<Double>)scalar).value();
+            } else {
+                product *= this.actual(scalar);
+            }
+        }
+        return new Scalar.Default<Double>(product);
+    }
+
+    @Override
+    protected Scalar calculate(Division div) {
+        Scalar dividend = div.first();
+        Scalar divisor = div.second();
+        final Double first;
+        final Double second;
+        if (Scalar.Default.class.isAssignableFrom(dividend.getClass())) {
+            first = ((Scalar.Default<Double>)dividend).value();
+        } else {
+            first = this.actual(dividend);
+        }
+        if (Scalar.Default.class.isAssignableFrom(divisor.getClass())) {
+            second = ((Scalar.Default<Double>)divisor).value();
+        } else {
+            second = this.actual(divisor);
+        }
+        return new Scalar.Default<Double>(first / second);
+    }
+
+    @Override
+    protected Scalar calculate(Diff diff) {
+        Scalar minuend = diff.first();
+        Scalar subtrahend = diff.second();
+        final Double first;
+        final Double second;
+        if (Scalar.Default.class.isAssignableFrom(minuend.getClass())) {
+            first = ((Scalar.Default<Double>)minuend).value();
+        } else {
+            first = this.actual(minuend);
+        }
+        if (Scalar.Default.class.isAssignableFrom(subtrahend.getClass())) {
+            second = ((Scalar.Default<Double>)subtrahend).value();
+        } else {
+            second = this.actual(subtrahend);
+        }
+        return new Scalar.Default<Double>(first - second);
     }
 
 }

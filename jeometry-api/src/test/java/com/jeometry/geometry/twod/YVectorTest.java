@@ -25,7 +25,8 @@ package com.jeometry.geometry.twod;
 
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -43,7 +44,11 @@ public final class YVectorTest {
     public void buildsAVector() {
         final Field<?> field = Mockito.mock(Field.class);
         final Scalar ycoor = Mockito.mock(Scalar.class);
-        Assert.assertEquals(new YVector(field, ycoor).ycoor(), ycoor);
-        Assert.assertEquals(new YVector(field, ycoor).coords()[1], ycoor);
+        MatcherAssert.assertThat(
+            new YVector(field, ycoor).ycoor(), Matchers.equalTo(ycoor)
+        );
+        MatcherAssert.assertThat(
+            new YVector(field, ycoor).coords()[1], Matchers.equalTo(ycoor)
+        );
     }
 }

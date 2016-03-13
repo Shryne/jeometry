@@ -70,10 +70,20 @@ public final class Division implements Scalar {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result
-            + ((this.dividend == null) ? 0 : this.dividend.hashCode());
-        result = prime * result
-            + ((this.divisor == null) ? 0 : this.divisor.hashCode());
+        final int fhash;
+        if (this.dividend == null) {
+            fhash = 0;
+        } else {
+            fhash = this.dividend.hashCode();
+        }
+        final int shash;
+        if (this.divisor == null) {
+            shash = 0;
+        } else {
+            shash = this.divisor.hashCode();
+        }
+        result = prime * result + fhash;
+        result = prime * result + shash;
         return result;
     }
 
