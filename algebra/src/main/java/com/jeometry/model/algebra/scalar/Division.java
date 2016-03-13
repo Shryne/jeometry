@@ -24,46 +24,46 @@
 package com.jeometry.model.algebra.scalar;
 
 /**
- * A scalar represented as the difference between two scalars.
+ * A scalar represented as the division of a scalar by another scalar.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Diff implements Scalar {
+public final class Division implements Scalar {
     /**
      * First operand.
      */
-    private final Scalar foperand;
+    private final Scalar dividend;
 
     /**
      * Second operand.
      */
-    private final Scalar soperand;
+    private final Scalar divisor;
 
     /**
      * Constructor.
-     * @param first First operand (minuend)
-     * @param second Second operand (subtrahend)
+     * @param first First operand (dividend)
+     * @param second Second operand (divisor)
      */
-    public Diff(final Scalar first, final Scalar second) {
-        this.foperand = first;
-        this.soperand = second;
+    public Division(final Scalar first, final Scalar second) {
+        this.dividend = first;
+        this.divisor = second;
     }
 
     /**
-     * Gives first operand (minuend).
-     * @return The first operand of the difference.
+     * Gives first operand (dividend).
+     * @return The first operand of the division.
      */
     public Scalar first() {
-        return this.foperand;
+        return this.dividend;
     }
 
     /**
-     * Gives second operand (subtrahend).
-     * @return The second operand of the difference.
+     * Gives second operand (divisor).
+     * @return The second operand of the sum.
      */
     public Scalar second() {
-        return this.soperand;
+        return this.divisor;
     }
 
     @Override
@@ -71,32 +71,39 @@ public final class Diff implements Scalar {
         final int prime = 31;
         int result = 1;
         result = prime * result
-            + ((foperand == null) ? 0 : foperand.hashCode());
+            + ((this.dividend == null) ? 0 : this.dividend.hashCode());
         result = prime * result
-            + ((soperand == null) ? 0 : soperand.hashCode());
+            + ((this.divisor == null) ? 0 : this.divisor.hashCode());
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        Diff other = (Diff) obj;
-        if (foperand == null) {
-            if (other.foperand != null)
+        }
+        final Division other = (Division) obj;
+        if (this.dividend == null) {
+            if (other.dividend != null) {
                 return false;
-        } else if (!foperand.equals(other.foperand))
+            }
+        } else if (!this.dividend.equals(other.dividend)) {
             return false;
-        if (soperand == null) {
-            if (other.soperand != null)
+        }
+        if (this.divisor == null) {
+            if (other.divisor != null) {
                 return false;
-        } else if (!soperand.equals(other.soperand))
+            }
+        } else if (!this.divisor.equals(other.divisor)) {
             return false;
+        }
         return true;
     }
-    
+
 }

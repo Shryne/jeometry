@@ -21,66 +21,62 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.vector;
+package com.jeometry.model.algebra.scalar;
 
-import com.jeometry.model.algebra.scalar.Diff;
-import com.jeometry.model.algebra.scalar.Multiplication;
-import com.jeometry.model.algebra.scalar.Scalar;
+import java.util.Arrays;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
- * Class representing cross operation (vectorial product) between 2 vectors.
- * Since we operate in a 2D space, the main value of the cross operation is a
- * scalar representing the norm of the operation.
+ * A scalar represented as the multiplication of a set of scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Cross {
+public final class Multiplication implements Scalar {
 
     /**
-     * First operand.
+     * Multiplication operands.
      */
-    private final Vect fop;
-
-    /**
-     * Second operand.
-     */
-    private final Vect sop;
+    private final Scalar[] opers;
 
     /**
      * Constructor.
-     * @param first First operand
-     * @param second Second operand
+     * @param operands Multiplication operands
      */
-    public Cross(final Vect first, final Vect second) {
-        this.fop = first;
-        this.sop = second;
+    public Multiplication(final Scalar... operands) {
+        this.opers = Arrays.copyOf(operands, operands.length);
     }
 
     /**
-     * Gives first operand.
-     * @return The first operand of the cross.
+     * Gives the multiplication operands.
+     * @return Operands of the multiplication.
      */
-    public Vect first() {
-        return this.fop;
+    public Scalar[] operands() {
+        return this.opers;
     }
 
-    /**
-     * Gives second operand.
-     * @return The second operand of the cross.
-     */
-    public Vect second() {
-        return this.sop;
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.hashCode(this.opers);
+        return result;
     }
 
-    /**
-     * Calculates the norm of the cross product.
-     * @return Cross product value.
-     */
-    public Scalar value() {
-        return new Diff(
-            new Multiplication(this.fop.coords()[0], this.sop.coords()[1]),
-            new Multiplication(this.sop.coords()[0], this.fop.coords()[1])
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Multiplication other = (Multiplication) obj;
+        return CollectionUtils.isEqualCollection(
+            Arrays.asList(this.opers), Arrays.asList(other.opers)
         );
     }
 

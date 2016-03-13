@@ -23,57 +23,86 @@
  */
 package com.jeometry.model.algebra.scalar;
 
-import java.util.Arrays;
-
 /**
- * A scalar represented as the scalar sum of a set of scalars.
+ * A scalar represented as the difference between two scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Add implements Scalar {
+public final class Diff implements Scalar {
+    /**
+     * First operand.
+     */
+    private final Scalar foperand;
 
     /**
-     * Addition operands.
+     * Second operand.
      */
-    private final Scalar[] opers;
+    private final Scalar soperand;
 
     /**
      * Constructor.
-     * @param operands Addition operands
+     * @param first First operand (minuend)
+     * @param second Second operand (subtrahend)
      */
-    public Add(final Scalar... operands) {
-        this.opers = operands;
+    public Diff(final Scalar first, final Scalar second) {
+        this.foperand = first;
+        this.soperand = second;
     }
 
     /**
-     * Gives the addition operands.
-     * @return Operands of the sum.
+     * Gives first operand (minuend).
+     * @return The first operand of the difference.
      */
-    public Scalar[] operands() {
-        return Arrays.copyOf(this.opers, this.opers.length);
+    public Scalar first() {
+        return this.foperand;
+    }
+
+    /**
+     * Gives second operand (subtrahend).
+     * @return The second operand of the difference.
+     */
+    public Scalar second() {
+        return this.soperand;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Arrays.hashCode(opers);
+        result = prime * result
+            + ((this.foperand == null) ? 0 : this.foperand.hashCode());
+        result = prime * result
+            + ((this.soperand == null) ? 0 : this.soperand.hashCode());
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        Add other = (Add) obj;
-        if (!Arrays.equals(opers, other.opers))
+        }
+        final Diff other = (Diff) obj;
+        if (this.foperand == null) {
+            if (other.foperand != null) {
+                return false;
+            }
+        } else if (!this.foperand.equals(other.foperand)) {
             return false;
+        }
+        if (this.soperand == null) {
+            if (other.soperand != null) {
+                return false;
+            }
+        } else if (!this.soperand.equals(other.soperand)) {
+            return false;
+        }
         return true;
     }
-
 }

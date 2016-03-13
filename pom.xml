@@ -34,6 +34,7 @@
     <modules>
         <module>jeometry-api</module>
         <module>jeometry-number</module>
+        <module>algebra</module>
     </modules>
     <dependencies>
         <dependency>

@@ -61,30 +61,34 @@ public interface Scalar {
         }
 
         @Override
-        public int hashCode() {
+        public final int hashCode() {
             final int prime = 31;
             int result = 1;
             result = prime * result
-                + ((origin == null) ? 0 : origin.hashCode());
+                + ((this.origin == null) ? 0 : this.origin.hashCode());
             return result;
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
+        public final boolean equals(final Object obj) {
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
-            Default<?> other = (Default<?>) obj;
-            if (origin == null) {
-                if (other.origin != null)
+            }
+            final Default<?> other = (Default<?>) obj;
+            if (this.origin == null) {
+                if (other.origin != null) {
                     return false;
-            } else if (!origin.equals(other.origin))
+                }
+            } else if (!this.origin.equals(other.origin)) {
                 return false;
+            }
             return true;
         }
-        
     }
 }

@@ -21,67 +21,63 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.vector;
+package com.jeometry.model.algebra.scalar;
 
-import com.jeometry.model.algebra.scalar.Scalar;
 import java.util.Arrays;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
- * Represents a vector defined by fixed coordinates.
+ * A scalar represented as the scalar sum of a set of scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class FixedVector implements Vect {
+public final class Add implements Scalar {
 
     /**
-     * Coordinates.
+     * Addition operands.
      */
-    private Scalar[] coors;
+    private final Scalar[] opers;
 
     /**
      * Constructor.
-     * @param coor Vector coordinates
+     * @param operands Addition operands
      */
-    public FixedVector(final Scalar... coor) {
-        super();
-        this.coors = coor;
+    public Add(final Scalar... operands) {
+        this.opers = operands;
     }
 
     /**
-     * Modifies a coordinate of the vector.
-     * @param axis The base component to which the new coordinate is applied.
-     * @param cor New coordinate
+     * Gives the addition operands.
+     * @return Operands of the sum.
      */
-    public final void setCoor(final int axis, final Scalar cor) {
-        this.coors[axis] = cor;
-    }
-
-    @Override
-    public final Scalar[] coords() {
-        return Arrays.copyOf(this.coors, this.coors.length);
+    public Scalar[] operands() {
+        return Arrays.copyOf(this.opers, this.opers.length);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Arrays.hashCode(coors);
+        result = prime * result + Arrays.hashCode(this.opers);
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        FixedVector other = (FixedVector) obj;
-        if (!Arrays.equals(coors, other.coors))
-            return false;
-        return true;
+        }
+        final Add other = (Add) obj;
+        return CollectionUtils.isEqualCollection(
+            Arrays.asList(this.opers), Arrays.asList(other.opers)
+        );
     }
 
 }

@@ -21,60 +21,71 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.scalar;
+package com.jeometry.model.algebra.vector;
 
+import com.jeometry.model.algebra.scalar.Scalar;
 import java.util.Arrays;
-import org.apache.commons.collections4.CollectionUtils;
 
 /**
- * A scalar represented as the multiplication of a set of scalars.
+ * Represents a vector defined by fixed coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Multiplication implements Scalar {
+public class FixedVector implements Vect {
 
     /**
-     * Multiplication operands.
+     * Coordinates.
      */
-    private final Scalar[] opers;
+    private Scalar[] coors;
 
     /**
      * Constructor.
-     * @param operands Multiplication operands
+     * @param coor Vector coordinates
      */
-    public Multiplication(final Scalar... operands) {
-        this.opers = Arrays.copyOf(operands, operands.length);
+    public FixedVector(final Scalar... coor) {
+        super();
+        this.coors = coor;
     }
 
     /**
-     * Gives the multiplication operands.
-     * @return Operands of the multiplication.
+     * Modifies a coordinate of the vector.
+     * @param axis The base component to which the new coordinate is applied.
+     * @param cor New coordinate
      */
-    public Scalar[] operands() {
-        return this.opers;
+    public final void setCoor(final int axis, final Scalar cor) {
+        this.coors[axis] = cor;
     }
 
     @Override
-    public int hashCode() {
+    public final Scalar[] coords() {
+        return Arrays.copyOf(this.coors, this.coors.length);
+    }
+
+    @Override
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Arrays.hashCode(opers);
+        result = prime * result + Arrays.hashCode(this.coors);
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        Multiplication other = (Multiplication) obj;
-        return CollectionUtils.isEqualCollection(
-            Arrays.asList(opers), Arrays.asList(other.opers)
-        );
+        }
+        final FixedVector other = (FixedVector) obj;
+        if (!Arrays.equals(this.coors, other.coors)) {
+            return false;
+        }
+        return true;
     }
 
 }

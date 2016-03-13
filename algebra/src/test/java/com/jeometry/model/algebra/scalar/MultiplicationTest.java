@@ -21,29 +21,31 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.model.algebra.scalar;
 
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
-import org.junit.Assert;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link XVector}.
+ * Tests for {@link Multiplication}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class XVectorTest {
+public final class MultiplicationTest {
     /**
-     * {@link XVector} returns true coordinates.
+     * {@link Multiplication} respects equals with disregard
+     * to order of operands.
      */
     @Test
-    public void buildsAVector() {
-        final Field<?> field = Mockito.mock(Field.class);
-        final Scalar xcoor = Mockito.mock(Scalar.class);
-        Assert.assertEquals(new XVector(xcoor, field).xcoor(), xcoor);
-        Assert.assertEquals(new XVector(xcoor, field).coords()[0], xcoor);
+    public void multiplicationIsCommutative() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        MatcherAssert.assertThat(
+            new Multiplication(first, second),
+            Matchers.equalTo(new Multiplication(second, first))
+        );
     }
 }

@@ -23,10 +23,11 @@
  */
 package com.jeometry.geometry.twod;
 
-import com.jeometry.model.algebra.field.MockField;
+import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Tests for {@link YVector}.
@@ -40,8 +41,8 @@ public final class YVectorTest {
      */
     @Test
     public void buildsAVector() {
-        final Scalar.Default<Double> ycoor = new Scalar.Default<>(1.);
-        final MockField field = new MockField();
+        final Field<?> field = Mockito.mock(Field.class);
+        final Scalar ycoor = Mockito.mock(Scalar.class);
         Assert.assertEquals(new YVector(field, ycoor).ycoor(), ycoor);
         Assert.assertEquals(new YVector(field, ycoor).coords()[1], ycoor);
     }

@@ -21,58 +21,68 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.field;
+package com.jeometry.geometry.twod;
 
+import com.jeometry.model.algebra.scalar.Diff;
+import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
-import java.util.Random;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Mock field for {@link Double}.
+ * Class representing cross operation (vectorial product) between 2 vectors.
+ * Since we operate in a 2D space, the main value of the cross operation is a
+ * scalar representing the norm of the operation.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class MockField implements Field<Double> {
+public final class Cross {
 
     /**
-     * Bound integer to get a random number.
+     * First operand.
      */
-    private static final Integer FOUR = 4;
+    private final Vect fop;
 
     /**
-     * Tolerance to assume to doubles are equal.
+     * Second operand.
      */
-    private static final Double TOLERANCE = 1.e-4;
+    private final Vect sop;
 
-    @Override
-    public Scalar random() {
-        return new Scalar.Default<Double>(
-            Double.valueOf(new Random().nextInt(MockField.FOUR))
+    /**
+     * Constructor.
+     * @param first First operand
+     * @param second Second operand
+     */
+    public Cross(final Vect first, final Vect second) {
+        this.fop = first;
+        this.sop = second;
+    }
+
+    /**
+     * Gives first operand.
+     * @return The first operand of the cross.
+     */
+    public Vect first() {
+        return this.fop;
+    }
+
+    /**
+     * Gives second operand.
+     * @return The second operand of the cross.
+     */
+    public Vect second() {
+        return this.sop;
+    }
+
+    /**
+     * Calculates the norm of the cross product.
+     * @return Cross product value.
+     */
+    public Scalar value() {
+        return new Diff(
+            new Multiplication(this.fop.coords()[0], this.sop.coords()[1]),
+            new Multiplication(this.sop.coords()[0], this.fop.coords()[1])
         );
-    }
-
-    @Override
-    public Scalar other(final Scalar scalar) {
-        return new Scalar.Default<Double>(
-            ((Scalar.Default<Double>) scalar).value() + 1
-        );
-    }
-
-    @Override
-    public Scalar addIdentity() {
-        return new Scalar.Default<Double>((double) 0);
-    }
-
-    @Override
-    public boolean equals(final Scalar scalar, final Scalar other) {
-        final Double first = ((Scalar.Default<Double>) scalar).value();
-        final Double second = ((Scalar.Default<Double>) scalar).value();
-        return Math.abs(first - second) < MockField.TOLERANCE;
-    }
-
-    @Override
-    public Double actual(final Scalar scalar) {
-        return ((Scalar.Default<Double>) scalar).value();
     }
 
 }
