@@ -42,11 +42,11 @@ public class Decimal extends AbstractField<Double> {
     /**
      * Minimum value to generate when randomizing a scalar.
      */
-	private static final int MINBOUND = -1000;
+	private static final int MINBOUND = -10;
 	/**
      * Maximum value to generate when randomizing a scalar.
      */
-	private static final int MAXBOUND = 1000;
+	private static final int MAXBOUND = 10;
 	
 	/**
 	 * A tolerance threshold to consider two values as equal.
