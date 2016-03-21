@@ -104,14 +104,6 @@ public class Awt extends JFrame implements Output {
         this.painters = Awt.init();
     }
 
-    private static List<AwtPaint> init() {
-        List<AwtPaint> result = new ArrayList<>();
-        result.add(new AwtPoint());
-        result.add(new AwtCircle());
-        result.add(new AwtLine());
-        return result;
-    }
-
     @Override
     public void render(final Figure figure) {
         this.figure = figure;
@@ -163,6 +155,18 @@ public class Awt extends JFrame implements Output {
     public Awt add(AwtPaint painter) {
         this.painters.add(painter);
         return this;
+    }
+
+    /**
+     * Initialize with default painters.
+     * @return A list of default painters
+     */
+    private static List<AwtPaint> init() {
+        List<AwtPaint> result = new ArrayList<>();
+        result.add(new AwtPoint());
+        result.add(new AwtCircle());
+        result.add(new AwtLine());
+        return result;
     }
 
 }
