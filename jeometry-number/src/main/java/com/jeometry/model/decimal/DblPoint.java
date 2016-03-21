@@ -21,26 +21,26 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.model.decimal;
 
-import com.jeometry.model.algebra.field.Field;
+import com.jeometry.geometry.twod.point.XyVector;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Represents a 2D vector defined by its X coordinate, and a random Y
- * coordinate.
+ * Represents a 2D vector defined by (x,y) double coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class XVector extends XyVector {
+public class DblPoint extends XyVector {
+
     /**
      * Constructor.
-     * @param field Field for scalar randomization
      * @param xcoor X coordinate
+     * @param ycoor Y coordinate
      */
-    public XVector(final Scalar xcoor, final Field<?> field) {
-        super(xcoor, field.random());
+    public DblPoint(final Double xcoor, final Double ycoor) {
+        super(new Scalar.Default<>(xcoor), new Scalar.Default<>(ycoor));
     }
 
 }

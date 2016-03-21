@@ -23,7 +23,7 @@
  */
 package com.jeometry.geometry.twod.line;
 
-import com.jeometry.geometry.twod.PointOutsideLine;
+import com.jeometry.geometry.twod.point.PointOutsideLine;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.vector.Vect;
 

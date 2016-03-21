@@ -21,16 +21,23 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.geometry.twod.point.PointOutsideLine;
+import com.jeometry.model.algebra.field.Field;
 
 /**
- * Tests for {@link PointOutsideLine}.
+ * Represents a random vector or a point.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class PointOutsideLineTest {
+public class RandomVector extends XyVector {
+    /**
+     * Constructor.
+     * @param field Field for scalar randomization
+     */
+    public RandomVector(final Field<?> field) {
+        super(field.random(), field.random());
+    }
 
 }

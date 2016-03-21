@@ -32,9 +32,9 @@
     <description>Simple 2D Java Geometry library</description>
     <packaging>pom</packaging>
     <modules>
+        <module>algebra</module>
         <module>jeometry-api</module>
         <module>jeometry-number</module>
-        <module>algebra</module>
     </modules>
     <dependencies>
         <dependency>

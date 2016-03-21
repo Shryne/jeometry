@@ -21,7 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.scalar;
+package com.jeometry.model.decimal;
 
 import com.jeometry.model.algebra.field.AbstractField;
 import com.jeometry.model.algebra.field.Field;

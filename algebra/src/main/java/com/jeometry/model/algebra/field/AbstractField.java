@@ -48,13 +48,6 @@ public abstract class AbstractField<T> implements Field<T> {
         return result;
     }
 
-    @Override
-    public boolean equals(final Scalar scalar, final Scalar other) {
-        final T first = this.actual(scalar);
-        final T second = this.actual(other);
-        return first.equals(second);
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public final T actual(final Scalar scalar) {

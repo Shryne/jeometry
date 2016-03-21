@@ -23,7 +23,9 @@
  */
 package com.jeometry.geometry.twod;
 
+import com.jeometry.geometry.twod.line.LineAnalytics;
 import com.jeometry.geometry.twod.line.PointDirectionLine;
+import com.jeometry.geometry.twod.point.XyVector;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Diff;
 import com.jeometry.model.algebra.scalar.Division;

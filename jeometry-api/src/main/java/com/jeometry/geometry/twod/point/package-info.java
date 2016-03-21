@@ -21,16 +21,4 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
-
-import com.jeometry.geometry.twod.point.PointOutsideLine;
-
-/**
- * Tests for {@link PointOutsideLine}.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
- */
-public final class PointOutsideLineTest {
-
-}
+package com.jeometry.geometry.twod.point;

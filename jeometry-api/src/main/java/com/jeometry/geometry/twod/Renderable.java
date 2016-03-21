@@ -23,56 +23,12 @@
  */
 package com.jeometry.geometry.twod;
 
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.FixedVector;
-
 /**
- * Represents a 2D vector defined by (x,y) coordinates.
+ * A marker interface for renderable geometry shapes.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class XyVector extends FixedVector {
-
-    /**
-     * Constructor.
-     * @param xcoor X coordinate
-     * @param ycoor Y coordinate
-     */
-    public XyVector(final Scalar xcoor, final Scalar ycoor) {
-        super(xcoor, ycoor);
-    }
-
-    /**
-     * Gives the X coordinate.
-     * @return X coordinate of the point
-     */
-    public final Scalar xcoor() {
-        return this.coords()[0];
-    }
-
-    /**
-     * Gives the Y coordinate.
-     * @return Y coordinate of the point
-     */
-    public final Scalar ycoor() {
-        return this.coords()[1];
-    }
-
-    /**
-     * Modifies X coordinate of the vector.
-     * @param xcor New X coordinate
-     */
-    public final void setX(final Scalar xcor) {
-        this.setCoor(0, xcor);
-    }
-
-    /**
-     * Modifies Y Coordinate of the vector.
-     * @param ycor New Y coordinate
-     */
-    public final void setY(final Scalar ycor) {
-        this.setCoor(1, ycor);
-    }
+public interface Renderable {
 
 }

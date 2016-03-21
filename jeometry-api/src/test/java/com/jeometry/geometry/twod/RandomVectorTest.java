@@ -23,6 +23,8 @@
  */
 package com.jeometry.geometry.twod;
 
+import com.jeometry.geometry.twod.point.RandomVector;
+
 /**
  * Tests for {@link RandomVector}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)

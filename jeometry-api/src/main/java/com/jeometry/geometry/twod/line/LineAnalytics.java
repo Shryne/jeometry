@@ -21,9 +21,8 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.line;
 
-import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Diff;
 import com.jeometry.model.algebra.scalar.Division;

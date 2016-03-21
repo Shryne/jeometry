@@ -23,6 +23,7 @@
  */
 package com.jeometry.geometry.twod;
 
+import com.jeometry.geometry.twod.point.YVector;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;

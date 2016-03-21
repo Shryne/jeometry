@@ -21,16 +21,30 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.circle;
 
-import com.jeometry.geometry.twod.point.PointOutsideLine;
+import com.jeometry.geometry.twod.Renderable;
+import com.jeometry.model.algebra.scalar.Scalar;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Tests for {@link PointOutsideLine}.
+ * Circle interface describing a circle by a center and a radius.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class PointOutsideLineTest {
+public interface Circle extends Renderable {
+
+    /**
+     * Gives the center of the circle.
+     * @return Circle center
+     */
+    Vect center();
+
+    /**
+     * Gives the circle radius.
+     * @return Circle radius
+     */
+    Scalar radius();
 
 }

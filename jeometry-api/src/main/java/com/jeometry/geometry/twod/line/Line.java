@@ -23,6 +23,7 @@
  */
 package com.jeometry.geometry.twod.line;
 
+import com.jeometry.geometry.twod.Renderable;
 import com.jeometry.model.algebra.vector.Vect;
 
 /**
@@ -32,7 +33,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
-public interface Line {
+public interface Line extends Renderable {
 
     /**
      * Gives the direction of the Line.
@@ -45,4 +46,5 @@ public interface Line {
      * @return A point by which the line passes
      */
     Vect point();
+
 }

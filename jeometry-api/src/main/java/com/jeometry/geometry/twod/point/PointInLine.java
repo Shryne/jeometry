@@ -21,35 +21,51 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.geometry.twod.point.XVector;
+import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.mockito.Mockito;
+import com.jeometry.model.algebra.vector.Sum;
+import com.jeometry.model.algebra.vector.Times;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Tests for {@link XVector}.
+ * A point defined by belonging to a line. The point is fixed upon
+ * construction, which means that a modification to the underlying line does
+ * not ensure that this point is still outside the line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class XVectorTest {
+public final class PointInLine extends XyVector {
+
     /**
-     * {@link XVector} returns true coordinates.
+     * Constructor.
+     * @param line The line to belong to
+     * @param field Field for scalar randomization
      */
-    @Test
-    public void buildsAVector() {
-        final Field<?> field = Mockito.mock(Field.class);
-        final Scalar xcoor = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new XVector(xcoor, field).xcoor(), Matchers.equalTo(xcoor)
-        );
-        MatcherAssert.assertThat(
-            new XVector(xcoor, field).coords()[0], Matchers.equalTo(xcoor)
+    public PointInLine(final Line line, final Field<?> field) {
+        this(PointInLine.vector(line, field));
+    }
+
+    /**
+     * Constructor.
+     * @param vector Point belonging to the line
+     */
+    private PointInLine(final Vect vector) {
+        super(vector.coords()[0], vector.coords()[1]);
+    }
+
+    /**
+     * Builds a vector belonging to the line.
+     * @param line The line to belong to
+     * @param field Field for scalar randomization
+     * @return A point belonging to the line
+     */
+    private static Vect vector(final Line line, final Field<?> field) {
+        return new Sum(
+            new Times(line.direction(), field.random()), line.point()
         );
     }
+
 }

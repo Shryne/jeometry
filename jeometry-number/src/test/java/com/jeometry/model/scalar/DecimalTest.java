@@ -28,6 +28,7 @@ import com.jeometry.model.algebra.scalar.Diff;
 import com.jeometry.model.algebra.scalar.Division;
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
+import com.jeometry.model.decimal.Decimal;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;

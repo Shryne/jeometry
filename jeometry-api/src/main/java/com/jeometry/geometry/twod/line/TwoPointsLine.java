@@ -21,16 +21,46 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.line;
 
-import com.jeometry.geometry.twod.point.PointOutsideLine;
+import com.jeometry.model.algebra.vector.Minus;
+import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Tests for {@link PointOutsideLine}.
+ * A line passing by two points (vectors).
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class PointOutsideLineTest {
+public final class TwoPointsLine implements Line {
+    /**
+     * First point by which this line passes.
+     */
+    private final Vect pnta;
+
+    /**
+     * Second point by which this line passes.
+     */
+    private final Vect pntb;
+
+    /**
+     * Constructor.
+     * @param pnta First point by which this line passes
+     * @param pntb Second point by which this line passes
+     */
+    public TwoPointsLine(final Vect pnta, final Vect pntb) {
+        this.pnta = pnta;
+        this.pntb = pntb;
+    }
+
+    @Override
+    public Vect direction() {
+        return new Minus(this.pnta, this.pntb);
+    }
+
+    @Override
+    public Vect point() {
+        return this.pnta;
+    }
 
 }

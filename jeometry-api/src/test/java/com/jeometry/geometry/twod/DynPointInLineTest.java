@@ -23,6 +23,8 @@
  */
 package com.jeometry.geometry.twod;
 
+import com.jeometry.geometry.twod.point.DynPointInLine;
+
 /**
  * Tests for {@link DynPointInLine}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)

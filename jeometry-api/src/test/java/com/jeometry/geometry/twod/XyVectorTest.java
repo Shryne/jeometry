@@ -23,6 +23,7 @@
  */
 package com.jeometry.geometry.twod;
 
+import com.jeometry.geometry.twod.point.XyVector;
 import com.jeometry.model.algebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
