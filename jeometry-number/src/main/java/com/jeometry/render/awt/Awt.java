@@ -101,6 +101,15 @@ public class Awt extends JFrame implements Output {
         buttons.add(zoomin);
         JButton zoomout = new JButton("zoomout");
         buttons.add(zoomout);
+        this.painters = Awt.init();
+    }
+
+    private static List<AwtPaint> init() {
+        List<AwtPaint> result = new ArrayList<>();
+        result.add(new AwtPoint());
+        result.add(new AwtCircle());
+        result.add(new AwtLine());
+        return result;
     }
 
     @Override

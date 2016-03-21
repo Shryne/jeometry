@@ -32,6 +32,7 @@ import com.jeometry.geometry.twod.point.PointInLine;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Vect;
+import com.jeometry.model.decimal.DblCircle;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
@@ -48,19 +49,17 @@ import com.jeometry.render.awt.AwtPoint;
 public class Main {
 
     public static void main(String[] args) {
-        final Field<Double> f = new Decimal();
         DblPoint pointa = new DblPoint(1d, 2d);
         DblPoint origin = new DblPoint(0d, 0d);
         Vect dir = new DblPoint(2d, 0d);
         PointDirectionLine hor = new PointDirectionLine(dir, origin);
-        PointInLine pointb = new PointInLine(hor, f);
+        PointInLine pointb = new PointInLine(hor, new Decimal());
         Line abline = new TwoPointsLine(pointa, pointb);
         ParallelPassingByLine lineb = new ParallelPassingByLine(pointa, hor);
         Figure figure = new Figure()
             .add(hor).add(abline).add(lineb).add(pointb).add(pointa).add(origin)
-            .add(new PointRadiusCircle(new Scalar.Default<Double>(5.), pointa));
-        final Awt awt = new Awt().add(new AwtLine(f)).add(new AwtPoint(f))
-            .add(new AwtCircle(f)).withSize(50, 50);
+            .add(new DblCircle(5., pointa));
+        final Awt awt = new Awt().withSize(50, 50);
         awt.render(figure);
         awt.setVisible(true);
     }

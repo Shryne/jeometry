@@ -21,47 +21,27 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.circle;
+package com.jeometry.model.decimal;
 
+import com.jeometry.geometry.twod.circle.PointRadiusCircle;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Circle implementation class describing a circle by a center and a radius.
+ * Convenience class representing a 2D circle defined by a double radius.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class PointRadiusCircle implements Circle {
+public class DblCircle extends PointRadiusCircle {
 
     /**
-     * Circle radius.
-     */
-    private final Scalar radius;
-
-    /**
-     * Circle center.
-     */
-    private final Vect center;
-
-    /**
-     * Ctor.
-     * @param radius Circle radius
+     * Constructor.
+     * @param radius Radius
      * @param center Circle center
      */
-    public PointRadiusCircle(final Scalar radius, final Vect center) {
-        this.radius = radius;
-        this.center = center;
-    }
-
-    @Override
-    public Vect center() {
-        return this.center;
-    }
-
-    @Override
-    public Scalar radius() {
-        return this.radius;
+    public DblCircle(final Double radius, final Vect center) {
+        super(new Scalar.Default<>(radius), center);
     }
 
 }

@@ -26,6 +26,7 @@ package com.jeometry.render.awt;
 import com.jeometry.geometry.twod.Renderable;
 import com.jeometry.geometry.twod.point.XyVector;
 import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 
 /**
@@ -42,6 +43,13 @@ public class AwtPoint extends AwtPaint {
      */
     public AwtPoint(Field<Double> field) {
         super(field, XyVector.class);
+    }
+
+    /**
+     * Ctor.
+     */
+    public AwtPoint() {
+        this(new Decimal());
     }
 
     @Override

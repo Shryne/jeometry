@@ -27,6 +27,7 @@ import com.jeometry.geometry.twod.Renderable;
 import com.jeometry.geometry.twod.circle.Circle;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.vector.Vect;
+import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 
 /**
@@ -43,6 +44,13 @@ public class AwtCircle extends AwtPaint {
      */
     public AwtCircle(Field<Double> field) {
         super(field, Circle.class);
+    }
+
+    /**
+     * Ctor.
+     */
+    public AwtCircle() {
+        this(new Decimal());
     }
 
     @Override

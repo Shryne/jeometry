@@ -28,6 +28,7 @@ import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.LineAnalytics;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
+import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 
 /**
@@ -44,6 +45,13 @@ public class AwtLine extends AwtPaint {
      */
     public AwtLine(Field<Double> field) {
         super(field, Line.class);
+    }
+
+    /**
+     * Ctor.
+     */
+    public AwtLine() {
+        this(new Decimal());
     }
 
     @Override
