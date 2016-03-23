@@ -37,13 +37,13 @@ import java.awt.Graphics2D;
  * @version $Id$
  * @since 0.1
  */
-public class AwtLine extends AwtPaint {
+public final class AwtLine extends AbstractAwtPaint {
 
     /**
      * Ctor.
      * @param field Field for scalar operations
      */
-    public AwtLine(Field<Double> field) {
+    public AwtLine(final Field<Double> field) {
         super(field, Line.class);
     }
 
@@ -55,24 +55,28 @@ public class AwtLine extends AwtPaint {
     }
 
     @Override
-    protected void draw(final Renderable renderable, final Graphics2D graphics,
+    public void draw(final Renderable renderable, final Graphics2D graphics,
         final AwtContext context) {
         final Line line = (Line) renderable;
-        final LineAnalytics analytics = new LineAnalytics(line , this.field);
+        final LineAnalytics analytics = new LineAnalytics(line, this.field);
         final Scalar slope = analytics.slope();
         final Scalar intercept = analytics.intercept();
         final int width = context.width();
         final int height = context.height();
         final int scale = context.scale();
-        final int yzero = height/2
-            - (int)(
-                (-width/2) * this.field.actual(slope)
+        final Double xcoor = context.center().dblx();
+        final Double ycoor = context.center().dbly();
+        final int yzero = height / 2
+            - (int) (
+                (scale * xcoor - width / 2) * this.field.actual(slope)
                 + scale * this.field.actual(intercept)
+                - ycoor * scale
             );
-        final int ywidth = height/2
-            - (int)(
-                width/2 * this.field.actual(slope)
+        final int ywidth = height / 2
+            - (int) (
+                (width / 2 + scale * xcoor) * this.field.actual(slope)
                 + scale * this.field.actual(intercept)
+                - ycoor * scale
             );
         graphics.drawLine(0, yzero, width, ywidth);
     }

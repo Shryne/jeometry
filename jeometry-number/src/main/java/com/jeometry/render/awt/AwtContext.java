@@ -23,39 +23,50 @@
  */
 package com.jeometry.render.awt;
 
+import com.jeometry.model.decimal.DblPoint;
+import java.awt.Dimension;
+
 /**
- * Class representing Awt drawable surface.
+ * Class representing Awt drawable surface properties: width, height, center
+ * and scale(zoom).
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class AwtContext {
+public final class AwtContext {
 
     /**
-     * Width of drawable surface. 
+     * Width of drawable surface.
      */
-    final private int wdth;
+    private final int wdth;
 
     /**
      * Height of drawable surface.
      */
-    final private int hght;
-    
+    private final int hght;
+
     /**
      * Scale/Zoom of drawable surface.
      */
-    final private int scle;
+    private final int scle;
+
+    /**
+     * Point on which drawable surface is centered.
+     */
+    private DblPoint cntr;
 
     /**
      * Ctor.
-     * @param width Width of drawable surface.
-     * @param height Height of drawable surface.
+     * @param dim Dimensions of drawable surface.
      * @param scale Zoom of drawable surface.
+     * @param center Point on which drawable surface is centered
      */
-    public AwtContext(final int width, final int height, final int scale) {
-        this.wdth = width;
-        this.hght = height;
+    public AwtContext(final Dimension dim, final int scale,
+        final DblPoint center) {
+        this.wdth = dim.width;
+        this.hght = dim.height;
         this.scle = scale;
+        this.cntr = center;
     }
 
     /**
@@ -63,7 +74,7 @@ public class AwtContext {
      * @return Height of drawable surface
      */
     public int height() {
-        return hght;
+        return this.hght;
     }
 
     /**
@@ -71,7 +82,7 @@ public class AwtContext {
      * @return Width of drawable surface
      */
     public int width() {
-        return wdth;
+        return this.wdth;
     }
 
     /**
@@ -79,6 +90,14 @@ public class AwtContext {
      * @return Scale of drawable surface
      */
     public int scale() {
-        return scle;
+        return this.scle;
+    }
+
+    /**
+     * Accessor for the center.
+     * @return Scale of drawable surface
+     */
+    public DblPoint center() {
+        return this.cntr;
     }
 }

@@ -23,22 +23,16 @@
  */
 package com.jeometry.main;
 
-import com.jeometry.geometry.twod.circle.PointRadiusCircle;
 import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.ParallelPassingByLine;
 import com.jeometry.geometry.twod.line.PointDirectionLine;
 import com.jeometry.geometry.twod.line.TwoPointsLine;
 import com.jeometry.geometry.twod.point.PointInLine;
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Vect;
 import com.jeometry.model.decimal.DblCircle;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
-import com.jeometry.render.awt.AwtCircle;
-import com.jeometry.render.awt.AwtLine;
-import com.jeometry.render.awt.AwtPoint;
 
 /**
  * Main testing class using {@link Awt} output.

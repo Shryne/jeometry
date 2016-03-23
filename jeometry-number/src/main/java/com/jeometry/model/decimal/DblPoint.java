@@ -32,7 +32,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public class DblPoint extends XyVector {
+public final class DblPoint extends XyVector {
 
     /**
      * Constructor.
@@ -41,6 +41,40 @@ public class DblPoint extends XyVector {
      */
     public DblPoint(final Double xcoor, final Double ycoor) {
         super(new Scalar.Default<>(xcoor), new Scalar.Default<>(ycoor));
+    }
+
+    /**
+     * Convenience method to return the double value of x-coordinate.
+     * @return X coordinate double value
+     */
+    @SuppressWarnings("unchecked")
+    public Double dblx() {
+        return ((Scalar.Default<Double>) this.xcoor()).value();
+    }
+
+    /**
+     * Convenience method to return the double value of y-coordinate.
+     * @return Y coordinate double value
+     */
+    @SuppressWarnings("unchecked")
+    public Double dbly() {
+        return ((Scalar.Default<Double>) this.ycoor()).value();
+    }
+
+    /**
+     * Convenience method to set a double as a x coordinate.
+     * @param xcoor X coordinate to set
+     */
+    public void setDblX(final Double xcoor) {
+        this.setX(new Scalar.Default<>(xcoor));
+    }
+
+    /**
+     * Convenience method to set a double as a y coordinate.
+     * @param ycoor Y coordinate to set
+     */
+    public void setDblY(final Double ycoor) {
+        this.setY(new Scalar.Default<>(ycoor));
     }
 
 }

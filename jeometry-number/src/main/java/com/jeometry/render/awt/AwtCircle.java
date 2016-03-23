@@ -36,13 +36,13 @@ import java.awt.Graphics2D;
  * @version $Id$
  * @since 0.1
  */
-public class AwtCircle extends AwtPaint {
+public final class AwtCircle extends AbstractAwtPaint {
 
     /**
      * Ctor.
      * @param field Field for scalar operations
      */
-    public AwtCircle(Field<Double> field) {
+    public AwtCircle(final Field<Double> field) {
         super(field, Circle.class);
     }
 
@@ -54,19 +54,23 @@ public class AwtCircle extends AwtPaint {
     }
 
     @Override
-    protected void draw(final Renderable renderable, final Graphics2D graphics,
+    public void draw(final Renderable renderable, final Graphics2D graphics,
         final AwtContext context) {
         final Circle circle = (Circle) renderable;
-        Vect point = circle.center();
+        final Vect point = circle.center();
         final int width = context.width();
         final int height = context.height();
         final int scale = context.scale();
         final int size = (int) (scale * this.field.actual(circle.radius()));
+        final Double xcoor = context.center().dblx();
+        final Double ycoor = context.center().dbly();
         final int xpoint = (int) (
-            width/2 + scale * this.field.actual(point.coords()[0]) - size
+            width / 2 + scale * this.field.actual(point.coords()[0]) - size
+            - xcoor * scale
         );
         final int ypoint = (int) (
-            height/2 - scale * this.field.actual(point.coords()[1]) - size
+            height / 2 - scale * this.field.actual(point.coords()[1]) - size
+            + ycoor * scale
         );
         graphics.drawOval(xpoint, ypoint, 2 * size, 2 * size);
     }

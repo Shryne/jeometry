@@ -35,13 +35,13 @@ import java.awt.Graphics2D;
  * @version $Id$
  * @since 0.1
  */
-public class AwtPoint extends AwtPaint {
+public final class AwtPoint extends AbstractAwtPaint {
 
     /**
      * Ctor.
      * @param field Field for scalar operations
      */
-    public AwtPoint(Field<Double> field) {
+    public AwtPoint(final Field<Double> field) {
         super(field, XyVector.class);
     }
 
@@ -53,17 +53,23 @@ public class AwtPoint extends AwtPaint {
     }
 
     @Override
-    protected void draw(final Renderable renderable, final Graphics2D graphics,
+    public void draw(final Renderable renderable, final Graphics2D graphics,
         final AwtContext context) {
         final int size = 4;
         final XyVector point = (XyVector) renderable;
         final int scale = context.scale();
         final int width = context.width();
         final int height = context.height();
-        final int xpoint =
-            (int)(width/2 + scale * this.field.actual(point.xcoor())) - size/2;
-        final int ypoint =
-            (int)(height/2 - scale * this.field.actual(point.ycoor())) - size/2;
+        final Double xcoor = context.center().dblx();
+        final Double ycoor = context.center().dbly();
+        final int xpoint = (int) (
+            width / 2 + scale * this.field.actual(point.xcoor())
+            - xcoor * scale
+        ) - size / 2;
+        final int ypoint = (int) (
+            height / 2 - scale * this.field.actual(point.ycoor())
+            + ycoor * scale
+        ) - size / 2;
         graphics.drawRect(xpoint, ypoint, size, size);
     }
 

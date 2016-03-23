@@ -21,31 +21,4 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.main;
-
-import com.jeometry.geometry.twod.Renderable;
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Represents a figure composed of shapes to output.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
- */
-public class Figure {
-
-    List<Renderable> shapes = new ArrayList<>();
-    
-    public Figure() {
-    }
-
-    public Figure add(Renderable shape) {
-        this.shapes.add(shape);
-        return this;
-    }
-
-    public List<Renderable> getShapes() {
-        return this.shapes;
-    }
-}
+package com.jeometry.model.decimal;

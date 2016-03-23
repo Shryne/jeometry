@@ -37,77 +37,78 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public class Decimal extends AbstractField<Double> {
+public final class Decimal extends AbstractField<Double> {
 
     /**
      * Minimum value to generate when randomizing a scalar.
      */
-	private static final int MINBOUND = -10;
-	/**
+    private static final int MINBOUND = -10;
+    /**
      * Maximum value to generate when randomizing a scalar.
      */
-	private static final int MAXBOUND = 10;
-	
-	/**
-	 * A tolerance threshold to consider two values as equal.
-	 */
-	private static final double TOLERANCE = 1.E-3;
+    private static final int MAXBOUND = 10;
 
-	/**
-	 * Randomizer.
-	 */
-	private final transient java.util.Random rand;
+    /**
+     * A tolerance threshold to consider two values as equal.
+     */
+    private static final double TOLERANCE = 1.E-3;
 
-	/**
-	 * Constructor.
-	 */
-	public Decimal() {
-		this(new java.util.Random());
-	}
+    /**
+     * Randomizer.
+     */
+    private final transient java.util.Random rand;
 
-	/**
-	 * Constructor.
-	 * @param rand Randomizer
-	 */
-	public Decimal(java.util.Random rand) {
-		super();
-		this.rand = rand;
-	}
+    /**
+     * Constructor.
+     */
+    public Decimal() {
+        this(new java.util.Random());
+    }
 
-	@Override
-	public Scalar random() {
-		return new Scalar.Default<Double>(
-			this.rand.nextDouble()
-			* (Decimal.MAXBOUND - Decimal.MINBOUND)
-			+ Decimal.MINBOUND
-		);
-	}
-
-	@Override
-	public Scalar addIdentity() {
-		return new Scalar.Default<Double>(new Double(0));
-	}
-
-	@SuppressWarnings("unchecked")
-    @Override
-	public boolean equals(Scalar x, Scalar y) {
-		if (Scalar.Default.class.isAssignableFrom(x.getClass())
-		    && Scalar.Default.class.isAssignableFrom(y.getClass())) {
-		    return Math.abs(
-		        ((Scalar.Default<Double>)x).value()
-		        - ((Scalar.Default<Double>)y).value()
-		    ) < Decimal.TOLERANCE;
-		}
-		return false;
-	}
+    /**
+     * Constructor.
+     * @param rand Randomizer
+     */
+    public Decimal(final java.util.Random rand) {
+        super();
+        this.rand = rand;
+    }
 
     @Override
-    protected Scalar calculate(Add add) {
-        Scalar[] ops = add.operands();
+    public Scalar random() {
+        return new Scalar.Default<Double>(
+            this.rand.nextDouble()
+            * (Decimal.MAXBOUND - Decimal.MINBOUND)
+            + Decimal.MINBOUND
+        );
+    }
+
+    @Override
+    public Scalar addIdentity() {
+        return new Scalar.Default<Double>(new Double(0));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean equals(final Scalar first, final Scalar second) {
+        if (Scalar.Default.class.isAssignableFrom(first.getClass())
+            && Scalar.Default.class.isAssignableFrom(second.getClass())) {
+            return Math.abs(
+                ((Scalar.Default<Double>) first).value()
+                - ((Scalar.Default<Double>) second).value()
+            ) < Decimal.TOLERANCE;
+        }
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Scalar calculate(final Add add) {
+        final Scalar[] ops = add.operands();
         Double sum = 0.;
-        for (Scalar scalar : ops) {
+        for (final Scalar scalar : ops) {
             if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
-                sum += ((Scalar.Default<Double>)scalar).value();
+                sum += ((Scalar.Default<Double>) scalar).value();
             } else {
                 sum += this.actual(scalar);
             }
@@ -115,13 +116,14 @@ public class Decimal extends AbstractField<Double> {
         return new Scalar.Default<Double>(sum);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected Scalar calculate(Multiplication mult) {
-        Scalar[] ops = mult.operands();
+    public Scalar calculate(final Multiplication mult) {
+        final Scalar[] ops = mult.operands();
         Double product = 1.;
-        for (Scalar scalar : ops) {
+        for (final Scalar scalar : ops) {
             if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
-                product *= ((Scalar.Default<Double>)scalar).value();
+                product *= ((Scalar.Default<Double>) scalar).value();
             } else {
                 product *= this.actual(scalar);
             }
@@ -129,38 +131,40 @@ public class Decimal extends AbstractField<Double> {
         return new Scalar.Default<Double>(product);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected Scalar calculate(Division div) {
-        Scalar dividend = div.first();
-        Scalar divisor = div.second();
+    public Scalar calculate(final Division div) {
+        final Scalar dividend = div.first();
+        final Scalar divisor = div.second();
         final Double first;
         final Double second;
         if (Scalar.Default.class.isAssignableFrom(dividend.getClass())) {
-            first = ((Scalar.Default<Double>)dividend).value();
+            first = ((Scalar.Default<Double>) dividend).value();
         } else {
             first = this.actual(dividend);
         }
         if (Scalar.Default.class.isAssignableFrom(divisor.getClass())) {
-            second = ((Scalar.Default<Double>)divisor).value();
+            second = ((Scalar.Default<Double>) divisor).value();
         } else {
             second = this.actual(divisor);
         }
         return new Scalar.Default<Double>(first / second);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected Scalar calculate(Diff diff) {
-        Scalar minuend = diff.first();
-        Scalar subtrahend = diff.second();
+    public Scalar calculate(final Diff diff) {
+        final Scalar minuend = diff.first();
+        final Scalar subtrahend = diff.second();
         final Double first;
         final Double second;
         if (Scalar.Default.class.isAssignableFrom(minuend.getClass())) {
-            first = ((Scalar.Default<Double>)minuend).value();
+            first = ((Scalar.Default<Double>) minuend).value();
         } else {
             first = this.actual(minuend);
         }
         if (Scalar.Default.class.isAssignableFrom(subtrahend.getClass())) {
-            second = ((Scalar.Default<Double>)subtrahend).value();
+            second = ((Scalar.Default<Double>) subtrahend).value();
         } else {
             second = this.actual(subtrahend);
         }

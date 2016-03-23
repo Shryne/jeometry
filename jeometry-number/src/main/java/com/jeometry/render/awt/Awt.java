@@ -31,6 +31,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
@@ -45,7 +47,7 @@ import javax.swing.border.EmptyBorder;
  * @version $Id$
  * @since 0.1
  */
-public class Awt extends JFrame implements Output {
+public final class Awt extends JFrame implements Output {
 
     /**
      * Serial version ID.
@@ -53,14 +55,19 @@ public class Awt extends JFrame implements Output {
     private static final long serialVersionUID = 3449434902800801695L;
 
     /**
-     * Scale of the drawable surface.
+     * Translate increment/decrement amount.
      */
-    private int scale = 10;
+    private static final int TRANSLATE_AMOUNT = 2;
 
     /**
-     * List of {@link AwtPaint}s to paint shapes.
+     * Panel border inset.
      */
-    private List<AwtPaint> painters = new ArrayList<>();
+    private static final int BORDER_INSET = 5;
+
+    /**
+     * List of {@link AbstractAwtPaint}s to paint shapes.
+     */
+    private List<AbstractAwtPaint> painters;
 
     /**
      * Reference to the figure to draw.
@@ -70,7 +77,7 @@ public class Awt extends JFrame implements Output {
     /**
      * Drawable Panel.
      */
-    private JPanel drawable;
+    private AwtDrawableSurface drawable;
 
     /**
      * Ctor. Builds a {@link JFrame} with a drawable surface and 4 control
@@ -80,79 +87,67 @@ public class Awt extends JFrame implements Output {
         super();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        JPanel contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(new BorderLayout(0, 0));
-        this.drawable = new JPanel();
-        contentPane.add(drawable, BorderLayout.CENTER);
-        JPanel buttons = new JPanel();
-        contentPane.add(buttons, BorderLayout.EAST);
+        final JPanel content = new JPanel();
+        content.setBorder(
+            new EmptyBorder(
+                Awt.BORDER_INSET, Awt.BORDER_INSET,
+                Awt.BORDER_INSET, Awt.BORDER_INSET
+            )
+        );
+        setContentPane(content);
+        content.setLayout(new BorderLayout(0, 0));
+        this.drawable = new AwtDrawableSurface(this);
+        content.add(this.drawable, BorderLayout.CENTER);
+        final JPanel buttons = this.buttons();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
-        JButton up = new JButton("up");
-        buttons.add(up);
-        JButton down = new JButton("down");
-        buttons.add(down);
-        JButton right = new JButton("right");
-        buttons.add(right);
-        JButton left = new JButton("left");
-        buttons.add(left);
-        JButton zoomin = new JButton("zoomin");
-        buttons.add(zoomin);
-        JButton zoomout = new JButton("zoomout");
-        buttons.add(zoomout);
+        content.add(buttons, BorderLayout.EAST);
         this.painters = Awt.init();
     }
 
     @Override
-    public void render(final Figure figure) {
-        this.figure = figure;
+    public void render(final Figure fig) {
+        this.figure = fig;
         this.repaint();
         this.setVisible(true);
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        Graphics2D g2 = (Graphics2D) drawable.getGraphics();
-        RenderingHints rh = new RenderingHints(
+    public void paint(final Graphics graphics) {
+        super.paint(graphics);
+        final Graphics2D surface = (Graphics2D) this.drawable.getGraphics();
+        final RenderingHints hints = new RenderingHints(
             RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setRenderingHints(rh);
-        final int width  = drawable.getWidth();
-        final int height  = drawable.getHeight();
-        g2.clearRect(0, 0, width, height);
-        g2.setColor(Color.RED);
-        g2.drawLine(0, height/2, width, height/2);
-        g2.drawLine(width/2, 0, width/2, height);
-        g2.setColor(Color.BLACK);
-        AwtContext context = new AwtContext(width, height, scale); 
-        for (AwtPaint painter : this.painters) {
-            painter.setGraphics(g2);
+            RenderingHints.VALUE_ANTIALIAS_ON
+        );
+        surface.setRenderingHints(hints);
+        final AwtContext context = this.drawable.context();
+        surface.setColor(Color.BLACK);
+        for (final AbstractAwtPaint painter : this.painters) {
+            painter.setGraphics(surface);
             painter.setContext(context);
-            for (Renderable shape : this.figure.getShapes()) {
+            for (final Renderable shape : this.figure.getShapes()) {
                 painter.render(shape);
             }
         }
     }
-    
+
     /**
      * Modifies drawable surface size, in coordinates relative size.
      * @param width Width to set in coordinates unit
      * @param height Height to set in coordinates unit
      * @return This awt reference
      */
-    public Awt withSize(int width, int height) {
-        drawable.setSize(scale * width, scale * height);
+    public Awt withSize(final int width, final int height) {
+        this.drawable.withSize(width, height);
         return this;
     }
 
     /**
-     * Adds an {@link AwtPaint} to the registered painters.
-     * @param painter
-     * @return
+     * Adds an {@link AbstractAwtPaint} to the registered painters.
+     * @param painter Painter to add
+     * @return This awt reference
      */
-    public Awt add(AwtPaint painter) {
+    public Awt add(final AbstractAwtPaint painter) {
         this.painters.add(painter);
         return this;
     }
@@ -161,12 +156,92 @@ public class Awt extends JFrame implements Output {
      * Initialize with default painters.
      * @return A list of default painters
      */
-    private static List<AwtPaint> init() {
-        List<AwtPaint> result = new ArrayList<>();
+    private static List<AbstractAwtPaint> init() {
+        final List<AbstractAwtPaint> result = new ArrayList<>(5);
         result.add(new AwtPoint());
         result.add(new AwtCircle());
         result.add(new AwtLine());
         return result;
+    }
+
+    /**
+     * Initializes control buttons.
+     * @return A {@link JPanel} containing control buttons
+     */
+    private JPanel buttons() {
+        final JPanel buttons = new JPanel();
+        final JButton ups = new JButton("up");
+        buttons.add(ups);
+        final JButton down = new JButton("down");
+        buttons.add(down);
+        final JButton right = new JButton("right");
+        buttons.add(right);
+        final JButton left = new JButton("left");
+        buttons.add(left);
+        final JButton zoomin = new JButton("zoomin");
+        buttons.add(zoomin);
+        final JButton zoomout = new JButton("zoomout");
+        buttons.add(zoomout);
+        ups.addMouseListener(new Translate(0, Awt.TRANSLATE_AMOUNT));
+        down.addMouseListener(new Translate(0, -Awt.TRANSLATE_AMOUNT));
+        right.addMouseListener(new Translate(Awt.TRANSLATE_AMOUNT, 0));
+        left.addMouseListener(new Translate(-Awt.TRANSLATE_AMOUNT, 0));
+        zoomin.addMouseListener(
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(final MouseEvent event) {
+                    Awt.this.drawable.zoomIn();
+                    Awt.this.repaint();
+                }
+            }
+        );
+        zoomout.addMouseListener(
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(final MouseEvent event) {
+                    Awt.this.drawable.zoomOut();
+                    Awt.this.repaint();
+                }
+            }
+        );
+        return buttons;
+    }
+
+    /**
+     * Mouse listener translating drawable surface when clicking
+     * control buttons.
+     * @author Hamdi Douss (douss.hamdi@gmail.com)
+     * @version $Id$
+     * @since 0.1
+     */
+    private class Translate extends MouseAdapter {
+
+        /**
+         * X axis translation.
+         */
+        private final double xtrans;
+
+        /**
+         * Y axis translation.
+         */
+        private final double ytrans;
+
+        /**
+         * Ctor.
+         * @param xtrans X axis translation
+         * @param ytrans Y axis translation
+         */
+        Translate(final double xtrans, final double ytrans) {
+            this.xtrans = xtrans;
+            this.ytrans = ytrans;
+        }
+
+        @Override
+        public void mouseClicked(final MouseEvent event) {
+            Awt.this.drawable.translateX(this.xtrans);
+            Awt.this.drawable.translateY(this.ytrans);
+            Awt.this.repaint();
+        }
     }
 
 }
