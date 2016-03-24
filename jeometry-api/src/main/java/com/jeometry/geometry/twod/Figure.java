@@ -23,8 +23,13 @@
  */
 package com.jeometry.geometry.twod;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents a figure composed of shapes to output.
@@ -32,12 +37,17 @@ import java.util.List;
  * @version $Id$
  * @since 0.1
  */
-public final class Figure {
+public final class Figure implements Iterable<Shape> {
 
     /**
-     * Shapes list.
+     * Anonymous shapes list.
      */
-    private final List<Shape> shaps = new ArrayList<>(10);
+    private final List<Shape> anonymous = new ArrayList<>(10);
+
+    /**
+     * Named shapes map.
+     */
+    private final Map<String, Shape> shaps = new HashMap<>();
 
     /**
      * Adds a shape to the figure.
@@ -45,7 +55,17 @@ public final class Figure {
      * @return This figure instance
      */
     public Figure add(final Shape shape) {
-        this.shaps.add(shape);
+        final String name = shape.name();
+        Preconditions.checkArgument(
+            !this.shaps.containsKey(name),
+            "A shape with name [%s] already exists in the figure",
+            name
+        );
+        if (shape.anonymous()) {
+            this.anonymous.add(shape);
+        } else {
+            this.shaps.put(name, shape);
+        }
         return this;
     }
 
@@ -55,7 +75,7 @@ public final class Figure {
      * @return This figure instance
      */
     public Figure add(final Renderable shape) {
-        this.shaps.add(new Shape(shape));
+        this.anonymous.add(new Shape(shape));
         return this;
     }
 
@@ -66,15 +86,25 @@ public final class Figure {
      * @return This figure instance
      */
     public Figure add(final Renderable shape, final String name) {
-        this.shaps.add(new Shape(shape, name));
-        return this;
+        final Shape shap = new Shape(shape, name);
+        return this.add(shap);
     }
 
     /**
-     * Accessor for the figure shapes.
-     * @return The list of the shapes
+     * Retrieves a shape by its name.
+     * @param name Shape name
+     * @return The shape
      */
-    public List<Shape> shapes() {
-        return this.shaps;
+    public Optional<Shape> shape(final String name) {
+        return Optional.ofNullable(this.shaps.get(name));
+    }
+
+    @Override
+    public Iterator<Shape> iterator() {
+        final List<Shape> all =
+            new ArrayList<>(this.shaps.size() + this.anonymous.size());
+        all.addAll(this.shaps.values());
+        all.addAll(this.anonymous);
+        return all.iterator();
     }
 }
