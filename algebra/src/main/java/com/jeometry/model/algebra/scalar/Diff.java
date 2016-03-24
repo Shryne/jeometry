@@ -23,12 +23,15 @@
  */
 package com.jeometry.model.algebra.scalar;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * A scalar represented as the difference between two scalars.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode
 public final class Diff implements Scalar {
     /**
      * First operand.
@@ -66,53 +69,4 @@ public final class Diff implements Scalar {
         return this.soperand;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        final int fhash;
-        if (this.foperand == null) {
-            fhash = 0;
-        } else {
-            fhash = this.foperand.hashCode();
-        }
-        final int shash;
-        if (this.soperand == null) {
-            shash = 0;
-        } else {
-            shash = this.soperand.hashCode();
-        }
-        result = prime * result + fhash;
-        result = prime * result + shash;
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Diff other = (Diff) obj;
-        if (this.foperand == null) {
-            if (other.foperand != null) {
-                return false;
-            }
-        } else if (!this.foperand.equals(other.foperand)) {
-            return false;
-        }
-        if (this.soperand == null) {
-            if (other.soperand != null) {
-                return false;
-            }
-        } else if (!this.soperand.equals(other.soperand)) {
-            return false;
-        }
-        return true;
-    }
 }

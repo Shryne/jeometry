@@ -25,6 +25,7 @@ package com.jeometry.model.algebra.vector;
 
 import com.jeometry.model.algebra.scalar.Scalar;
 import java.util.Arrays;
+import lombok.EqualsAndHashCode;
 
 /**
  * Represents a vector defined by fixed coordinates.
@@ -32,6 +33,7 @@ import java.util.Arrays;
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode
 public class FixedVector implements Vect {
 
     /**
@@ -60,29 +62,6 @@ public class FixedVector implements Vect {
     @Override
     public final Scalar[] coords() {
         return Arrays.copyOf(this.coors, this.coors.length);
-    }
-
-    @Override
-    public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + Arrays.hashCode(this.coors);
-        return result;
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final FixedVector other = (FixedVector) obj;
-        return Arrays.equals(this.coors, other.coors);
     }
 
 }

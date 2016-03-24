@@ -23,7 +23,7 @@
  */
 package com.jeometry.render.awt;
 
-import com.jeometry.geometry.twod.Renderable;
+import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.point.XyVector;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.decimal.Decimal;
@@ -53,21 +53,21 @@ public final class AwtPoint extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Renderable renderable, final Graphics2D graphics,
+    public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final int size = 4;
-        final XyVector point = (XyVector) renderable;
+        final XyVector point = (XyVector) renderable.renderable();
         final int scale = context.scale();
         final int width = context.width();
         final int height = context.height();
         final Double xcoor = context.center().dblx();
         final Double ycoor = context.center().dbly();
         final int xpoint = (int) (
-            width / 2 + scale * this.field.actual(point.xcoor())
+            width / 2 + scale * this.field().actual(point.xcoor())
             - xcoor * scale
         ) - size / 2;
         final int ypoint = (int) (
-            height / 2 - scale * this.field.actual(point.ycoor())
+            height / 2 - scale * this.field().actual(point.ycoor())
             + ycoor * scale
         ) - size / 2;
         graphics.drawRect(xpoint, ypoint, size, size);

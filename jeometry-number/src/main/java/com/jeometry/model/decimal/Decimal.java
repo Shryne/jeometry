@@ -91,14 +91,15 @@ public final class Decimal extends AbstractField<Double> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean equals(final Scalar first, final Scalar second) {
+        boolean result = false;
         if (Scalar.Default.class.isAssignableFrom(first.getClass())
             && Scalar.Default.class.isAssignableFrom(second.getClass())) {
-            return Math.abs(
+            result = Math.abs(
                 ((Scalar.Default<Double>) first).value()
                 - ((Scalar.Default<Double>) second).value()
             ) < Decimal.TOLERANCE;
         }
-        return false;
+        return result;
     }
 
     @SuppressWarnings("unchecked")

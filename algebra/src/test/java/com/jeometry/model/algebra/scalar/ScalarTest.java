@@ -26,39 +26,27 @@ package com.jeometry.model.algebra.scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
- * Tests for {@link Add}.
+ * Tests for {@link Scalar}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class AddTest {
+public final class ScalarTest {
     /**
-     * {@link Add} respects equals with disregard
-     * to order of operands.
+     * Scalar.Default respects equals on value.
      */
     @Test
-    public void additionIsCommutative() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+    public void respectsEqual() {
         MatcherAssert.assertThat(
-            new Add(first, second),
-            Matchers.equalTo(new Add(second, first))
+            new Scalar.Default<Double>(1.),
+            Matchers.equalTo(new Scalar.Default<Double>(1.))
         );
-    }
-
-    /**
-     * {@link Add} operands are bag-like collection: duplicates counts.
-     */
-    @Test
-    public void additionOperandsAreNotASet() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final String test = "test";
         MatcherAssert.assertThat(
-            new Add(first, second, first),
-            Matchers.not(Matchers.equalTo(new Add(second, first)))
+            new Scalar.Default<String>(test),
+            Matchers.equalTo(new Scalar.Default<String>(test))
         );
     }
 }

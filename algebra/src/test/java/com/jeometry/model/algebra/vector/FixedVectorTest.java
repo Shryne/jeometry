@@ -21,44 +21,52 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.scalar;
+package com.jeometry.model.algebra.vector;
 
+import com.jeometry.model.algebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
- * Tests for {@link Add}.
+ * Tests for {@link FixedVector}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class AddTest {
+public final class FixedVectorTest {
     /**
-     * {@link Add} respects equals with disregard
-     * to order of operands.
+     * {@link FixedVector} respects equals on coordinates.
      */
     @Test
-    public void additionIsCommutative() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+    public void respectsEqual() {
         MatcherAssert.assertThat(
-            new Add(first, second),
-            Matchers.equalTo(new Add(second, first))
+            new FixedVector(
+                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
+            ),
+            Matchers.equalTo(
+                new FixedVector(
+                    new Scalar.Default<Double>(0.),
+                    new Scalar.Default<Double>(1.)
+                )
+            )
         );
-    }
-
-    /**
-     * {@link Add} operands are bag-like collection: duplicates counts.
-     */
-    @Test
-    public void additionOperandsAreNotASet() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final String first = "test";
+        final String second = "test2";
+        final String third = "test3";
         MatcherAssert.assertThat(
-            new Add(first, second, first),
-            Matchers.not(Matchers.equalTo(new Add(second, first)))
+            new FixedVector(
+                new Scalar.Default<String>(first),
+                new Scalar.Default<String>(second),
+                new Scalar.Default<String>(third)
+            ),
+            Matchers.equalTo(
+                new FixedVector(
+                    new Scalar.Default<String>(first),
+                    new Scalar.Default<String>(second),
+                    new Scalar.Default<String>(third)
+                )
+            )
         );
     }
 }

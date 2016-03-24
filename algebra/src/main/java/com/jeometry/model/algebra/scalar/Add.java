@@ -23,8 +23,10 @@
  */
 package com.jeometry.model.algebra.scalar;
 
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
 import java.util.Arrays;
-import org.apache.commons.collections4.CollectionUtils;
+import lombok.EqualsAndHashCode;
 
 /**
  * A scalar represented as the scalar sum of a set of scalars.
@@ -32,19 +34,20 @@ import org.apache.commons.collections4.CollectionUtils;
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode
 public final class Add implements Scalar {
 
     /**
      * Addition operands.
      */
-    private final Scalar[] opers;
+    private final Multiset<Scalar> opers;
 
     /**
      * Constructor.
      * @param operands Addition operands
      */
     public Add(final Scalar... operands) {
-        this.opers = Arrays.copyOf(operands, operands.length);
+        this.opers = HashMultiset.create(Arrays.asList(operands));
     }
 
     /**
@@ -52,32 +55,7 @@ public final class Add implements Scalar {
      * @return Operands of the sum.
      */
     public Scalar[] operands() {
-        return Arrays.copyOf(this.opers, this.opers.length);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + Arrays.hashCode(this.opers);
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Add other = (Add) obj;
-        return CollectionUtils.isEqualCollection(
-            Arrays.asList(this.opers), Arrays.asList(other.opers)
-        );
+        return this.opers.toArray(new Scalar[this.opers.size()]);
     }
 
 }

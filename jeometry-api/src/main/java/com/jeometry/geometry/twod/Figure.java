@@ -21,44 +21,60 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.scalar;
+package com.jeometry.geometry.twod;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.mockito.Mockito;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Tests for {@link Add}.
+ * Represents a figure composed of shapes to output.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class AddTest {
+public final class Figure {
+
     /**
-     * {@link Add} respects equals with disregard
-     * to order of operands.
+     * Shapes list.
      */
-    @Test
-    public void additionIsCommutative() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new Add(first, second),
-            Matchers.equalTo(new Add(second, first))
-        );
+    private final List<Shape> shaps = new ArrayList<>(10);
+
+    /**
+     * Adds a shape to the figure.
+     * @param shape The shape to add
+     * @return This figure instance
+     */
+    public Figure add(final Shape shape) {
+        this.shaps.add(shape);
+        return this;
     }
 
     /**
-     * {@link Add} operands are bag-like collection: duplicates counts.
+     * Adds an anonymous renderable to the figure.
+     * @param shape The renderable to add
+     * @return This figure instance
      */
-    @Test
-    public void additionOperandsAreNotASet() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new Add(first, second, first),
-            Matchers.not(Matchers.equalTo(new Add(second, first)))
-        );
+    public Figure add(final Renderable shape) {
+        this.shaps.add(new Shape(shape));
+        return this;
+    }
+
+    /**
+     * Adds an named renderable to the figure.
+     * @param shape The renderable to add
+     * @param name The renderable name
+     * @return This figure instance
+     */
+    public Figure add(final Renderable shape, final String name) {
+        this.shaps.add(new Shape(shape, name));
+        return this;
+    }
+
+    /**
+     * Accessor for the figure shapes.
+     * @return The list of the shapes
+     */
+    public List<Shape> shapes() {
+        return this.shaps;
     }
 }

@@ -47,9 +47,9 @@ public final class DecimalTest {
     @Test
     public void calculatesSum() {
         final Scalar first = new Scalar.Default<Double>(1.);
-        final Scalar second = new Scalar.Default<Double>(2.);
+        final Scalar second = new Scalar.Default<Double>(1.);
         MatcherAssert.assertThat(
-            new Decimal().actual(new Add(first, second)), Matchers.equalTo(3.)
+            new Decimal().actual(new Add(first, second)), Matchers.equalTo(2.)
         );
     }
 
@@ -83,11 +83,11 @@ public final class DecimalTest {
      */
     @Test
     public void calculatesDiv() {
-        final Scalar first = new Scalar.Default<Double>(1.);
+        final Scalar first = new Scalar.Default<Double>(2.);
         final Scalar second = new Scalar.Default<Double>(2.);
         MatcherAssert.assertThat(
             new Decimal().actual(new Division(first, second)),
-            Matchers.equalTo(0.5)
+            Matchers.equalTo(1.)
         );
     }
 }

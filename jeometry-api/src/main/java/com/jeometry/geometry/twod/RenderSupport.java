@@ -58,7 +58,7 @@ public final class RenderSupport implements Renderer {
     }
 
     @Override
-    public void render(final Renderable renderable) {
+    public void render(final Shape renderable) {
         if (renderable != null
             && this.supports(renderable)) {
             this.origin.render(renderable);
@@ -70,10 +70,10 @@ public final class RenderSupport implements Renderer {
      * @param renderable Renderable
      * @return True if the renderable is supported
      */
-    private boolean supports(final Renderable renderable) {
+    private boolean supports(final Shape renderable) {
         boolean result = false;
         for (final Class<?> clazz : this.supported) {
-            if (clazz.isAssignableFrom(renderable.getClass())) {
+            if (clazz.isAssignableFrom(renderable.renderable().getClass())) {
                 result = true;
                 break;
             }

@@ -21,83 +21,70 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.render.awt;
-
-import com.jeometry.model.decimal.DblPoint;
-import java.awt.Dimension;
+package com.jeometry.geometry.twod;
 
 /**
- * Class representing Awt drawable surface properties: width, height, center
- * and scale(zoom).
+ * Represents a Shape. A shape is a named {@link Renderable}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class AwtContext {
+public final class Shape {
 
     /**
-     * Width of drawable surface.
+     * Reserved name for anonymous renderable.
      */
-    private final int wdth;
+    private static final String NO_NAME = "NO_NAME";
 
     /**
-     * Height of drawable surface.
+     * Renderable.
      */
-    private final int hght;
+    private final Renderable rndrable;
 
     /**
-     * Scale/Zoom of drawable surface.
+     * Renderable name.
      */
-    private final int scle;
-
-    /**
-     * Point on which drawable surface is centered.
-     */
-    private final DblPoint cntr;
+    private final String symbol;
 
     /**
      * Ctor.
-     * @param dim Dimensions of drawable surface.
-     * @param scale Zoom of drawable surface.
-     * @param center Point on which drawable surface is centered
+     * @param rndrable Renderable
+     * @param symbol Renderable name
      */
-    public AwtContext(final Dimension dim, final int scale,
-        final DblPoint center) {
-        this.wdth = dim.width;
-        this.hght = dim.height;
-        this.scle = scale;
-        this.cntr = center;
+    public Shape(final Renderable rndrable, final String symbol) {
+        this.rndrable = rndrable;
+        this.symbol = symbol;
     }
 
     /**
-     * Accessor for the height.
-     * @return Height of drawable surface
+     * Ctor. Builds an anonymous renderable.
+     * @param rndrable Renderable
      */
-    public int height() {
-        return this.hght;
+    public Shape(final Renderable rndrable) {
+        this(rndrable, Shape.NO_NAME);
     }
 
     /**
-     * Accessor for the width.
-     * @return Width of drawable surface
+     * Accessor for the renderbale.
+     * @return The renderbale
      */
-    public int width() {
-        return this.wdth;
+    public Renderable renderable() {
+        return this.rndrable;
     }
 
     /**
-     * Accessor for the scale.
-     * @return Scale of drawable surface
+     * Accessor for the renderbale name.
+     * @return The renderable name
      */
-    public int scale() {
-        return this.scle;
+    public String name() {
+        return this.symbol;
     }
 
     /**
-     * Accessor for the center.
-     * @return Scale of drawable surface
+     * Checks if the renderable is anonymous (with no name).
+     * @return True if the renderable is anonymous
      */
-    public DblPoint center() {
-        return this.cntr;
+    public boolean anonymous() {
+        return Shape.NO_NAME.equals(this.symbol);
     }
 }

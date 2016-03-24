@@ -21,44 +21,53 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.scalar;
+package com.jeometry.render.awt;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.mockito.Mockito;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
- * Tests for {@link Add}.
+ * Mouse listener translating drawable surface when clicking
+ * control buttons.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class AddTest {
-    /**
-     * {@link Add} respects equals with disregard
-     * to order of operands.
-     */
-    @Test
-    public void additionIsCommutative() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new Add(first, second),
-            Matchers.equalTo(new Add(second, first))
-        );
-    }
+public final class Translate extends MouseAdapter {
 
     /**
-     * {@link Add} operands are bag-like collection: duplicates counts.
+     * X axis translation.
      */
-    @Test
-    public void additionOperandsAreNotASet() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new Add(first, second, first),
-            Matchers.not(Matchers.equalTo(new Add(second, first)))
-        );
+    private final double xtrans;
+
+    /**
+     * Y axis translation.
+     */
+    private final double ytrans;
+
+    /**
+     * AwtDrawableSurface.
+     */
+    private final AwtDrawableSurface drawable;
+
+    /**
+     * Ctor.
+     * @param xtrans X axis translation
+     * @param ytrans Y axis translation
+     * @param drawable Drawable surface
+     */
+    Translate(final double xtrans, final double ytrans,
+        final AwtDrawableSurface drawable) {
+        super();
+        this.xtrans = xtrans;
+        this.ytrans = ytrans;
+        this.drawable = drawable;
+    }
+
+    @Override
+    public void mouseClicked(final MouseEvent event) {
+        this.drawable.translateX(this.xtrans);
+        this.drawable.translateY(this.ytrans);
+        this.drawable.repaint();
     }
 }

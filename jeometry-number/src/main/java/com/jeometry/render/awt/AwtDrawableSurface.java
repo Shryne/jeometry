@@ -23,13 +23,19 @@
  */
 package com.jeometry.render.awt;
 
+import com.jeometry.geometry.twod.Figure;
+import com.jeometry.geometry.twod.Shape;
 import com.jeometry.model.decimal.DblPoint;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -54,12 +60,22 @@ public final class AwtDrawableSurface extends JPanel {
     /**
      * Scale of the drawable surface.
      */
-    private int scale = AwtDrawableSurface.ZOOM_AMOUNT;
+    private int scale;
+
+    /**
+     * List of {@link AbstractAwtPaint}s to paint shapes.
+     */
+    private final List<AbstractAwtPaint> painters;
+
+    /**
+     * Reference to the figure to draw.
+     */
+    private Figure figure;
 
     /**
      * Drawable Panel center.
      */
-    private DblPoint center;
+    private final DblPoint center;
 
     /**
      * Ctor. Builds a {@link JPanel} as a drawable surface.
@@ -68,10 +84,12 @@ public final class AwtDrawableSurface extends JPanel {
     public AwtDrawableSurface(final Awt awt) {
         super();
         this.center = new DblPoint(0., 0.);
+        this.scale = AwtDrawableSurface.ZOOM_AMOUNT;
         final MouseAdapter listener = new MouseZoomTranslate(awt);
         this.addMouseMotionListener(listener);
         this.addMouseListener(listener);
         this.addMouseWheelListener(listener);
+        this.painters = AwtDrawableSurface.init();
     }
 
     @Override
@@ -91,6 +109,20 @@ public final class AwtDrawableSurface extends JPanel {
             (int) (width / 2 - xcoor * this.scale), 0,
             (int) (width / 2 - xcoor * this.scale), height
         );
+        final Graphics2D surface = (Graphics2D) graphics;
+        surface.setRenderingHint(
+            RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON
+        );
+        final AwtContext context = this.context();
+        surface.setColor(Color.BLACK);
+        for (final AbstractAwtPaint painter : this.painters) {
+            painter.setGraphics(surface);
+            painter.setContext(context);
+            for (final Shape shape : this.figure.shapes()) {
+                painter.render(shape);
+            }
+        }
     }
 
     /**
@@ -150,6 +182,34 @@ public final class AwtDrawableSurface extends JPanel {
     }
 
     /**
+     * Adds an {@link AbstractAwtPaint} to the registered painters.
+     * @param painter Painter to add
+     */
+    public void add(final AbstractAwtPaint painter) {
+        this.painters.add(painter);
+    }
+
+    /**
+     * Sets the figure to draw.
+     * @param fig The figure to draw
+     */
+    public void setFigure(final Figure fig) {
+        this.figure = fig;
+    }
+
+    /**
+     * Initialize with default painters.
+     * @return A list of default painters
+     */
+    private static List<AbstractAwtPaint> init() {
+        final List<AbstractAwtPaint> result = new ArrayList<>(5);
+        result.add(new AwtPoint());
+        result.add(new AwtCircle());
+        result.add(new AwtLine());
+        return result;
+    }
+
+    /**
      * Mouse listener translating drawable surface when dragging, and zooming
      * drawable surface when moving mouse wheel.
      * @author Hamdi Douss (douss.hamdi@gmail.com)
@@ -178,6 +238,7 @@ public final class AwtDrawableSurface extends JPanel {
          * @param awt Parent {@link Awt} instance
          */
         MouseZoomTranslate(final Awt awt) {
+            super();
             this.awt = awt;
         }
 

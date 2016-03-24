@@ -23,12 +23,15 @@
  */
 package com.jeometry.model.algebra.scalar;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * A scalar represented as the division of a scalar by another scalar.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode(of = {"dividend", "divisor"})
 public final class Division implements Scalar {
     /**
      * First operand.
@@ -64,56 +67,6 @@ public final class Division implements Scalar {
      */
     public Scalar second() {
         return this.divisor;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        final int fhash;
-        if (this.dividend == null) {
-            fhash = 0;
-        } else {
-            fhash = this.dividend.hashCode();
-        }
-        final int shash;
-        if (this.divisor == null) {
-            shash = 0;
-        } else {
-            shash = this.divisor.hashCode();
-        }
-        result = prime * result + fhash;
-        result = prime * result + shash;
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Division other = (Division) obj;
-        if (this.dividend == null) {
-            if (other.dividend != null) {
-                return false;
-            }
-        } else if (!this.dividend.equals(other.dividend)) {
-            return false;
-        }
-        if (this.divisor == null) {
-            if (other.divisor != null) {
-                return false;
-            }
-        } else if (!this.divisor.equals(other.divisor)) {
-            return false;
-        }
-        return true;
     }
 
 }

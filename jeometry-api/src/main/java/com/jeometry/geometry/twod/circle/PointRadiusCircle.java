@@ -37,12 +37,12 @@ public class PointRadiusCircle implements Circle {
     /**
      * Circle radius.
      */
-    private final Scalar radius;
+    private final Scalar rdx;
 
     /**
      * Circle center.
      */
-    private final Vect center;
+    private final Vect cntr;
 
     /**
      * Ctor.
@@ -50,18 +50,18 @@ public class PointRadiusCircle implements Circle {
      * @param center Circle center
      */
     public PointRadiusCircle(final Scalar radius, final Vect center) {
-        this.radius = radius;
-        this.center = center;
+        this.rdx = radius;
+        this.cntr = center;
     }
 
     @Override
-    public Vect center() {
-        return this.center;
+    public final Vect center() {
+        return this.cntr;
     }
 
     @Override
-    public Scalar radius() {
-        return this.radius;
+    public final Scalar radius() {
+        return this.rdx;
     }
 
 }

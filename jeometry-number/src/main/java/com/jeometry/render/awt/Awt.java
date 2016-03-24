@@ -23,20 +23,9 @@
  */
 package com.jeometry.render.awt;
 
-import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.main.Figure;
+import com.jeometry.geometry.twod.Figure;
 import com.jeometry.render.Output;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -55,29 +44,14 @@ public final class Awt extends JFrame implements Output {
     private static final long serialVersionUID = 3449434902800801695L;
 
     /**
-     * Translate increment/decrement amount.
-     */
-    private static final int TRANSLATE_AMOUNT = 2;
-
-    /**
      * Panel border inset.
      */
     private static final int BORDER_INSET = 5;
 
     /**
-     * List of {@link AbstractAwtPaint}s to paint shapes.
-     */
-    private List<AbstractAwtPaint> painters;
-
-    /**
-     * Reference to the figure to draw.
-     */
-    private Figure figure;
-
-    /**
      * Drawable Panel.
      */
-    private AwtDrawableSurface drawable;
+    private final AwtDrawableSurface drawable;
 
     /**
      * Ctor. Builds a {@link JFrame} with a drawable surface and 4 control
@@ -86,7 +60,11 @@ public final class Awt extends JFrame implements Output {
     public Awt() {
         super();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        final int posx = 100;
+        final int posy = 100;
+        final int width = 450;
+        final int height = 300;
+        setBounds(posx, posy, width, height);
         final JPanel content = new JPanel();
         content.setBorder(
             new EmptyBorder(
@@ -98,37 +76,15 @@ public final class Awt extends JFrame implements Output {
         content.setLayout(new BorderLayout(0, 0));
         this.drawable = new AwtDrawableSurface(this);
         content.add(this.drawable, BorderLayout.CENTER);
-        final JPanel buttons = this.buttons();
-        buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
+        final JPanel buttons = new Buttons(this.drawable);
         content.add(buttons, BorderLayout.EAST);
-        this.painters = Awt.init();
     }
 
     @Override
     public void render(final Figure fig) {
-        this.figure = fig;
+        this.drawable.setFigure(fig);
         this.repaint();
         this.setVisible(true);
-    }
-
-    @Override
-    public void paint(final Graphics graphics) {
-        super.paint(graphics);
-        final Graphics2D surface = (Graphics2D) this.drawable.getGraphics();
-        final RenderingHints hints = new RenderingHints(
-            RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON
-        );
-        surface.setRenderingHints(hints);
-        final AwtContext context = this.drawable.context();
-        surface.setColor(Color.BLACK);
-        for (final AbstractAwtPaint painter : this.painters) {
-            painter.setGraphics(surface);
-            painter.setContext(context);
-            for (final Renderable shape : this.figure.getShapes()) {
-                painter.render(shape);
-            }
-        }
     }
 
     /**
@@ -148,100 +104,8 @@ public final class Awt extends JFrame implements Output {
      * @return This awt reference
      */
     public Awt add(final AbstractAwtPaint painter) {
-        this.painters.add(painter);
+        this.drawable.add(painter);
         return this;
-    }
-
-    /**
-     * Initialize with default painters.
-     * @return A list of default painters
-     */
-    private static List<AbstractAwtPaint> init() {
-        final List<AbstractAwtPaint> result = new ArrayList<>(5);
-        result.add(new AwtPoint());
-        result.add(new AwtCircle());
-        result.add(new AwtLine());
-        return result;
-    }
-
-    /**
-     * Initializes control buttons.
-     * @return A {@link JPanel} containing control buttons
-     */
-    private JPanel buttons() {
-        final JPanel buttons = new JPanel();
-        final JButton ups = new JButton("up");
-        buttons.add(ups);
-        final JButton down = new JButton("down");
-        buttons.add(down);
-        final JButton right = new JButton("right");
-        buttons.add(right);
-        final JButton left = new JButton("left");
-        buttons.add(left);
-        final JButton zoomin = new JButton("zoomin");
-        buttons.add(zoomin);
-        final JButton zoomout = new JButton("zoomout");
-        buttons.add(zoomout);
-        ups.addMouseListener(new Translate(0, Awt.TRANSLATE_AMOUNT));
-        down.addMouseListener(new Translate(0, -Awt.TRANSLATE_AMOUNT));
-        right.addMouseListener(new Translate(Awt.TRANSLATE_AMOUNT, 0));
-        left.addMouseListener(new Translate(-Awt.TRANSLATE_AMOUNT, 0));
-        zoomin.addMouseListener(
-            new MouseAdapter() {
-                @Override
-                public void mouseClicked(final MouseEvent event) {
-                    Awt.this.drawable.zoomIn();
-                    Awt.this.repaint();
-                }
-            }
-        );
-        zoomout.addMouseListener(
-            new MouseAdapter() {
-                @Override
-                public void mouseClicked(final MouseEvent event) {
-                    Awt.this.drawable.zoomOut();
-                    Awt.this.repaint();
-                }
-            }
-        );
-        return buttons;
-    }
-
-    /**
-     * Mouse listener translating drawable surface when clicking
-     * control buttons.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @since 0.1
-     */
-    private class Translate extends MouseAdapter {
-
-        /**
-         * X axis translation.
-         */
-        private final double xtrans;
-
-        /**
-         * Y axis translation.
-         */
-        private final double ytrans;
-
-        /**
-         * Ctor.
-         * @param xtrans X axis translation
-         * @param ytrans Y axis translation
-         */
-        Translate(final double xtrans, final double ytrans) {
-            this.xtrans = xtrans;
-            this.ytrans = ytrans;
-        }
-
-        @Override
-        public void mouseClicked(final MouseEvent event) {
-            Awt.this.drawable.translateX(this.xtrans);
-            Awt.this.drawable.translateY(this.ytrans);
-            Awt.this.repaint();
-        }
     }
 
 }

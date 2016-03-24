@@ -26,6 +26,7 @@ package com.jeometry.render.awt;
 import com.jeometry.geometry.twod.RenderSupport;
 import com.jeometry.geometry.twod.Renderable;
 import com.jeometry.geometry.twod.Renderer;
+import com.jeometry.geometry.twod.Shape;
 import com.jeometry.model.algebra.field.Field;
 import java.awt.Graphics2D;
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public abstract class AbstractAwtPaint implements Renderer {
     /**
      * Field for scalar operations.
      */
-    protected final Field<Double> field;
+    private final Field<Double> fld;
 
     /**
      * {@link Graphics2D} to draw on.
@@ -68,7 +69,7 @@ public abstract class AbstractAwtPaint implements Renderer {
      */
     public AbstractAwtPaint(final Field<Double> field,
         final Class<?>... clazz) {
-        this.field = field;
+        this.fld = field;
         this.clazz = Arrays.copyOf(clazz, clazz.length);
     }
 
@@ -89,11 +90,11 @@ public abstract class AbstractAwtPaint implements Renderer {
     }
 
     @Override
-    public final void render(final Renderable renderable) {
+    public final void render(final Shape renderable) {
         new RenderSupport(
             new Renderer() {
                 @Override
-                public void render(final Renderable renderable) {
+                public void render(final Shape renderable) {
                     AbstractAwtPaint.this.draw(
                         renderable, AbstractAwtPaint.this.graphics,
                         AbstractAwtPaint.this.context
@@ -105,11 +106,19 @@ public abstract class AbstractAwtPaint implements Renderer {
     }
 
     /**
+     * Gives the scalar field.
+     * @return The field
+     */
+    protected final Field<Double> field() {
+        return this.fld;
+    }
+
+    /**
      * Draws given {@link Renderable}.
      * @param renderable Renderable to draw
      * @param graphic AWT {@link Graphics2D} to draw
      * @param ctx Drawing {@link AwtContext}
      */
-    protected abstract void draw(Renderable renderable, Graphics2D graphic,
+    protected abstract void draw(Shape renderable, Graphics2D graphic,
         AwtContext ctx);
 }

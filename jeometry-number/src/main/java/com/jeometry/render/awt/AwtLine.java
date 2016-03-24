@@ -23,7 +23,7 @@
  */
 package com.jeometry.render.awt;
 
-import com.jeometry.geometry.twod.Renderable;
+import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.LineAnalytics;
 import com.jeometry.model.algebra.field.Field;
@@ -55,10 +55,10 @@ public final class AwtLine extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Renderable renderable, final Graphics2D graphics,
+    public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
-        final Line line = (Line) renderable;
-        final LineAnalytics analytics = new LineAnalytics(line, this.field);
+        final Line line = (Line) renderable.renderable();
+        final LineAnalytics analytics = new LineAnalytics(line, this.field());
         final Scalar slope = analytics.slope();
         final Scalar intercept = analytics.intercept();
         final int width = context.width();
@@ -68,14 +68,14 @@ public final class AwtLine extends AbstractAwtPaint {
         final Double ycoor = context.center().dbly();
         final int yzero = height / 2
             - (int) (
-                (scale * xcoor - width / 2) * this.field.actual(slope)
-                + scale * this.field.actual(intercept)
+                (scale * xcoor - width / 2) * this.field().actual(slope)
+                + scale * this.field().actual(intercept)
                 - ycoor * scale
             );
         final int ywidth = height / 2
             - (int) (
-                (width / 2 + scale * xcoor) * this.field.actual(slope)
-                + scale * this.field.actual(intercept)
+                (width / 2 + scale * xcoor) * this.field().actual(slope)
+                + scale * this.field().actual(intercept)
                 - ycoor * scale
             );
         graphics.drawLine(0, yzero, width, ywidth);

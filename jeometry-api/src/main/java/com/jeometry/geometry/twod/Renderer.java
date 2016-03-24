@@ -24,7 +24,7 @@
 package com.jeometry.geometry.twod;
 
 /**
- * Renderer interface capable of rendering a {@link Renderable}.
+ * Renderer interface capable of rendering a {@link Shape}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -32,8 +32,8 @@ package com.jeometry.geometry.twod;
 public interface Renderer {
 
     /**
-     * Renders a {@link Renderable}.
+     * Renders a {@link Shape}.
      * @param renderable Renderable to render
      */
-    void render(final Renderable renderable);
+    void render(final Shape renderable);
 }
