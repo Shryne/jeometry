@@ -59,25 +59,7 @@ public final class Awt extends JFrame implements Output {
      */
     public Awt() {
         super();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final int posx = 100;
-        final int posy = 100;
-        final int width = 450;
-        final int height = 300;
-        setBounds(posx, posy, width, height);
-        final JPanel content = new JPanel();
-        content.setBorder(
-            new EmptyBorder(
-                Awt.BORDER_INSET, Awt.BORDER_INSET,
-                Awt.BORDER_INSET, Awt.BORDER_INSET
-            )
-        );
-        setContentPane(content);
-        content.setLayout(new BorderLayout(0, 0));
-        this.drawable = new AwtDrawableSurface(this);
-        content.add(this.drawable, BorderLayout.CENTER);
-        final JPanel buttons = new Buttons(this.drawable);
-        content.add(buttons, BorderLayout.EAST);
+        this.drawable = this.init();
     }
 
     @Override
@@ -106,6 +88,35 @@ public final class Awt extends JFrame implements Output {
     public Awt add(final AbstractAwtPaint painter) {
         this.drawable.add(painter);
         return this;
+    }
+
+    /**
+     * Builds the component and returns the drawable surface.
+     * @return The drawable surface
+     */
+    private AwtDrawableSurface init() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final int posx = 100;
+        final int posy = 100;
+        final int width = 450;
+        final int height = 300;
+        this.setBounds(posx, posy, width, height);
+        final JPanel content = new JPanel();
+        content.setBorder(
+            new EmptyBorder(
+                Awt.BORDER_INSET, Awt.BORDER_INSET,
+                Awt.BORDER_INSET, Awt.BORDER_INSET
+            )
+        );
+        this.setContentPane(content);
+        content.setLayout(new BorderLayout(0, 0));
+        final AwtDrawableSurface draw = new AwtDrawableSurface();
+        draw.build();
+        content.add(draw, BorderLayout.CENTER);
+        final Buttons buttons = new Buttons(draw);
+        buttons.build();
+        content.add(buttons, BorderLayout.EAST);
+        return draw;
     }
 
 }

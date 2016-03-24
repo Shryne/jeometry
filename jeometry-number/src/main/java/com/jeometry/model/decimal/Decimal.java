@@ -85,31 +85,27 @@ public final class Decimal extends AbstractField<Double> {
 
     @Override
     public Scalar addIdentity() {
-        return new Scalar.Default<Double>(new Double(0));
+        return new Scalar.Default<Double>(Double.valueOf(0));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(final Scalar first, final Scalar second) {
         boolean result = false;
         if (Scalar.Default.class.isAssignableFrom(first.getClass())
             && Scalar.Default.class.isAssignableFrom(second.getClass())) {
-            result = Math.abs(
-                ((Scalar.Default<Double>) first).value()
-                - ((Scalar.Default<Double>) second).value()
-            ) < Decimal.TOLERANCE;
+            result = Math.abs(Decimal.value(first) - Decimal.value(second))
+                < Decimal.TOLERANCE;
         }
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar calculate(final Add add) {
         final Scalar[] ops = add.operands();
         Double sum = 0.;
         for (final Scalar scalar : ops) {
             if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
-                sum += ((Scalar.Default<Double>) scalar).value();
+                sum += Decimal.value(scalar);
             } else {
                 sum += this.actual(scalar);
             }
@@ -117,14 +113,13 @@ public final class Decimal extends AbstractField<Double> {
         return new Scalar.Default<Double>(sum);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar calculate(final Multiplication mult) {
         final Scalar[] ops = mult.operands();
         Double product = 1.;
         for (final Scalar scalar : ops) {
             if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
-                product *= ((Scalar.Default<Double>) scalar).value();
+                product *= Decimal.value(scalar);
             } else {
                 product *= this.actual(scalar);
             }
@@ -132,7 +127,6 @@ public final class Decimal extends AbstractField<Double> {
         return new Scalar.Default<Double>(product);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar calculate(final Division div) {
         final Scalar dividend = div.first();
@@ -140,19 +134,18 @@ public final class Decimal extends AbstractField<Double> {
         final Double first;
         final Double second;
         if (Scalar.Default.class.isAssignableFrom(dividend.getClass())) {
-            first = ((Scalar.Default<Double>) dividend).value();
+            first = Decimal.value(dividend);
         } else {
             first = this.actual(dividend);
         }
         if (Scalar.Default.class.isAssignableFrom(divisor.getClass())) {
-            second = ((Scalar.Default<Double>) divisor).value();
+            second = Decimal.value(divisor);
         } else {
             second = this.actual(divisor);
         }
         return new Scalar.Default<Double>(first / second);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar calculate(final Diff diff) {
         final Scalar minuend = diff.first();
@@ -160,16 +153,25 @@ public final class Decimal extends AbstractField<Double> {
         final Double first;
         final Double second;
         if (Scalar.Default.class.isAssignableFrom(minuend.getClass())) {
-            first = ((Scalar.Default<Double>) minuend).value();
+            first = Decimal.value(minuend);
         } else {
             first = this.actual(minuend);
         }
         if (Scalar.Default.class.isAssignableFrom(subtrahend.getClass())) {
-            second = ((Scalar.Default<Double>) subtrahend).value();
+            second = Decimal.value(subtrahend);
         } else {
             second = this.actual(subtrahend);
         }
         return new Scalar.Default<Double>(first - second);
     }
 
+    /**
+     * Returns wrapped double value.
+     * @param scalar Scalar
+     * @return Double value
+     */
+    @SuppressWarnings("unchecked")
+    private static Double value(final Scalar scalar) {
+        return ((Scalar.Default<Double>) scalar).value();
+    }
 }

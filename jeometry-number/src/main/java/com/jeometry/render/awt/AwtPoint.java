@@ -62,14 +62,14 @@ public final class AwtPoint extends AbstractAwtPaint {
         final int height = context.height();
         final Double xcoor = context.center().dblx();
         final Double ycoor = context.center().dbly();
-        final int xpoint = (int) (
-            width / 2 + scale * this.field().actual(point.xcoor())
-            - xcoor * scale
-        ) - size / 2;
-        final int ypoint = (int) (
-            height / 2 - scale * this.field().actual(point.ycoor())
-            + ycoor * scale
-        ) - size / 2;
+        final int xpoint = width / 2
+            + (int) (
+                scale * this.field().actual(point.xcoor()) - xcoor * scale
+            ) - size / 2;
+        final int ypoint = height / 2
+            - (int) (
+                scale * this.field().actual(point.ycoor()) + ycoor * scale
+            ) - size / 2;
         graphics.drawRect(xpoint, ypoint, size, size);
     }
 

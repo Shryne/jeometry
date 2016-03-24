@@ -59,6 +59,12 @@ public final class Buttons extends JPanel {
     public Buttons(final AwtDrawableSurface drawable) {
         super();
         this.drawable = drawable;
+    }
+
+    /**
+     * Builds the component.
+     */
+    public void build() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(this.button("up", 0, Buttons.TRANSLATE_AMOUNT));
         this.add(this.button("down", 0, -Buttons.TRANSLATE_AMOUNT));

@@ -47,18 +47,16 @@ public final class DblPoint extends XyVector {
      * Convenience method to return the double value of x-coordinate.
      * @return X coordinate double value
      */
-    @SuppressWarnings("unchecked")
     public Double dblx() {
-        return ((Scalar.Default<Double>) this.xcoor()).value();
+        return DblPoint.value(this.xcoor());
     }
 
     /**
      * Convenience method to return the double value of y-coordinate.
      * @return Y coordinate double value
      */
-    @SuppressWarnings("unchecked")
     public Double dbly() {
-        return ((Scalar.Default<Double>) this.ycoor()).value();
+        return DblPoint.value(this.ycoor());
     }
 
     /**
@@ -77,4 +75,13 @@ public final class DblPoint extends XyVector {
         this.setY(new Scalar.Default<>(ycoor));
     }
 
+    /**
+     * Returns wrapped double value.
+     * @param scalar Scalar
+     * @return Double value
+     */
+    @SuppressWarnings("unchecked")
+    private static Double value(final Scalar scalar) {
+        return ((Scalar.Default<Double>) scalar).value();
+    }
 }

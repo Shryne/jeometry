@@ -25,48 +25,67 @@ package com.jeometry.render.awt;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 /**
- * Mouse listener translating drawable surface when clicking
- * control buttons.
+ * Mouse listener translating drawable surface when dragging, and zooming
+ * drawable surface when moving mouse wheel.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Translate extends MouseAdapter {
+class MouseZoomTranslate extends MouseAdapter {
 
     /**
-     * X axis translation.
+     * X start dragging position.
      */
-    private final double xtrans;
+    private int startx;
 
     /**
-     * Y axis translation.
+     * Y start dragging position.
      */
-    private final double ytrans;
+    private int starty;
 
     /**
-     * AwtDrawableSurface.
+     * Parent {@link Awt} instance.
      */
-    private final AwtDrawableSurface drawable;
+    private final AwtDrawableSurface awt;
 
     /**
      * Ctor.
-     * @param xtrans X axis translation
-     * @param ytrans Y axis translation
-     * @param drawable Drawable surface
+     * @param awt Parent {@link Awt} instance
      */
-    Translate(final double xtrans, final double ytrans,
-        final AwtDrawableSurface drawable) {
+    MouseZoomTranslate(final AwtDrawableSurface awt) {
         super();
-        this.xtrans = xtrans;
-        this.ytrans = ytrans;
-        this.drawable = drawable;
+        this.awt = awt;
     }
 
     @Override
-    public void mouseClicked(final MouseEvent event) {
-        this.drawable.translate(this.xtrans, this.ytrans);
-        this.drawable.repaint();
+    public void mousePressed(final MouseEvent event) {
+        this.startx = event.getX();
+        this.starty = event.getY();
     }
+
+    @Override
+    public void mouseDragged(final MouseEvent event) {
+        final double scale = (double) this.awt.context().scale();
+        this.awt.translate(
+            (this.startx - event.getX()) / scale,
+            (event.getY() - this.starty) / scale
+        );
+        this.startx = event.getX();
+        this.starty = event.getY();
+        this.awt.repaint();
+    }
+
+    @Override
+    public void mouseWheelMoved(final MouseWheelEvent event) {
+        if (event.getWheelRotation() < 0) {
+            this.awt.zoomIn();
+        } else {
+            this.awt.zoomOut();
+        }
+        this.awt.repaint();
+    }
+
 }

@@ -32,11 +32,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -65,31 +62,36 @@ public final class AwtDrawableSurface extends JPanel {
     /**
      * List of {@link AbstractAwtPaint}s to paint shapes.
      */
-    private final List<AbstractAwtPaint> painters;
+    private final transient List<AbstractAwtPaint> painters;
 
     /**
      * Reference to the figure to draw.
      */
-    private Figure figure;
+    private transient Figure figure;
 
     /**
      * Drawable Panel center.
      */
-    private final DblPoint center;
+    private final transient  DblPoint center;
 
     /**
      * Ctor. Builds a {@link JPanel} as a drawable surface.
-     * @param awt Parent Awt {@link JFrame}
      */
-    public AwtDrawableSurface(final Awt awt) {
+    public AwtDrawableSurface() {
         super();
         this.center = new DblPoint(0., 0.);
         this.scale = AwtDrawableSurface.ZOOM_AMOUNT;
-        final MouseAdapter listener = new MouseZoomTranslate(awt);
+        this.painters = AwtDrawableSurface.init();
+    }
+
+    /**
+     * Inits listeners on the drawable surface.
+     */
+    public void build() {
+        final MouseAdapter listener = new MouseZoomTranslate(this);
         this.addMouseMotionListener(listener);
         this.addMouseListener(listener);
         this.addMouseWheelListener(listener);
-        this.painters = AwtDrawableSurface.init();
     }
 
     @Override
@@ -102,25 +104,27 @@ public final class AwtDrawableSurface extends JPanel {
         final Double xcoor = this.center.dblx();
         final Double ycoor = this.center.dbly();
         graphics.drawLine(
-            0, (int) (height / 2 + ycoor * this.scale),
-            width, (int) (height / 2 + ycoor * this.scale)
+            0, height / 2 + (int) (ycoor * this.scale),
+            width, height / 2 + (int) (ycoor * this.scale)
         );
         graphics.drawLine(
-            (int) (width / 2 - xcoor * this.scale), 0,
-            (int) (width / 2 - xcoor * this.scale), height
+            width / 2 - (int) (xcoor * this.scale), 0,
+            width / 2 - (int) (xcoor * this.scale), height
         );
-        final Graphics2D surface = (Graphics2D) graphics;
-        surface.setRenderingHint(
-            RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON
-        );
-        final AwtContext context = this.context();
-        surface.setColor(Color.BLACK);
-        for (final AbstractAwtPaint painter : this.painters) {
-            painter.setGraphics(surface);
-            painter.setContext(context);
-            for (final Shape shape : this.figure) {
-                painter.render(shape);
+        if (graphics instanceof Graphics2D) {
+            final Graphics2D surface = (Graphics2D) graphics;
+            surface.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
+            );
+            final AwtContext context = this.context();
+            surface.setColor(Color.BLACK);
+            for (final AbstractAwtPaint painter : this.painters) {
+                painter.setGraphics(surface);
+                painter.setContext(context);
+                for (final Shape shape : this.figure) {
+                    painter.render(shape);
+                }
             }
         }
     }
@@ -154,22 +158,13 @@ public final class AwtDrawableSurface extends JPanel {
 
     /**
      * Translates the center of the drawable surface by the given amount
-     * on X-Axis.
-     * @param amount Amount to translate by
+     * on X and Y Axis.
+     * @param amountx Amount to translate by on X-Axis
+     * @param amounty Amount to translate by on Y-Axis
      */
-    public void translateX(final double amount) {
-        final double current = this.center.dblx();
-        this.center.setDblX(current + amount);
-    }
-
-    /**
-     * Translates the center of the drawable surface by the given amount
-     * on Y-Axis.
-     * @param amount Amount to translate by
-     */
-    public void translateY(final double amount) {
-        final double current = this.center.dbly();
-        this.center.setDblY(current + amount);
+    public void translate(final double amountx, final double amounty) {
+        this.center.setDblX(this.center.dblx() + amountx);
+        this.center.setDblY(this.center.dbly() + amounty);
     }
 
     /**
@@ -208,71 +203,4 @@ public final class AwtDrawableSurface extends JPanel {
         result.add(new AwtLine());
         return result;
     }
-
-    /**
-     * Mouse listener translating drawable surface when dragging, and zooming
-     * drawable surface when moving mouse wheel.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @since 0.1
-     */
-    private class MouseZoomTranslate extends MouseAdapter {
-
-        /**
-         * X start dragging position.
-         */
-        private int startx;
-
-        /**
-         * Y start dragging position.
-         */
-        private int starty;
-
-        /**
-         * Parent {@link Awt} instance.
-         */
-        private final Awt awt;
-
-        /**
-         * Ctor.
-         * @param awt Parent {@link Awt} instance
-         */
-        MouseZoomTranslate(final Awt awt) {
-            super();
-            this.awt = awt;
-        }
-
-        @Override
-        public void mousePressed(final MouseEvent event) {
-            this.startx = event.getX();
-            this.starty = event.getY();
-        }
-
-        @Override
-        public void mouseDragged(final MouseEvent event) {
-            AwtDrawableSurface.this.translateX(
-                (this.startx - event.getX())
-                    / (double) AwtDrawableSurface.this.scale
-            );
-            AwtDrawableSurface.this.translateY(
-                (event.getY() - this.starty)
-                    / (double) AwtDrawableSurface.this.scale
-            );
-            this.startx = event.getX();
-            this.starty = event.getY();
-            this.awt.repaint();
-        }
-
-        @Override
-        public void mouseWheelMoved(final MouseWheelEvent event) {
-            if (event.getWheelRotation() < 0) {
-                AwtDrawableSurface.this.zoomIn();
-            } else {
-                AwtDrawableSurface.this.zoomOut();
-            }
-            this.awt.repaint();
-        }
-
-    }
-
 }
