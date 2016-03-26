@@ -100,6 +100,8 @@ public final class AwtDrawableSurface extends JPanel {
         final int width = this.getWidth();
         final int height = this.getHeight();
         graphics.clearRect(0, 0, width, height);
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, width, height);
         graphics.setColor(Color.RED);
         final Double xcoor = this.center.dblx();
         final Double ycoor = this.center.dbly();
@@ -201,6 +203,7 @@ public final class AwtDrawableSurface extends JPanel {
         result.add(new AwtPoint());
         result.add(new AwtCircle());
         result.add(new AwtLine());
+        result.add(new AwtRay());
         return result;
     }
 }

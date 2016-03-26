@@ -31,7 +31,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
  * Abstract Field implementation based on {@link Default} implementation
- * for returning actual objects.
+ * for returning actual scalar objects.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @param <T> The actual objects constituting the field.
@@ -102,4 +102,19 @@ public abstract class AbstractField<T> implements Field<T> {
      */
     protected abstract Scalar calculate(final Diff diff);
 
+    /**
+     * Returns wrapped double value.
+     * @param scalar Scalar
+     * @return Double value
+     */
+    @SuppressWarnings("unchecked")
+    protected final T value(final Scalar scalar) {
+        final T result;
+        if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
+            result = ((Scalar.Default<T>) scalar).value();
+        } else {
+            result = this.actual(scalar);
+        }
+        return result;
+    }
 }

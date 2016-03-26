@@ -90,13 +90,9 @@ public final class Decimal extends AbstractField<Double> {
 
     @Override
     public boolean equals(final Scalar first, final Scalar second) {
-        boolean result = false;
-        if (Scalar.Default.class.isAssignableFrom(first.getClass())
-            && Scalar.Default.class.isAssignableFrom(second.getClass())) {
-            result = Math.abs(Decimal.value(first) - Decimal.value(second))
-                < Decimal.TOLERANCE;
-        }
-        return result;
+        return Math.abs(
+            this.value(first) - this.value(second)
+        ) < Decimal.TOLERANCE;
     }
 
     @Override
@@ -104,11 +100,7 @@ public final class Decimal extends AbstractField<Double> {
         final Scalar[] ops = add.operands();
         Double sum = 0.;
         for (final Scalar scalar : ops) {
-            if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
-                sum += Decimal.value(scalar);
-            } else {
-                sum += this.actual(scalar);
-            }
+            sum += this.value(scalar);
         }
         return new Scalar.Default<Double>(sum);
     }
@@ -118,11 +110,7 @@ public final class Decimal extends AbstractField<Double> {
         final Scalar[] ops = mult.operands();
         Double product = 1.;
         for (final Scalar scalar : ops) {
-            if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
-                product *= Decimal.value(scalar);
-            } else {
-                product *= this.actual(scalar);
-            }
+            product *= this.value(scalar);
         }
         return new Scalar.Default<Double>(product);
     }
@@ -131,47 +119,18 @@ public final class Decimal extends AbstractField<Double> {
     public Scalar calculate(final Division div) {
         final Scalar dividend = div.first();
         final Scalar divisor = div.second();
-        final Double first;
-        final Double second;
-        if (Scalar.Default.class.isAssignableFrom(dividend.getClass())) {
-            first = Decimal.value(dividend);
-        } else {
-            first = this.actual(dividend);
-        }
-        if (Scalar.Default.class.isAssignableFrom(divisor.getClass())) {
-            second = Decimal.value(divisor);
-        } else {
-            second = this.actual(divisor);
-        }
-        return new Scalar.Default<Double>(first / second);
+        return new Scalar.Default<Double>(
+            this.value(dividend) / this.value(divisor)
+        );
     }
 
     @Override
     public Scalar calculate(final Diff diff) {
         final Scalar minuend = diff.first();
         final Scalar subtrahend = diff.second();
-        final Double first;
-        final Double second;
-        if (Scalar.Default.class.isAssignableFrom(minuend.getClass())) {
-            first = Decimal.value(minuend);
-        } else {
-            first = this.actual(minuend);
-        }
-        if (Scalar.Default.class.isAssignableFrom(subtrahend.getClass())) {
-            second = Decimal.value(subtrahend);
-        } else {
-            second = this.actual(subtrahend);
-        }
-        return new Scalar.Default<Double>(first - second);
+        return new Scalar.Default<Double>(
+            this.value(minuend) - this.value(subtrahend)
+        );
     }
 
-    /**
-     * Returns wrapped double value.
-     * @param scalar Scalar
-     * @return Double value
-     */
-    @SuppressWarnings("unchecked")
-    private static Double value(final Scalar scalar) {
-        return ((Scalar.Default<Double>) scalar).value();
-    }
 }

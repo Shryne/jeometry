@@ -28,6 +28,7 @@ import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.ParallelPassingByLine;
 import com.jeometry.geometry.twod.line.TwoPointsLine;
 import com.jeometry.geometry.twod.point.PointInLine;
+import com.jeometry.geometry.twod.ray.PtDirRay;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
@@ -60,7 +61,8 @@ public final class Main {
         final Line lineb = new ParallelPassingByLine(pointa, hor);
         final Figure figure = new Figure()
             .add(hor).add(abline).add(lineb).add(pointb).add(pointa)
-            .add(origin);
+            .add(origin).add(new PtDirRay(pointa, new DblPoint(3.0, 3.0)))
+            .add(new PtDirRay(new DblPoint(-1.0, 0.0), new DblPoint(-3.0, -3.0)));
         final Awt awt = new Awt().withSize(50, 50);
         awt.render(figure);
         awt.setVisible(true);
