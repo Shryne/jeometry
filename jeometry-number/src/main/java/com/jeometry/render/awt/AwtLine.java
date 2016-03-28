@@ -27,7 +27,6 @@ import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.LineAnalytics;
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 
@@ -59,26 +58,63 @@ public final class AwtLine extends AbstractAwtPaint {
         final AwtContext context) {
         final Line line = (Line) renderable.renderable();
         final LineAnalytics analytics = new LineAnalytics(line, this.field());
-        final Scalar slope = analytics.slope();
-        final Scalar intercept = analytics.intercept();
+        if (analytics.vertical()) {
+            this.vertical(graphics, line, context);
+        } else {
+            this.regular(graphics, analytics, context);
+        }
+        
+    }
+
+    /**
+     * Draws a regular (non-vertical) line.
+     * @param graphics Awt Graphics to draw upon
+     * @param analytics Analytics of the line to draw
+     * @param context AwtContext
+     */
+    private void regular(final Graphics2D graphics,
+        final LineAnalytics analytics, final AwtContext context) {
         final int width = context.width();
         final int height = context.height();
         final int scale = context.scale();
-        final Double xcoor = context.center().dblx();
-        final Double ycoor = context.center().dbly();
-        final int yzero = height / 2
-            - (int) (
-                (scale * xcoor - width / 2) * this.field().actual(slope)
-                + scale * this.field().actual(intercept)
-                - ycoor * scale
-            );
-        final int ywidth = height / 2
-            - (int) (
-                (width / 2 + scale * xcoor) * this.field().actual(slope)
-                + scale * this.field().actual(intercept)
-                - ycoor * scale
-            );
+        final Double xcenter = context.center().dblx();
+        final Double ycenter = context.center().dbly();
+        final Double slope = this.field().actual(analytics.slope());
+        final Double intercept = this.field().actual(analytics.intercept());
+        final int yzero = (int) (
+            height / 2d - (
+                (scale * xcenter - width / 2d) * slope
+                + scale * intercept
+                - ycenter * scale
+            )
+        );
+        final int ywidth = (int) (
+            height / 2d - (
+                (width / 2d + scale * xcenter) * slope
+                + scale * intercept
+                - ycenter * scale
+            )
+        );
         graphics.drawLine(0, yzero, width, ywidth);
+    }
+
+    /**
+     * Draws a vertical line.
+     * @param graphics Awt Graphics to draw upon
+     * @param line Line to draw
+     * @param context AwtContext
+     */
+    private void vertical(final Graphics2D graphics, final Line line,
+        final AwtContext context) {
+        final int width = context.width();
+        final int height = context.height();
+        final int scale = context.scale();
+        final Double xcenter = context.center().dblx();
+        final int xline = (int)(
+            width / 2d
+            + scale * (this.field().actual(line.point().coords()[0])-xcenter)
+        );
+        graphics.drawLine(xline, 0, xline, height);
     }
 
 }

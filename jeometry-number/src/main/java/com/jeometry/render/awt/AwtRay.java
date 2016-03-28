@@ -29,7 +29,6 @@ import com.jeometry.geometry.twod.line.RayLine;
 import com.jeometry.geometry.twod.point.XyVector;
 import com.jeometry.geometry.twod.ray.Ray;
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 
@@ -61,39 +60,77 @@ public final class AwtRay extends AbstractAwtPaint {
         final AwtContext context) {
         final Ray ray = (Ray) renderable.renderable();
         final LineAnalytics analytics = new LineAnalytics(new RayLine(ray), this.field());
-        final Scalar slope = analytics.slope();
-        final Scalar intercept = analytics.intercept();
+        if (analytics.vertical()) {
+            this.vertical(graphics, ray, context);
+        } else {
+            this.regular(graphics, analytics, context, ray);
+        }
+        
+    }
+
+    /**
+     * Draws a regular (non-vertical) ray.
+     * @param graphics Awt Graphics to draw upon
+     * @param analytics Analytics of the ray to draw
+     * @param context AwtContext
+     * @param ray Ray to draw
+     */
+    private void regular(final Graphics2D graphics,
+        final LineAnalytics analytics, final AwtContext context, final Ray ray) {
         final int width = context.width();
         final int height = context.height();
         final int scale = context.scale();
+        final Field<Double> field = this.field();
         final XyVector origin = (XyVector) ray.origin();
-        final Double xcoor = context.center().dblx();
-        final Double ycoor = context.center().dbly();
-        final Double xdir = this.field().actual(ray.direction().coords()[0]);
-        final Double dblslope = this.field().actual(slope);
-        final Double dblintercept = this.field().actual(intercept);
-        final Double xorigin = this.field().actual(origin.xcoor());
-        final Double yorigin = this.field().actual(origin.ycoor());
-        final int xzero = width/2 + (int) (scale * (xorigin - xcoor));
-        final int yzero = height/2 - (int) (scale * (yorigin - ycoor));
+        final Double xcenter = context.center().dblx();
+        final Double ycenter = context.center().dbly();
+        final Double xdir = field.actual(ray.direction().coords()[0]);
+        final Double slope = field.actual(analytics.slope());
+        final Double intercept = field.actual(analytics.intercept());
+        final int xorigin = (int) (width / 2d + scale * (field.actual(origin.xcoor()) - xcenter));
+        final int yorigin = (int) (height / 2d - scale * (field.actual(origin.ycoor()) - ycenter));
         if (xdir > 0) {
-        final int ywidth = height / 2
-            - (int) (
-                (width / 2 + scale * xcoor) * dblslope
-                + scale * dblintercept
-                - ycoor * scale
+            final int ywidth = (int) (
+                height / 2d - (
+                    (width / 2d + scale * xcenter) * slope
+                    + scale * intercept
+                    - ycenter * scale
+                )
             );
-        
-        graphics.drawLine( xzero,yzero, width, ywidth);
+            graphics.drawLine(xorigin, yorigin, width, ywidth);
         }else {
-            final int yzer = height / 2
-                - (int) (
-                    (scale * xcoor - width / 2) * dblslope
-                    + scale * dblintercept
-                    - ycoor * scale
-                );
-            
-            graphics.drawLine( xzero,yzero, 0, yzer);
+            final int yzer = (int) (
+                height / 2d - (
+                    (scale * xcenter - width / 2d) * slope
+                    + scale * intercept
+                    - ycenter * scale
+                )
+            );
+            graphics.drawLine(xorigin, yorigin, 0, yzer);
+        }
+    }
+
+    /**
+     * Draws a vertical ray.
+     * @param graphics Awt Graphics to draw upon
+     * @param ray Ray to draw
+     * @param context AwtContext
+     */
+    private void vertical(final Graphics2D graphics, final Ray ray,
+        final AwtContext context) {
+        final int width = context.width();
+        final int height = context.height();
+        final int scale = context.scale();
+        final Field<Double> field = this.field();
+        final Double xcenter = context.center().dblx();
+        final Double ycenter = context.center().dbly();
+        final XyVector origin = (XyVector) ray.origin();
+        final int xorigin = (int) (width / 2d + scale * (field.actual(origin.xcoor()) - xcenter));
+        final int yorigin = (int) (height / 2d - scale * (field.actual(origin.ycoor()) - ycenter));
+        if (field.actual(ray.direction().coords()[1]) > 0) {
+            graphics.drawLine(xorigin, yorigin, xorigin, 0);
+        } else {
+            graphics.drawLine(xorigin, yorigin, xorigin, height);
         }
     }
 

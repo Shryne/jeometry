@@ -30,6 +30,7 @@ import com.jeometry.geometry.twod.line.ParallelPassingByLine;
 import com.jeometry.geometry.twod.line.TwoPointsLine;
 import com.jeometry.geometry.twod.point.PointInLine;
 import com.jeometry.geometry.twod.ray.PtDirRay;
+import com.jeometry.geometry.twod.segment.TwoPtsSeg;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
@@ -54,6 +55,7 @@ public final class Main {
      */
     public static void main(final String... args) {
         final DblPoint pointa = new DblPoint(1d, 2d);
+        final DblPoint pointp = new DblPoint(1d, -2d);
         final DblPoint pointc = new DblPoint(-3d, 1d);
         final DblPoint pointd = new DblPoint(0d, 5d);
         final DblPoint pointe = new DblPoint(-4d, 2d);
@@ -62,12 +64,15 @@ public final class Main {
         final TwoPointsLine hor = new TwoPointsLine(pointk, origin);
         final PointInLine pointb = new PointInLine(hor, new Decimal());
         final Line abline = new TwoPointsLine(pointa, pointb);
+        final Line apline = new TwoPointsLine(pointa, pointp);
         final Line lineb = new ParallelPassingByLine(pointa, hor);
         final Figure figure = new Figure()
-            .add(hor).add(abline).add(lineb).add(pointb).add(pointa)
+            .add(hor).add(abline).add(lineb).add(pointb).add(pointa).add(apline)
             .add(origin).add(new PtDirRay(pointa, new DblPoint(3.0, 3.0)))
-            .add(new PtDirRay(new DblPoint(-1.0, 0.0), new DblPoint(-3.0, -3.0)))
-        .add(new ThreePtsAngle(pointc, pointd, pointe));
+            .add(new PtDirRay(new DblPoint(0., 3.0), new DblPoint(-1.0, -10.0)))
+            .add(new PtDirRay(new DblPoint(0., -3.0), new DblPoint(3.0, -2.0)))
+        .add(new ThreePtsAngle(pointc, pointd, pointe))
+        .add(new TwoPtsSeg(origin, pointb)).add(new TwoPtsSeg(pointk, pointe));
         final Awt awt = new Awt().withSize(50, 50);
         awt.render(figure);
         awt.setVisible(true);

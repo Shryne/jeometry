@@ -24,12 +24,9 @@
 package com.jeometry.render.awt;
 
 import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.line.LineAnalytics;
-import com.jeometry.geometry.twod.line.RayLine;
 import com.jeometry.geometry.twod.point.XyVector;
-import com.jeometry.geometry.twod.ray.Ray;
+import com.jeometry.geometry.twod.segment.Segment;
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 
@@ -46,7 +43,7 @@ public final class AwtSegment extends AbstractAwtPaint {
      * @param field Field for scalar operations
      */
     public AwtSegment(final Field<Double> field) {
-        super(field, Ray.class);
+        super(field, Segment.class);
     }
 
     /**
@@ -59,42 +56,23 @@ public final class AwtSegment extends AbstractAwtPaint {
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
-        final Ray ray = (Ray) renderable.renderable();
-        final LineAnalytics analytics = new LineAnalytics(new RayLine(ray), this.field());
-        final Scalar slope = analytics.slope();
-        final Scalar intercept = analytics.intercept();
+        final Segment seg = (Segment) renderable.renderable();
         final int width = context.width();
         final int height = context.height();
         final int scale = context.scale();
-        final XyVector origin = (XyVector) ray.origin();
+        final XyVector start = (XyVector) seg.start();
+        final XyVector end = (XyVector) seg.end();
         final Double xcoor = context.center().dblx();
         final Double ycoor = context.center().dbly();
-        final Double xdir = this.field().actual(ray.direction().coords()[0]);
-        final Double dblslope = this.field().actual(slope);
-        final Double dblintercept = this.field().actual(intercept);
-        final Double xorigin = this.field().actual(origin.xcoor());
-        final Double yorigin = this.field().actual(origin.ycoor());
-        final int xzero = width/2 + (int) (scale * (xorigin - xcoor));
-        final int yzero = height/2 - (int) (scale * (yorigin - ycoor));
-        if (xdir > 0) {
-        final int ywidth = height / 2
-            - (int) (
-                (width / 2 + scale * xcoor) * dblslope
-                + scale * dblintercept
-                - ycoor * scale
-            );
-        
-        graphics.drawLine( xzero,yzero, width, ywidth);
-        }else {
-            final int yzer = height / 2
-                - (int) (
-                    (scale * xcoor - width / 2) * dblslope
-                    + scale * dblintercept
-                    - ycoor * scale
-                );
-            
-            graphics.drawLine( xzero,yzero, 0, yzer);
-        }
+        final Double dblxstart = this.field().actual(start.xcoor());
+        final Double dblystart = this.field().actual(start.ycoor());
+        final Double dblxend = this.field().actual(end.xcoor());
+        final Double dblyend = this.field().actual(end.ycoor());
+        final int xstart = width/2 + (int) (scale * (dblxstart - xcoor));
+        final int ystart = height/2 - (int) (scale * (dblystart - ycoor));
+        final int xend = width/2 + (int) (scale * (dblxend - xcoor));
+        final int yend = height/2 - (int) (scale * (dblyend - ycoor));
+        graphics.drawLine(xstart, ystart, xend, yend);
     }
 
 }
