@@ -21,29 +21,4 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.ray;
-
-import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.vector.Vect;
-
-/**
- * Ray interface describing a ray by an origin and a direction.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
- */
-public interface Ray extends Renderable {
-
-    /**
-     * Gives the direction of the Ray.
-     * @return ray direction
-     */
-    Vect direction();
-
-    /**
-     * Gives The originating Point of the ray.
-     * @return A point representing the ray origin
-     */
-    Vect origin();
-
-}
+package com.jeometry.geometry.twod.angle;

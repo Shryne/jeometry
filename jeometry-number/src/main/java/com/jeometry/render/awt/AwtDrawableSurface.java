@@ -204,6 +204,7 @@ public final class AwtDrawableSurface extends JPanel {
         result.add(new AwtCircle());
         result.add(new AwtLine());
         result.add(new AwtRay());
+        result.add(new AwtAngle());
         return result;
     }
 }

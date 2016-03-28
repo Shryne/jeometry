@@ -24,6 +24,7 @@
 package com.jeometry.main;
 
 import com.jeometry.geometry.twod.Figure;
+import com.jeometry.geometry.twod.angle.ThreePtsAngle;
 import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.ParallelPassingByLine;
 import com.jeometry.geometry.twod.line.TwoPointsLine;
@@ -53,6 +54,9 @@ public final class Main {
      */
     public static void main(final String... args) {
         final DblPoint pointa = new DblPoint(1d, 2d);
+        final DblPoint pointc = new DblPoint(-3d, 1d);
+        final DblPoint pointd = new DblPoint(0d, 5d);
+        final DblPoint pointe = new DblPoint(-4d, 2d);
         final DblPoint pointk = new DblPoint(5d, 0d);
         final DblPoint origin = new DblPoint(0d, 0d);
         final TwoPointsLine hor = new TwoPointsLine(pointk, origin);
@@ -62,7 +66,8 @@ public final class Main {
         final Figure figure = new Figure()
             .add(hor).add(abline).add(lineb).add(pointb).add(pointa)
             .add(origin).add(new PtDirRay(pointa, new DblPoint(3.0, 3.0)))
-            .add(new PtDirRay(new DblPoint(-1.0, 0.0), new DblPoint(-3.0, -3.0)));
+            .add(new PtDirRay(new DblPoint(-1.0, 0.0), new DblPoint(-3.0, -3.0)))
+        .add(new ThreePtsAngle(pointc, pointd, pointe));
         final Awt awt = new Awt().withSize(50, 50);
         awt.render(figure);
         awt.setVisible(true);

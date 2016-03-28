@@ -21,29 +21,68 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.ray;
+package com.jeometry.geometry.twod.angle;
 
-import com.jeometry.geometry.twod.Renderable;
+import com.jeometry.model.algebra.vector.Minus;
 import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Ray interface describing a ray by an origin and a direction.
+ * An angle defined by three points.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Ray extends Renderable {
+public final class ThreePtsAngle implements Angle {
 
     /**
-     * Gives the direction of the Ray.
-     * @return ray direction
+     * Angle origin.
      */
-    Vect direction();
+    private Vect org;
 
     /**
-     * Gives The originating Point of the ray.
-     * @return A point representing the ray origin
+     * Point belonging to the starting ray. The starting ray is defined by
+     * the angle origin as its origin and this point as a point in the ray.
      */
-    Vect origin();
+    private Vect frst;
 
+    /**
+     * Point belonging to the ending ray. The ending ray is defined by
+     * the angle origin as its origin and this point as a point in the ray.
+     */
+    private Vect scnd;
+
+    /**
+     * Constructor.
+     * @param direction Ray direction
+     * @param point Ray origin
+     */
+    public ThreePtsAngle(final Vect origin, final Vect first,
+        final Vect second) {
+        this.org = origin;
+        this.frst = first;
+        this.scnd = second;
+    }
+
+    @Override
+    public Vect origin() {
+        return this.org;
+    }
+
+    /**
+     * Modifies the point that should belong to the line.
+     * @param point New point to pass by.
+     */
+    public void setOrigin(final Vect point) {
+        this.org = point;
+    }
+
+    @Override
+    public Vect start() {
+        return new Minus(this.frst, this.org);
+    }
+
+    @Override
+    public Vect end() {
+        return new Minus(this.scnd, this.org);
+    }
 }

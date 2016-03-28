@@ -21,29 +21,29 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.ray;
+package com.jeometry.geometry.twod.segment;
 
 import com.jeometry.geometry.twod.Renderable;
 import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Ray interface describing a ray by an origin and a direction.
+ * Segment interface describing a segment by its two extremities.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Ray extends Renderable {
+public interface Segment extends Renderable {
 
     /**
-     * Gives the direction of the Ray.
-     * @return ray direction
+     * Gives the first extremity of the segment.
+     * @return A point representing the segment start
      */
-    Vect direction();
+    Vect start();
 
     /**
-     * Gives The originating Point of the ray.
-     * @return A point representing the ray origin
+     * Gives the end extremity of the segment.
+     * @return A point representing the segment end
      */
-    Vect origin();
+    Vect end();
 
 }

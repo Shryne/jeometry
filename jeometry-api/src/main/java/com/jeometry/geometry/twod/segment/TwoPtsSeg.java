@@ -21,29 +21,47 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.ray;
+package com.jeometry.geometry.twod.segment;
 
-import com.jeometry.geometry.twod.Renderable;
 import com.jeometry.model.algebra.vector.Vect;
 
 /**
- * Ray interface describing a ray by an origin and a direction.
+ * A ray defined by its origin and its direction.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Ray extends Renderable {
+public final class TwoPtsSeg implements Segment {
 
     /**
-     * Gives the direction of the Ray.
-     * @return ray direction
+     * Direction.
      */
-    Vect direction();
+    private Vect first;
 
     /**
-     * Gives The originating Point of the ray.
-     * @return A point representing the ray origin
+     * Point belonging to the line.
      */
-    Vect origin();
+    private Vect second;
 
+    /**
+     * Constructor.
+     * @param direction Ray direction
+     * @param point Ray origin
+     */
+    public TwoPtsSeg(final Vect first, final Vect second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    @Override
+    public Vect start() {
+        return this.first;
+    }
+
+    @Override
+    public Vect end() {
+        return this.second;
+    }
+    
+    
 }

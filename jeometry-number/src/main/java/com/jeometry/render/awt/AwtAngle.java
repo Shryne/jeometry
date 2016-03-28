@@ -21,29 +21,51 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.ray;
+package com.jeometry.render.awt;
 
-import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.vector.Vect;
+import com.jeometry.geometry.twod.Shape;
+import com.jeometry.geometry.twod.angle.Angle;
+import com.jeometry.geometry.twod.ray.PtDirRay;
+import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.decimal.Decimal;
+import java.awt.Graphics2D;
 
 /**
- * Ray interface describing a ray by an origin and a direction.
+ * Awt Angle painter that draws an angle on an AWT graphics.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Ray extends Renderable {
+public final class AwtAngle extends AbstractAwtPaint {
 
     /**
-     * Gives the direction of the Ray.
-     * @return ray direction
+     * Ctor.
+     * @param field Field for scalar operations
      */
-    Vect direction();
+    public AwtAngle(final Field<Double> field) {
+        super(field, Angle.class);
+    }
 
     /**
-     * Gives The originating Point of the ray.
-     * @return A point representing the ray origin
+     * Ctor.
      */
-    Vect origin();
+    public AwtAngle() {
+        this(new Decimal());
+    }
+
+    @Override
+    public void draw(final Shape renderable, final Graphics2D graphics,
+        final AwtContext context) {
+        final Angle angle = (Angle) renderable.renderable();
+        AwtRay drawer = new AwtRay(this.field());
+        drawer.draw(
+            new Shape(new PtDirRay(angle.start(), angle.origin())),
+            graphics, context
+        );
+        drawer.draw(
+            new Shape(new PtDirRay(angle.end(), angle.origin())),
+            graphics, context
+        );
+    }
 
 }
