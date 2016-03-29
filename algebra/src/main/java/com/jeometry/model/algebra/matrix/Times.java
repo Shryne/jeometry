@@ -1,0 +1,95 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016-2016, Hamdi Douss
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+ * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+package com.jeometry.model.algebra.matrix;
+
+import com.jeometry.model.algebra.scalar.Scalar;
+import com.jeometry.model.algebra.vector.FixedVector;
+import com.jeometry.model.algebra.vector.Vect;
+
+/**
+ * A Matrix represented as the multiplication of a matrix by a scalar.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+public final class Times implements Matrix {
+
+    /**
+     * Vector.
+     */
+    private final transient Matrix matrix;
+
+    /**
+     * Scalar.
+     */
+    private final transient Scalar scalar;
+
+    /**
+     * Constructor.
+     * @param vector Vector to multiply
+     * @param scalar Scalar by which to multiply
+     */
+    public Times(final Matrix vector, final Scalar scalar) {
+        this.matrix = vector;
+        this.scalar = scalar;
+    }
+
+    @Override
+    public Scalar[] coords() {
+        return new com.jeometry.model.algebra.vector.Times(
+            new FixedVector(this.matrix.coords()), this.scalar
+        ).coords();
+    }
+
+    @Override
+    public Scalar[] column(final int i) {
+        return new com.jeometry.model.algebra.vector.Times(
+            new FixedVector(this.matrix.column(i)), this.scalar
+        ).coords();
+    }
+
+    @Override
+    public Scalar[] line(final int j) {
+        return new com.jeometry.model.algebra.vector.Times(
+            new FixedVector(this.matrix.line(j)), this.scalar
+        ).coords();
+    }
+
+    @Override
+    public Vect apply(final Vect input) {
+        return new com.jeometry.model.algebra.vector.Times(
+            this.matrix.apply(input), this.scalar
+        );
+    }
+
+    @Override
+    public Integer columns() {
+        return this.matrix.columns();
+    }
+
+    @Override
+    public Integer lines() {
+        return this.matrix.lines();
+    }
+}
