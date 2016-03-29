@@ -24,6 +24,7 @@
 package com.jeometry.model.algebra.scalar;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Scalar interface. An abstract (annontation-like) to represent a scalar.
@@ -41,6 +42,7 @@ public interface Scalar {
      * @since 0.1
      */
     @EqualsAndHashCode(of = "origin")
+    @ToString
     class Default<T> implements Scalar {
         /**
          * Wrapped object.

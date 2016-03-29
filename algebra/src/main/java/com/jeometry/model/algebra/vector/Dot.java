@@ -27,6 +27,7 @@ import com.google.common.base.Preconditions;
 import com.jeometry.model.algebra.scalar.Add;
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
+import lombok.ToString;
 
 /**
  * Class representing dot operation (scalar product) between 2 vectors.
@@ -34,6 +35,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
+@ToString
 public final class Dot {
 
     /**

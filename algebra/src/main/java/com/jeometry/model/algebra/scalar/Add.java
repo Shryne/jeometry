@@ -27,6 +27,7 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import java.util.Arrays;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * A scalar represented as the scalar sum of a set of scalars.
@@ -35,6 +36,7 @@ import lombok.EqualsAndHashCode;
  * @since 0.1
  */
 @EqualsAndHashCode
+@ToString
 public final class Add implements Scalar {
 
     /**

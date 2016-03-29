@@ -26,6 +26,7 @@ package com.jeometry.model.algebra.matrix;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.FixedVector;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A Matrix represented as the sum of a set of matrices.
@@ -33,6 +34,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString
 public final class Sum implements Matrix {
 
     /**

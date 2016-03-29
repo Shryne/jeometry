@@ -24,6 +24,7 @@
 package com.jeometry.model.algebra.scalar;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * A scalar represented as the difference between two scalars.
@@ -32,6 +33,7 @@ import lombok.EqualsAndHashCode;
  * @since 0.1
  */
 @EqualsAndHashCode
+@ToString
 public final class Diff implements Scalar {
     /**
      * First operand.

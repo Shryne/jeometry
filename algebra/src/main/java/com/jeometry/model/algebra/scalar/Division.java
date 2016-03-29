@@ -24,6 +24,7 @@
 package com.jeometry.model.algebra.scalar;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * A scalar represented as the division of a scalar by another scalar.
@@ -32,6 +33,7 @@ import lombok.EqualsAndHashCode;
  * @since 0.1
  */
 @EqualsAndHashCode(of = {"dividend", "divisor"})
+@ToString
 public final class Division implements Scalar {
     /**
      * First operand.

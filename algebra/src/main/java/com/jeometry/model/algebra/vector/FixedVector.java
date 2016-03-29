@@ -26,6 +26,7 @@ package com.jeometry.model.algebra.vector;
 import com.jeometry.model.algebra.scalar.Scalar;
 import java.util.Arrays;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Represents a vector defined by fixed coordinates.
@@ -34,6 +35,7 @@ import lombok.EqualsAndHashCode;
  * @since 0.1
  */
 @EqualsAndHashCode
+@ToString
 public class FixedVector implements Vect {
 
     /**

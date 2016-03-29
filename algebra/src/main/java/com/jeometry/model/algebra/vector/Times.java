@@ -25,6 +25,7 @@ package com.jeometry.model.algebra.vector;
 
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
+import lombok.ToString;
 
 /**
  * A vector represented as the multiplication of a vector by a scalar.
@@ -32,6 +33,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
+@ToString
 public final class Times implements Vect {
 
     /**

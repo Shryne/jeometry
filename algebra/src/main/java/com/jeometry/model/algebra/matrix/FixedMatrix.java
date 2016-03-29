@@ -30,6 +30,7 @@ import com.jeometry.model.algebra.vector.FixedVector;
 import com.jeometry.model.algebra.vector.Vect;
 import java.util.Arrays;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Represents a matrix defined by fixed coordinates.
@@ -38,6 +39,7 @@ import lombok.EqualsAndHashCode;
  * @since 0.1
  */
 @EqualsAndHashCode
+@ToString
 public class FixedMatrix implements Matrix {
 
     /**
