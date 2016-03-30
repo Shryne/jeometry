@@ -28,15 +28,17 @@ import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.vector.Sum;
 import com.jeometry.model.algebra.vector.Times;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A point defined by belonging to a line. The point is fixed upon
  * construction, which means that a modification to the underlying line does
- * not ensure that this point is still outside the line.
+ * not ensure that this point is still inside the line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
+@ToString(callSuper = true)
 public final class PointInLine extends XyVector {
 
     /**

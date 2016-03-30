@@ -41,8 +41,8 @@ public interface Scalar {
      * @param <T> Holded object type.
      * @since 0.1
      */
-    @EqualsAndHashCode(of = "origin")
-    @ToString
+    @EqualsAndHashCode
+    @ToString(includeFieldNames=false)
     class Default<T> implements Scalar {
         /**
          * Wrapped object.

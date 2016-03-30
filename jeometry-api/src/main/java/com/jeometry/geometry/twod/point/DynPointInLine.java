@@ -29,6 +29,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Sum;
 import com.jeometry.model.algebra.vector.Times;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A point defined by belonging to a line. The point is dynamic regarding
@@ -38,6 +39,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString(includeFieldNames = false)
 public final class DynPointInLine implements Vect {
 
     /**

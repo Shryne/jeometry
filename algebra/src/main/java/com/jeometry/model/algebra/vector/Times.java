@@ -34,7 +34,7 @@ import lombok.ToString;
  * @version $Id$
  * @since 0.1
  */
-@ToString
+@ToString(includeFieldNames = false)
 @EqualsAndHashCode
 public final class Times implements Vect {
 

@@ -26,6 +26,7 @@ package com.jeometry.geometry.twod.line;
 import com.jeometry.geometry.twod.point.PointOutsideLine;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A line defined by being parallel to another line.
@@ -33,6 +34,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString(includeFieldNames = false)
 public final class ParallelLine implements Line {
     /**
      * The line to be parallel to.

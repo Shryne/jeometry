@@ -39,7 +39,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @EqualsAndHashCode
-@ToString
+@ToString(includeFieldNames = false)
 public final class Sum implements Matrix {
 
     /**

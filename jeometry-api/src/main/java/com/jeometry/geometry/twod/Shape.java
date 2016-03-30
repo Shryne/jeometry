@@ -23,12 +23,15 @@
  */
 package com.jeometry.geometry.twod;
 
+import lombok.ToString;
+
 /**
  * Represents a Shape. A shape is a named {@link Renderable}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
+@ToString(includeFieldNames=false)
 public final class Shape {
 
     /**

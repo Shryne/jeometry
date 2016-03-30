@@ -31,6 +31,7 @@ import com.jeometry.model.algebra.scalar.Division;
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A point defined by not belonging to a line.
@@ -38,6 +39,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString(of = {"line", "xvalue", "yvalue"})
 public final class DynPointOutsideLine implements Vect {
 
     /**

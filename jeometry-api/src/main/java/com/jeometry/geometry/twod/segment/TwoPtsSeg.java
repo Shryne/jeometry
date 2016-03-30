@@ -24,6 +24,7 @@
 package com.jeometry.geometry.twod.segment;
 
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A ray defined by its origin and its direction.
@@ -31,6 +32,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString(includeFieldNames = false)
 public final class TwoPtsSeg implements Segment {
 
     /**

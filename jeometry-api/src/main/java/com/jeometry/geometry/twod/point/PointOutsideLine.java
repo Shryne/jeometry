@@ -31,6 +31,7 @@ import com.jeometry.model.algebra.scalar.Division;
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A point defined by not belonging to a line. The point is fixed upon
@@ -40,6 +41,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString(callSuper = true)
 public final class PointOutsideLine extends XyVector {
 
     /**

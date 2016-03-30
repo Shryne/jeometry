@@ -25,6 +25,7 @@ package com.jeometry.geometry.twod.point;
 
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
+import lombok.ToString;
 
 /**
  * Represents a 2D vector defined by its X coordinate, and a random Y
@@ -33,6 +34,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
+@ToString(callSuper = true)
 public class XVector extends XyVector {
     /**
      * Constructor.

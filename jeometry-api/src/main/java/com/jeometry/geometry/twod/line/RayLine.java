@@ -25,6 +25,7 @@ package com.jeometry.geometry.twod.line;
 
 import com.jeometry.geometry.twod.ray.Ray;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A line defined by "porting" a ray. The line has the same direction as the ray
@@ -33,6 +34,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString(includeFieldNames = false)
 public final class RayLine implements Line {
 
     /**

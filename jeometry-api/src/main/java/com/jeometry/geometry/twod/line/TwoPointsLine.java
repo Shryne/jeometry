@@ -25,6 +25,7 @@ package com.jeometry.geometry.twod.line;
 
 import com.jeometry.model.algebra.vector.Minus;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * A line passing by two points (vectors).
@@ -32,6 +33,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString(includeFieldNames = false)
 public final class TwoPointsLine implements Line {
     /**
      * First point by which this line passes.

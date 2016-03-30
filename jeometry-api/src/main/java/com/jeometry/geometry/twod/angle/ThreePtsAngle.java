@@ -25,6 +25,7 @@ package com.jeometry.geometry.twod.angle;
 
 import com.jeometry.model.algebra.vector.Minus;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * An angle defined by three points.
@@ -32,6 +33,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString
 public final class ThreePtsAngle implements Angle {
 
     /**

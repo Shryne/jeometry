@@ -26,6 +26,7 @@ package com.jeometry.geometry.twod.point;
 import com.jeometry.geometry.twod.Renderable;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.FixedVector;
+import lombok.ToString;
 
 /**
  * Represents a 2D vector defined by (x,y) coordinates.
@@ -33,6 +34,7 @@ import com.jeometry.model.algebra.vector.FixedVector;
  * @version $Id$
  * @since 0.1
  */
+@ToString(callSuper = true)
 public class XyVector extends FixedVector implements Renderable {
 
     /**

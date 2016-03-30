@@ -25,6 +25,7 @@ package com.jeometry.geometry.twod.circle;
 
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
  * Circle implementation class describing a circle by a center and a radius.
@@ -32,6 +33,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
+@ToString
 public class PointRadiusCircle implements Circle {
 
     /**

@@ -24,6 +24,7 @@
 package com.jeometry.geometry.twod.point;
 
 import com.jeometry.model.algebra.field.Field;
+import lombok.ToString;
 
 /**
  * Represents a random vector or a point.
@@ -31,6 +32,7 @@ import com.jeometry.model.algebra.field.Field;
  * @version $Id$
  * @since 0.1
  */
+@ToString(callSuper = true)
 public class RandomVector extends XyVector {
     /**
      * Constructor.
