@@ -23,8 +23,12 @@
  */
 package com.jeometry.model.algebra.vector;
 
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
 import com.jeometry.model.algebra.scalar.Add;
 import com.jeometry.model.algebra.scalar.Scalar;
+import java.util.Arrays;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -33,32 +37,33 @@ import lombok.ToString;
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode
 @ToString
 public final class Sum implements Vect {
 
     /**
      * Sum operands.
      */
-    private final Vect[] operands;
+    private final Multiset<Vect> operands;
 
     /**
      * Constructor.
      * @param operands Sum operands
      */
     public Sum(final Vect... operands) {
-        this.operands = operands;
+        this.operands = HashMultiset.create(Arrays.asList(operands));
     }
 
     @Override
     public Scalar[] coords() {
-        final Scalar[] fcoors = this.operands[0].coords();
-        final int num = this.operands.length;
-        final int dim = fcoors.length;
+        final int dim = this.operands.iterator().next().coords().length;
         final Scalar[] result = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {
-            final Scalar[] coor = new Scalar[num];
-            for (int vect = 0; vect < num; ++vect) {
-                coor[vect] = this.operands[vect].coords()[axis];
+            final Scalar[] coor = new Scalar[this.operands.size()];
+            int idx = 0;
+            for (Vect oper : this.operands) {
+                coor[idx] = oper.coords()[axis];
+                ++idx;
             }
             result[axis] = new Add(coor);
         }

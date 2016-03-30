@@ -25,6 +25,7 @@ package com.jeometry.model.algebra.vector;
 
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -34,6 +35,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString
+@EqualsAndHashCode
 public final class Times implements Vect {
 
     /**

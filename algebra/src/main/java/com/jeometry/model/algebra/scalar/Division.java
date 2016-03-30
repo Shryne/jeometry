@@ -32,7 +32,7 @@ import lombok.ToString;
  * @version $Id$
  * @since 0.1
  */
-@EqualsAndHashCode(of = {"dividend", "divisor"})
+@EqualsAndHashCode
 @ToString
 public final class Division implements Scalar {
     /**
