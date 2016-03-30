@@ -91,7 +91,7 @@ public final class Decimal extends AbstractField<Double> {
     @Override
     public boolean equals(final Scalar first, final Scalar second) {
         return Math.abs(
-            this.value(first) - this.value(second)
+            this.actual(first) - this.actual(second)
         ) < Decimal.TOLERANCE;
     }
 
@@ -100,7 +100,7 @@ public final class Decimal extends AbstractField<Double> {
         final Scalar[] ops = add.operands();
         Double sum = 0.;
         for (final Scalar scalar : ops) {
-            sum += this.value(scalar);
+            sum += this.actual(scalar);
         }
         return new Scalar.Default<Double>(sum);
     }
@@ -110,7 +110,7 @@ public final class Decimal extends AbstractField<Double> {
         final Scalar[] ops = mult.operands();
         Double product = 1.;
         for (final Scalar scalar : ops) {
-            product *= this.value(scalar);
+            product *= this.actual(scalar);
         }
         return new Scalar.Default<Double>(product);
     }
@@ -120,7 +120,7 @@ public final class Decimal extends AbstractField<Double> {
         final Scalar dividend = div.first();
         final Scalar divisor = div.second();
         return new Scalar.Default<Double>(
-            this.value(dividend) / this.value(divisor)
+            this.actual(dividend) / this.actual(divisor)
         );
     }
 
@@ -129,7 +129,7 @@ public final class Decimal extends AbstractField<Double> {
         final Scalar minuend = diff.first();
         final Scalar subtrahend = diff.second();
         return new Scalar.Default<Double>(
-            this.value(minuend) - this.value(subtrahend)
+            this.actual(minuend) - this.actual(subtrahend)
         );
     }
 

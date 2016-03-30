@@ -90,4 +90,25 @@ public final class DecimalTest {
             Matchers.equalTo(1.)
         );
     }
+
+    /**
+     * {@link Decimal} field can calculate a complex operation.
+     */
+    @Test
+    public void calculatesOperation() {
+        final Scalar first = new Scalar.Default<Double>(1.);
+        final Scalar second = new Scalar.Default<Double>(2.);
+        MatcherAssert.assertThat(
+            new Decimal().actual(
+                new Division(
+                    new Diff(
+                        new Add(new Multiplication(second, second),first),
+                        first
+                    ),
+                    first
+                )
+            ),
+            Matchers.equalTo(4.)
+        );
+    }
 }

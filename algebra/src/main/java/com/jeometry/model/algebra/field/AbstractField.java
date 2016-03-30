@@ -102,19 +102,4 @@ public abstract class AbstractField<T> implements Field<T> {
      */
     protected abstract Scalar calculate(final Diff diff);
 
-    /**
-     * Returns wrapped double value.
-     * @param scalar Scalar
-     * @return Double value
-     */
-    @SuppressWarnings("unchecked")
-    protected final T value(final Scalar scalar) {
-        final T result;
-        if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
-            result = ((Scalar.Default<T>) scalar).value();
-        } else {
-            result = this.actual(scalar);
-        }
-        return result;
-    }
 }
