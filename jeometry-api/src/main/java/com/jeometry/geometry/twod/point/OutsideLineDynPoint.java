@@ -40,7 +40,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(of = {"line", "xvalue", "yvalue"})
-public final class DynPointOutsideLine implements Vect {
+public final class OutsideLineDynPoint implements Vect {
 
     /**
      * The line that this point should not belong to.
@@ -65,7 +65,7 @@ public final class DynPointOutsideLine implements Vect {
      * @param line The line to avoid belonging to
      * @param field Field for scalar operations
      */
-    public DynPointOutsideLine(final Line line, final Field<?> field) {
+    public OutsideLineDynPoint(final Line line, final Field<?> field) {
         super();
         this.line = line;
         this.field = field;

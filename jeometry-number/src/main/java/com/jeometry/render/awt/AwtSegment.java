@@ -24,7 +24,7 @@
 package com.jeometry.render.awt;
 
 import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.point.XyVector;
+import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.geometry.twod.segment.Segment;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.decimal.Decimal;
@@ -60,8 +60,8 @@ public final class AwtSegment extends AbstractAwtPaint {
         final int width = context.width();
         final int height = context.height();
         final int scale = context.scale();
-        final XyVector start = (XyVector) seg.start();
-        final XyVector end = (XyVector) seg.end();
+        final XyPoint start = (XyPoint) seg.start();
+        final XyPoint end = (XyPoint) seg.end();
         final Double xcoor = context.center().dblx();
         final Double ycoor = context.center().dbly();
         final Double dblxstart = this.field().actual(start.xcoor());

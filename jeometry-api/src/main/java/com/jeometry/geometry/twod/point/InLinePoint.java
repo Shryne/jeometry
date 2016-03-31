@@ -39,22 +39,22 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class PointInLine extends XyVector {
+public final class InLinePoint extends XyPoint {
 
     /**
      * Constructor.
      * @param line The line to belong to
      * @param field Field for scalar randomization
      */
-    public PointInLine(final Line line, final Field<?> field) {
-        this(PointInLine.vector(line, field));
+    public InLinePoint(final Line line, final Field<?> field) {
+        this(InLinePoint.vector(line, field));
     }
 
     /**
      * Constructor.
      * @param vector Point belonging to the line
      */
-    private PointInLine(final Vect vector) {
+    private InLinePoint(final Vect vector) {
         super(vector.coords()[0], vector.coords()[1]);
     }
 

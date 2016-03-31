@@ -21,14 +21,64 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.line;
+
+import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
- * Tests for {@link DynPointOutsideLineTest}.
+ * A line defined by a point to pass by and a direction.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DynPointOutsideLineTest {
+@ToString
+public final class PtDirLine implements Line {
 
+    /**
+     * Direction.
+     */
+    private Vect dir;
+
+    /**
+     * Point belonging to the line.
+     */
+    private Vect pnt;
+
+    /**
+     * Constructor.
+     * @param direction Direction of the line
+     * @param point Point belonging to the line
+     */
+    public PtDirLine(final Vect point, final Vect direction) {
+        super();
+        this.dir = direction;
+        this.pnt = point;
+    }
+
+    @Override
+    public Vect direction() {
+        return this.dir;
+    }
+
+    /**
+     * Modifies the direction of the line.
+     * @param direction New direction of the line
+     */
+    public void setDirection(final Vect direction) {
+        this.dir = direction;
+    }
+
+    @Override
+    public Vect point() {
+        return this.pnt;
+    }
+
+    /**
+     * Modifies the point that should belong to the line.
+     * @param point New point to pass by.
+     */
+    public void setPoint(final Vect point) {
+        this.pnt = point;
+    }
 }

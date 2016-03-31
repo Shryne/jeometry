@@ -21,61 +21,70 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.geometry.twod.angle;
 
-import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.FixedVector;
+import com.jeometry.model.algebra.vector.Minus;
+import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * Represents a 2D vector defined by (x,y) coordinates.
+ * An angle defined by three points.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(callSuper = true)
-public class XyVector extends FixedVector implements Renderable {
+@ToString
+public final class PtsAngle implements Angle {
+
+    /**
+     * Angle origin.
+     */
+    private Vect org;
+
+    /**
+     * Point belonging to the starting ray. The starting ray is defined by
+     * the angle origin as its origin and this point as a point in the ray.
+     */
+    private Vect frst;
+
+    /**
+     * Point belonging to the ending ray. The ending ray is defined by
+     * the angle origin as its origin and this point as a point in the ray.
+     */
+    private Vect scnd;
 
     /**
      * Constructor.
-     * @param xcoor X coordinate
-     * @param ycoor Y coordinate
+     * @param direction Ray direction
+     * @param point Ray origin
      */
-    public XyVector(final Scalar xcoor, final Scalar ycoor) {
-        super(xcoor, ycoor);
+    public PtsAngle(final Vect origin, final Vect first,
+        final Vect second) {
+        this.org = origin;
+        this.frst = first;
+        this.scnd = second;
+    }
+
+    @Override
+    public Vect origin() {
+        return this.org;
     }
 
     /**
-     * Gives the X coordinate.
-     * @return X coordinate of the point
+     * Modifies the point that should belong to the line.
+     * @param point New point to pass by.
      */
-    public final Scalar xcoor() {
-        return this.coords()[0];
+    public void setOrigin(final Vect point) {
+        this.org = point;
     }
 
-    /**
-     * Gives the Y coordinate.
-     * @return Y coordinate of the point
-     */
-    public final Scalar ycoor() {
-        return this.coords()[1];
+    @Override
+    public Vect start() {
+        return new Minus(this.frst, this.org);
     }
 
-    /**
-     * Modifies X coordinate of the vector.
-     * @param xcor New X coordinate
-     */
-    public final void setX(final Scalar xcor) {
-        this.setCoor(0, xcor);
+    @Override
+    public Vect end() {
+        return new Minus(this.scnd, this.org);
     }
-
-    /**
-     * Modifies Y Coordinate of the vector.
-     * @param ycor New Y coordinate
-     */
-    public final void setY(final Scalar ycor) {
-        this.setCoor(1, ycor);
-    }
-
 }

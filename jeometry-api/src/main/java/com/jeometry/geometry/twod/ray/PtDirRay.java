@@ -50,7 +50,7 @@ public final class PtDirRay implements Ray {
      * @param direction Ray direction
      * @param point Ray origin
      */
-    public PtDirRay(final Vect direction, final Vect point) {
+    public PtDirRay(final Vect point, final Vect direction) {
         super();
         this.dir = direction;
         this.org = point;

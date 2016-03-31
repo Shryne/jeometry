@@ -23,23 +23,14 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.jeometry.model.algebra.field.Field;
-import lombok.ToString;
+import com.jeometry.geometry.twod.point.RandomPoint;
 
 /**
- * Represents a random vector or a point.
+ * Tests for {@link RandomPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(callSuper = true)
-public class RandomVector extends XyVector {
-    /**
-     * Constructor.
-     * @param field Field for scalar randomization
-     */
-    public RandomVector(final Field<?> field) {
-        super(field.random(), field.random());
-    }
+public final class RandomPointTest {
 
 }

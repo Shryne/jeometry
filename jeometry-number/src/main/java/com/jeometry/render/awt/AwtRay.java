@@ -26,7 +26,7 @@ package com.jeometry.render.awt;
 import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.line.LineAnalytics;
 import com.jeometry.geometry.twod.line.RayLine;
-import com.jeometry.geometry.twod.point.XyVector;
+import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.geometry.twod.ray.Ray;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.decimal.Decimal;
@@ -81,7 +81,7 @@ public final class AwtRay extends AbstractAwtPaint {
         final int height = context.height();
         final int scale = context.scale();
         final Field<Double> field = this.field();
-        final XyVector origin = (XyVector) ray.origin();
+        final XyPoint origin = (XyPoint) ray.origin();
         final Double xcenter = context.center().dblx();
         final Double ycenter = context.center().dbly();
         final Double xdir = field.actual(ray.direction().coords()[0]);
@@ -124,7 +124,7 @@ public final class AwtRay extends AbstractAwtPaint {
         final Field<Double> field = this.field();
         final Double xcenter = context.center().dblx();
         final Double ycenter = context.center().dbly();
-        final XyVector origin = (XyVector) ray.origin();
+        final XyPoint origin = (XyPoint) ray.origin();
         final int xorigin = (int) (width / 2d + scale * (field.actual(origin.xcoor()) - xcenter));
         final int yorigin = (int) (height / 2d - scale * (field.actual(origin.ycoor()) - ycenter));
         if (field.actual(ray.direction().coords()[1]) > 0) {

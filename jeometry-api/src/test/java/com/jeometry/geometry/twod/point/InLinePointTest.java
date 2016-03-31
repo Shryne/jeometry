@@ -21,64 +21,16 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.line;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.model.algebra.vector.Vect;
-import lombok.ToString;
+import com.jeometry.geometry.twod.point.InLinePoint;
 
 /**
- * A line defined by a point to pass by and a direction.
+ * Tests for {@link InLinePoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString
-public final class PointDirectionLine implements Line {
+public final class InLinePointTest {
 
-    /**
-     * Direction.
-     */
-    private Vect dir;
-
-    /**
-     * Point belonging to the line.
-     */
-    private Vect pnt;
-
-    /**
-     * Constructor.
-     * @param direction Direction of the line
-     * @param point Point belonging to the line
-     */
-    public PointDirectionLine(final Vect direction, final Vect point) {
-        super();
-        this.dir = direction;
-        this.pnt = point;
-    }
-
-    @Override
-    public Vect direction() {
-        return this.dir;
-    }
-
-    /**
-     * Modifies the direction of the line.
-     * @param direction New direction of the line
-     */
-    public void setDirection(final Vect direction) {
-        this.dir = direction;
-    }
-
-    @Override
-    public Vect point() {
-        return this.pnt;
-    }
-
-    /**
-     * Modifies the point that should belong to the line.
-     * @param point New point to pass by.
-     */
-    public void setPoint(final Vect point) {
-        this.pnt = point;
-    }
 }

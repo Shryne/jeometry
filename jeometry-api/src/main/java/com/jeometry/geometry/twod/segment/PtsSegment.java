@@ -21,16 +21,49 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.segment;
 
-import com.jeometry.geometry.twod.point.PointInLine;
+import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
- * Tests for {@link PointInLine}.
+ * A ray defined by its origin and its direction.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class PointInLineTest {
+@ToString(includeFieldNames = false)
+public final class PtsSegment implements Segment {
 
+    /**
+     * Direction.
+     */
+    private Vect first;
+
+    /**
+     * Point belonging to the line.
+     */
+    private Vect second;
+
+    /**
+     * Constructor.
+     * @param direction Ray direction
+     * @param point Ray origin
+     */
+    public PtsSegment(final Vect first, final Vect second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    @Override
+    public Vect start() {
+        return this.first;
+    }
+
+    @Override
+    public Vect end() {
+        return this.second;
+    }
+    
+    
 }

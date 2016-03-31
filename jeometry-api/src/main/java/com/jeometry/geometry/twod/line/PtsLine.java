@@ -21,28 +21,48 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.geometry.twod.line;
 
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
+import com.jeometry.model.algebra.vector.Minus;
+import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * Represents a 2D vector defined by its X coordinate, and a random Y
- * coordinate.
+ * A line passing by two points (vectors).
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(callSuper = true)
-public class XVector extends XyVector {
+@ToString(includeFieldNames = false)
+public final class PtsLine implements Line {
+    /**
+     * First point by which this line passes.
+     */
+    private final Vect pnta;
+
+    /**
+     * Second point by which this line passes.
+     */
+    private final Vect pntb;
+
     /**
      * Constructor.
-     * @param field Field for scalar randomization
-     * @param xcoor X coordinate
+     * @param pnta First point by which this line passes
+     * @param pntb Second point by which this line passes
      */
-    public XVector(final Scalar xcoor, final Field<?> field) {
-        super(xcoor, field.random());
+    public PtsLine(final Vect pnta, final Vect pntb) {
+        this.pnta = pnta;
+        this.pntb = pntb;
+    }
+
+    @Override
+    public Vect direction() {
+        return new Minus(this.pnta, this.pntb);
+    }
+
+    @Override
+    public Vect point() {
+        return this.pnta;
     }
 
 }

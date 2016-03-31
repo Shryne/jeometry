@@ -21,33 +21,44 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.line;
 
-import com.jeometry.geometry.twod.point.XyVector;
-import com.jeometry.model.algebra.scalar.Scalar;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import com.jeometry.geometry.twod.segment.Segment;
+import com.jeometry.model.algebra.vector.Minus;
+import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
- * Tests for {@link XyVector}.
+ * A line defined by "porting" a segment. The line holds all the segment points.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class XyVectorTest {
+@ToString(includeFieldNames = false)
+public final class SgtLine implements Line {
+
     /**
-     * {@link XyVector} returns true coordinates.
+     * Ported segment.
      */
-    @Test
-    public void buildsAVector() {
-        final Scalar.Default<Double> xcoor = new Scalar.Default<>(2.);
-        final Scalar.Default<Double> ycoor = new Scalar.Default<>(1.);
-        final XyVector vector = new XyVector(xcoor, ycoor);
-        final Scalar[] coords = vector.coords();
-        MatcherAssert.assertThat(coords[0], Matchers.equalTo(xcoor));
-        MatcherAssert.assertThat(coords[1], Matchers.equalTo(ycoor));
-        MatcherAssert.assertThat(vector.xcoor(), Matchers.equalTo(xcoor));
-        MatcherAssert.assertThat(vector.ycoor(), Matchers.equalTo(ycoor));
+    private Segment segment;
+
+    /**
+     * Constructor.
+     * @param ray Ported ray
+     */
+    public SgtLine(final Segment segment) {
+        super();
+        this.segment = segment;
     }
+
+    @Override
+    public Vect direction() {
+        return new Minus(this.segment.start(), this.segment.end());
+    }
+
+    @Override
+    public Vect point() {
+        return this.segment.start();
+    }
+
 }

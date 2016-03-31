@@ -21,16 +21,28 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.geometry.twod.point.DynPointInLine;
+import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.algebra.scalar.Scalar;
+import lombok.ToString;
 
 /**
- * Tests for {@link DynPointInLine}.
+ * Represents a 2D vector defined by its X coordinate, and a random Y
+ * coordinate.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DynPointInLineTest {
+@ToString(callSuper = true)
+public class XPoint extends XyPoint {
+    /**
+     * Constructor.
+     * @param field Field for scalar randomization
+     * @param xcoor X coordinate
+     */
+    public XPoint(final Scalar xcoor, final Field<?> field) {
+        super(xcoor, field.random());
+    }
 
 }

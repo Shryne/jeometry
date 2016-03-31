@@ -23,7 +23,7 @@
  */
 package com.jeometry.model.decimal;
 
-import com.jeometry.geometry.twod.circle.PointRadiusCircle;
+import com.jeometry.geometry.twod.circle.PtRadCircle;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Vect;
 
@@ -33,7 +33,7 @@ import com.jeometry.model.algebra.vector.Vect;
  * @version $Id$
  * @since 0.1
  */
-public class DblCircle extends PointRadiusCircle {
+public class DblCircle extends PtRadCircle {
 
     /**
      * Constructor.
@@ -41,7 +41,7 @@ public class DblCircle extends PointRadiusCircle {
      * @param center Circle center
      */
     public DblCircle(final Double radius, final Vect center) {
-        super(new Scalar.Default<>(radius), center);
+        super(center, new Scalar.Default<>(radius));
     }
 
 }

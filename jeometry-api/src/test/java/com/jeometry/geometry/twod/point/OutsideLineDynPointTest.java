@@ -21,44 +21,14 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.line;
-
-import com.jeometry.geometry.twod.segment.Segment;
-import com.jeometry.model.algebra.vector.Minus;
-import com.jeometry.model.algebra.vector.Vect;
-import lombok.ToString;
+package com.jeometry.geometry.twod.point;
 
 /**
- * A line defined by "porting" a segment. The line holds all the segment points.
+ * Tests for {@link OutsideLineDynPointTest}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-public final class SegmentLine implements Line {
-
-    /**
-     * Ported segment.
-     */
-    private Segment segment;
-
-    /**
-     * Constructor.
-     * @param ray Ported ray
-     */
-    public SegmentLine(final Segment segment) {
-        super();
-        this.segment = segment;
-    }
-
-    @Override
-    public Vect direction() {
-        return new Minus(this.segment.start(), this.segment.end());
-    }
-
-    @Override
-    public Vect point() {
-        return this.segment.start();
-    }
+public final class OutsideLineDynPointTest {
 
 }

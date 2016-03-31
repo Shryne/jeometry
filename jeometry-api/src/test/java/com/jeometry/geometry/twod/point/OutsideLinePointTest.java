@@ -23,26 +23,14 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
-import lombok.ToString;
+import com.jeometry.geometry.twod.point.OutsideLinePoint;
 
 /**
- * Represents a 2D vector defined by its Y coordinate, and a random X
- * coordinate.
+ * Tests for {@link OutsideLinePoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(callSuper = true)
-public class YVector extends XyVector {
-    /**
-     * Constructor.
-     * @param field Field for scalar randomization
-     * @param ycoor Y coordinate
-     */
-    public YVector(final Field<?> field, final Scalar ycoor) {
-        super(field.random(), ycoor);
-    }
+public final class OutsideLinePointTest {
 
 }

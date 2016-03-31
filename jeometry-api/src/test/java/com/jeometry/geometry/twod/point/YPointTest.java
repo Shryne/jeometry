@@ -21,53 +21,35 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.geometry.twod.line.LineAnalytics;
-import com.jeometry.geometry.twod.line.PointDirectionLine;
-import com.jeometry.geometry.twod.point.XyVector;
+import com.jeometry.geometry.twod.point.YPoint;
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Diff;
-import com.jeometry.model.algebra.scalar.Division;
-import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link LineAnalytics}.
+ * Tests for {@link YPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class LineAnalyticsTest {
-
+public final class YPointTest {
     /**
-     * {@link LineAnalytics}can calculate simple analytics.
+     * {@link YPoint} returns true coordinates.
      */
     @Test
-    public void calculateSimpleSlope() {
-        final Scalar one = Mockito.mock(Scalar.class);
-        final Scalar two = Mockito.mock(Scalar.class);
-        final Scalar three = Mockito.mock(Scalar.class);
-        final Scalar four = Mockito.mock(Scalar.class);
-        final Vect dir = new XyVector(one, two);
-        final Vect point = new XyVector(three, four);
-        final PointDirectionLine line = new PointDirectionLine(dir, point);
+    public void buildsAVector() {
         final Field<?> field = Mockito.mock(Field.class);
-        final LineAnalytics analytics = new LineAnalytics(line, field);
-        final Scalar slope = analytics.slope();
-        final Scalar intercept = analytics.intercept();
+        final Scalar ycoor = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            slope, Matchers.equalTo(new Division(two, one))
+            new YPoint(field, ycoor).ycoor(), Matchers.equalTo(ycoor)
         );
         MatcherAssert.assertThat(
-            intercept, Matchers.equalTo(
-                new Diff(four, new Multiplication(slope, three))
-            )
+            new YPoint(field, ycoor).coords()[1], Matchers.equalTo(ycoor)
         );
     }
 }

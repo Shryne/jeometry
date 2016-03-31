@@ -24,7 +24,7 @@
 package com.jeometry.render.awt;
 
 import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.point.XyVector;
+import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
@@ -42,7 +42,7 @@ public final class AwtPoint extends AbstractAwtPaint {
      * @param field Field for scalar operations
      */
     public AwtPoint(final Field<Double> field) {
-        super(field, XyVector.class);
+        super(field, XyPoint.class);
     }
 
     /**
@@ -56,7 +56,7 @@ public final class AwtPoint extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final int size = 4;
-        final XyVector point = (XyVector) renderable.renderable();
+        final XyPoint point = (XyPoint) renderable.renderable();
         final int scale = context.scale();
         final int width = context.width();
         final int height = context.height();

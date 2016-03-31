@@ -24,13 +24,13 @@
 package com.jeometry.main;
 
 import com.jeometry.geometry.twod.Figure;
-import com.jeometry.geometry.twod.angle.ThreePtsAngle;
+import com.jeometry.geometry.twod.angle.PtsAngle;
 import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.ParallelPassingByLine;
-import com.jeometry.geometry.twod.line.TwoPointsLine;
-import com.jeometry.geometry.twod.point.PointInLine;
+import com.jeometry.geometry.twod.line.PtsLine;
+import com.jeometry.geometry.twod.point.InLinePoint;
 import com.jeometry.geometry.twod.ray.PtDirRay;
-import com.jeometry.geometry.twod.segment.TwoPtsSeg;
+import com.jeometry.geometry.twod.segment.PtsSegment;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
@@ -61,18 +61,18 @@ public final class Main {
         final DblPoint pointe = new DblPoint(-4d, 2d);
         final DblPoint pointk = new DblPoint(5d, 0d);
         final DblPoint origin = new DblPoint(0d, 0d);
-        final TwoPointsLine hor = new TwoPointsLine(pointk, origin);
-        final PointInLine pointb = new PointInLine(hor, new Decimal());
-        final Line abline = new TwoPointsLine(pointa, pointb);
-        final Line apline = new TwoPointsLine(pointa, pointp);
+        final PtsLine hor = new PtsLine(pointk, origin);
+        final InLinePoint pointb = new InLinePoint(hor, new Decimal());
+        final Line abline = new PtsLine(pointa, pointb);
+        final Line apline = new PtsLine(pointa, pointp);
         final Line lineb = new ParallelPassingByLine(pointa, hor);
         final Figure figure = new Figure()
             .add(hor).add(abline).add(lineb).add(pointb).add(pointa).add(apline)
-            .add(origin).add(new PtDirRay(pointa, new DblPoint(3.0, 3.0)))
+            .add(origin).add(new PtDirRay(new DblPoint(3.0, 3.0), pointa))
             .add(new PtDirRay(new DblPoint(0., 3.0), new DblPoint(-1.0, -10.0)))
             .add(new PtDirRay(new DblPoint(0., -3.0), new DblPoint(3.0, -2.0)))
-        .add(new ThreePtsAngle(pointc, pointd, pointe))
-        .add(new TwoPtsSeg(origin, pointb)).add(new TwoPtsSeg(pointk, pointe));
+        .add(new PtsAngle(pointc, pointd, pointe))
+        .add(new PtsSegment(origin, pointb)).add(new PtsSegment(pointk, pointe));
         final Awt awt = new Awt().withSize(50, 50);
         awt.render(figure);
         awt.setVisible(true);

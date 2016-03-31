@@ -23,7 +23,7 @@
  */
 package com.jeometry.geometry.twod.line;
 
-import com.jeometry.geometry.twod.point.PointOutsideLine;
+import com.jeometry.geometry.twod.point.OutsideLinePoint;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
@@ -54,7 +54,7 @@ public final class ParallelLine implements Line {
     public ParallelLine(final Line parallel, final Field<?> field) {
         super();
         this.parallel = parallel;
-        this.pnt = new PointOutsideLine(this.parallel, field);
+        this.pnt = new OutsideLinePoint(this.parallel, field);
     }
 
     @Override

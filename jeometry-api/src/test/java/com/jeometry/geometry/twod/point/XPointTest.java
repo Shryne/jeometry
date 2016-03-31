@@ -21,9 +21,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.geometry.twod.point.YVector;
+import com.jeometry.geometry.twod.point.XPoint;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
@@ -32,24 +32,24 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link YVector}.
+ * Tests for {@link XPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class YVectorTest {
+public final class XPointTest {
     /**
-     * {@link YVector} returns true coordinates.
+     * {@link XPoint} returns true coordinates.
      */
     @Test
     public void buildsAVector() {
         final Field<?> field = Mockito.mock(Field.class);
-        final Scalar ycoor = Mockito.mock(Scalar.class);
+        final Scalar xcoor = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new YVector(field, ycoor).ycoor(), Matchers.equalTo(ycoor)
+            new XPoint(xcoor, field).xcoor(), Matchers.equalTo(xcoor)
         );
         MatcherAssert.assertThat(
-            new YVector(field, ycoor).coords()[1], Matchers.equalTo(ycoor)
+            new XPoint(xcoor, field).coords()[0], Matchers.equalTo(xcoor)
         );
     }
 }

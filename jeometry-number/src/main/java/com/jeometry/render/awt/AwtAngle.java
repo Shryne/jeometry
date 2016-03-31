@@ -59,11 +59,11 @@ public final class AwtAngle extends AbstractAwtPaint {
         final Angle angle = (Angle) renderable.renderable();
         AwtRay drawer = new AwtRay(this.field());
         drawer.draw(
-            new Shape(new PtDirRay(angle.start(), angle.origin())),
+            new Shape(new PtDirRay(angle.origin(), angle.start())),
             graphics, context
         );
         drawer.draw(
-            new Shape(new PtDirRay(angle.end(), angle.origin())),
+            new Shape(new PtDirRay(angle.origin(), angle.end())),
             graphics, context
         );
     }

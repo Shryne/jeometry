@@ -23,7 +23,7 @@
  */
 package com.jeometry.model.decimal;
 
-import com.jeometry.geometry.twod.point.XyVector;
+import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
@@ -32,7 +32,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public final class DblPoint extends XyVector {
+public final class DblPoint extends XyPoint {
 
     /**
      * Constructor.

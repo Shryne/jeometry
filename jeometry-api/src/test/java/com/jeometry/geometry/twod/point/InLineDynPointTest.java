@@ -21,16 +21,16 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.geometry.twod.point.PointOutsideLine;
+import com.jeometry.geometry.twod.point.InLineDynPoint;
 
 /**
- * Tests for {@link PointOutsideLine}.
+ * Tests for {@link InLineDynPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class PointOutsideLineTest {
+public final class InLineDynPointTest {
 
 }

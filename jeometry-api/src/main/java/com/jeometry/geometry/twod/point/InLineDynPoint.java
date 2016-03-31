@@ -21,35 +21,58 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.geometry.twod.point.XVector;
+import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Scalar;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.mockito.Mockito;
+import com.jeometry.model.algebra.vector.Sum;
+import com.jeometry.model.algebra.vector.Times;
+import com.jeometry.model.algebra.vector.Vect;
+import lombok.ToString;
 
 /**
- * Tests for {@link XVector}.
+ * A point defined by belonging to a line. The point is dynamic regarding
+ * to the passed line, which means that it is ensured that this point remains
+ * belonging to the line even if modifications occur on the line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class XVectorTest {
+@ToString(includeFieldNames = false)
+public final class InLineDynPoint implements Vect {
+
     /**
-     * {@link XVector} returns true coordinates.
+     * The line to belong to.
      */
-    @Test
-    public void buildsAVector() {
-        final Field<?> field = Mockito.mock(Field.class);
-        final Scalar xcoor = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new XVector(xcoor, field).xcoor(), Matchers.equalTo(xcoor)
-        );
-        MatcherAssert.assertThat(
-            new XVector(xcoor, field).coords()[0], Matchers.equalTo(xcoor)
-        );
+    private final Line line;
+
+    /**
+     * A random scalar.
+     */
+    private final Scalar factor;
+
+    /**
+     * Constructor.
+     * @param line The line to belong to
+     * @param field Field for scalar randomization
+     */
+    public InLineDynPoint(final Line line, final Field<?> field) {
+        super();
+        this.line = line;
+        this.factor = field.random();
     }
+
+    @Override
+    public Scalar[] coords() {
+        return new Scalar[] {
+            new Sum(
+                new Times(this.line.direction(), this.factor), this.line.point()
+            ).coords()[0],
+            new Sum(
+                new Times(this.line.direction(), this.factor), this.line.point()
+            ).coords()[1],
+        };
+    }
+
 }

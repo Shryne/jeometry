@@ -21,49 +21,33 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.segment;
+package com.jeometry.geometry.twod.point;
 
-import com.jeometry.model.algebra.vector.Vect;
-import lombok.ToString;
+import com.jeometry.geometry.twod.point.XyPoint;
+import com.jeometry.model.algebra.scalar.Scalar;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A ray defined by its origin and its direction.
+ * Tests for {@link XyPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-public final class TwoPtsSeg implements Segment {
-
+public final class XyPointTest {
     /**
-     * Direction.
+     * {@link XyPoint} returns true coordinates.
      */
-    private Vect first;
-
-    /**
-     * Point belonging to the line.
-     */
-    private Vect second;
-
-    /**
-     * Constructor.
-     * @param direction Ray direction
-     * @param point Ray origin
-     */
-    public TwoPtsSeg(final Vect first, final Vect second) {
-        this.first = first;
-        this.second = second;
+    @Test
+    public void buildsAVector() {
+        final Scalar.Default<Double> xcoor = new Scalar.Default<>(2.);
+        final Scalar.Default<Double> ycoor = new Scalar.Default<>(1.);
+        final XyPoint vector = new XyPoint(xcoor, ycoor);
+        final Scalar[] coords = vector.coords();
+        MatcherAssert.assertThat(coords[0], Matchers.equalTo(xcoor));
+        MatcherAssert.assertThat(coords[1], Matchers.equalTo(ycoor));
+        MatcherAssert.assertThat(vector.xcoor(), Matchers.equalTo(xcoor));
+        MatcherAssert.assertThat(vector.ycoor(), Matchers.equalTo(ycoor));
     }
-
-    @Override
-    public Vect start() {
-        return this.first;
-    }
-
-    @Override
-    public Vect end() {
-        return this.second;
-    }
-    
-    
 }

@@ -21,48 +21,49 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.line;
+package com.jeometry.geometry.twod.circle;
 
-import com.jeometry.model.algebra.vector.Minus;
+import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * A line passing by two points (vectors).
+ * Circle implementation class describing a circle by a center and a radius.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-public final class TwoPointsLine implements Line {
-    /**
-     * First point by which this line passes.
-     */
-    private final Vect pnta;
+@ToString
+public class PtRadCircle implements Circle {
 
     /**
-     * Second point by which this line passes.
+     * Circle radius.
      */
-    private final Vect pntb;
+    private final Scalar rdx;
 
     /**
-     * Constructor.
-     * @param pnta First point by which this line passes
-     * @param pntb Second point by which this line passes
+     * Circle center.
      */
-    public TwoPointsLine(final Vect pnta, final Vect pntb) {
-        this.pnta = pnta;
-        this.pntb = pntb;
+    private final Vect cntr;
+
+    /**
+     * Ctor.
+     * @param radius Circle radius
+     * @param center Circle center
+     */
+    public PtRadCircle(final Vect center, final Scalar radius) {
+        this.rdx = radius;
+        this.cntr = center;
     }
 
     @Override
-    public Vect direction() {
-        return new Minus(this.pnta, this.pntb);
+    public final Vect center() {
+        return this.cntr;
     }
 
     @Override
-    public Vect point() {
-        return this.pnta;
+    public final Scalar radius() {
+        return this.rdx;
     }
 
 }

@@ -42,15 +42,15 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class PointOutsideLine extends XyVector {
+public final class OutsideLinePoint extends XyPoint {
 
     /**
      * Constructor.
      * @param line The line to avoid belonging to
      * @param field Field for scalar operations
      */
-    public PointOutsideLine(final Line line, final Field<?> field) {
-        this(PointOutsideLine.getXOutsideLine(line, field), line, field);
+    public OutsideLinePoint(final Line line, final Field<?> field) {
+        this(OutsideLinePoint.getXOutsideLine(line, field), line, field);
     }
 
     /**
@@ -59,9 +59,9 @@ public final class PointOutsideLine extends XyVector {
      * @param line The line to avoid belonging to
      * @param field Field for scalar operations
      */
-    private PointOutsideLine(final Scalar xcoor, final Line line,
+    private OutsideLinePoint(final Scalar xcoor, final Line line,
         final Field<?> field) {
-        super(xcoor, PointOutsideLine.getYOutsideLine(line, xcoor, field));
+        super(xcoor, OutsideLinePoint.getYOutsideLine(line, xcoor, field));
     }
 
     /**
