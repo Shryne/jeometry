@@ -39,27 +39,27 @@ public final class PtsAngle implements Angle {
     /**
      * Angle origin.
      */
-    private Vect org;
+    private final Vect org;
 
     /**
      * Point belonging to the starting ray. The starting ray is defined by
      * the angle origin as its origin and this point as a point in the ray.
      */
-    private Vect frst;
+    private final Vect frst;
 
     /**
      * Point belonging to the ending ray. The ending ray is defined by
      * the angle origin as its origin and this point as a point in the ray.
      */
-    private Vect scnd;
+    private final Vect scnd;
 
     /**
      * Constructor.
-     * @param direction Ray direction
-     * @param point Ray origin
+     * @param origin Angle summit (vertex)
+     * @param first A point belonging to the start angle side
+     * @param second A point belonging to the end angle side
      */
-    public PtsAngle(final Vect origin, final Vect first,
-        final Vect second) {
+    public PtsAngle(final Vect origin, final Vect first, final Vect second) {
         this.org = origin;
         this.frst = first;
         this.scnd = second;
@@ -68,14 +68,6 @@ public final class PtsAngle implements Angle {
     @Override
     public Vect origin() {
         return this.org;
-    }
-
-    /**
-     * Modifies the point that should belong to the line.
-     * @param point New point to pass by.
-     */
-    public void setOrigin(final Vect point) {
-        this.org = point;
     }
 
     @Override

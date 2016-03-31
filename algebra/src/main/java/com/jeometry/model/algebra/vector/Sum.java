@@ -59,14 +59,23 @@ public final class Sum implements Vect {
         final int dim = this.operands.iterator().next().coords().length;
         final Scalar[] result = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {
-            final Scalar[] coor = new Scalar[this.operands.size()];
-            int idx = 0;
-            for (Vect oper : this.operands) {
-                coor[idx] = oper.coords()[axis];
-                ++idx;
-            }
-            result[axis] = new Add(coor);
+            result[axis] = this.dimension(axis);
         }
         return result;
+    }
+
+    /**
+     * Calculates the sum of the operands coordinates over a dimension.
+     * @param dim Given dimension
+     * @return An {@link Add} object representing the sum
+     */
+    private Add dimension(final int dim) {
+        final Scalar[] coor = new Scalar[this.operands.size()];
+        int idx = 0;
+        for (final Vect oper : this.operands) {
+            coor[idx] = oper.coords()[dim];
+            ++idx;
+        }
+        return new Add(coor);
     }
 }

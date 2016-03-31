@@ -42,7 +42,7 @@ public interface Scalar {
      * @since 0.1
      */
     @EqualsAndHashCode
-    @ToString(includeFieldNames=false)
+    @ToString(includeFieldNames = false)
     class Default<T> implements Scalar {
         /**
          * Wrapped object.

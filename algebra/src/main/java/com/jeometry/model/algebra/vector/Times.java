@@ -64,8 +64,18 @@ public final class Times implements Vect {
         final Scalar[] coors = this.vector.coords();
         final Scalar[] result = new Scalar[coors.length];
         for (int idx = 0; idx < coors.length; ++idx) {
-            result[idx] = new Multiplication(coors[idx], this.scalar);
+            result[idx] = this.mult(coors[idx]);
         }
         return result;
+    }
+
+    /**
+     * Returns a multiplication of the given scalar by this {@link Times}
+     * instance scalar.
+     * @param scl Scalar
+     * @return Multiplication
+     */
+    private Multiplication mult(final Scalar scl) {
+        return new Multiplication(scl, this.scalar);
     }
 }

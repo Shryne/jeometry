@@ -57,12 +57,21 @@ public final class DotTest {
         Mockito.when(vecta.coords()).thenReturn(coords);
         final Scalar[] multis = new Scalar[coords.length];
         for (int idx = 0; idx < coords.length; ++idx) {
-            multis[idx] = new Multiplication(coords[idx], coords[idx]);
+            multis[idx] = DotTest.square(coords[idx]);
         }
         MatcherAssert.assertThat(
             new Dot(vecta, vectb).value(),
             Matchers.equalTo(new Add(multis))
         );
+    }
+
+    /**
+     * Gives the square of a scalar.
+     * @param oper The scalar to square
+     * @return A {@link Multiplication} object representing the square
+     */
+    private static Multiplication square(final Scalar oper) {
+        return new Multiplication(oper, oper);
     }
 
     /**

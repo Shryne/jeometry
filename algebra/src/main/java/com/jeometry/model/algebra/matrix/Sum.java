@@ -59,40 +59,40 @@ public final class Sum implements Matrix {
     public Scalar[] coords() {
         final Vect[] results = new Vect[this.operands.size()];
         int idx = 0;
-        for (Matrix oper : this.operands) {
-            results[idx] = new FixedVector(oper.coords());
+        for (final Matrix oper : this.operands) {
+            results[idx] = Sum.vector(oper.coords());
             ++idx;
         }
         return new com.jeometry.model.algebra.vector.Sum(results).coords();
     }
 
     @Override
-    public Scalar[] column(int i) {
+    public Scalar[] column(final int index) {
         final Vect[] cols = new Vect[this.operands.size()];
         int idx = 0;
-        for (Matrix oper : this.operands) {
-            cols[idx] = new FixedVector(oper.column(i));
+        for (final Matrix oper : this.operands) {
+            cols[idx] = Sum.vector(oper.column(index));
             ++idx;
         }
         return new com.jeometry.model.algebra.vector.Sum(cols).coords();
     }
 
     @Override
-    public Scalar[] line(int j) {
+    public Scalar[] line(final int index) {
         final Vect[] lines = new Vect[this.operands.size()];
         int idx = 0;
-        for (Matrix oper : this.operands) {
-            lines[idx] = new FixedVector(oper.line(j));
+        for (final Matrix oper : this.operands) {
+            lines[idx] = Sum.vector(oper.line(index));
             ++idx;
         }
         return new com.jeometry.model.algebra.vector.Sum(lines).coords();
     }
 
     @Override
-    public Vect apply(Vect input) {
+    public Vect apply(final Vect input) {
         final Vect[] results = new Vect[this.operands.size()];
         int idx = 0;
-        for (Matrix oper : this.operands) {
+        for (final Matrix oper : this.operands) {
             results[idx] = oper.apply(input);
             ++idx;
         }
@@ -107,5 +107,14 @@ public final class Sum implements Matrix {
     @Override
     public Integer lines() {
         return this.operands.iterator().next().lines();
+    }
+
+    /**
+     * Builds a vector given its coordinates.
+     * @param coords Vector coordinates
+     * @return A {@link FixedVector} instance
+     */
+    private static FixedVector vector(final Scalar... coords) {
+        return new FixedVector(coords);
     }
 }

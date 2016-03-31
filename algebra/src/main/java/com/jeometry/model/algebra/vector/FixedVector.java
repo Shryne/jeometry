@@ -35,7 +35,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @EqualsAndHashCode
-@ToString(includeFieldNames=false)
+@ToString(includeFieldNames = false)
 public class FixedVector implements Vect {
 
     /**

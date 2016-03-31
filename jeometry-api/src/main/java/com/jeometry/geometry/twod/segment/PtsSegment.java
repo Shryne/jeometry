@@ -27,7 +27,7 @@ import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * A ray defined by its origin and its direction.
+ * A segment defined by its extremities.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -36,19 +36,19 @@ import lombok.ToString;
 public final class PtsSegment implements Segment {
 
     /**
-     * Direction.
+     * First segment extremity.
      */
-    private Vect first;
+    private final Vect first;
 
     /**
-     * Point belonging to the line.
+     * Second segment extremity.
      */
-    private Vect second;
+    private final Vect second;
 
     /**
      * Constructor.
-     * @param direction Ray direction
-     * @param point Ray origin
+     * @param first First segment extremity
+     * @param second Second segment extremity
      */
     public PtsSegment(final Vect first, final Vect second) {
         this.first = first;
@@ -64,6 +64,5 @@ public final class PtsSegment implements Segment {
     public Vect end() {
         return this.second;
     }
-    
-    
+
 }

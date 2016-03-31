@@ -23,8 +23,6 @@
  */
 package com.jeometry.geometry.twod.line;
 
-import com.jeometry.geometry.twod.line.LineAnalytics;
-import com.jeometry.geometry.twod.line.PtDirLine;
 import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Diff;
@@ -56,7 +54,7 @@ public final class LineAnalyticsTest {
         final Scalar four = Mockito.mock(Scalar.class);
         final Vect dir = new XyPoint(one, two);
         final Vect point = new XyPoint(three, four);
-        final PtDirLine line = new PtDirLine(dir, point);
+        final PtDirLine line = new PtDirLine(point, dir);
         final Field<?> field = Mockito.mock(Field.class);
         final LineAnalytics analytics = new LineAnalytics(line, field);
         final Scalar slope = analytics.slope();

@@ -98,17 +98,18 @@ public final class DecimalTest {
     public void calculatesOperation() {
         final Scalar first = new Scalar.Default<Double>(1.);
         final Scalar second = new Scalar.Default<Double>(2.);
+        final double result = 4.;
         MatcherAssert.assertThat(
             new Decimal().actual(
                 new Division(
                     new Diff(
-                        new Add(new Multiplication(second, second),first),
+                        new Add(new Multiplication(second, second), first),
                         first
                     ),
                     first
                 )
             ),
-            Matchers.equalTo(4.)
+            Matchers.equalTo(result)
         );
     }
 }

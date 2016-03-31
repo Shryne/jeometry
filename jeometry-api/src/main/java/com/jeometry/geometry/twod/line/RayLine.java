@@ -40,7 +40,7 @@ public final class RayLine implements Line {
     /**
      * Ray.
      */
-    private Ray ray;
+    private final Ray ray;
 
     /**
      * Constructor.

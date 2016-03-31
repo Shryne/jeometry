@@ -59,36 +59,43 @@ public final class AwtRay extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final Ray ray = (Ray) renderable.renderable();
-        final LineAnalytics analytics = new LineAnalytics(new RayLine(ray), this.field());
+        final LineAnalytics analytics = new LineAnalytics(
+            new RayLine(ray), this.field()
+        );
         if (analytics.vertical()) {
             this.vertical(graphics, ray, context);
         } else {
-            this.regular(graphics, analytics, context, ray);
+            this.regular(graphics, context, ray);
         }
-        
     }
 
     /**
      * Draws a regular (non-vertical) ray.
      * @param graphics Awt Graphics to draw upon
-     * @param analytics Analytics of the ray to draw
-     * @param context AwtContext
+     * @param ctxt AwtContext
      * @param ray Ray to draw
      */
-    private void regular(final Graphics2D graphics,
-        final LineAnalytics analytics, final AwtContext context, final Ray ray) {
-        final int width = context.width();
-        final int height = context.height();
-        final int scale = context.scale();
+    private void regular(final Graphics2D graphics, final AwtContext ctxt,
+        final Ray ray) {
+        final LineAnalytics analytics = new LineAnalytics(
+            new RayLine(ray), this.field()
+        );
+        final int width = ctxt.width();
+        final int height = ctxt.height();
+        final int scale = ctxt.scale();
         final Field<Double> field = this.field();
         final XyPoint origin = (XyPoint) ray.origin();
-        final Double xcenter = context.center().dblx();
-        final Double ycenter = context.center().dbly();
+        final Double xcenter = ctxt.center().dblx();
+        final Double ycenter = ctxt.center().dbly();
         final Double xdir = field.actual(ray.direction().coords()[0]);
         final Double slope = field.actual(analytics.slope());
         final Double intercept = field.actual(analytics.intercept());
-        final int xorigin = (int) (width / 2d + scale * (field.actual(origin.xcoor()) - xcenter));
-        final int yorigin = (int) (height / 2d - scale * (field.actual(origin.ycoor()) - ycenter));
+        final int xorigin = (int) (
+            width / 2d + scale * (field.actual(origin.xcoor()) - xcenter)
+        );
+        final int yorigin = (int) (
+            height / 2d - scale * (field.actual(origin.ycoor()) - ycenter)
+        );
         if (xdir > 0) {
             final int ywidth = (int) (
                 height / 2d - (
@@ -98,7 +105,7 @@ public final class AwtRay extends AbstractAwtPaint {
                 )
             );
             graphics.drawLine(xorigin, yorigin, width, ywidth);
-        }else {
+        } else {
             final int yzer = (int) (
                 height / 2d - (
                     (scale * xcenter - width / 2d) * slope
@@ -125,8 +132,12 @@ public final class AwtRay extends AbstractAwtPaint {
         final Double xcenter = context.center().dblx();
         final Double ycenter = context.center().dbly();
         final XyPoint origin = (XyPoint) ray.origin();
-        final int xorigin = (int) (width / 2d + scale * (field.actual(origin.xcoor()) - xcenter));
-        final int yorigin = (int) (height / 2d - scale * (field.actual(origin.ycoor()) - ycenter));
+        final int xorigin = (int) (
+            width / 2d + scale * (field.actual(origin.xcoor()) - xcenter)
+        );
+        final int yorigin = (int) (
+            height / 2d - scale * (field.actual(origin.ycoor()) - ycenter)
+        );
         if (field.actual(ray.direction().coords()[1]) > 0) {
             graphics.drawLine(xorigin, yorigin, xorigin, 0);
         } else {

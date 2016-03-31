@@ -63,14 +63,20 @@ public final class Minus implements Vect {
 
     @Override
     public Scalar[] coords() {
-        final Scalar[] fcoors = this.first.coords();
-        final Scalar[] scoors = this.second.coords();
-        final int dim = fcoors.length;
+        final int dim = this.first.coords().length;
         final Scalar[] result = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {
-            result[axis] = new Diff(fcoors[axis], scoors[axis]);
+            result[axis] = this.dimension(axis);
         }
         return result;
     }
 
+    /**
+     * Calculates the difference of the operands coordinates over a dimension.
+     * @param dim Given dimension
+     * @return A {@link Diff} object representing the difference
+     */
+    private Diff dimension(final int dim) {
+        return new Diff(this.first.coords()[dim], this.second.coords()[dim]);
+    }
 }

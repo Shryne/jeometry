@@ -31,7 +31,7 @@ import lombok.ToString;
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames=false)
+@ToString(includeFieldNames = false)
 public final class Shape {
 
     /**

@@ -39,7 +39,7 @@ public interface Angle extends Renderable {
      * @return Direction.
      */
     Vect start();
-    
+
     /**
      * Gives the ending direction of the Angle.
      * @return Direction.

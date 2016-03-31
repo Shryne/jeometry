@@ -46,12 +46,12 @@ public class FixedMatrix implements Matrix {
      * Coordinates.
      */
     private Scalar[] coors;
-    
+
     /**
      * Source vector space dimension.
      */
     private final int source;
-    
+
     /**
      * Target vector space dimension.
      */
@@ -59,7 +59,9 @@ public class FixedMatrix implements Matrix {
 
     /**
      * Constructor.
-     * @param coor Vector coordinates
+     * @param lines Matrix lines count
+     * @param columns Matrix columns count
+     * @param coor Matrix coordinates
      */
     public FixedMatrix(final int lines, final int columns,
         final Scalar... coor) {
@@ -89,39 +91,37 @@ public class FixedMatrix implements Matrix {
     }
 
     @Override
-    public Scalar[] column(final int i) {
-        final int first = this.index(1, i);
+    public final Scalar[] column(final int index) {
+        final int first = this.index(1, index);
         return Arrays.copyOfRange(this.coors, first, first + this.source);
     }
 
     @Override
-    public Scalar[] line(final int j) {
-        final int first = this.index(j, 1);
+    public final Scalar[] line(final int index) {
+        final int first = this.index(index, 1);
         final Scalar[] result = new Scalar[this.target];
-        for (int i = 0; i < this.target; ++i) {
-            result[i] = this.coors[first + i * this.source];
+        for (int idx = 0; idx < this.target; ++idx) {
+            result[idx] = this.coors[first + idx * this.source];
         }
         return result;
     }
 
     @Override
-    public Vect apply(final Vect input) {
+    public final Vect apply(final Vect input) {
         final Scalar[] result = new Scalar[this.target];
-        for (int i = 0; i < this.target; ++i) {
-            result[i] = new Dot(
-                input, new FixedVector(this.column(i+1))
-            ).value();
+        for (int idx = 0; idx < this.target; ++idx) {
+            result[idx] = this.dot(input, idx + 1).value();
         }
         return new FixedVector(result);
     }
 
     @Override
-    public Integer columns() {
+    public final Integer columns() {
         return this.target;
     }
 
     @Override
-    public Integer lines() {
+    public final Integer lines() {
         return this.source;
     }
 
@@ -131,8 +131,18 @@ public class FixedMatrix implements Matrix {
      * @param col Column index (1-based)
      * @return The single array index
      */
-    private int index(int lin, int col) {
+    private int index(final int lin, final int col) {
         return this.source * (col - 1) + lin - 1;
+    }
+
+    /**
+     * Calculates the dot product of the given scalar by a matrix column.
+     * @param input Given vector
+     * @param idx Matrix column index
+     * @return Dot product
+     */
+    private Dot dot(final Vect input, final int idx) {
+        return new Dot(input, new FixedVector(this.column(idx)));
     }
 
 }

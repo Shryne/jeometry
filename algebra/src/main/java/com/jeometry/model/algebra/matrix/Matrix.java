@@ -46,35 +46,35 @@ public interface Matrix {
 
     /**
      * Access the i-th column of the matrix.
-     * @param i Column index
+     * @param index Column index
      * @return A scalar array representing the i-th column
      */
-    Scalar[] column(final int i);
+    Scalar[] column(final int index);
 
     /**
      * Access the j-th line of the matrix.
-     * @param j Line index
+     * @param index Line index
      * @return A scalar array representing the j-th line
      */
-    Scalar[] line(final int j);
+    Scalar[] line(final int index);
 
     /**
      * Applies the linear transformation represented by this matrix on a vector.
      * @param input Input vector
      * @return Tranformation result
      */
-    Vect apply (final Vect input);
+    Vect apply(final Vect input);
 
     /**
      * Gives the matrix columns number which corresponds
-     * to the target vector space dimension. 
+     * to the target vector space dimension.
      * @return Columns number
      */
     Integer columns();
 
     /**
      * Gives the matrix lines number which corresponds
-     * to the source vector space dimension. 
+     * to the source vector space dimension.
      * @return Lines number
      */
     Integer lines();

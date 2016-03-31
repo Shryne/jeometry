@@ -75,8 +75,8 @@ public final class PtDirRay implements Ray {
     }
 
     /**
-     * Modifies the point that should belong to the line.
-     * @param point New point to pass by.
+     * Modifies the ray origin.
+     * @param point New ray origin
      */
     public void setOrigin(final Vect point) {
         this.org = point;

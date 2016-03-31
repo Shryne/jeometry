@@ -36,7 +36,7 @@ public interface Ray extends Renderable {
 
     /**
      * Gives the direction of the Ray.
-     * @return ray direction
+     * @return Ray direction
      */
     Vect direction();
 

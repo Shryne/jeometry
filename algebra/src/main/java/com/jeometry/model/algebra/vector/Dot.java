@@ -84,14 +84,22 @@ public final class Dot {
      * @return Dot product value.
      */
     public Scalar value() {
-        final Scalar[] fcoors = this.foperand.coords();
-        final Scalar[] scoors = this.soperand.coords();
-        final int dim = fcoors.length;
+        final int dim = this.foperand.coords().length;
         final Scalar[] multis = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {
-            multis[axis] = new Multiplication(fcoors[axis], scoors[axis]);
+            multis[axis] = this.dimension(axis);
         }
         return new Add(multis);
     }
 
+    /**
+     * Calculates the product of the operands coordinates over a dimension.
+     * @param dim Given dimension
+     * @return A {@link Multiplication} object representing the scalar product
+     */
+    private Multiplication dimension(final int dim) {
+        return new Multiplication(
+            this.foperand.coords()[dim], this.soperand.coords()[dim]
+        );
+    }
 }

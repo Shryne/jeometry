@@ -23,10 +23,9 @@
  */
 package com.jeometry.model.algebra.matrix;
 
-import com.jeometry.model.algebra.scalar.Add;
-import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.scalar.Scalar.Default;
+import com.jeometry.model.algebra.vector.Dot;
 import com.jeometry.model.algebra.vector.FixedVector;
 import com.jeometry.model.algebra.vector.Vect;
 import org.hamcrest.Matcher;
@@ -51,21 +50,15 @@ public final class FixedMatrixTest {
         final int lines = 3;
         final int cols = 4;
         final Scalar[] scalars = FixedMatrixTest.scalars(lines * cols);
-        @SuppressWarnings("unchecked")
-        final Matcher<Scalar>[] matchers = new Matcher[scalars.length];
-        for (int idx = 0; idx < scalars.length; ++idx) {
-            matchers[idx] = Matchers.equalTo(scalars[idx]);
-        }
         final FixedMatrix matrix = new FixedMatrix(lines, cols, scalars);
         MatcherAssert.assertThat(
-            matrix.coords(), Matchers.array(matchers)
+            matrix.coords(), FixedMatrixTest.matchers(scalars)
         );
     }
 
     /**
      * {@link FixedMatrix} can return lines and columns.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void returnsLinesAndColumns() {
         final Default<String> scalara = new Scalar.Default<String>("a");
@@ -76,20 +69,16 @@ public final class FixedMatrixTest {
             2, 2, scalara, scalarb, scalarc, scalard
         );
         MatcherAssert.assertThat(
-            matrix.line(1),
-            Matchers.array(Matchers.equalTo(scalara), Matchers.equalTo(scalarc))
+            matrix.line(1), FixedMatrixTest.matchers(scalara, scalarc)
         );
         MatcherAssert.assertThat(
-            matrix.line(2),
-            Matchers.array(Matchers.equalTo(scalarb), Matchers.equalTo(scalard))
+            matrix.line(2), FixedMatrixTest.matchers(scalarb, scalard)
         );
         MatcherAssert.assertThat(
-            matrix.column(1),
-            Matchers.array(Matchers.equalTo(scalara), Matchers.equalTo(scalarb))
+            matrix.column(1), FixedMatrixTest.matchers(scalara, scalarb)
         );
         MatcherAssert.assertThat(
-            matrix.column(2),
-            Matchers.array(Matchers.equalTo(scalarc), Matchers.equalTo(scalard))
+            matrix.column(2), FixedMatrixTest.matchers(scalarc, scalard)
         );
     }
 
@@ -102,22 +91,25 @@ public final class FixedMatrixTest {
         final int cols = 4;
         final Scalar[] scalars = FixedMatrixTest.scalars(lines * cols);
         final FixedMatrix matrix = new FixedMatrix(lines, cols, scalars);
-        @SuppressWarnings("unchecked")
-        final Matcher<Scalar>[] matchers = new Matcher[cols];
+        final Scalar[] expected = new Scalar[cols];
         final Vect input = new FixedVector(FixedMatrixTest.scalars(lines));
         for (int idx = 0; idx < cols; ++idx) {
-            final Scalar[] multis = new Scalar[lines];
-            final Scalar[] column = matrix.column(idx + 1);
-            for (int idl = 0; idl < lines; ++idl) {
-                multis[idl] = new Multiplication(
-                    input.coords()[idl], column[idl]
-                );
-            }
-            matchers[idx] = Matchers.equalTo(new Add(multis));
+            expected[idx] = FixedMatrixTest.dot(input, matrix.column(idx + 1));
         }
         MatcherAssert.assertThat(
-            matrix.apply(input).coords(), Matchers.array(matchers)
+            matrix.apply(input).coords(), FixedMatrixTest.matchers(expected)
         );
+    }
+
+    /**
+     * Gives a scalar representing the dot product value of the given vector
+     * by a coordinate array.
+     * @param input Input vector
+     * @param scalars Scalar array by which to operate the dot product
+     * @return A {@link Scalar}, value of the dot product
+     */
+    private static Scalar dot(final Vect input, final Scalar... scalars) {
+        return new Dot(input, new FixedVector(scalars)).value();
     }
 
     /**
@@ -131,5 +123,19 @@ public final class FixedMatrixTest {
             result[idx] = Mockito.mock(Scalar.class);
         }
         return result;
+    }
+
+    /**
+     * Build an equality matcher for elements of a scalar array.
+     * @param scalars Scalar array
+     * @return A hamcrest equality matcher
+     */
+    @SuppressWarnings("unchecked")
+    private static Matcher<Scalar[]> matchers(final Scalar... scalars) {
+        final Matcher<Scalar>[] matchers = new Matcher[scalars.length];
+        for (int idx = 0; idx < scalars.length; ++idx) {
+            matchers[idx] = Matchers.equalTo(scalars[idx]);
+        }
+        return Matchers.array(matchers);
     }
 }

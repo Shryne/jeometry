@@ -67,16 +67,16 @@ public final class Times implements Matrix {
     }
 
     @Override
-    public Scalar[] column(final int i) {
+    public Scalar[] column(final int index) {
         return new com.jeometry.model.algebra.vector.Times(
-            new FixedVector(this.matrix.column(i)), this.scalar
+            new FixedVector(this.matrix.column(index)), this.scalar
         ).coords();
     }
 
     @Override
-    public Scalar[] line(final int j) {
+    public Scalar[] line(final int index) {
         return new com.jeometry.model.algebra.vector.Times(
-            new FixedVector(this.matrix.line(j)), this.scalar
+            new FixedVector(this.matrix.line(index)), this.scalar
         ).coords();
     }
 

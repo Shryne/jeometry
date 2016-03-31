@@ -24,48 +24,55 @@
 package com.jeometry.render.awt;
 
 import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.angle.Angle;
-import com.jeometry.geometry.twod.ray.PtDirRay;
+import com.jeometry.geometry.twod.point.XyPoint;
+import com.jeometry.geometry.twod.segment.Segment;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 
 /**
- * Awt Angle painter that draws an angle on an AWT graphics.
+ * Awt Segment painter that draws a segment on an AWT graphics.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class AwtAngle extends AbstractAwtPaint {
+public final class AwtSegment extends AbstractAwtPaint {
 
     /**
      * Ctor.
      * @param field Field for scalar operations
      */
-    public AwtAngle(final Field<Double> field) {
-        super(field, Angle.class);
+    public AwtSegment(final Field<Double> field) {
+        super(field, Segment.class);
     }
 
     /**
      * Ctor.
      */
-    public AwtAngle() {
+    public AwtSegment() {
         this(new Decimal());
     }
 
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
-        final Angle angle = (Angle) renderable.renderable();
-        AwtRay drawer = new AwtRay(this.field());
-        drawer.draw(
-            new Shape(new PtDirRay(angle.origin(), angle.start())),
-            graphics, context
-        );
-        drawer.draw(
-            new Shape(new PtDirRay(angle.origin(), angle.end())),
-            graphics, context
-        );
+        final Segment seg = (Segment) renderable.renderable();
+        final int width = context.width();
+        final int height = context.height();
+        final int scale = context.scale();
+        final XyPoint start = (XyPoint) seg.start();
+        final XyPoint end = (XyPoint) seg.end();
+        final Double xcoor = context.center().dblx();
+        final Double ycoor = context.center().dbly();
+        final Double dblxstart = this.field().actual(start.xcoor());
+        final Double dblystart = this.field().actual(start.ycoor());
+        final Double dblxend = this.field().actual(end.xcoor());
+        final Double dblyend = this.field().actual(end.ycoor());
+        final int xstart = (int) (width / 2d + scale * (dblxstart - xcoor));
+        final int ystart = (int) (height / 2d - scale * (dblystart - ycoor));
+        final int xend = (int) (width / 2d + scale * (dblxend - xcoor));
+        final int yend = (int) (height / 2d - scale * (dblyend - ycoor));
+        graphics.drawLine(xstart, ystart, xend, yend);
     }
 
 }

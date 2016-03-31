@@ -63,7 +63,6 @@ public final class AwtLine extends AbstractAwtPaint {
         } else {
             this.regular(graphics, analytics, context);
         }
-        
     }
 
     /**
@@ -110,9 +109,9 @@ public final class AwtLine extends AbstractAwtPaint {
         final int height = context.height();
         final int scale = context.scale();
         final Double xcenter = context.center().dblx();
-        final int xline = (int)(
+        final int xline = (int) (
             width / 2d
-            + scale * (this.field().actual(line.point().coords()[0])-xcenter)
+            + scale * (this.field().actual(line.point().coords()[0]) - xcenter)
         );
         graphics.drawLine(xline, 0, xline, height);
     }

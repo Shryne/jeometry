@@ -40,11 +40,11 @@ public final class SgtLine implements Line {
     /**
      * Ported segment.
      */
-    private Segment segment;
+    private final Segment segment;
 
     /**
      * Constructor.
-     * @param ray Ported ray
+     * @param segment Ported segment
      */
     public SgtLine(final Segment segment) {
         super();
