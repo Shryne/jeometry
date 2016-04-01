@@ -32,9 +32,10 @@
     <description>Simple 2D Java Geometry library</description>
     <packaging>pom</packaging>
     <modules>
+        <module>aspects</module>
         <module>algebra</module>
         <module>jeometry-api</module>
-        <module>jeometry-number</module>
+        <module>jeometry-double</module>
     </modules>
     <dependencies>
         <dependency>
@@ -66,12 +67,23 @@
             <version>1.16.6</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>1.8.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -79,6 +91,32 @@
                         <exclude>**/package-info.java</exclude>
                     </testExcludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.8</version>
+                <configuration>
+	                <forceAjcCompile>true</forceAjcCompile>
+	                <sources/>
+	                <weaveDirectories>
+	                    <weaveDirectory>${project.build.directory}/classes</weaveDirectory>
+	                </weaveDirectories>
+	                <complianceLevel>1.8</complianceLevel>
+	                <source>1.8</source>
+	                <target>1.8</target>
+	                <excludes>
+	                    <exclude>**/package-info.java</exclude>
+	                </excludes>
+                </configuration>
+		        <executions>
+		            <execution>
+			            <phase>process-classes</phase>
+			            <goals>
+			                <goal>compile</goal>
+			            </goals>
+		            </execution>
+		        </executions>
             </plugin>
         </plugins>
     </build>

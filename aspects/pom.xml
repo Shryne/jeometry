@@ -31,35 +31,14 @@
         <artifactId>jeometry</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>jeometry-double</artifactId>
-    <description>Java Geometry library abstract API</description>
+    <artifactId>aspects</artifactId>
+    <description>Java aspects</description>
     <dependencies>
         <dependency>
-            <groupId>com.jeometry</groupId>
-            <artifactId>jeometry-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jeometry</groupId>
-            <artifactId>aspects</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.8.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
-    <build>
-    	<plugins>
-    		<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.8</version>
-                <configuration>
-	                <aspectLibraries>
-                        <aspectLibrary>
-                            <groupId>com.jeometry</groupId>
-                            <artifactId>aspects</artifactId>
-                        </aspectLibrary>
-                    </aspectLibraries>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
