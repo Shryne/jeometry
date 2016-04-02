@@ -24,13 +24,10 @@
 package com.jeometry.main;
 
 import com.jeometry.geometry.twod.Figure;
-import com.jeometry.geometry.twod.angle.PtsAngle;
 import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.ParallelPassingByLine;
 import com.jeometry.geometry.twod.line.PtsLine;
 import com.jeometry.geometry.twod.point.InLinePoint;
-import com.jeometry.geometry.twod.ray.PtDirRay;
-import com.jeometry.geometry.twod.segment.PtsSegment;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
@@ -54,13 +51,10 @@ public final class Main {
      * @param args Unused args
      */
     public static void main(final String... args) {
-        final DblPoint pointa = new DblPoint(1d, 2d);
-        final DblPoint pointp = new DblPoint(1d, -2d);
-        final DblPoint pointc = new DblPoint(-3d, 1d);
-        final DblPoint pointd = new DblPoint(0d, 5d);
-        final DblPoint pointe = new DblPoint(-4d, 2d);
-        final DblPoint pointk = new DblPoint(5d, 0d);
-        final DblPoint origin = new DblPoint(0d, 0d);
+        final DblPoint pointa = Main.random();
+        final DblPoint pointp = Main.random();
+        final DblPoint pointk = Main.random();
+        final DblPoint origin = Main.random();
         final PtsLine hor = new PtsLine(pointk, origin);
         final InLinePoint pointb = new InLinePoint(hor, new Decimal());
         final Line abline = new PtsLine(pointa, pointb);
@@ -68,14 +62,22 @@ public final class Main {
         final Line lineb = new ParallelPassingByLine(pointa, hor);
         final Figure figure = new Figure()
             .add(hor).add(abline).add(lineb).add(pointb).add(pointa).add(apline)
-            .add(origin).add(new PtDirRay(new DblPoint(3.0, 3.0), pointa))
-            .add(new PtDirRay(new DblPoint(0., 3.0), new DblPoint(-1.0, -10.0)))
-            .add(new PtDirRay(new DblPoint(0., -3.0), new DblPoint(3.0, -2.0)))
-        .add(new PtsAngle(pointc, pointd, pointe))
-        .add(new PtsSegment(origin, pointb)).add(new PtsSegment(pointk, pointe));
+            .add(origin);
         final Awt awt = new Awt().withSize(50, 50);
         awt.render(figure);
         awt.setVisible(true);
+    }
+
+    /**
+     * Generates a random point.
+     * @return A random point
+     */
+    private static DblPoint random() {
+        final Decimal field = new Decimal();
+        return new DblPoint(
+            field.actual(field.random()),
+            field.actual(field.random())
+        );
     }
 
 }

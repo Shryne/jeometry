@@ -1,4 +1,4 @@
-<!--
+/**
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2016, Hamdi Douss
@@ -20,25 +20,25 @@
  * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-    http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.jeometry</groupId>
-        <artifactId>jeometry</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
-    <artifactId>aspects</artifactId>
-    <description>Java aspects</description>
-    <dependencies>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>1.8.2</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-</project>
+ */
+package com.jeometry.aspects;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * Marks a method or a constructor to be checked for vectors and matrices
+ * arguments to have the same dimension.
+ * Add this annotation to the method or the constructor you want its vectors
+ * or matrices arguments to be checked to have the same size.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+@Target({ElementType.METHOD, ElementType.CONSTRUCTOR})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DimensionsEqual {
+
+}

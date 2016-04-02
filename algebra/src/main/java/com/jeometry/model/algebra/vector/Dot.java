@@ -23,7 +23,7 @@
  */
 package com.jeometry.model.algebra.vector;
 
-import com.google.common.base.Preconditions;
+import com.jeometry.aspects.DimensionsEqual;
 import com.jeometry.model.algebra.scalar.Add;
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
@@ -53,12 +53,8 @@ public final class Dot {
      * @param first First operand
      * @param second Second operand
      */
+    @DimensionsEqual
     public Dot(final Vect first, final Vect second) {
-        Preconditions.checkArgument(
-            first.coords().length == second.coords().length,
-            "Vectors should have same dimension: %s dim %d, %s dim %d.",
-            first, first.coords().length, second, second.coords().length
-        );
         this.foperand = first;
         this.soperand = second;
     }

@@ -103,15 +103,10 @@ public final class AwtDrawableSurface extends JPanel {
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, width, height);
         graphics.setColor(Color.RED);
-        final Double xcoor = this.center.dblx();
         final Double ycoor = this.center.dbly();
         graphics.drawLine(
             0, height / 2 + (int) (ycoor * this.scale),
             width, height / 2 + (int) (ycoor * this.scale)
-        );
-        graphics.drawLine(
-            width / 2 - (int) (xcoor * this.scale), 0,
-            width / 2 - (int) (xcoor * this.scale), height
         );
         if (graphics instanceof Graphics2D) {
             final Graphics2D surface = (Graphics2D) graphics;

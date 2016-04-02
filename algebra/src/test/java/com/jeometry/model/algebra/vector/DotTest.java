@@ -29,7 +29,9 @@ import com.jeometry.model.algebra.scalar.Scalar;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
@@ -39,17 +41,23 @@ import org.mockito.Mockito;
  * @since 0.1
  */
 public final class DotTest {
+
     /**
      * Max scalar array length to generate(mock).
      */
     private static final int COORDS_LENGTH = 10;
 
     /**
+     * Junit rule for expected exceptions.
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    /**
      * {@link Dot} calculates expected value.
-     * to order of operands.
      */
     @Test
-    public void dotReturnsGoodValue() {
+    public void returnsGoodValue() {
         final Vect vecta = Mockito.mock(Vect.class);
         final Vect vectb = Mockito.mock(Vect.class);
         final Scalar[] coords = DotTest.scalars();
@@ -66,6 +74,22 @@ public final class DotTest {
     }
 
     /**
+     * {@link Dot} throws exception if the two vectors don't have
+     * the same dimension.
+     */
+    @Test
+    public void errorsWhenNotSameSize() {
+        this.thrown.expect(IllegalArgumentException.class);
+        final Vect vecta = Mockito.mock(Vect.class);
+        final Vect vectb = Mockito.mock(Vect.class);
+        final Scalar[] acoords = DotTest.scalars();
+        final Scalar[] bcoords = DotTest.scalars(acoords.length + 1);
+        Mockito.when(vectb.coords()).thenReturn(bcoords);
+        Mockito.when(vecta.coords()).thenReturn(acoords);
+        new Dot(vecta, vectb).value();
+    }
+
+    /**
      * Gives the square of a scalar.
      * @param oper The scalar to square
      * @return A {@link Multiplication} object representing the square
@@ -75,11 +99,19 @@ public final class DotTest {
     }
 
     /**
-     * Mocks an array of {@link Scalar}.
+     * Mocks an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
     private static Scalar[] scalars() {
-        final int length = new Random().nextInt(DotTest.COORDS_LENGTH);
+        return DotTest.scalars(new Random().nextInt(DotTest.COORDS_LENGTH));
+    }
+
+    /**
+     * Mocks an array of {@link Scalar} with the given length.
+     * @param length Array length to generate
+     * @return An array of scalars.
+     */
+    private static Scalar[] scalars(final int length) {
         final Scalar[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);

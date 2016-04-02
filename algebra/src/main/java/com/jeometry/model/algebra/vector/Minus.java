@@ -23,7 +23,7 @@
  */
 package com.jeometry.model.algebra.vector;
 
-import com.google.common.base.Preconditions;
+import com.jeometry.aspects.DimensionsEqual;
 import com.jeometry.model.algebra.scalar.Diff;
 import com.jeometry.model.algebra.scalar.Scalar;
 import lombok.ToString;
@@ -51,12 +51,8 @@ public final class Minus implements Vect {
      * @param first First operand (minuend)
      * @param second Second operand (subtrahend)
      */
+    @DimensionsEqual
     public Minus(final Vect first, final Vect second) {
-        Preconditions.checkArgument(
-            first.coords().length == second.coords().length,
-            "Vectors should have same dimension: %s dim %d, %s dim %d.",
-            first, first.coords().length, second, second.coords().length
-        );
         this.first = first;
         this.second = second;
     }

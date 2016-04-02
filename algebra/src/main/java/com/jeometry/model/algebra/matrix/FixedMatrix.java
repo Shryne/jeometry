@@ -23,7 +23,7 @@
  */
 package com.jeometry.model.algebra.matrix;
 
-import com.google.common.base.Preconditions;
+import com.jeometry.aspects.DimensionsEqual;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Dot;
 import com.jeometry.model.algebra.vector.FixedVector;
@@ -63,13 +63,9 @@ public class FixedMatrix implements Matrix {
      * @param columns Matrix columns count
      * @param coor Matrix coordinates
      */
+    @DimensionsEqual
     public FixedMatrix(final int lines, final int columns,
         final Scalar... coor) {
-        Preconditions.checkArgument(
-            lines * columns == coor.length,
-            "Expected %d scalars for a matrix with %d lines and %d columns",
-            lines * columns, lines, columns
-        );
         this.coors = coor;
         this.source = lines;
         this.target = columns;

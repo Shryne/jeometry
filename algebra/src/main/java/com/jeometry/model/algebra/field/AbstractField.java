@@ -52,19 +52,19 @@ public abstract class AbstractField<T> implements Field<T> {
     @Override
     public final T actual(final Scalar scalar) {
         T result = null;
-        if (Scalar.Default.class.isAssignableFrom(scalar.getClass())) {
+        if (scalar instanceof Scalar.Default<?>) {
             result = ((Scalar.Default<T>) scalar).value();
         }
-        if (Add.class.isAssignableFrom(scalar.getClass())) {
+        if (scalar instanceof Add) {
             result = this.actual(this.calculate((Add) scalar));
         }
-        if (Multiplication.class.isAssignableFrom(scalar.getClass())) {
+        if (scalar instanceof Multiplication) {
             result = this.actual(this.calculate((Multiplication) scalar));
         }
-        if (Diff.class.isAssignableFrom(scalar.getClass())) {
+        if (scalar instanceof Diff) {
             result = this.actual(this.calculate((Diff) scalar));
         }
-        if (Division.class.isAssignableFrom(scalar.getClass())) {
+        if (scalar instanceof Division) {
             result = this.actual(this.calculate((Division) scalar));
         }
         return result;
