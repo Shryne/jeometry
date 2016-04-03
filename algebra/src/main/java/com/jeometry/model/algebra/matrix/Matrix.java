@@ -70,12 +70,12 @@ public interface Matrix {
      * to the target vector space dimension.
      * @return Columns number
      */
-    Integer columns();
+    int columns();
 
     /**
      * Gives the matrix lines number which corresponds
      * to the source vector space dimension.
      * @return Lines number
      */
-    Integer lines();
+    int lines();
 }

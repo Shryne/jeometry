@@ -25,6 +25,7 @@ package com.jeometry.model.algebra.vector;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import com.jeometry.aspects.DimensionsEqual;
 import com.jeometry.model.algebra.scalar.Add;
 import com.jeometry.model.algebra.scalar.Scalar;
 import java.util.Arrays;
@@ -50,6 +51,7 @@ public final class Sum implements Vect {
      * Constructor.
      * @param operands Sum operands
      */
+    @DimensionsEqual
     public Sum(final Vect... operands) {
         this.operands = HashMultiset.create(Arrays.asList(operands));
     }

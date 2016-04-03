@@ -32,7 +32,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 
@@ -81,13 +80,13 @@ public final class AwtDrawableSurface extends JPanel {
         super();
         this.center = new DblPoint(0., 0.);
         this.scale = AwtDrawableSurface.ZOOM_AMOUNT;
-        this.painters = AwtDrawableSurface.init();
+        this.painters = new Painters();
     }
 
     /**
      * Inits listeners on the drawable surface.
      */
-    public void build() {
+    public void mouseReact() {
         final MouseAdapter listener = new MouseZoomTranslate(this);
         this.addMouseMotionListener(listener);
         this.addMouseListener(listener);
@@ -108,7 +107,7 @@ public final class AwtDrawableSurface extends JPanel {
             0, height / 2 + (int) (ycoor * this.scale),
             width, height / 2 + (int) (ycoor * this.scale)
         );
-        if (graphics instanceof Graphics2D) {
+        if (this.figure != null && graphics instanceof Graphics2D) {
             final Graphics2D surface = (Graphics2D) graphics;
             surface.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
@@ -189,18 +188,4 @@ public final class AwtDrawableSurface extends JPanel {
         this.figure = fig;
     }
 
-    /**
-     * Initialize with default painters.
-     * @return A list of default painters
-     */
-    private static List<AbstractAwtPaint> init() {
-        final List<AbstractAwtPaint> result = new ArrayList<>(5);
-        result.add(new AwtPoint());
-        result.add(new AwtCircle());
-        result.add(new AwtLine());
-        result.add(new AwtRay());
-        result.add(new AwtAngle());
-        result.add(new AwtSegment());
-        return result;
-    }
 }

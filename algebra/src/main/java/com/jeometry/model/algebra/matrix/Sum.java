@@ -25,6 +25,7 @@ package com.jeometry.model.algebra.matrix;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import com.jeometry.aspects.DimensionsEqual;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.FixedVector;
 import com.jeometry.model.algebra.vector.Vect;
@@ -51,6 +52,7 @@ public final class Sum implements Matrix {
      * Constructor.
      * @param operands Sum operands
      */
+    @DimensionsEqual
     public Sum(final Matrix... operands) {
         this.operands = HashMultiset.create(Arrays.asList(operands));
     }
@@ -100,12 +102,12 @@ public final class Sum implements Matrix {
     }
 
     @Override
-    public Integer columns() {
+    public int columns() {
         return this.operands.iterator().next().columns();
     }
 
     @Override
-    public Integer lines() {
+    public int lines() {
         return this.operands.iterator().next().lines();
     }
 

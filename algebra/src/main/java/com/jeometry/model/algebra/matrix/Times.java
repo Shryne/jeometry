@@ -88,12 +88,12 @@ public final class Times implements Matrix {
     }
 
     @Override
-    public Integer columns() {
+    public int columns() {
         return this.matrix.columns();
     }
 
     @Override
-    public Integer lines() {
+    public int lines() {
         return this.matrix.lines();
     }
 }

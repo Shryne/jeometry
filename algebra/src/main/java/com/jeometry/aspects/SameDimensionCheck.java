@@ -25,9 +25,7 @@ package com.jeometry.aspects;
 
 import com.jeometry.model.algebra.matrix.Matrix;
 import com.jeometry.model.algebra.vector.Vect;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -47,66 +45,112 @@ import org.aspectj.lang.annotation.Before;
 public final class SameDimensionCheck {
 
     /**
-     * Estimated same type arguments count.
-     */
-    private static final int ARGS_SIZE = 5;
-
-    /**
      * Arguments types to check for size.
      */
     private final Class<?>[] clazz = {Vect.class, Matrix.class};
 
     /**
-     * Checks if arguments of matrix or scalar arguments have the same size.
+     * Checks if method arguments of matrix or vector types have the same size.
      * @param jpoint Join Point
      */
-    @Before("execution(@com.jeometry.aspects.DimensionsEqual *.new(..))")
-    public void check(final JoinPoint jpoint) {
+    @Before("execution(@DimensionsEqual * *(..))")
+    public void method(final JoinPoint jpoint) {
+        this.constructor(jpoint);
+    }
+
+    /**
+     * Checks if constructor arguments of matrix or vector types have
+     * the same size.
+     * @param jpoint Join Point
+     */
+    @Before("execution(@DimensionsEqual *.new(..))")
+    public void constructor(final JoinPoint jpoint) {
         final Object[] args = jpoint.getArgs();
-        final Map<Class<?>, List<Object>> argmap = new HashMap<>();
-        for (int idx = 0; idx < this.clazz.length; ++idx) {
-            argmap.put(
-                this.clazz[idx],
-                new ArrayList<>(SameDimensionCheck.ARGS_SIZE)
-            );
-        }
+        final Map<Class<?>, Object> ref = new HashMap<>();
         for (int arg = 0; arg < args.length; ++arg) {
             for (int idx = 0; idx < this.clazz.length; ++idx) {
-                if (this.clazz[idx].isAssignableFrom(args[arg].getClass())) {
-                    argmap.get(this.clazz[idx]).add(args[arg]);
+                final Class<?> type = args[arg].getClass().getComponentType();
+                if (type != null && this.clazz[idx].isAssignableFrom(type)) {
+                    SameDimensionCheck.validate(args[arg]);
                 }
-            }
-        }
-        for (int idx = 0; idx < this.clazz.length; ++idx) {
-            final List<Object> list = argmap.get(this.clazz[idx]);
-            if (list != null && !list.isEmpty()) {
-                this.validate(list);
-            }
-        }
-    }
-
-    /**
-     * Validates a list of objects to have the same size.
-     * @param list The list of objects to validate
-     */
-    private void validate(final List<Object> list) {
-        final Object first  = list.get(0);
-        if (first instanceof Vect) {
-            final int dim = ((Vect) first).coords().length;
-            for (final Object vector : list) {
-                this.check((Vect) vector, dim);
+                if (!this.clazz[idx].isAssignableFrom(args[arg].getClass())) {
+                    continue;
+                }
+                final Object reference = ref.get(this.clazz[idx]);
+                if (reference == null) {
+                    ref.put(this.clazz[idx], args[arg]);
+                    continue;
+                }
+                SameDimensionCheck.validate(reference, args[arg]);
             }
         }
     }
 
     /**
-     * Checks if a vector has the given dimension.
-     * @param vector The vector
-     * @param dim Dimension
+     * Validates an array argument.
+     * @param object The array
      */
-    private void check(final Vect vector, final int dim) {
-        if (vector.coords().length != dim) {
-            throw new IllegalArgumentException();
+    private static void validate(final Object object) {
+        if (object instanceof Object[]) {
+            final Object[] array = (Object[]) object;
+            for (int idx = 1; idx < array.length; ++idx) {
+                SameDimensionCheck.validate(array[0], array[idx]);
+            }
+        }
+    }
+
+    /**
+     * Validates an argument against a reference. If the argument does not
+     * have the same dimensions as the reference, it throws an
+     * {@link IllegalArgumentException}.
+     * @param reference Reference object
+     * @param object Argument to validate
+     */
+    private static void validate(final Object reference, final Object object) {
+        if (object instanceof Vect && reference instanceof Vect) {
+            SameDimensionCheck.validate((Vect) reference, (Vect) object);
+        }
+        if (object instanceof Matrix && reference instanceof Matrix) {
+            SameDimensionCheck.validate((Matrix) reference, (Matrix) object);
+        }
+    }
+
+    /**
+     * Validates a vector argument against a vector reference.
+     * If the argument does not have the same dimension as the reference,
+     * it throws an {@link IllegalArgumentException}.
+     * @param reference Reference vector
+     * @param object Argument to validate
+     */
+    private static void validate(final Vect reference, final Vect object) {
+        if (reference.coords().length != object.coords().length) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "Vectors should have same dimension: %s dim %d, %s dim %d.",
+                    reference, reference.coords().length,
+                    object, object.coords().length
+                )
+            );
+        }
+    }
+
+    /**
+     * Validates a matrix argument against a matrix reference.
+     * If the argument does not have the same columns and lines count
+     * as the reference, it throws an {@link IllegalArgumentException}.
+     * @param reference Reference matrix
+     * @param object Argument to validate
+     */
+    private static void validate(final Matrix reference, final Matrix object) {
+        if (reference.columns() != object.columns()
+            || reference.lines() != object.lines()) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "Matrices should have same size: %s %dx%d, %s dim %dx%d.",
+                    reference, reference.lines(), reference.columns(),
+                    object, object.lines(), object.columns()
+                )
+            );
         }
     }
 }

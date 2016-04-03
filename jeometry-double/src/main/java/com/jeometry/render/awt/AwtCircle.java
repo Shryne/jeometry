@@ -65,11 +65,11 @@ public final class AwtCircle extends AbstractAwtPaint {
         final Double xcoor = context.center().dblx();
         final Double ycoor = context.center().dbly();
         final int xpoint = (int) (
-            width / 2 + scale * this.field().actual(point.coords()[0]) - size
+            width / 2d + scale * this.field().actual(point.coords()[0]) - size
             - xcoor * scale
         );
         final int ypoint = (int) (
-            height / 2 - scale * this.field().actual(point.coords()[1]) - size
+            height / 2d - scale * this.field().actual(point.coords()[1]) - size
             + ycoor * scale
         );
         graphics.drawOval(xpoint, ypoint, 2 * size, 2 * size);

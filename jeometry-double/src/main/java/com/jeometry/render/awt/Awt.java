@@ -59,11 +59,12 @@ public final class Awt extends JFrame implements Output {
      */
     public Awt() {
         super();
-        this.drawable = this.init();
+        this.drawable = new AwtDrawableSurface();
     }
 
     @Override
     public void render(final Figure fig) {
+        this.init();
         this.drawable.setFigure(fig);
         this.repaint();
         this.setVisible(true);
@@ -92,9 +93,8 @@ public final class Awt extends JFrame implements Output {
 
     /**
      * Builds the component and returns the drawable surface.
-     * @return The drawable surface
      */
-    private AwtDrawableSurface init() {
+    private void init() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final int posx = 100;
         final int posy = 100;
@@ -110,13 +110,11 @@ public final class Awt extends JFrame implements Output {
         );
         this.setContentPane(content);
         content.setLayout(new BorderLayout(0, 0));
-        final AwtDrawableSurface draw = new AwtDrawableSurface();
-        draw.build();
-        content.add(draw, BorderLayout.CENTER);
-        final Buttons buttons = new Buttons(draw);
+        this.drawable.mouseReact();
+        content.add(this.drawable, BorderLayout.CENTER);
+        final Buttons buttons = new Buttons(this.drawable);
         buttons.build();
         content.add(buttons, BorderLayout.EAST);
-        return draw;
     }
 
 }

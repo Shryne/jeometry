@@ -23,7 +23,7 @@
  */
 package com.jeometry.model.algebra.matrix;
 
-import com.jeometry.aspects.DimensionsEqual;
+import com.google.common.base.Preconditions;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Dot;
 import com.jeometry.model.algebra.vector.FixedVector;
@@ -63,12 +63,11 @@ public class FixedMatrix implements Matrix {
      * @param columns Matrix columns count
      * @param coor Matrix coordinates
      */
-    @DimensionsEqual
     public FixedMatrix(final int lines, final int columns,
         final Scalar... coor) {
-        this.coors = coor;
         this.source = lines;
         this.target = columns;
+        this.coors = this.valid(coor);
     }
 
     /**
@@ -112,12 +111,12 @@ public class FixedMatrix implements Matrix {
     }
 
     @Override
-    public final Integer columns() {
+    public final int columns() {
         return this.target;
     }
 
     @Override
-    public final Integer lines() {
+    public final int lines() {
         return this.source;
     }
 
@@ -139,6 +138,23 @@ public class FixedMatrix implements Matrix {
      */
     private Dot dot(final Vect input, final int idx) {
         return new Dot(input, new FixedVector(this.column(idx)));
+    }
+
+    /**
+     * Checks if this scalar array could be took as matrix coordinate, regarding
+     * the matrix lines and columns count. Throws
+     * {@link IllegalArgumentException} if the scalar array is not valid.
+     * @param coor Scalar array to check
+     * @return The scalar array if it is valid
+     */
+    private Scalar[] valid(final Scalar... coor) {
+        final int expected = this.source * this.target;
+        Preconditions.checkArgument(
+            expected == coor.length,
+            "Expected %d scalars for a matrix with %d lines and %d columns",
+            expected, this.source, this.target
+        );
+        return coor;
     }
 
 }
