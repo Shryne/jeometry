@@ -27,8 +27,10 @@ import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.LineAnalytics;
 import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 /**
  * Awt Line painter that draws a line on an AWT graphics.
@@ -74,27 +76,18 @@ public final class AwtLine extends AbstractAwtPaint {
     private void regular(final Graphics2D graphics,
         final LineAnalytics analytics, final AwtContext context) {
         final int width = context.width();
-        final int height = context.height();
-        final int scale = context.scale();
-        final Double xcenter = context.center().dblx();
-        final Double ycenter = context.center().dbly();
+        final AwtTransform transform = new AwtTransform(context);
+        final Double xstart = transform.inverse(new Point(0, 0)).dblx();
+        final Double xend = transform.inverse(new Point(width, 0)).dblx();
         final Double slope = this.field().actual(analytics.slope());
         final Double intercept = this.field().actual(analytics.intercept());
-        final int yzero = (int) (
-            height / 2d - (
-                (scale * xcenter - width / 2d) * slope
-                + scale * intercept
-                - ycenter * scale
-            )
+        final Point start = transform.transform(
+            new DblPoint(xstart, slope * xstart + intercept)
         );
-        final int ywidth = (int) (
-            height / 2d - (
-                (width / 2d + scale * xcenter) * slope
-                + scale * intercept
-                - ycenter * scale
-            )
+        final Point end = transform.transform(
+            new DblPoint(xend, slope * xend + intercept)
         );
-        graphics.drawLine(0, yzero, width, ywidth);
+        graphics.drawLine(start.x, start.y, end.x, end.y);
     }
 
     /**

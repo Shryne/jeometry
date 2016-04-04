@@ -26,11 +26,12 @@ package com.jeometry.render.awt;
 import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.line.LineAnalytics;
 import com.jeometry.geometry.twod.line.RayLine;
-import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.geometry.twod.ray.Ray;
 import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 /**
  * Awt Ray painter that draws a ray on an AWT graphics.
@@ -81,40 +82,22 @@ public final class AwtRay extends AbstractAwtPaint {
             new RayLine(ray), this.field()
         );
         final int width = ctxt.width();
-        final int height = ctxt.height();
-        final int scale = ctxt.scale();
         final Field<Double> field = this.field();
-        final XyPoint origin = (XyPoint) ray.origin();
-        final Double xcenter = ctxt.center().dblx();
-        final Double ycenter = ctxt.center().dbly();
         final Double xdir = field.actual(ray.direction().coords()[0]);
         final Double slope = field.actual(analytics.slope());
         final Double intercept = field.actual(analytics.intercept());
-        final int xorigin = (int) (
-            width / 2d + scale * (field.actual(origin.xcoor()) - xcenter)
-        );
-        final int yorigin = (int) (
-            height / 2d - scale * (field.actual(origin.ycoor()) - ycenter)
-        );
+        final AwtTransform transform = new AwtTransform(ctxt);
+        final Point origin = transform.transform(ray.origin());
+        final Double limit;
         if (xdir > 0) {
-            final int ywidth = (int) (
-                height / 2d - (
-                    (width / 2d + scale * xcenter) * slope
-                    + scale * intercept
-                    - ycenter * scale
-                )
-            );
-            graphics.drawLine(xorigin, yorigin, width, ywidth);
+            limit = transform.inverse(new Point(width, 0)).dblx();
         } else {
-            final int yzer = (int) (
-                height / 2d - (
-                    (scale * xcenter - width / 2d) * slope
-                    + scale * intercept
-                    - ycenter * scale
-                )
-            );
-            graphics.drawLine(xorigin, yorigin, 0, yzer);
+            limit = transform.inverse(new Point(0, 0)).dblx();
         }
+        final Point end = transform.transform(
+            new DblPoint(limit, limit * slope + intercept)
+        );
+        graphics.drawLine(origin.x, origin.y, end.x, end.y);
     }
 
     /**
@@ -125,23 +108,13 @@ public final class AwtRay extends AbstractAwtPaint {
      */
     private void vertical(final Graphics2D graphics, final Ray ray,
         final AwtContext context) {
-        final int width = context.width();
-        final int height = context.height();
-        final int scale = context.scale();
         final Field<Double> field = this.field();
-        final Double xcenter = context.center().dblx();
-        final Double ycenter = context.center().dbly();
-        final XyPoint origin = (XyPoint) ray.origin();
-        final int xorigin = (int) (
-            width / 2d + scale * (field.actual(origin.xcoor()) - xcenter)
-        );
-        final int yorigin = (int) (
-            height / 2d - scale * (field.actual(origin.ycoor()) - ycenter)
-        );
+        final AwtTransform transform = new AwtTransform(context);
+        final Point origin = transform.transform(ray.origin());
         if (field.actual(ray.direction().coords()[1]) > 0) {
-            graphics.drawLine(xorigin, yorigin, xorigin, 0);
+            graphics.drawLine(origin.x, origin.y, origin.x, 0);
         } else {
-            graphics.drawLine(xorigin, yorigin, xorigin, height);
+            graphics.drawLine(origin.x, origin.y, origin.x, context.height());
         }
     }
 

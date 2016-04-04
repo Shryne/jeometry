@@ -26,9 +26,9 @@ package com.jeometry.render.awt;
 import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.circle.Circle;
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.vector.Vect;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 /**
  * Awt Circle painter that draws a circle on an AWT graphics.
@@ -57,22 +57,12 @@ public final class AwtCircle extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final Circle circle = (Circle) renderable.renderable();
-        final Vect point = circle.center();
-        final int width = context.width();
-        final int height = context.height();
-        final int scale = context.scale();
-        final int size = (int) (scale * this.field().actual(circle.radius()));
-        final Double xcoor = context.center().dblx();
-        final Double ycoor = context.center().dbly();
-        final int xpoint = (int) (
-            width / 2d + scale * this.field().actual(point.coords()[0]) - size
-            - xcoor * scale
+        final int size = (int) (
+            context.scale() * this.field().actual(circle.radius())
         );
-        final int ypoint = (int) (
-            height / 2d - scale * this.field().actual(point.coords()[1]) - size
-            + ycoor * scale
-        );
-        graphics.drawOval(xpoint, ypoint, 2 * size, 2 * size);
+        final Point center = new AwtTransform(context)
+            .transform(circle.center());
+        graphics.drawOval(center.x - size, center.y - size, 2 * size, 2 * size);
     }
 
 }

@@ -32,12 +32,7 @@ import java.util.List;
  * @version $Id$
  * @since 0.1
  */
-public final class Painters extends ArrayList<AbstractAwtPaint> {
-
-    /**
-     * Serial version ID.
-     */
-    private static final long serialVersionUID = -6863539915215768631L;
+public final class Painters {
 
     /**
      * Default painters.
@@ -49,7 +44,7 @@ public final class Painters extends ArrayList<AbstractAwtPaint> {
      */
     public Painters() {
         super();
-        this.def = this.init();
+        this.def = Painters.init();
     }
 
     /**
@@ -57,14 +52,14 @@ public final class Painters extends ArrayList<AbstractAwtPaint> {
      * @return A list of default painters
      */
     public List<AbstractAwtPaint> defaults() {
-        return this.def;
+        return new ArrayList<>(this.def);
     }
 
     /**
      * Initializes the list of the default painters.
      * @return A list of default painters
      */
-    private List<AbstractAwtPaint> init() {
+    private static List<AbstractAwtPaint> init() {
         final int size = 6;
         final List<AbstractAwtPaint> defaults = new ArrayList<>(size);
         defaults.add(new AwtPoint());
@@ -73,7 +68,6 @@ public final class Painters extends ArrayList<AbstractAwtPaint> {
         defaults.add(new AwtRay());
         defaults.add(new AwtAngle());
         defaults.add(new AwtSegment());
-        this.addAll(defaults);
         return defaults;
     }
 }

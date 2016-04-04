@@ -28,6 +28,7 @@ import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 /**
  * Awt Point painter that draws a point on an AWT graphics.
@@ -57,20 +58,8 @@ public final class AwtPoint extends AbstractAwtPaint {
         final AwtContext context) {
         final int size = 4;
         final XyPoint point = (XyPoint) renderable.renderable();
-        final int scale = context.scale();
-        final int width = context.width();
-        final int height = context.height();
-        final Double xcoor = context.center().dblx();
-        final Double ycoor = context.center().dbly();
-        final int xpoint = width / 2
-            + (int) (
-                scale * this.field().actual(point.xcoor()) - xcoor * scale
-            ) - size / 2;
-        final int ypoint = height / 2
-            - (int) (
-                scale * this.field().actual(point.ycoor()) - ycoor * scale
-            ) - size / 2;
-        graphics.drawRect(xpoint, ypoint, size, size);
+        final Point awtpt = new AwtTransform(context).transform(point);
+        graphics.drawRect(awtpt.x - size / 2, awtpt.y - size / 2, size, size);
     }
 
 }

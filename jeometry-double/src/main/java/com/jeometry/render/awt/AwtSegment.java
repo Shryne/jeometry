@@ -24,11 +24,11 @@
 package com.jeometry.render.awt;
 
 import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.geometry.twod.segment.Segment;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 /**
  * Awt Segment painter that draws a segment on an AWT graphics.
@@ -57,22 +57,10 @@ public final class AwtSegment extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final Segment seg = (Segment) renderable.renderable();
-        final int width = context.width();
-        final int height = context.height();
-        final int scale = context.scale();
-        final XyPoint start = (XyPoint) seg.start();
-        final XyPoint end = (XyPoint) seg.end();
-        final Double xcoor = context.center().dblx();
-        final Double ycoor = context.center().dbly();
-        final Double dblxstart = this.field().actual(start.xcoor());
-        final Double dblystart = this.field().actual(start.ycoor());
-        final Double dblxend = this.field().actual(end.xcoor());
-        final Double dblyend = this.field().actual(end.ycoor());
-        final int xstart = (int) (width / 2d + scale * (dblxstart - xcoor));
-        final int ystart = (int) (height / 2d - scale * (dblystart - ycoor));
-        final int xend = (int) (width / 2d + scale * (dblxend - xcoor));
-        final int yend = (int) (height / 2d - scale * (dblyend - ycoor));
-        graphics.drawLine(xstart, ystart, xend, yend);
+        final AwtTransform transform = new AwtTransform(context);
+        final Point start = transform.transform(seg.start());
+        final Point end = transform.transform(seg.end());
+        graphics.drawLine(start.x, start.y, end.x, end.y);
     }
 
 }

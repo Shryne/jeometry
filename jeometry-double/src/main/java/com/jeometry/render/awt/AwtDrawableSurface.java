@@ -80,7 +80,7 @@ public final class AwtDrawableSurface extends JPanel {
         super();
         this.center = new DblPoint(0., 0.);
         this.scale = AwtDrawableSurface.ZOOM_AMOUNT;
-        this.painters = new Painters();
+        this.painters = new Painters().defaults();
     }
 
     /**
