@@ -133,4 +133,18 @@ public final class Decimal extends AbstractField<Double> {
         );
     }
 
+    @Override
+    public Scalar multIdentity() {
+        return new Scalar.Default<Double>(Double.valueOf(1));
+    }
+
+    @Override
+    public Scalar random(final Scalar lower, final Scalar upper) {
+        final Double min = this.actual(lower);
+        final Double max = this.actual(upper);
+        return new Scalar.Default<Double>(
+            this.rand.nextDouble() * (max - min) + min
+        );
+    }
+
 }

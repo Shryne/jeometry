@@ -72,4 +72,20 @@ public interface Field<T> {
      * @return The actual object
      */
     T actual(final Scalar scalar);
+
+    /**
+     * Gives a scalar representing the multiplication identity.
+     * @return The multiplication identity scalar.
+     */
+    Scalar multIdentity();
+
+    /**
+     * Generates a random scalar "between" two other scalars. The word "between"
+     * is to be defined by the implementation. This means that this operation
+     * could be unsupported especially for unordered fields.
+     * @param lower Lower bound scalar
+     * @param upper Upper bound scalar
+     * @return A random scalar between two scalars
+     */
+    Scalar random(Scalar lower, Scalar upper);
 }

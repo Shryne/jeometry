@@ -61,7 +61,7 @@ public final class AwtLine extends AbstractAwtPaint {
         final Line line = (Line) renderable.renderable();
         final LineAnalytics analytics = new LineAnalytics(line, this.field());
         if (analytics.vertical()) {
-            this.vertical(graphics, line, context);
+            AwtLine.vertical(graphics, line, context);
         } else {
             this.regular(graphics, analytics, context);
         }
@@ -96,17 +96,10 @@ public final class AwtLine extends AbstractAwtPaint {
      * @param line Line to draw
      * @param context AwtContext
      */
-    private void vertical(final Graphics2D graphics, final Line line,
+    private static void vertical(final Graphics2D graphics, final Line line,
         final AwtContext context) {
-        final int width = context.width();
-        final int height = context.height();
-        final int scale = context.scale();
-        final Double xcenter = context.center().dblx();
-        final int xline = (int) (
-            width / 2d
-            + scale * (this.field().actual(line.point().coords()[0]) - xcenter)
-        );
-        graphics.drawLine(xline, 0, xline, height);
+        final Point point = new AwtTransform(context).transform(line.point());
+        graphics.drawLine(point.x, 0, point.x, context.height());
     }
 
 }

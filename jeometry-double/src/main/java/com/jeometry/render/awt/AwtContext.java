@@ -48,7 +48,7 @@ public final class AwtContext {
     /**
      * Scale/Zoom of drawable surface.
      */
-    private final int scle;
+    private final double scle;
 
     /**
      * Point on which drawable surface is centered.
@@ -61,7 +61,7 @@ public final class AwtContext {
      * @param scale Zoom of drawable surface.
      * @param center Point on which drawable surface is centered
      */
-    public AwtContext(final Dimension dim, final int scale,
+    public AwtContext(final Dimension dim, final double scale,
         final DblPoint center) {
         this.wdth = dim.width;
         this.hght = dim.height;
@@ -89,7 +89,7 @@ public final class AwtContext {
      * Accessor for the scale.
      * @return Scale of drawable surface
      */
-    public int scale() {
+    public double scale() {
         return this.scle;
     }
 

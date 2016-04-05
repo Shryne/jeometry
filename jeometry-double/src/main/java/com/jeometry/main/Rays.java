@@ -24,26 +24,24 @@
 package com.jeometry.main;
 
 import com.jeometry.geometry.twod.Figure;
-import com.jeometry.geometry.twod.line.Line;
-import com.jeometry.geometry.twod.line.ParallelPassingByLine;
-import com.jeometry.geometry.twod.line.PtsLine;
-import com.jeometry.geometry.twod.point.InLinePoint;
+import com.jeometry.geometry.twod.ray.PtDirRay;
+import com.jeometry.geometry.twod.ray.Ray;
+import com.jeometry.model.algebra.vector.Vect;
 import com.jeometry.model.decimal.DblPoint;
-import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
 
 /**
- * Main testing class using {@link Awt} output.
+ * Main rays testing class using {@link Awt} output.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Main {
+public final class Rays {
 
     /**
      * Private constructor.
      */
-    private Main() {
+    private Rays() {
     }
 
     /**
@@ -51,33 +49,27 @@ public final class Main {
      * @param args Unused args
      */
     public static void main(final String... args) {
-        final DblPoint pointa = Main.random();
-        final DblPoint pointp = Main.random();
-        final DblPoint pointk = Main.random();
-        final DblPoint origin = Main.random();
-        final PtsLine hor = new PtsLine(pointk, origin);
-        final InLinePoint pointb = new InLinePoint(hor, new Decimal());
-        final Line abline = new PtsLine(pointa, pointb);
-        final Line apline = new PtsLine(pointa, pointp);
-        final Line lineb = new ParallelPassingByLine(pointa, hor);
-        final Figure figure = new Figure()
-            .add(hor).add(abline).add(lineb).add(pointb).add(pointa).add(apline)
-            .add(origin);
+        final int count = 12;
+        final Figure figure = new Figure();
+        for (int idx = 0; idx < count; ++idx) {
+            figure.add(Rays.ray(idx * 2 * Math.PI / count));
+        }
         final Awt awt = new Awt().withSize(50, 50);
         awt.render(figure);
         awt.setVisible(true);
     }
 
     /**
-     * Generates a random point.
-     * @return A random point
+     * Generates a ray making the given angle with the x-axis.
+     * @param angle Angle to make with the x-axis
+     * @return The ray
      */
-    private static DblPoint random() {
-        final Decimal field = new Decimal();
-        return new DblPoint(
-            field.actual(field.random()),
-            field.actual(field.random())
+    private static Ray ray(final double angle) {
+        final int rad = 3;
+        final Vect vertex = new DblPoint(
+            rad * Math.cos(angle), rad * Math.sin(angle)
         );
+        return new PtDirRay(vertex, vertex);
     }
 
 }

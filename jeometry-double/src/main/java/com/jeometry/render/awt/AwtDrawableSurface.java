@@ -25,6 +25,7 @@ package com.jeometry.render.awt;
 
 import com.jeometry.geometry.twod.Figure;
 import com.jeometry.geometry.twod.Shape;
+import com.jeometry.geometry.twod.line.PtDirLine;
 import com.jeometry.model.decimal.DblPoint;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -46,7 +47,7 @@ public final class AwtDrawableSurface extends JPanel {
     /**
      * Zoom increment/decrement amount.
      */
-    private static final int ZOOM_AMOUNT = 10;
+    private static final double ZOOM_AMOUNT = 1.5;
 
     /**
      * Serial version ID.
@@ -56,7 +57,7 @@ public final class AwtDrawableSurface extends JPanel {
     /**
      * Scale of the drawable surface.
      */
-    private int scale;
+    private double scale;
 
     /**
      * List of {@link AbstractAwtPaint}s to paint shapes.
@@ -101,12 +102,6 @@ public final class AwtDrawableSurface extends JPanel {
         graphics.clearRect(0, 0, width, height);
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, width, height);
-        graphics.setColor(Color.RED);
-        final Double ycoor = this.center.dbly();
-        graphics.drawLine(
-            0, height / 2 + (int) (ycoor * this.scale),
-            width, height / 2 + (int) (ycoor * this.scale)
-        );
         if (this.figure != null && graphics instanceof Graphics2D) {
             final Graphics2D surface = (Graphics2D) graphics;
             surface.setRenderingHint(
@@ -122,6 +117,7 @@ public final class AwtDrawableSurface extends JPanel {
                     painter.render(shape);
                 }
             }
+            this.axis(graphics);
         }
     }
 
@@ -140,16 +136,14 @@ public final class AwtDrawableSurface extends JPanel {
      * Zooms in the drawable surface.
      */
     public void zoomIn() {
-        this.scale += AwtDrawableSurface.ZOOM_AMOUNT;
+        this.scale *= AwtDrawableSurface.ZOOM_AMOUNT;
     }
 
     /**
      * Zooms out the drawable surface.
      */
     public void zoomOut() {
-        if (this.scale - AwtDrawableSurface.ZOOM_AMOUNT > 0) {
-            this.scale -= AwtDrawableSurface.ZOOM_AMOUNT;
-        }
+        this.scale /= AwtDrawableSurface.ZOOM_AMOUNT;
     }
 
     /**
@@ -169,7 +163,7 @@ public final class AwtDrawableSurface extends JPanel {
      * @param height Height to set in coordinates unit
      */
     public void withSize(final int width, final int height) {
-        this.setSize(this.scale * width, this.scale * height);
+        this.setSize((int) this.scale * width, (int) this.scale * height);
     }
 
     /**
@@ -186,6 +180,25 @@ public final class AwtDrawableSurface extends JPanel {
      */
     public void setFigure(final Figure fig) {
         this.figure = fig;
+    }
+
+    /**
+     * Draws X-axis and Y-axis.
+     * @param graphics AWT graphics to draw into
+     */
+    private void axis(final Graphics graphics) {
+        final DblPoint origin = new DblPoint(0., 0.);
+        final Shape xaxis = new Shape(
+            new PtDirLine(origin, new DblPoint(1.0, 0.))
+        );
+        final Shape yaxis = new Shape(
+            new PtDirLine(origin, new DblPoint(0., 1.))
+        );
+        graphics.setColor(Color.RED);
+        for (final AbstractAwtPaint painter : this.painters) {
+            painter.render(xaxis);
+            painter.render(yaxis);
+        }
     }
 
 }

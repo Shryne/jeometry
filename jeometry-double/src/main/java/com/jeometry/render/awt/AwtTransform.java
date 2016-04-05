@@ -72,7 +72,7 @@ public final class AwtTransform {
      * @return AWT Point
      */
     public Point transform(final DblPoint point) {
-        final int scale = this.ctx.scale();
+        final double scale = this.ctx.scale();
         return new Point(
             (int) (
                 this.ctx.width() / 2d
@@ -119,7 +119,7 @@ public final class AwtTransform {
      * @return AWT Point
      */
     public DblPoint inverse(final Point point) {
-        final int scale = this.ctx.scale();
+        final double scale = this.ctx.scale();
         final DblPoint center = this.ctx.center();
         return new DblPoint(
             (point.x - this.ctx.width() / 2d) / scale + center.dblx(),

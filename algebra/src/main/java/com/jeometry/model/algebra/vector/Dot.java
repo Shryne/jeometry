@@ -27,6 +27,7 @@ import com.jeometry.aspects.DimensionsEqual;
 import com.jeometry.model.algebra.scalar.Add;
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
+import java.util.stream.IntStream;
 import lombok.ToString;
 
 /**
@@ -80,22 +81,12 @@ public final class Dot {
      * @return Dot product value.
      */
     public Scalar value() {
-        final int dim = this.foperand.coords().length;
-        final Scalar[] multis = new Scalar[dim];
-        for (int axis = 0; axis < dim; ++axis) {
-            multis[axis] = this.dimension(axis);
-        }
-        return new Add(multis);
-    }
-
-    /**
-     * Calculates the product of the operands coordinates over a dimension.
-     * @param dim Given dimension
-     * @return A {@link Multiplication} object representing the scalar product
-     */
-    private Multiplication dimension(final int dim) {
-        return new Multiplication(
-            this.foperand.coords()[dim], this.soperand.coords()[dim]
+        final Scalar[] first = this.foperand.coords();
+        final Scalar[] second = this.soperand.coords();
+        return new Add(
+            IntStream.range(0, first.length)
+            .mapToObj(i -> new Multiplication(first[i], second[i]))
+            .toArray(Multiplication[]::new)
         );
     }
 }

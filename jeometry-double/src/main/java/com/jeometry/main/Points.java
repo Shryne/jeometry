@@ -21,29 +21,49 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.ray;
+package com.jeometry.main;
 
-import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.vector.Vect;
+import com.jeometry.geometry.twod.Figure;
+import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.model.decimal.Decimal;
+import com.jeometry.render.awt.Awt;
 
 /**
- * Ray interface describing a ray by an origin (vertex) and a direction.
+ * Main points testing class using {@link Awt} output.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Ray extends Renderable {
+public final class Points {
 
     /**
-     * Gives the direction of the Ray.
-     * @return Ray direction
+     * Private constructor.
      */
-    Vect direction();
+    private Points() {
+    }
 
     /**
-     * Gives The originating Point of the ray (its vertex).
-     * @return A point representing the ray origin
+     * Main start method.
+     * @param args Unused args
      */
-    Vect origin();
+    public static void main(final String... args) {
+        final Figure figure = new Figure()
+            .add(Points.random()).add(Points.random()).add(Points.random())
+            .add(Points.random()).add(Points.random()).add(Points.random());
+        final Awt awt = new Awt().withSize(50, 50);
+        awt.render(figure);
+        awt.setVisible(true);
+    }
+
+    /**
+     * Generates a random point.
+     * @return A random point
+     */
+    private static DblPoint random() {
+        final Decimal field = new Decimal();
+        return new DblPoint(
+            field.actual(field.random()), field.actual(field.random())
+        );
+    }
 
 }
