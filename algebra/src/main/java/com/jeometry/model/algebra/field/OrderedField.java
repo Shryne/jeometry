@@ -26,57 +26,41 @@ package com.jeometry.model.algebra.field;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
- * Interface describing a field of scalars. Giving the capability to:<br>
+ * Interface describing an ordered field of scalars.
+ * Giving the capability to:<br>
  * <ul>
- * <li>Generate random scalars</li>
- * <li>Define the sum identity</li>
- * <li>Define the multiplication identity</li>
- * <li>Compare two scalars for equality</li>
+ * <li>Generate random ordered scalars</li>
+ * <li>Compare two scalars by order</li>
  * </ul>
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */
-public interface Field<T> {
+public interface OrderedField<T> extends Field<T> {
 
     /**
-     * Generates a random scalar.
+     * Generates a random scalar "between" two other scalars. The word "between"
+     * is defined as greater than the smaller scalar and smaller than
+     * the greater scalar.
+     * @param lower Lower bound scalar
+     * @param upper Upper bound scalar
+     * @return A random scalar between two scalars
+     */
+    Scalar between(final Scalar lower, final Scalar upper);
+
+    /**
+     * Generates a random scalar greater than the given scalar.
+     * @param lower Lower bound scalar
      * @return A random scalar
      */
-    Scalar random();
+    Scalar greater(final Scalar lower);
 
     /**
-     * Generates a random scalar other than a given scalar.
-     * @param scalar The scalar to be different to.
-     * @return A random scalar different from given one.
+     * Generates a random scalar smaller than the given scalar.
+     * @param upper Upper bound scalar
+     * @return A random scalar
      */
-    Scalar other(final Scalar scalar);
+    Scalar lower(final Scalar upper);
 
-    /**
-     * Gives a scalar representing the sum identity.
-     * @return The sum identity scalar.
-     */
-    Scalar addIdentity();
-
-    /**
-     * Operates equality on scalars.
-     * @param scalar First scalar
-     * @param other Second scalar
-     * @return True if the two scalars are considered equal
-     */
-    boolean equals(final Scalar scalar, final Scalar other);
-
-    /**
-     * Returns the actual object represented by the given scalar.
-     * @param scalar Scalar
-     * @return The actual object
-     */
-    T actual(final Scalar scalar);
-
-    /**
-     * Gives a scalar representing the multiplication identity.
-     * @return The multiplication identity scalar.
-     */
-    Scalar multIdentity();
 }

@@ -23,55 +23,52 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.jeometry.geometry.twod.segment.Segment;
+import com.jeometry.geometry.twod.ray.Ray;
 import com.jeometry.model.algebra.field.OrderedField;
 import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Minus;
 import com.jeometry.model.algebra.vector.Sum;
 import com.jeometry.model.algebra.vector.Times;
 import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * A point defined by belonging to a segment. The point is fixed upon
- * construction, which means that a modification to the underlying segment does
- * not ensure that this point is still inside the segment.
+ * A point defined by belonging to a ray. The point is fixed upon
+ * construction, which means that a modification to the underlying ray does
+ * not ensure that this point is still inside the ray.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InSegPoint extends XyPoint {
+public final class InRayPoint extends XyPoint {
 
     /**
      * Constructor.
-     * @param seg The segment to belong to
+     * @param ray The ray to belong to
      * @param field Field for scalar randomization
      */
-    public InSegPoint(final Segment seg, final OrderedField<?> field) {
-        this(InSegPoint.vector(seg, field));
+    public InRayPoint(final Ray ray, final OrderedField<?> field) {
+        this(InRayPoint.vector(ray, field));
     }
 
     /**
      * Constructor.
-     * @param vector Point belonging to the segment
+     * @param vector Point belonging to the ray
      */
-    private InSegPoint(final Vect vector) {
+    private InRayPoint(final Vect vector) {
         super(vector.coords()[0], vector.coords()[1]);
     }
 
     /**
-     * Builds a vector belonging to the segment.
-     * @param seg The segment to belong to
+     * Builds a vector belonging to the ray.
+     * @param ray The ray to belong to
      * @param field Field for scalar randomization
-     * @return A point belonging to the segment
+     * @return A point belonging to the ray
      */
-    private static Vect vector(final Segment seg, final OrderedField<?> field) {
-        final Scalar random = field.between(
-            field.addIdentity(), field.multIdentity()
-        );
+    private static Vect vector(final Ray ray, final OrderedField<?> field) {
+        final Scalar random = field.greater(field.addIdentity());
         return new Sum(
-            new Times(new Minus(seg.start(), seg.end()), random), seg.start()
+            new Times(ray.direction(), random), ray.origin()
         );
     }
 

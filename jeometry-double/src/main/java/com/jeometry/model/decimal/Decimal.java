@@ -25,6 +25,7 @@ package com.jeometry.model.decimal;
 
 import com.jeometry.model.algebra.field.AbstractField;
 import com.jeometry.model.algebra.field.Field;
+import com.jeometry.model.algebra.field.OrderedField;
 import com.jeometry.model.algebra.scalar.Add;
 import com.jeometry.model.algebra.scalar.Diff;
 import com.jeometry.model.algebra.scalar.Division;
@@ -37,16 +38,17 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public final class Decimal extends AbstractField<Double> {
+public final class Decimal
+    extends AbstractField<Double> implements OrderedField<Double> {
 
     /**
      * Minimum value to generate when randomizing a scalar.
      */
-    private static final int MINBOUND = -10;
+    private static final double MINBOUND = -10;
     /**
      * Maximum value to generate when randomizing a scalar.
      */
-    private static final int MAXBOUND = 10;
+    private static final double MAXBOUND = 10;
 
     /**
      * A tolerance threshold to consider two values as equal.
@@ -76,10 +78,9 @@ public final class Decimal extends AbstractField<Double> {
 
     @Override
     public Scalar random() {
-        return new Scalar.Default<Double>(
-            this.rand.nextDouble()
-            * (Decimal.MAXBOUND - Decimal.MINBOUND)
-            + Decimal.MINBOUND
+        return this.between(
+            new Scalar.Default<Double>(Decimal.MINBOUND),
+            new Scalar.Default<Double>(Decimal.MAXBOUND)
         );
     }
 
@@ -139,7 +140,7 @@ public final class Decimal extends AbstractField<Double> {
     }
 
     @Override
-    public Scalar random(final Scalar lower, final Scalar upper) {
+    public Scalar between(final Scalar lower, final Scalar upper) {
         final Double min = this.actual(lower);
         final Double max = this.actual(upper);
         return new Scalar.Default<Double>(
@@ -147,4 +148,17 @@ public final class Decimal extends AbstractField<Double> {
         );
     }
 
+    @Override
+    public Scalar greater(final Scalar lower) {
+        return this.between(
+            lower, new Scalar.Default<Double>(Decimal.MAXBOUND)
+        );
+    }
+
+    @Override
+    public Scalar lower(final Scalar upper) {
+        return this.between(
+            new Scalar.Default<Double>(Decimal.MINBOUND), upper
+        );
+    }
 }

@@ -25,6 +25,8 @@ package com.jeometry.geometry.twod.point;
 
 import com.jeometry.geometry.twod.segment.Segment;
 import com.jeometry.model.algebra.field.OrderedField;
+import com.jeometry.model.algebra.scalar.Add;
+import com.jeometry.model.algebra.scalar.Division;
 import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.Minus;
 import com.jeometry.model.algebra.vector.Sum;
@@ -41,22 +43,22 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InSegPoint extends XyPoint {
+public final class MidSegPoint extends XyPoint {
 
     /**
      * Constructor.
      * @param seg The segment to belong to
      * @param field Field for scalar randomization
      */
-    public InSegPoint(final Segment seg, final OrderedField<?> field) {
-        this(InSegPoint.vector(seg, field));
+    public MidSegPoint(final Segment seg, final OrderedField<?> field) {
+        this(MidSegPoint.vector(seg, field));
     }
 
     /**
      * Constructor.
      * @param vector Point belonging to the segment
      */
-    private InSegPoint(final Vect vector) {
+    private MidSegPoint(final Vect vector) {
         super(vector.coords()[0], vector.coords()[1]);
     }
 
@@ -67,11 +69,10 @@ public final class InSegPoint extends XyPoint {
      * @return A point belonging to the segment
      */
     private static Vect vector(final Segment seg, final OrderedField<?> field) {
-        final Scalar random = field.between(
-            field.addIdentity(), field.multIdentity()
-        );
+        final Scalar one = field.multIdentity();
+        final Scalar half = new Division(one, new Add(one, one));
         return new Sum(
-            new Times(new Minus(seg.start(), seg.end()), random), seg.start()
+            new Times(new Minus(seg.start(), seg.end()), half), seg.start()
         );
     }
 
