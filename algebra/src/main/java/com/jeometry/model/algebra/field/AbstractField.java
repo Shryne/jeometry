@@ -28,6 +28,8 @@ import com.jeometry.model.algebra.scalar.Diff;
 import com.jeometry.model.algebra.scalar.Division;
 import com.jeometry.model.algebra.scalar.Multiplication;
 import com.jeometry.model.algebra.scalar.Scalar;
+import java.util.Arrays;
+import java.util.function.BinaryOperator;
 
 /**
  * Abstract Field implementation based on {@link Default} implementation
@@ -62,13 +64,53 @@ public abstract class AbstractField<T> implements Field<T> {
             result = this.actual(this.calculate((Multiplication) scalar));
         }
         if (scalar instanceof Diff) {
-            result = this.actual(this.calculate((Diff) scalar));
+            final Diff diff = (Diff) scalar;
+            final T inverse = this.addition().inverse(
+                this.actual(diff.second())
+            );
+            result = this.actual(
+                this.calculate(
+                    new Add(diff.first(), new Scalar.Default<>(inverse))
+                )
+            );
         }
         if (scalar instanceof Division) {
-            result = this.actual(this.calculate((Division) scalar));
+            final Division div = (Division) scalar;
+            final T inverse = this.multiplication().inverse(
+                this.actual(div.second())
+            );
+            result = this.actual(
+                this.calculate(
+                    new Multiplication(
+                        div.first(), new Scalar.Default<>(inverse)
+                    )
+                )
+            );
         }
         return result;
     }
+
+    @Override
+    public final Scalar addIdentity() {
+        return new Scalar.Default<T>(this.addition().neutral());
+    }
+
+    @Override
+    public final Scalar multIdentity() {
+        return new Scalar.Default<T>(this.multiplication().neutral());
+    }
+
+    /**
+     * Returns the field addition operation.
+     * @return A {@link FieldAddition} object
+     */
+    protected abstract FieldAddition<T> addition();
+
+    /**
+     * Returns the field multiplication operation.
+     * @return A {@link FieldMultiplication} object
+     */
+    protected abstract FieldMultiplication<T> multiplication();
 
     /**
      * Calculates the passed {@link Add} and returns a scalar
@@ -76,7 +118,20 @@ public abstract class AbstractField<T> implements Field<T> {
      * @param add The addition scalar
      * @return A scalar representing the addition result
      */
-    protected abstract Scalar calculate(final Add add);
+    private Scalar calculate(final Add add) {
+        final Scalar[] ops = add.operands();
+        final FieldAddition<T> addition = this.addition();
+        final T result = Arrays.stream(ops).map(this::actual).reduce(
+            addition.neutral(),
+            new BinaryOperator<T>() {
+                @Override
+                public T apply(final T operand, final T second) {
+                    return addition.add(operand, second);
+                }
+            }
+        );
+        return new Scalar.Default<T>(result);
+    }
 
     /**
      * Calculates the passed {@link Multiplication} and returns a scalar
@@ -84,22 +139,19 @@ public abstract class AbstractField<T> implements Field<T> {
      * @param mult The multiplication scalar
      * @return A scalar representing the multiplication result
      */
-    protected abstract Scalar calculate(final Multiplication mult);
-
-    /**
-     * Calculates the passed {@link Division} and returns a scalar
-     * representing the result.
-     * @param div The division scalar
-     * @return A scalar representing the division result
-     */
-    protected abstract Scalar calculate(final Division div);
-
-    /**
-     * Calculates the passed {@link Diff} and returns a scalar
-     * representing the result.
-     * @param diff The difference scalar
-     * @return A scalar representing the difference result
-     */
-    protected abstract Scalar calculate(final Diff diff);
+    private Scalar calculate(final Multiplication mult) {
+        final Scalar[] ops = mult.operands();
+        final FieldMultiplication<T> multip = this.multiplication();
+        final T result = Arrays.stream(ops).map(this::actual).reduce(
+            multip.neutral(),
+            new BinaryOperator<T>() {
+                @Override
+                public T apply(final T operand, final T second) {
+                    return multip.multiply(operand, second);
+                }
+            }
+        );
+        return new Scalar.Default<T>(result);
+    }
 
 }

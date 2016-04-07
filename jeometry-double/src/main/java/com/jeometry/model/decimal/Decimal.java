@@ -23,13 +23,11 @@
  */
 package com.jeometry.model.decimal;
 
-import com.jeometry.model.algebra.field.AbstractField;
+import com.jeometry.model.algebra.field.AbstractOrderedField;
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.field.OrderedField;
-import com.jeometry.model.algebra.scalar.Add;
-import com.jeometry.model.algebra.scalar.Diff;
-import com.jeometry.model.algebra.scalar.Division;
-import com.jeometry.model.algebra.scalar.Multiplication;
+import com.jeometry.model.algebra.field.FieldAddition;
+import com.jeometry.model.algebra.field.FieldMultiplication;
+import com.jeometry.model.algebra.field.OrderedRandomizer;
 import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
@@ -38,8 +36,7 @@ import com.jeometry.model.algebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public final class Decimal
-    extends AbstractField<Double> implements OrderedField<Double> {
+public final class Decimal extends AbstractOrderedField<Double> {
 
     /**
      * Minimum value to generate when randomizing a scalar.
@@ -56,24 +53,18 @@ public final class Decimal
     private static final double TOLERANCE = 1.E-3;
 
     /**
-     * Randomizer.
-     */
-    private final transient java.util.Random rand;
-
-    /**
      * Constructor.
      */
     public Decimal() {
-        this(new java.util.Random());
+        this(new DecimalRandomizer(Decimal.MINBOUND, Decimal.MAXBOUND));
     }
 
     /**
      * Constructor.
      * @param rand Randomizer
      */
-    public Decimal(final java.util.Random rand) {
-        super();
-        this.rand = rand;
+    public Decimal(final OrderedRandomizer<Double> rand) {
+        super(rand);
     }
 
     @Override
@@ -85,11 +76,6 @@ public final class Decimal
     }
 
     @Override
-    public Scalar addIdentity() {
-        return new Scalar.Default<Double>(Double.valueOf(0));
-    }
-
-    @Override
     public boolean equals(final Scalar first, final Scalar second) {
         return Math.abs(
             this.actual(first) - this.actual(second)
@@ -97,68 +83,47 @@ public final class Decimal
     }
 
     @Override
-    public Scalar calculate(final Add add) {
-        final Scalar[] ops = add.operands();
-        Double sum = 0.;
-        for (final Scalar scalar : ops) {
-            sum += this.actual(scalar);
-        }
-        return new Scalar.Default<Double>(sum);
+    public FieldAddition<Double> addition() {
+        return new FieldAddition<Double>() {
+
+            @Override
+            public Double add(final Double operand, final Double second) {
+                return operand + second;
+            }
+
+            @Override
+            public Double neutral() {
+                return 0.;
+            }
+
+            @Override
+            public Double inverse(final Double elt) {
+                return -elt;
+            }
+        };
     }
 
     @Override
-    public Scalar calculate(final Multiplication mult) {
-        final Scalar[] ops = mult.operands();
-        Double product = 1.;
-        for (final Scalar scalar : ops) {
-            product *= this.actual(scalar);
-        }
-        return new Scalar.Default<Double>(product);
-    }
+    public FieldMultiplication<Double> multiplication() {
+        return new FieldMultiplication<Double>() {
 
-    @Override
-    public Scalar calculate(final Division div) {
-        final Scalar dividend = div.first();
-        final Scalar divisor = div.second();
-        return new Scalar.Default<Double>(
-            this.actual(dividend) / this.actual(divisor)
-        );
-    }
+            @Override
+            public Double multiply(final Double operand, final Double second) {
+                return operand * second;
+            }
 
-    @Override
-    public Scalar calculate(final Diff diff) {
-        final Scalar minuend = diff.first();
-        final Scalar subtrahend = diff.second();
-        return new Scalar.Default<Double>(
-            this.actual(minuend) - this.actual(subtrahend)
-        );
-    }
+            @Override
+            public Double neutral() {
+                return 1.;
+            }
 
-    @Override
-    public Scalar multIdentity() {
-        return new Scalar.Default<Double>(Double.valueOf(1));
-    }
-
-    @Override
-    public Scalar between(final Scalar lower, final Scalar upper) {
-        final Double min = this.actual(lower);
-        final Double max = this.actual(upper);
-        return new Scalar.Default<Double>(
-            this.rand.nextDouble() * (max - min) + min
-        );
-    }
-
-    @Override
-    public Scalar greater(final Scalar lower) {
-        return this.between(
-            lower, new Scalar.Default<Double>(Decimal.MAXBOUND)
-        );
-    }
-
-    @Override
-    public Scalar lower(final Scalar upper) {
-        return this.between(
-            new Scalar.Default<Double>(Decimal.MINBOUND), upper
-        );
+            @Override
+            public Double inverse(final Double elt) {
+                if (Double.valueOf(0).equals(elt)) {
+                    throw new IllegalArgumentException("Division by zero");
+                }
+                return 1. / elt;
+            }
+        };
     }
 }
