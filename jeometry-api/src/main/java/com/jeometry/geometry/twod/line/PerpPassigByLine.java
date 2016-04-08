@@ -24,8 +24,6 @@
 package com.jeometry.geometry.twod.line;
 
 import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Diff;
-import com.jeometry.model.algebra.vector.FixedVector;
 import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
@@ -38,10 +36,16 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 public final class PerpPassigByLine implements Line {
+
     /**
-     * The line direction.
+     * The line to be perpendicular to.
      */
-    private final Vect dir;
+    private final Line perp;
+
+    /**
+     * Scalar field.
+     */
+    private final Field<?> field;
 
     /**
      * A point by which this line passes.
@@ -57,16 +61,14 @@ public final class PerpPassigByLine implements Line {
     public PerpPassigByLine(final Line perp, final Vect point,
         final Field<?> field) {
         super();
-        this.dir = new FixedVector(
-            perp.direction().coords()[1],
-            new Diff(field.addIdentity(), perp.direction().coords()[0])
-        );
+        this.perp = perp;
         this.pnt = point;
+        this.field = field;
     }
 
     @Override
     public Vect direction() {
-        return this.dir;
+        return new PerpLine(this.perp, this.field).direction();
     }
 
     @Override

@@ -33,15 +33,23 @@ import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * A point defined by belonging to a segment. The point is fixed upon
- * construction, which means that a modification to the underlying segment does
- * not ensure that this point is still inside the segment.
+ * A point defined by belonging to a segment.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InSegPoint extends XyPoint {
+public final class InSegPoint implements Vect {
+
+    /**
+     * A random scalar.
+     */
+    private final Scalar factor;
+
+    /**
+     * The segment to belong to.
+     */
+    private final Segment seg;
 
     /**
      * Constructor.
@@ -49,30 +57,16 @@ public final class InSegPoint extends XyPoint {
      * @param field Field for scalar randomization
      */
     public InSegPoint(final Segment seg, final OrderedField<?> field) {
-        this(InSegPoint.vector(seg, field));
+        this.factor = field.between(field.addIdentity(), field.multIdentity());
+        this.seg = seg;
     }
 
-    /**
-     * Constructor.
-     * @param vector Point belonging to the segment
-     */
-    private InSegPoint(final Vect vector) {
-        super(vector.coords()[0], vector.coords()[1]);
-    }
-
-    /**
-     * Builds a vector belonging to the segment.
-     * @param seg The segment to belong to
-     * @param field Field for scalar randomization
-     * @return A point belonging to the segment
-     */
-    private static Vect vector(final Segment seg, final OrderedField<?> field) {
-        final Scalar random = field.between(
-            field.addIdentity(), field.multIdentity()
-        );
+    @Override
+    public Scalar[] coords() {
         return new Sum(
-            new Times(new Minus(seg.start(), seg.end()), random), seg.start()
-        );
+            new Times(new Minus(this.seg.end(), this.seg.start()), this.factor),
+            this.seg.start()
+        ).coords();
     }
 
 }

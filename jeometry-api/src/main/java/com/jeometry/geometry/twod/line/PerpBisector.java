@@ -21,32 +21,22 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.geometry.twod.line;
 
+import com.jeometry.geometry.twod.point.MidSegPoint;
 import com.jeometry.geometry.twod.segment.Segment;
 import com.jeometry.model.algebra.field.OrderedField;
-import com.jeometry.model.algebra.scalar.Add;
-import com.jeometry.model.algebra.scalar.Division;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Minus;
-import com.jeometry.model.algebra.vector.Sum;
-import com.jeometry.model.algebra.vector.Times;
 import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * A point defined by being a segment midpoint.
+ * A line defined by being the perpendicular bisector of a segment.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(callSuper = true)
-public final class MidSegPoint implements Vect {
-
-    /**
-     * The segment to midpoint.
-     */
-    private final Segment seg;
+@ToString(includeFieldNames = false)
+public final class PerpBisector implements Line {
 
     /**
      * Scalar field.
@@ -54,32 +44,28 @@ public final class MidSegPoint implements Vect {
     private final OrderedField<?> field;
 
     /**
+     * The segment.
+     */
+    private final Segment seg;
+
+    /**
      * Constructor.
-     * @param seg The segment to belong to
+     * @param seg The segment to bisect
      * @param field Field for scalar randomization
      */
-    public MidSegPoint(final Segment seg, final OrderedField<?> field) {
+    public PerpBisector(final Segment seg, final OrderedField<?> field) {
         this.seg = seg;
         this.field = field;
     }
 
     @Override
-    public Scalar[] coords() {
-        return MidSegPoint.vector(this.seg, this.field).coords();
+    public Vect direction() {
+        return new PerpLine(new SgtLine(this.seg), this.field).direction();
     }
 
-    /**
-     * Builds a vector belonging to the segment.
-     * @param seg The segment to belong to
-     * @param field Field for scalar randomization
-     * @return A point belonging to the segment
-     */
-    private static Vect vector(final Segment seg, final OrderedField<?> field) {
-        final Scalar one = field.multIdentity();
-        final Scalar half = new Division(one, new Add(one, one));
-        return new Sum(
-            new Times(new Minus(seg.start(), seg.end()), half), seg.start()
-        );
+    @Override
+    public Vect point() {
+        return new MidSegPoint(this.seg, this.field);
     }
 
 }

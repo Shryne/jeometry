@@ -26,6 +26,7 @@ package com.jeometry.geometry.twod.line;
 import com.jeometry.geometry.twod.point.RandomPoint;
 import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.algebra.scalar.Diff;
+import com.jeometry.model.algebra.scalar.Scalar;
 import com.jeometry.model.algebra.vector.FixedVector;
 import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
@@ -38,10 +39,11 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 public final class PerpLine implements Line {
+
     /**
-     * The line direction.
+     * The line to be perpendicular to.
      */
-    private final Vect dir;
+    private final Line perp;
 
     /**
      * A point by which this line passes.
@@ -49,22 +51,27 @@ public final class PerpLine implements Line {
     private final Vect pnt;
 
     /**
+     * Scalar field.
+     */
+    private final Field<?> field;
+
+    /**
      * Constructor.
-     * @param perp The line to be parallel to
+     * @param perp The line to be perpendicular to
      * @param field Field for scalar randomization
      */
     public PerpLine(final Line perp, final Field<?> field) {
-        super();
-        this.dir = new FixedVector(
-            perp.direction().coords()[1],
-            new Diff(field.addIdentity(), perp.direction().coords()[0])
-        );
+        this.field = field;
+        this.perp = perp;
         this.pnt = new RandomPoint(field);
     }
 
     @Override
     public Vect direction() {
-        return this.dir;
+        final Scalar[] coords = this.perp.direction().coords();
+        return new FixedVector(
+            coords[1], new Diff(this.field.addIdentity(), coords[0])
+        );
     }
 
     @Override

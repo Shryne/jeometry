@@ -32,15 +32,23 @@ import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * A point defined by belonging to a ray. The point is fixed upon
- * construction, which means that a modification to the underlying ray does
- * not ensure that this point is still inside the ray.
+ * A point defined by belonging to a ray.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InRayPoint extends XyPoint {
+public final class InRayPoint implements Vect {
+
+    /**
+     * A random scalar.
+     */
+    private final Scalar factor;
+
+    /**
+     * The ray to belong to.
+     */
+    private final Ray ray;
 
     /**
      * Constructor.
@@ -48,28 +56,15 @@ public final class InRayPoint extends XyPoint {
      * @param field Field for scalar randomization
      */
     public InRayPoint(final Ray ray, final OrderedField<?> field) {
-        this(InRayPoint.vector(ray, field));
+        this.factor = field.greater(field.addIdentity());
+        this.ray = ray;
     }
 
-    /**
-     * Constructor.
-     * @param vector Point belonging to the ray
-     */
-    private InRayPoint(final Vect vector) {
-        super(vector.coords()[0], vector.coords()[1]);
-    }
-
-    /**
-     * Builds a vector belonging to the ray.
-     * @param ray The ray to belong to
-     * @param field Field for scalar randomization
-     * @return A point belonging to the ray
-     */
-    private static Vect vector(final Ray ray, final OrderedField<?> field) {
-        final Scalar random = field.greater(field.addIdentity());
+    @Override
+    public Scalar[] coords() {
         return new Sum(
-            new Times(ray.direction(), random), ray.origin()
-        );
+            new Times(this.ray.direction(), this.factor), this.ray.origin()
+        ).coords();
     }
 
 }

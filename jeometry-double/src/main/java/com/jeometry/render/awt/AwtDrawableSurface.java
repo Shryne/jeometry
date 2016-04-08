@@ -50,6 +50,11 @@ public final class AwtDrawableSurface extends JPanel {
     private static final double ZOOM_AMOUNT = 1.5;
 
     /**
+     * Initial zoom value.
+     */
+    private static final double ZOOM_START = 10;
+
+    /**
      * Serial version ID.
      */
     private static final long serialVersionUID = -2539212597748980908L;
@@ -80,7 +85,7 @@ public final class AwtDrawableSurface extends JPanel {
     public AwtDrawableSurface() {
         super();
         this.center = new DblPoint(0., 0.);
-        this.scale = AwtDrawableSurface.ZOOM_AMOUNT;
+        this.scale = AwtDrawableSurface.ZOOM_START;
         this.painters = new Painters().defaults();
     }
 
