@@ -84,46 +84,62 @@ public final class Decimal extends AbstractOrderedField<Double> {
 
     @Override
     public FieldAddition<Double> addition() {
-        return new FieldAddition<Double>() {
-
-            @Override
-            public Double add(final Double operand, final Double second) {
-                return operand + second;
-            }
-
-            @Override
-            public Double neutral() {
-                return 0.;
-            }
-
-            @Override
-            public Double inverse(final Double elt) {
-                return -elt;
-            }
-        };
+        return new Decimal.Addition();
     }
 
     @Override
     public FieldMultiplication<Double> multiplication() {
-        return new FieldMultiplication<Double>() {
+        return new Decimal.Mult();
+    }
 
-            @Override
-            public Double multiply(final Double operand, final Double second) {
-                return operand * second;
-            }
+    /**
+     * Double multiplication implementation.
+     * @author Hamdi Douss (douss.hamdi@gmail.com)
+     * @version $Id$
+     * @since 0.1
+     */
+    private static class Mult implements FieldMultiplication<Double> {
 
-            @Override
-            public Double neutral() {
-                return 1.;
-            }
+        @Override
+        public Double multiply(final Double operand, final Double second) {
+            return operand * second;
+        }
 
-            @Override
-            public Double inverse(final Double elt) {
-                if (Double.valueOf(0).equals(elt)) {
-                    throw new IllegalArgumentException("Division by zero");
-                }
-                return 1. / elt;
+        @Override
+        public Double neutral() {
+            return 1.;
+        }
+
+        @Override
+        public Double inverse(final Double elt) {
+            if (Double.valueOf(0).equals(elt)) {
+                throw new IllegalArgumentException("Division by zero");
             }
-        };
+            return 1. / elt;
+        }
+    }
+
+    /**
+     * Double addition implementation.
+     * @author Hamdi Douss (douss.hamdi@gmail.com)
+     * @version $Id$
+     * @since 0.1
+     */
+    private static class Addition implements FieldAddition<Double> {
+
+        @Override
+        public Double add(final Double operand, final Double second) {
+            return operand + second;
+        }
+
+        @Override
+        public Double neutral() {
+            return 0.;
+        }
+
+        @Override
+        public Double inverse(final Double elt) {
+            return -elt;
+        }
     }
 }
