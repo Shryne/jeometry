@@ -23,8 +23,8 @@
  */
 package com.jeometry.geometry.twod.segment;
 
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.vector.Vect;
 
 /**
  * Segment interface describing a segment by its two extremities.

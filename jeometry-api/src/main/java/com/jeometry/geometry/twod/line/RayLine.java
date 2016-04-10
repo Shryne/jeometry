@@ -23,8 +23,8 @@
  */
 package com.jeometry.geometry.twod.line;
 
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.ray.Ray;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**

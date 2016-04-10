@@ -23,10 +23,10 @@
  */
 package com.jeometry.geometry.twod;
 
-import com.jeometry.model.algebra.scalar.Diff;
-import com.jeometry.model.algebra.scalar.Multiplication;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Vect;
+import com.aljebra.scalar.Diff;
+import com.aljebra.scalar.Multiplication;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 
 /**
  * Class representing cross operation (vectorial product) between 2 vectors.

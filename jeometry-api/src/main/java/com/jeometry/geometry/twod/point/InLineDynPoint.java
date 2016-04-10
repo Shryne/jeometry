@@ -23,12 +23,12 @@
  */
 package com.jeometry.geometry.twod.point;
 
+import com.aljebra.field.Field;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Sum;
+import com.aljebra.vector.Times;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.line.Line;
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Sum;
-import com.jeometry.model.algebra.vector.Times;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**
@@ -58,7 +58,6 @@ public final class InLineDynPoint implements Vect {
      * @param field Field for scalar randomization
      */
     public InLineDynPoint(final Line line, final Field<?> field) {
-        super();
         this.line = line;
         this.factor = field.random();
     }

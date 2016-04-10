@@ -23,8 +23,8 @@
  */
 package com.jeometry.model.decimal;
 
+import com.aljebra.scalar.Scalar;
 import com.jeometry.geometry.twod.point.XyPoint;
-import com.jeometry.model.algebra.scalar.Scalar;
 
 /**
  * Represents a 2D vector defined by (x,y) double coordinates.

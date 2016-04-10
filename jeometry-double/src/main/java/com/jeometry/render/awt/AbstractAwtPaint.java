@@ -23,11 +23,11 @@
  */
 package com.jeometry.render.awt;
 
+import com.aljebra.field.Field;
 import com.jeometry.geometry.twod.RenderSupport;
 import com.jeometry.geometry.twod.Renderable;
 import com.jeometry.geometry.twod.Renderer;
 import com.jeometry.geometry.twod.Shape;
-import com.jeometry.model.algebra.field.Field;
 import java.awt.Graphics2D;
 import java.util.Arrays;
 

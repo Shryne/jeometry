@@ -23,10 +23,10 @@
  */
 package com.jeometry.main;
 
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.Figure;
 import com.jeometry.geometry.twod.ray.PtDirRay;
 import com.jeometry.geometry.twod.ray.Ray;
-import com.jeometry.model.algebra.vector.Vect;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.render.awt.Awt;
 

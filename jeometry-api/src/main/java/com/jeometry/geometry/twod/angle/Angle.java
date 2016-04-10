@@ -23,8 +23,8 @@
  */
 package com.jeometry.geometry.twod.angle;
 
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.vector.Vect;
 
 /**
  * Angle interface describing an angle by an origin and two directions.

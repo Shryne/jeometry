@@ -23,9 +23,9 @@
  */
 package com.jeometry.model.decimal;
 
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.circle.PtRadCircle;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Vect;
 
 /**
  * Convenience class representing a 2D circle defined by a double radius.

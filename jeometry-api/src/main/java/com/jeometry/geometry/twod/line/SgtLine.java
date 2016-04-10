@@ -23,9 +23,9 @@
  */
 package com.jeometry.geometry.twod.line;
 
+import com.aljebra.vector.Minus;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.segment.Segment;
-import com.jeometry.model.algebra.vector.Minus;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**

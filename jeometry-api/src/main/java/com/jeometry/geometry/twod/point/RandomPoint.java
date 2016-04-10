@@ -23,7 +23,7 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.jeometry.model.algebra.field.Field;
+import com.aljebra.field.Field;
 import lombok.ToString;
 
 /**

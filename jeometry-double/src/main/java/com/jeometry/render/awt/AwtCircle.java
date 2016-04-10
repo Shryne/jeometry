@@ -23,9 +23,9 @@
  */
 package com.jeometry.render.awt;
 
+import com.aljebra.field.Field;
 import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.circle.Circle;
-import com.jeometry.model.algebra.field.Field;
 import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 import java.awt.Point;

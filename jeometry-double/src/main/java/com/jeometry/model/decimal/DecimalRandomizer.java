@@ -23,7 +23,7 @@
  */
 package com.jeometry.model.decimal;
 
-import com.jeometry.model.algebra.field.OrderedRandomizer;
+import com.aljebra.field.OrderedRandomizer;
 import java.util.Random;
 
 /**

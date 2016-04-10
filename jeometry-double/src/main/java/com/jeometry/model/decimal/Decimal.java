@@ -23,12 +23,12 @@
  */
 package com.jeometry.model.decimal;
 
-import com.jeometry.model.algebra.field.AbstractOrderedField;
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.field.FieldAddition;
-import com.jeometry.model.algebra.field.FieldMultiplication;
-import com.jeometry.model.algebra.field.OrderedRandomizer;
-import com.jeometry.model.algebra.scalar.Scalar;
+import com.aljebra.field.AbstractOrderedField;
+import com.aljebra.field.Field;
+import com.aljebra.field.FieldAddition;
+import com.aljebra.field.FieldMultiplication;
+import com.aljebra.field.OrderedRandomizer;
+import com.aljebra.scalar.Scalar;
 
 /**
  * A {@link Field} implementation based on double.

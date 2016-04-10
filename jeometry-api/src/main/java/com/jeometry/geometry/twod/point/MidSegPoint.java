@@ -23,15 +23,15 @@
  */
 package com.jeometry.geometry.twod.point;
 
+import com.aljebra.field.OrderedField;
+import com.aljebra.scalar.Add;
+import com.aljebra.scalar.Division;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Minus;
+import com.aljebra.vector.Sum;
+import com.aljebra.vector.Times;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.segment.Segment;
-import com.jeometry.model.algebra.field.OrderedField;
-import com.jeometry.model.algebra.scalar.Add;
-import com.jeometry.model.algebra.scalar.Division;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Minus;
-import com.jeometry.model.algebra.vector.Sum;
-import com.jeometry.model.algebra.vector.Times;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**

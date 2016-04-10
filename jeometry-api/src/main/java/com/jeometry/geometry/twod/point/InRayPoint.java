@@ -23,12 +23,12 @@
  */
 package com.jeometry.geometry.twod.point;
 
+import com.aljebra.field.OrderedField;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Sum;
+import com.aljebra.vector.Times;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.ray.Ray;
-import com.jeometry.model.algebra.field.OrderedField;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Sum;
-import com.jeometry.model.algebra.vector.Times;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**

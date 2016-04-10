@@ -23,8 +23,8 @@
  */
 package com.jeometry.geometry.twod.circle;
 
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Vect;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 import lombok.ToString;
 
 /**

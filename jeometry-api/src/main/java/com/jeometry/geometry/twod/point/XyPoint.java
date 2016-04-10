@@ -23,9 +23,9 @@
  */
 package com.jeometry.geometry.twod.point;
 
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.FixedVector;
 import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.FixedVector;
 import lombok.ToString;
 
 /**

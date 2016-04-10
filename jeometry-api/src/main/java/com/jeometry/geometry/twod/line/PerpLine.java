@@ -23,12 +23,12 @@
  */
 package com.jeometry.geometry.twod.line;
 
+import com.aljebra.field.Field;
+import com.aljebra.scalar.Diff;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.FixedVector;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.point.RandomPoint;
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Diff;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.FixedVector;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**

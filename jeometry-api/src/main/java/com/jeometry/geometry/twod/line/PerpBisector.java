@@ -23,10 +23,10 @@
  */
 package com.jeometry.geometry.twod.line;
 
+import com.aljebra.field.OrderedField;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.point.MidSegPoint;
 import com.jeometry.geometry.twod.segment.Segment;
-import com.jeometry.model.algebra.field.OrderedField;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**

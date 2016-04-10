@@ -23,9 +23,9 @@
  */
 package com.jeometry.geometry.twod.circle;
 
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Vect;
 
 /**
  * Circle interface describing a circle by a center and a radius.

@@ -23,8 +23,8 @@
  */
 package com.jeometry.geometry.twod.line;
 
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.vector.Vect;
 
 /**
  * Line interface describing a line by a direction and a point belonging to the

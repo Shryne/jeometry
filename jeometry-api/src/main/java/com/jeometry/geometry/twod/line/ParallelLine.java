@@ -23,9 +23,9 @@
  */
 package com.jeometry.geometry.twod.line;
 
+import com.aljebra.field.Field;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.point.OutsideLineDynPoint;
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**

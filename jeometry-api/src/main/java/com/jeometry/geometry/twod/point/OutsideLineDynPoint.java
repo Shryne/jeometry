@@ -23,14 +23,14 @@
  */
 package com.jeometry.geometry.twod.point;
 
+import com.aljebra.field.Field;
+import com.aljebra.scalar.Add;
+import com.aljebra.scalar.Diff;
+import com.aljebra.scalar.Division;
+import com.aljebra.scalar.Multiplication;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.line.Line;
-import com.jeometry.model.algebra.field.Field;
-import com.jeometry.model.algebra.scalar.Add;
-import com.jeometry.model.algebra.scalar.Diff;
-import com.jeometry.model.algebra.scalar.Division;
-import com.jeometry.model.algebra.scalar.Multiplication;
-import com.jeometry.model.algebra.scalar.Scalar;
-import com.jeometry.model.algebra.vector.Vect;
 import lombok.ToString;
 
 /**

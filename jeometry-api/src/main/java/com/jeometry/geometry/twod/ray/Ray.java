@@ -23,8 +23,8 @@
  */
 package com.jeometry.geometry.twod.ray;
 
+import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.Renderable;
-import com.jeometry.model.algebra.vector.Vect;
 
 /**
  * Ray interface describing a ray by an origin (vertex) and a direction.
