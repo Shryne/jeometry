@@ -23,84 +23,31 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.aljebra.field.Field;
-import com.aljebra.scalar.Add;
-import com.aljebra.scalar.Diff;
-import com.aljebra.scalar.Division;
-import com.aljebra.scalar.Multiplication;
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.Vect;
+import com.aljebra.scalar.Random;
+import com.aljebra.vector.FixedVector;
+import com.aljebra.vector.Sum;
 import com.jeometry.geometry.twod.line.Line;
 import lombok.ToString;
 
 /**
- * A point defined by not belonging to a line. The point is fixed upon
- * construction, which means that a modification to the underlying line does
- * not ensure that this point is still outside the line.
+ * A point defined by not belonging to a line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class OutsideLinePoint extends XyPoint {
+public final class OutsideLinePoint extends FixedVector {
 
     /**
      * Constructor.
      * @param line The line to avoid belonging to
-     * @param field Field for scalar operations
      */
-    public OutsideLinePoint(final Line line, final Field<?> field) {
-        this(OutsideLinePoint.getXOutsideLine(line, field), line, field);
-    }
-
-    /**
-     * Constructor.
-     * @param xcoor X coordinate of the point
-     * @param line The line to avoid belonging to
-     * @param field Field for scalar operations
-     */
-    private OutsideLinePoint(final Scalar xcoor, final Line line,
-        final Field<?> field) {
-        super(xcoor, OutsideLinePoint.getYOutsideLine(line, xcoor, field));
-    }
-
-    /**
-     * Ensures generated X coordinate is outside line.
-     * @param line Line to be outside to
-     * @param field Field for scalar operations
-     * @return X coordinate
-     */
-    private static Scalar getXOutsideLine(final Line line,
-        final Field<?> field) {
-        final Vect dir = line.direction();
-        Scalar candidate = field.random();
-        if (field.equals(dir.coords()[0], field.addIdentity())) {
-            candidate = field.other(field.addIdentity());
-        }
-        return candidate;
-    }
-
-    /**
-     * Ensures generated Y coordinate is outside line.
-     * @param line Line to be outside to
-     * @param xcoor Calculated X coordinate
-     * @param field Field for scalar operations
-     * @return Y coordinate
-     */
-    private static Scalar getYOutsideLine(final Line line, final Scalar xcoor,
-        final Field<?> field) {
-        Scalar candidate = field.random();
-        final Vect dir = line.direction();
-        if (!field.equals(dir.coords()[0], field.addIdentity())) {
-            final Vect point = line.point();
-            final Scalar slope = new Division(dir.coords()[1], dir.coords()[0]);
-            final Scalar intercept = new Diff(
-                point.coords()[1], new Multiplication(slope, point.coords()[0])
-            );
-            candidate = field.other(
-                new Add(intercept, new Multiplication(slope, xcoor))
-            );
-        }
-        return candidate;
+    public OutsideLinePoint(final Line line) {
+        super(
+            new Sum(
+                line.point(), line.direction(),
+                new XyPoint(new Random(), new Random())
+            ).coords()
+        );
     }
 }

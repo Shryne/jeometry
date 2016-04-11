@@ -23,7 +23,8 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.aljebra.field.OrderedField;
+import com.aljebra.scalar.AddIdentity;
+import com.aljebra.scalar.Greater;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
@@ -53,10 +54,9 @@ public final class InRayPoint implements Vect {
     /**
      * Constructor.
      * @param ray The ray to belong to
-     * @param field Field for scalar randomization
      */
-    public InRayPoint(final Ray ray, final OrderedField<?> field) {
-        this.factor = field.greater(field.addIdentity());
+    public InRayPoint(final Ray ray) {
+        this.factor = new Greater(new AddIdentity());
         this.ray = ray;
     }
 

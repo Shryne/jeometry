@@ -23,7 +23,7 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.aljebra.field.Field;
+import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 import lombok.ToString;
 
@@ -38,11 +38,10 @@ import lombok.ToString;
 public class YPoint extends XyPoint {
     /**
      * Constructor.
-     * @param field Field for scalar randomization
      * @param ycoor Y coordinate
      */
-    public YPoint(final Field<?> field, final Scalar ycoor) {
-        super(field.random(), ycoor);
+    public YPoint(final Scalar ycoor) {
+        super(new Random(), ycoor);
     }
 
 }

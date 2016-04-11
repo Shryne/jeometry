@@ -23,7 +23,6 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.aljebra.field.Field;
 import com.aljebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -42,13 +41,12 @@ public final class XPointTest {
      */
     @Test
     public void buildsAVector() {
-        final Field<?> field = Mockito.mock(Field.class);
         final Scalar xcoor = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new XPoint(xcoor, field).xcoor(), Matchers.equalTo(xcoor)
+            new XPoint(xcoor).xcoor(), Matchers.equalTo(xcoor)
         );
         MatcherAssert.assertThat(
-            new XPoint(xcoor, field).coords()[0], Matchers.equalTo(xcoor)
+            new XPoint(xcoor).coords()[0], Matchers.equalTo(xcoor)
         );
     }
 }

@@ -24,12 +24,12 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
+import com.aljebra.field.impl.Decimal;
 import com.jeometry.geometry.twod.Shape;
 import com.jeometry.geometry.twod.line.LineAnalytics;
 import com.jeometry.geometry.twod.line.RayLine;
 import com.jeometry.geometry.twod.ray.Ray;
 import com.jeometry.model.decimal.DblPoint;
-import com.jeometry.model.decimal.Decimal;
 import java.awt.Graphics2D;
 import java.awt.Point;
 

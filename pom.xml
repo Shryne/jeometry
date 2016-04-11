@@ -32,7 +32,7 @@
     <description>Simple 2D Java Geometry library</description>
     <packaging>pom</packaging>
     <modules>
-        <module>algebra</module>
+        <module>aljebra</module>
         <module>jeometry-api</module>
         <module>jeometry-double</module>
     </modules>
@@ -128,21 +128,6 @@
                         <exclude>**/package-info.java</exclude>
                     </testExcludes>
                 </configuration>
-            </plugin>
-            <plugin>
-          <groupId>com.qulice</groupId>
-          <artifactId>qulice-maven-plugin</artifactId>
-          <version>0.16.4</version>
-          <configuration>
-            <license>file:${basedir}/LICENSE</license>
-          </configuration>
-          <executions>
-            <execution>
-              <goals>
-                <goal>check</goal>
-              </goals>
-            </execution>
-          </executions>
             </plugin>
         </plugins>
     </build>

@@ -23,12 +23,12 @@
  */
 package com.jeometry.model.scalar;
 
+import com.aljebra.field.impl.Decimal;
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Division;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
-import com.jeometry.model.decimal.Decimal;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;

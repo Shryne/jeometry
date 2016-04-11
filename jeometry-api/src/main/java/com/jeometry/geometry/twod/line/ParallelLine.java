@@ -23,9 +23,8 @@
  */
 package com.jeometry.geometry.twod.line;
 
-import com.aljebra.field.Field;
 import com.aljebra.vector.Vect;
-import com.jeometry.geometry.twod.point.OutsideLineDynPoint;
+import com.jeometry.geometry.twod.point.OutsideLinePoint;
 import lombok.ToString;
 
 /**
@@ -49,12 +48,11 @@ public final class ParallelLine implements Line {
     /**
      * Constructor.
      * @param parallel The line to be parallel to
-     * @param field Field for scalar randomization
      */
-    public ParallelLine(final Line parallel, final Field<?> field) {
+    public ParallelLine(final Line parallel) {
         super();
         this.parallel = parallel;
-        this.pnt = new OutsideLineDynPoint(this.parallel, field);
+        this.pnt = new OutsideLinePoint(this.parallel);
     }
 
     @Override

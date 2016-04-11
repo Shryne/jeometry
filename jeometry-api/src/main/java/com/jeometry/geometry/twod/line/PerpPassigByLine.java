@@ -23,7 +23,6 @@
  */
 package com.jeometry.geometry.twod.line;
 
-import com.aljebra.field.Field;
 import com.aljebra.vector.Vect;
 import lombok.ToString;
 
@@ -43,11 +42,6 @@ public final class PerpPassigByLine implements Line {
     private final Line perp;
 
     /**
-     * Scalar field.
-     */
-    private final Field<?> field;
-
-    /**
      * A point by which this line passes.
      */
     private final Vect pnt;
@@ -56,19 +50,16 @@ public final class PerpPassigByLine implements Line {
      * Constructor.
      * @param perp The line to be parallel to
      * @param point Point to pass by
-     * @param field Field for scalar randomization
      */
-    public PerpPassigByLine(final Line perp, final Vect point,
-        final Field<?> field) {
+    public PerpPassigByLine(final Line perp, final Vect point) {
         super();
         this.perp = perp;
         this.pnt = point;
-        this.field = field;
     }
 
     @Override
     public Vect direction() {
-        return new PerpLine(this.perp, this.field).direction();
+        return new PerpLine(this.perp).direction();
     }
 
     @Override

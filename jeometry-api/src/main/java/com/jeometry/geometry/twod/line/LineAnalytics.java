@@ -24,6 +24,7 @@
 package com.jeometry.geometry.twod.line;
 
 import com.aljebra.field.Field;
+import com.aljebra.scalar.AddIdentity;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Division;
 import com.aljebra.scalar.Multiplication;
@@ -97,7 +98,7 @@ public final class LineAnalytics {
      */
     public boolean vertical() {
         final Vect dir = this.line.direction();
-        return this.field.equals(dir.coords()[0], this.field.addIdentity());
+        return this.field.equals(dir.coords()[0], new AddIdentity());
     }
 
 }

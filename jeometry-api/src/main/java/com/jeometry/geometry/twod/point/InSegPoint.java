@@ -23,7 +23,9 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.aljebra.field.OrderedField;
+import com.aljebra.scalar.AddIdentity;
+import com.aljebra.scalar.Between;
+import com.aljebra.scalar.MultIdentity;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Sum;
@@ -54,10 +56,9 @@ public final class InSegPoint implements Vect {
     /**
      * Constructor.
      * @param seg The segment to belong to
-     * @param field Field for scalar randomization
      */
-    public InSegPoint(final Segment seg, final OrderedField<?> field) {
-        this.factor = field.between(field.addIdentity(), field.multIdentity());
+    public InSegPoint(final Segment seg) {
+        this.factor = new Between(new AddIdentity(), new MultIdentity());
         this.seg = seg;
     }
 

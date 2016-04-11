@@ -24,10 +24,10 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
+import com.aljebra.field.impl.Decimal;
 import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.model.decimal.DblPoint;
-import com.jeometry.model.decimal.Decimal;
 import java.awt.Point;
 
 /**

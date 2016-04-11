@@ -23,7 +23,8 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.aljebra.field.Field;
+import com.aljebra.scalar.Random;
+import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
 import com.aljebra.vector.Vect;
@@ -31,43 +32,45 @@ import com.jeometry.geometry.twod.line.Line;
 import lombok.ToString;
 
 /**
- * A point defined by belonging to a line. The point is fixed upon
- * construction, which means that a modification to the underlying line does
- * not ensure that this point is still inside the line.
+ * A point defined by belonging to a line. The point is dynamic regarding
+ * to the passed line, which means that it is ensured that this point remains
+ * belonging to the line even if modifications occur on the line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(callSuper = true)
-public final class InLinePoint extends XyPoint {
+@ToString(includeFieldNames = false)
+public final class InLinePoint implements Vect {
+
+    /**
+     * The line to belong to.
+     */
+    private final Line line;
+
+    /**
+     * A random scalar.
+     */
+    private final Scalar factor;
 
     /**
      * Constructor.
      * @param line The line to belong to
-     * @param field Field for scalar randomization
      */
-    public InLinePoint(final Line line, final Field<?> field) {
-        this(InLinePoint.vector(line, field));
+    public InLinePoint(final Line line) {
+        this.line = line;
+        this.factor = new Random();
     }
 
-    /**
-     * Constructor.
-     * @param vector Point belonging to the line
-     */
-    private InLinePoint(final Vect vector) {
-        super(vector.coords()[0], vector.coords()[1]);
-    }
-
-    /**
-     * Builds a vector belonging to the line.
-     * @param line The line to belong to
-     * @param field Field for scalar randomization
-     * @return A point belonging to the line
-     */
-    private static Vect vector(final Line line, final Field<?> field) {
-        return new Sum(
-            new Times(line.direction(), field.random()), line.point()
-        );
+    @Override
+    public Scalar[] coords() {
+        return new Scalar[] {
+            new Sum(
+                new Times(this.line.direction(), this.factor), this.line.point()
+            ).coords()[0],
+            new Sum(
+                new Times(this.line.direction(), this.factor), this.line.point()
+            ).coords()[1],
+        };
     }
 
 }

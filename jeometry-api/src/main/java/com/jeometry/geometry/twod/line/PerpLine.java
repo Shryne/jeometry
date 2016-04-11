@@ -23,8 +23,7 @@
  */
 package com.jeometry.geometry.twod.line;
 
-import com.aljebra.field.Field;
-import com.aljebra.scalar.Diff;
+import com.aljebra.scalar.AddInverse;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
@@ -51,27 +50,18 @@ public final class PerpLine implements Line {
     private final Vect pnt;
 
     /**
-     * Scalar field.
-     */
-    private final Field<?> field;
-
-    /**
      * Constructor.
      * @param perp The line to be perpendicular to
-     * @param field Field for scalar randomization
      */
-    public PerpLine(final Line perp, final Field<?> field) {
-        this.field = field;
+    public PerpLine(final Line perp) {
         this.perp = perp;
-        this.pnt = new RandomPoint(field);
+        this.pnt = new RandomPoint();
     }
 
     @Override
     public Vect direction() {
         final Scalar[] coords = this.perp.direction().coords();
-        return new FixedVector(
-            coords[1], new Diff(this.field.addIdentity(), coords[0])
-        );
+        return new FixedVector(coords[1], new AddInverse(coords[0]));
     }
 
     @Override

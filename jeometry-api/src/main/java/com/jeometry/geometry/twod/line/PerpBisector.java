@@ -23,7 +23,6 @@
  */
 package com.jeometry.geometry.twod.line;
 
-import com.aljebra.field.OrderedField;
 import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.point.MidSegPoint;
 import com.jeometry.geometry.twod.segment.Segment;
@@ -39,11 +38,6 @@ import lombok.ToString;
 public final class PerpBisector implements Line {
 
     /**
-     * Scalar field.
-     */
-    private final OrderedField<?> field;
-
-    /**
      * The segment.
      */
     private final Segment seg;
@@ -51,21 +45,19 @@ public final class PerpBisector implements Line {
     /**
      * Constructor.
      * @param seg The segment to bisect
-     * @param field Field for scalar randomization
      */
-    public PerpBisector(final Segment seg, final OrderedField<?> field) {
+    public PerpBisector(final Segment seg) {
         this.seg = seg;
-        this.field = field;
     }
 
     @Override
     public Vect direction() {
-        return new PerpLine(new SgtLine(this.seg), this.field).direction();
+        return new PerpLine(new SgtLine(this.seg)).direction();
     }
 
     @Override
     public Vect point() {
-        return new MidSegPoint(this.seg, this.field);
+        return new MidSegPoint(this.seg);
     }
 
 }

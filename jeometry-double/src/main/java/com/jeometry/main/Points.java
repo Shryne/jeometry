@@ -23,9 +23,9 @@
  */
 package com.jeometry.main;
 
+import com.aljebra.field.impl.Decimal;
 import com.jeometry.geometry.twod.Figure;
 import com.jeometry.model.decimal.DblPoint;
-import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
 
 /**

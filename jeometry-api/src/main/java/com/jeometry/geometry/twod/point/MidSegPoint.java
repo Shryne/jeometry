@@ -23,9 +23,9 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.aljebra.field.OrderedField;
 import com.aljebra.scalar.Add;
-import com.aljebra.scalar.Division;
+import com.aljebra.scalar.MultIdentity;
+import com.aljebra.scalar.MultInverse;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Sum;
@@ -49,36 +49,29 @@ public final class MidSegPoint implements Vect {
     private final Segment seg;
 
     /**
-     * Scalar field.
-     */
-    private final OrderedField<?> field;
-
-    /**
      * Constructor.
      * @param seg The segment to belong to
-     * @param field Field for scalar randomization
      */
-    public MidSegPoint(final Segment seg, final OrderedField<?> field) {
+    public MidSegPoint(final Segment seg) {
         this.seg = seg;
-        this.field = field;
     }
 
     @Override
     public Scalar[] coords() {
-        return MidSegPoint.vector(this.seg, this.field).coords();
+        return MidSegPoint.vector(this.seg).coords();
     }
 
     /**
      * Builds a vector belonging to the segment.
      * @param seg The segment to belong to
-     * @param field Field for scalar randomization
      * @return A point belonging to the segment
      */
-    private static Vect vector(final Segment seg, final OrderedField<?> field) {
-        final Scalar one = field.multIdentity();
-        final Scalar half = new Division(one, new Add(one, one));
+    private static Vect vector(final Segment seg) {
+        final Scalar half = new MultInverse(
+            new Add(new MultIdentity(), new MultIdentity())
+        );
         return new Sum(
-            new Times(new Minus(seg.start(), seg.end()), half), seg.start()
+            new Times(new Minus(seg.end(), seg.start()), half), seg.start()
         );
     }
 

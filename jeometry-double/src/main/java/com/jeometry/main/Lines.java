@@ -23,6 +23,7 @@
  */
 package com.jeometry.main;
 
+import com.aljebra.field.impl.Decimal;
 import com.jeometry.geometry.twod.Figure;
 import com.jeometry.geometry.twod.line.Line;
 import com.jeometry.geometry.twod.line.ParallelPassingByLine;
@@ -30,7 +31,6 @@ import com.jeometry.geometry.twod.line.PtDirLine;
 import com.jeometry.geometry.twod.line.PtsLine;
 import com.jeometry.geometry.twod.point.XyPoint;
 import com.jeometry.model.decimal.DblPoint;
-import com.jeometry.model.decimal.Decimal;
 import com.jeometry.render.awt.Awt;
 
 /**
