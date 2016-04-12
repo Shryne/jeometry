@@ -61,12 +61,12 @@ public class FixedMatrix implements Matrix {
      * Constructor.
      * @param lines Matrix lines count
      * @param columns Matrix columns count
-     * @param coor Matrix coordinates
+     * @param coor Matrix coordinates to be given in a column by column order
      */
     public FixedMatrix(final int lines, final int columns,
         final Scalar... coor) {
-        this.source = lines;
-        this.target = columns;
+        this.source = columns;
+        this.target = lines;
         this.coors = this.valid(coor);
     }
 
@@ -88,15 +88,15 @@ public class FixedMatrix implements Matrix {
     @Override
     public final Scalar[] column(final int index) {
         final int first = this.index(1, index);
-        return Arrays.copyOfRange(this.coors, first, first + this.source);
+        return Arrays.copyOfRange(this.coors, first, first + this.target);
     }
 
     @Override
     public final Scalar[] line(final int index) {
         final int first = this.index(index, 1);
-        final Scalar[] result = new Scalar[this.target];
-        for (int idx = 0; idx < this.target; ++idx) {
-            result[idx] = this.coors[first + idx * this.source];
+        final Scalar[] result = new Scalar[this.source];
+        for (int idx = 0; idx < this.source; ++idx) {
+            result[idx] = this.coors[first + idx * this.target];
         }
         return result;
     }
@@ -112,12 +112,12 @@ public class FixedMatrix implements Matrix {
 
     @Override
     public final int columns() {
-        return this.target;
+        return this.source;
     }
 
     @Override
     public final int lines() {
-        return this.source;
+        return this.target;
     }
 
     /**
@@ -127,17 +127,17 @@ public class FixedMatrix implements Matrix {
      * @return The single array index
      */
     private int index(final int lin, final int col) {
-        return this.source * (col - 1) + lin - 1;
+        return this.target * (col - 1) + lin - 1;
     }
 
     /**
-     * Calculates the product of the given vector by a matrix column.
+     * Calculates the product of the given vector by a matrix line.
      * @param input Given vector
      * @param idx Matrix column index
      * @return Product
      */
     private Scalar product(final Vect input, final int idx) {
-        return new Product(input, new FixedVector(this.column(idx)));
+        return new Product(input, new FixedVector(this.line(idx)));
     }
 
     /**

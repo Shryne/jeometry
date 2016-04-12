@@ -21,32 +21,46 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.aljebra.scalar;
 
-import com.aljebra.scalar.MultInverse;
-import com.aljebra.scalar.Norm;
-import com.aljebra.vector.FixedVector;
-import com.aljebra.vector.Times;
+import com.aljebra.field.Field;
+import com.aljebra.field.MetricSpaceField;
 import com.aljebra.vector.Vect;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * A vector defined as the normalized form of another vector.
+ * A scalar representing the norm of a vector.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode
 @ToString(includeFieldNames = false)
-@EqualsAndHashCode(callSuper = true)
-public final class Normalized extends FixedVector {
+public final class Norm implements Scalar {
+
+    /**
+     * Vector.
+     */
+    private final Vect vector;
 
     /**
      * Constructor.
-     * @param vector Vector to normalize
+     * @param vector Vector for which to calculate the norm
      */
-    public Normalized(final Vect vector) {
-        super(new Times(vector, new MultInverse(new Norm(vector))).coords());
+    public Norm(final Vect vector) {
+        this.vector = vector;
+    }
+    @Override
+    public <T> T value(final Field<T> field) {
+        if (field instanceof MetricSpaceField<?>) {
+            final MetricSpaceField<T> metric = (MetricSpaceField<T>) field;
+            return field.actual(metric.product().norm(this.vector));
+        } else {
+            throw new UnsupportedOperationException(
+                String.format("Field %s is not a metric space field", field)
+            );
+        }
     }
 
 }

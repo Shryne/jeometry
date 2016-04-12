@@ -24,9 +24,8 @@
 package com.aljebra.field.impl;
 
 import com.aljebra.aspects.DimensionsEqual;
+import com.aljebra.matrix.FixedMatrix;
 import com.aljebra.scalar.Add;
-import com.aljebra.scalar.Diff;
-import com.aljebra.scalar.Division;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
@@ -35,7 +34,8 @@ import java.util.stream.IntStream;
 
 /**
  * Class implementing dot operation (scalar product) or inner product
- * of 2 vectors in Real numbers field.
+ * of 2 vectors in Real numbers field. Current implementation suppose
+ * a two dimension vector space in `vect` and `angle` methods implementation.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -60,11 +60,11 @@ public final class Dot implements InnerProduct {
     }
 
     @Override
+    @DimensionsEqual
     public Number angle(final Vect first, final Vect second) {
-        final Scalar cross = new Diff(
-            new Multiplication(first.coords()[0], second.coords()[1]),
-            new Multiplication(second.coords()[0], first.coords()[1])
-        );
+        final Double cross =
+            Dot.val(first.coords()[0]) * Dot.val(second.coords()[1])
+            - Dot.val(second.coords()[0]) * Dot.val(first.coords()[1]);
         final Scalar norms = new Multiplication(
             this.norm(first), this.norm(second)
         );
@@ -72,11 +72,9 @@ public final class Dot implements InnerProduct {
         if (Dot.val(norms) == 0) {
             result = 0.;
         } else {
-            final Double arcsin = Math.asin(
-                Math.abs(Dot.val(cross)) / Dot.val(norms)
-            );
+            final Double arcsin = Math.asin(Math.abs(cross) / Dot.val(norms));
             final Double arcos = Math.acos(
-                Dot.val(new Division(this.product(first, second), norms))
+                Dot.val(this.product(first, second)) / Dot.val(norms)
             );
             if (arcsin > 0) {
                 result = arcos;
@@ -85,6 +83,18 @@ public final class Dot implements InnerProduct {
             }
         }
         return result;
+    }
+
+    @Override
+    public Vect rot(final Vect vect, final Number angle) {
+        final FixedMatrix rot = new FixedMatrix(
+            2, 2,
+            Dot.wrap(Math.cos(angle.doubleValue())),
+            Dot.wrap(Math.sin(angle.doubleValue())),
+            Dot.wrap(-Math.sin(angle.doubleValue())),
+            Dot.wrap(Math.cos(angle.doubleValue()))
+        );
+        return rot.apply(vect);
     }
 
     /**

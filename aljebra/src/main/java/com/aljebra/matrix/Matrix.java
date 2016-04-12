@@ -27,7 +27,7 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 
 /**
- * Matrix interface. Represents an n*m dimension matrix that can be assimilated
+ * Matrix interface. Represents an m*n dimension matrix that can be assimilated
  * to a linear transformation from n-dimension vector space to a m-dimension
  * vector space. The two vector spaces are supposed to be over the same field.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
@@ -66,15 +66,15 @@ public interface Matrix {
     Vect apply(final Vect input);
 
     /**
-     * Gives the matrix columns number which corresponds
-     * to the target vector space dimension.
+     * Gives the matrix columns count which corresponds
+     * to the source vector space dimension.
      * @return Columns number
      */
     int columns();
 
     /**
-     * Gives the matrix lines number which corresponds
-     * to the source vector space dimension.
+     * Gives the matrix lines count which corresponds
+     * to the target vector space dimension.
      * @return Lines number
      */
     int lines();

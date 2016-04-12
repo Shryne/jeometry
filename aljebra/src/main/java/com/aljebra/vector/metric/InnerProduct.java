@@ -58,4 +58,11 @@ public interface InnerProduct {
      */
     Scalar norm(final Vect vect);
 
+    /**
+     * Rotates a vector with a given angle.
+     * @param vect Input vector
+     * @param angle Angle to form with the input vector
+     * @return A vector
+     */
+    Vect rot(final Vect vect, final Number angle);
 }

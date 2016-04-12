@@ -21,32 +21,43 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.jeometry.geometry.twod.ray;
 
-import com.aljebra.scalar.MultInverse;
-import com.aljebra.scalar.Norm;
-import com.aljebra.vector.FixedVector;
-import com.aljebra.vector.Times;
 import com.aljebra.vector.Vect;
-import lombok.EqualsAndHashCode;
+import com.aljebra.vector.metric.BisectorVect;
+import com.jeometry.geometry.twod.angle.Angle;
 import lombok.ToString;
 
 /**
- * A vector defined as the normalized form of another vector.
+ * A ray defined by being an angle bisector.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-@EqualsAndHashCode(callSuper = true)
-public final class Normalized extends FixedVector {
+@ToString
+public final class AngleBisector implements Ray {
+
+    /**
+     * Angle oto bisect.
+     */
+    private final Angle angle;
 
     /**
      * Constructor.
-     * @param vector Vector to normalize
+     * @param angle Angle to bisect
      */
-    public Normalized(final Vect vector) {
-        super(new Times(vector, new MultInverse(new Norm(vector))).coords());
+    public AngleBisector(final Angle angle) {
+        this.angle = angle;
+    }
+
+    @Override
+    public Vect direction() {
+        return new BisectorVect(this.angle.start(), this.angle.end());
+    }
+
+    @Override
+    public Vect origin() {
+        return this.angle.origin();
     }
 
 }

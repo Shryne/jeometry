@@ -92,10 +92,10 @@ public final class FixedMatrixTest {
         final FixedMatrix matrix = new FixedMatrix(
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
-        final Scalar[] expected = new Scalar[cols];
-        final Vect input = new FixedVector(FixedMatrixTest.scalars(lines));
-        for (int idx = 0; idx < cols; ++idx) {
-            expected[idx] = FixedMatrixTest.pdt(input, matrix.column(idx + 1));
+        final Scalar[] expected = new Scalar[lines];
+        final Vect input = new FixedVector(FixedMatrixTest.scalars(cols));
+        for (int idx = 0; idx < lines; ++idx) {
+            expected[idx] = FixedMatrixTest.pdt(input, matrix.line(idx + 1));
         }
         MatcherAssert.assertThat(
             matrix.apply(input).coords(), FixedMatrixTest.matchers(expected)
