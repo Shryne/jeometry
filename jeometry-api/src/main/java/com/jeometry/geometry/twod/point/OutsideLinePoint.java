@@ -23,10 +23,10 @@
  */
 package com.jeometry.geometry.twod.point;
 
-import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Sum;
 import com.jeometry.geometry.twod.line.Line;
+import com.jeometry.geometry.twod.line.PerpLine;
 import lombok.ToString;
 
 /**
@@ -45,8 +45,8 @@ public final class OutsideLinePoint extends FixedVector {
     public OutsideLinePoint(final Line line) {
         super(
             new Sum(
-                line.point(), line.direction(),
-                new XyPoint(new Random(), new Random())
+                line.point(),
+                new PerpLine(line).direction()
             ).coords()
         );
     }
