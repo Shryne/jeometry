@@ -23,26 +23,50 @@
  */
 package com.jeometry.geometry.twod.segment;
 
+import com.aljebra.scalar.Norm;
 import com.aljebra.vector.Vect;
 import com.jeometry.geometry.twod.point.SegVect;
 import lombok.ToString;
 
 /**
- * A segment defined by one extremity and being congruent to another segment.
+ * A segment defined by being congruent to another segment.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class PtCongruentSegment extends PtVectSegment {
+public final class CongruentSegment implements Segment {
+
+    /**
+     * Generated segment.
+     */
+    private final Segment seg;
 
     /**
      * Constructor.
-     * @param extremity First segment extremity
      * @param seg Segment to be congruent to
      */
-    public PtCongruentSegment(final Vect extremity, final Segment seg) {
-        super(extremity, new SegVect(new CongruentSegment((seg))));
+    public CongruentSegment(final Segment seg) {
+        this.seg = CongruentSegment.congruent(seg);
+    }
+
+    @Override
+    public Vect start() {
+        return this.seg.start();
+    }
+
+    @Override
+    public Vect end() {
+        return this.seg.end();
+    }
+
+    /**
+     * Generates a segment congruent to the given segment.
+     * @param seg Segment to be congruent to
+     * @return Random segement congruent to the given segment
+     */
+    private static Segment congruent(final Segment seg) {
+        return new LengthSegment(new Norm(new SegVect(seg)));
     }
 
 }
