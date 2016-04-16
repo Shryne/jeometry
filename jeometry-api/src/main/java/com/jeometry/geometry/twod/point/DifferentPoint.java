@@ -21,48 +21,28 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.segment;
+package com.jeometry.geometry.twod.point;
 
+import com.aljebra.scalar.Different;
 import com.aljebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * A segment defined by its extremities.
+ * Represents a random vector or a point, different than a given point.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-public  class PtsSegment implements Segment {
-
-    /**
-     * First segment extremity.
-     */
-    private final Vect first;
-
-    /**
-     * Second segment extremity.
-     */
-    private final Vect second;
-
+@ToString(callSuper = true)
+public class DifferentPoint extends XyPoint {
     /**
      * Constructor.
-     * @param first First segment extremity
-     * @param second Second segment extremity
+     * @param point Point to be different to
      */
-    public PtsSegment(final Vect first, final Vect second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    @Override
-    public final Vect start() {
-        return this.first;
-    }
-
-    @Override
-    public final Vect end() {
-        return this.second;
+    public DifferentPoint(final Vect point) {
+        super(
+            new Different(point.coords()[0]), new Different(point.coords()[1])
+        );
     }
 
 }

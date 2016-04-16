@@ -24,16 +24,18 @@
 package com.jeometry.geometry.twod.segment;
 
 import com.aljebra.vector.Vect;
+import com.jeometry.geometry.twod.point.DifferentPoint;
+import com.jeometry.geometry.twod.point.RandomPoint;
 import lombok.ToString;
 
 /**
- * A segment defined by its extremities.
+ * A random segment.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public  class PtsSegment implements Segment {
+public final class RandomSegment implements Segment {
 
     /**
      * First segment extremity.
@@ -47,21 +49,19 @@ public  class PtsSegment implements Segment {
 
     /**
      * Constructor.
-     * @param first First segment extremity
-     * @param second Second segment extremity
      */
-    public PtsSegment(final Vect first, final Vect second) {
-        this.first = first;
-        this.second = second;
+    public RandomSegment() {
+        this.first = new RandomPoint();
+        this.second = new DifferentPoint(this.first);
     }
 
     @Override
-    public final Vect start() {
+    public Vect start() {
         return this.first;
     }
 
     @Override
-    public final Vect end() {
+    public Vect end() {
         return this.second;
     }
 

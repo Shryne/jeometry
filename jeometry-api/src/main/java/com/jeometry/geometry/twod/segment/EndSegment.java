@@ -24,45 +24,25 @@
 package com.jeometry.geometry.twod.segment;
 
 import com.aljebra.vector.Vect;
+import com.jeometry.geometry.twod.point.RandomPoint;
 import lombok.ToString;
 
 /**
- * A segment defined by its extremities.
+ * A segment defined by its end extremity. Its start extremity is
+ * randomly generated.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public  class PtsSegment implements Segment {
-
-    /**
-     * First segment extremity.
-     */
-    private final Vect first;
-
-    /**
-     * Second segment extremity.
-     */
-    private final Vect second;
+public class EndSegment extends PtsSegment {
 
     /**
      * Constructor.
-     * @param first First segment extremity
-     * @param second Second segment extremity
+     * @param end End segment extremity
      */
-    public PtsSegment(final Vect first, final Vect second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    @Override
-    public final Vect start() {
-        return this.first;
-    }
-
-    @Override
-    public final Vect end() {
-        return this.second;
+    public EndSegment(final Vect end) {
+        super(new RandomPoint(), end);
     }
 
 }

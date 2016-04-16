@@ -21,48 +21,29 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.segment;
+package com.jeometry.geometry.twod.point;
 
-import com.aljebra.vector.Vect;
+import com.aljebra.vector.Minus;
+import com.jeometry.geometry.twod.segment.Segment;
 import lombok.ToString;
 
 /**
- * A segment defined by its extremities.
+ * A 2D vector defined by the extremities of a segment. That means
+ * that it represents the difference vector between the extremities vectors
+ * of the segment.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-public  class PtsSegment implements Segment {
-
-    /**
-     * First segment extremity.
-     */
-    private final Vect first;
-
-    /**
-     * Second segment extremity.
-     */
-    private final Vect second;
+@ToString(callSuper = true)
+public final class SegVect extends XyPoint {
 
     /**
      * Constructor.
-     * @param first First segment extremity
-     * @param second Second segment extremity
+     * @param seg Segment defining the vector
      */
-    public PtsSegment(final Vect first, final Vect second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    @Override
-    public final Vect start() {
-        return this.first;
-    }
-
-    @Override
-    public final Vect end() {
-        return this.second;
+    public SegVect(final Segment seg) {
+        super(new Minus(seg.end(), seg.start()));
     }
 
 }

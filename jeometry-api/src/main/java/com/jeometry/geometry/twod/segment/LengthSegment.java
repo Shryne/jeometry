@@ -23,46 +23,55 @@
  */
 package com.jeometry.geometry.twod.segment;
 
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Times;
 import com.aljebra.vector.Vect;
+import com.aljebra.vector.metric.Normalized;
+import com.jeometry.geometry.twod.point.SegVect;
 import lombok.ToString;
 
 /**
- * A segment defined by its extremities.
+ * A random segment defined by its length.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public  class PtsSegment implements Segment {
+public final class LengthSegment implements Segment {
 
     /**
-     * First segment extremity.
+     * Generated segment.
      */
-    private final Vect first;
-
-    /**
-     * Second segment extremity.
-     */
-    private final Vect second;
+    private final Segment seg;
 
     /**
      * Constructor.
-     * @param first First segment extremity
-     * @param second Second segment extremity
+     * @param length Segment length
      */
-    public PtsSegment(final Vect first, final Vect second) {
-        this.first = first;
-        this.second = second;
+    public LengthSegment(final Scalar length) {
+        this.seg = LengthSegment.generate(length);
     }
 
     @Override
-    public final Vect start() {
-        return this.first;
+    public Vect start() {
+        return this.seg.start();
     }
 
     @Override
-    public final Vect end() {
-        return this.second;
+    public Vect end() {
+        return this.seg.end();
+    }
+
+    /**
+     * Generates a random segment with this length.
+     * @param length Segment length
+     * @return A segment with the given length
+     */
+    private static Segment generate(final Scalar length) {
+        final Segment seg = new RandomSegment();
+        return new PtVectSegment(
+            seg.start(), new Times(new Normalized(new SegVect(seg)), length)
+        );
     }
 
 }
