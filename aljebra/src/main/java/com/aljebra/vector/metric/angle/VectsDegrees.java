@@ -21,60 +21,46 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.aljebra.vector.metric.angle;
 
-import com.aljebra.aspects.DimensionsEqual;
-import com.aljebra.field.Field;
-import com.aljebra.field.MetricSpaceField;
-import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
+import com.aljebra.vector.metric.InnerProduct;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Class representing dot operation (scalar product) or inner product
- * of 2 vectors.
+ * Degrees between two vectors.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Product implements Scalar {
+public final class VectsDegrees implements Degrees {
 
     /**
-     * First operand.
+     * First vector.
      */
     private final Vect first;
 
     /**
-     * Second operand.
+     * Second vector.
      */
     private final Vect second;
 
     /**
      * Constructor.
-     * @param first First operand
-     * @param second Second operand
+     * @param first First vector
+     * @param second Second vector
      */
-    @DimensionsEqual
-    public Product(final Vect first, final Vect second) {
+    public VectsDegrees(final Vect first, final Vect second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
-        if (field instanceof MetricSpaceField<?>) {
-            final MetricSpaceField<T> metric = (MetricSpaceField<T>) field;
-            return field.actual(
-                metric.product().product(this.first, this.second)
-            );
-        } else {
-            throw new UnsupportedOperationException(
-                String.format("Field %s is not a metric space field", field)
-            );
-        }
+    public Number resolve(final InnerProduct product) {
+        return product.angle(this.first, this.second).resolve(product);
     }
 
 }

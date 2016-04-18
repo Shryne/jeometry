@@ -24,7 +24,7 @@
 package com.jeometry.geometry.twod.ray;
 
 import com.aljebra.vector.Vect;
-import com.aljebra.vector.metric.BisectorVect;
+import com.aljebra.vector.metric.vect.BisectorVect;
 import com.jeometry.geometry.twod.angle.Angle;
 import lombok.ToString;
 

@@ -21,32 +21,60 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.aljebra.vector.metric.scalar;
 
-import com.aljebra.scalar.MultInverse;
-import com.aljebra.scalar.Norm;
-import com.aljebra.vector.FixedVector;
-import com.aljebra.vector.Times;
+import com.aljebra.aspects.DimensionsEqual;
+import com.aljebra.field.Field;
+import com.aljebra.field.MetricSpaceField;
+import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * A vector defined as the normalized form of another vector.
+ * Class representing dot operation (scalar product) or inner product
+ * of 2 vectors.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-@EqualsAndHashCode(callSuper = true)
-public final class Normalized extends FixedVector {
+@EqualsAndHashCode
+public final class Product implements Scalar {
+
+    /**
+     * First operand.
+     */
+    private final Vect first;
+
+    /**
+     * Second operand.
+     */
+    private final Vect second;
 
     /**
      * Constructor.
-     * @param vector Vector to normalize
+     * @param first First operand
+     * @param second Second operand
      */
-    public Normalized(final Vect vector) {
-        super(new Times(vector, new MultInverse(new Norm(vector))).coords());
+    @DimensionsEqual
+    public Product(final Vect first, final Vect second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    @Override
+    public <T> T value(final Field<T> field) {
+        if (field instanceof MetricSpaceField<?>) {
+            final MetricSpaceField<T> metric = (MetricSpaceField<T>) field;
+            return field.actual(
+                metric.product().product(this.first, this.second)
+            );
+        } else {
+            throw new UnsupportedOperationException(
+                String.format("Field %s is not a metric space field", field)
+            );
+        }
     }
 
 }

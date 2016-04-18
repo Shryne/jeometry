@@ -21,51 +21,38 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.aljebra.vector.metric.angle;
 
+import com.aljebra.vector.metric.InnerProduct;
+import java.util.Random;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Degrees interface. Abstract representation of angles.
+ * Acute angle degrees.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Degrees {
+@ToString(includeFieldNames = false)
+@EqualsAndHashCode
+public final class Acute implements Degrees {
 
     /**
-     * Return the actual value of the degrees.
-     * @param product Related {@link InnerProduct}
-     * @return A number representing the angle in radians
+     * Random generated double.
      */
-    Number resolve(final InnerProduct product);
+    private final double random;
 
     /**
-     * Minimal representation of a degrees holding a reference to a number.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @since 0.1
+     * Constructor.
      */
-    @EqualsAndHashCode
-    @ToString(includeFieldNames = false)
-    class Default implements Degrees {
-        /**
-         * Wrapped Number.
-         */
-        private final Number origin;
-
-        /**
-         * Constructor.
-         * @param num Wrapped number.
-         */
-        public Default(final Number num) {
-            this.origin = num;
-        }
-
-        @Override
-        public Number resolve(final InnerProduct product) {
-            return this.origin;
-        }
+    public Acute() {
+        this.random = new Random().nextDouble();
     }
+    
+    @Override
+    public Number resolve(final InnerProduct product) {
+        return this.random * Math.PI / 2;
+    }
+
 }

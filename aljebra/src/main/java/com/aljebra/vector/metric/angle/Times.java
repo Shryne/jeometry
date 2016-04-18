@@ -21,8 +21,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.aljebra.vector.metric.angle;
 
+import com.aljebra.vector.metric.InnerProduct;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

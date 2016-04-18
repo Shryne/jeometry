@@ -21,45 +21,38 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.aljebra.vector.metric.angle;
 
-import com.aljebra.vector.Vect;
+import com.aljebra.vector.metric.InnerProduct;
+import java.util.Random;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Degrees between two vectors.
+ * Obtuse angle degrees.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class VectsDegrees implements Degrees {
+public final class Obtuse implements Degrees {
 
     /**
-     * First vector.
+     * Random generated double.
      */
-    private final Vect first;
-
-    /**
-     * Second vector.
-     */
-    private final Vect second;
+    private final double random;
 
     /**
      * Constructor.
-     * @param first First vector
-     * @param second Second vector
      */
-    public VectsDegrees(final Vect first, final Vect second) {
-        this.first = first;
-        this.second = second;
+    public Obtuse() {
+        this.random = new Random().nextDouble();
     }
-
+    
     @Override
     public Number resolve(final InnerProduct product) {
-        return product.angle(this.first, this.second).resolve(product);
+        return Math.PI / 2 + this.random * Math.PI / 2;
     }
 
 }

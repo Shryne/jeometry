@@ -29,8 +29,8 @@ import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
-import com.aljebra.vector.metric.Degrees;
 import com.aljebra.vector.metric.InnerProduct;
+import com.aljebra.vector.metric.angle.Degrees;
 import java.util.stream.IntStream;
 
 /**

@@ -21,13 +21,14 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.aljebra.vector.metric.vect;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import com.aljebra.vector.metric.angle.Degrees;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

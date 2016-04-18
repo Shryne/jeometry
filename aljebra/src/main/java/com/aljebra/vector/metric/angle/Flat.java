@@ -21,44 +21,25 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.aljebra.vector.metric.angle;
 
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import java.util.Arrays;
+import com.aljebra.vector.metric.InnerProduct;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * A {@link Degrees} implementation defined as the sum of a {@link Degrees} set.
+ * Flat (straight) angle degrees.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Sum implements Degrees {
-
-    /**
-     * Sum operands.
-     */
-    private final Multiset<Degrees> operands;
-
-    /**
-     * Constructor.
-     * @param operands Sum operands
-     */
-    public Sum(final Degrees... operands) {
-        this.operands = HashMultiset.create(Arrays.asList(operands));
-    }
+public final class Flat implements Degrees {
 
     @Override
     public Number resolve(final InnerProduct product) {
-        Double sum = 0.;
-        for (final Degrees angle : this.operands) {
-            sum += angle.resolve(product).doubleValue();
-        }
-        return sum;
+        return Math.PI;
     }
 
 }

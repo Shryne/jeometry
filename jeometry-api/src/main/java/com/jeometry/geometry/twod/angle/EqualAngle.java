@@ -24,8 +24,8 @@
 package com.jeometry.geometry.twod.angle;
 
 import com.aljebra.vector.Vect;
-import com.aljebra.vector.metric.RotateVect;
-import com.aljebra.vector.metric.VectsDegrees;
+import com.aljebra.vector.metric.angle.VectsDegrees;
+import com.aljebra.vector.metric.vect.RotateVect;
 import com.jeometry.geometry.twod.point.RandomPoint;
 import lombok.ToString;
 

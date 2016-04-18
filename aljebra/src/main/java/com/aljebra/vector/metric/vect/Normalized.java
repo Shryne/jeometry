@@ -21,70 +21,32 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.angle;
+package com.aljebra.vector.metric.vect;
 
+import com.aljebra.scalar.MultInverse;
+import com.aljebra.scalar.Norm;
+import com.aljebra.vector.FixedVector;
+import com.aljebra.vector.Times;
 import com.aljebra.vector.Vect;
-import com.aljebra.vector.metric.vect.RotateVect;
-import com.jeometry.geometry.twod.point.RandomPoint;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * An angle defined by its measure.
+ * A vector defined as the normalized form of another vector.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString
-public final class MeasureAngle implements Angle {
-
-    /**
-     * Angle origin.
-     */
-    private final Vect org;
-
-    /**
-     * Starting angle vector.
-     */
-    private final Vect frst;
-
-    /**
-     * Ending angle vector.
-     */
-    private final Vect scnd;
+@ToString(includeFieldNames = false)
+@EqualsAndHashCode(callSuper = true)
+public final class Normalized extends FixedVector {
 
     /**
      * Constructor.
-     * @param origin Angle summit (vertex)
-     * @param start Starting angle vector
-     * @param measure Angle measure
+     * @param vector Vector to normalize
      */
-    public MeasureAngle(final Vect origin, final Vect start,
-        final Number measure) {
-        this.org = origin;
-        this.frst = start;
-        this.scnd = new RotateVect(start, measure);
+    public Normalized(final Vect vector) {
+        super(new Times(vector, new MultInverse(new Norm(vector))).coords());
     }
 
-    /**
-     * Constructor.
-     * @param measure Angle measure
-     */
-    public MeasureAngle(final Number measure) {
-        this(new RandomPoint(), new RandomPoint(), measure);
-    }
-
-    @Override
-    public Vect origin() {
-        return this.org;
-    }
-
-    @Override
-    public Vect start() {
-        return this.frst;
-    }
-
-    @Override
-    public Vect end() {
-        return this.scnd;
-    }
 }

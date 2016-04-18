@@ -26,7 +26,7 @@ package com.jeometry.geometry.twod.segment;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Times;
 import com.aljebra.vector.Vect;
-import com.aljebra.vector.metric.Normalized;
+import com.aljebra.vector.metric.vect.Normalized;
 import com.jeometry.geometry.twod.point.SegVect;
 import lombok.ToString;
 

@@ -27,7 +27,7 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import com.aljebra.vector.metric.Product;
+import com.aljebra.vector.metric.scalar.Product;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;

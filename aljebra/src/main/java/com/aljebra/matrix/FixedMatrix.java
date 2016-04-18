@@ -26,7 +26,7 @@ package com.aljebra.matrix;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import com.aljebra.vector.metric.Product;
+import com.aljebra.vector.metric.scalar.Product;
 import com.google.common.base.Preconditions;
 import java.util.Arrays;
 import lombok.EqualsAndHashCode;

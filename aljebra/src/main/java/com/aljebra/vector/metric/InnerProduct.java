@@ -25,6 +25,7 @@ package com.aljebra.vector.metric;
 
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
+import com.aljebra.vector.metric.angle.Degrees;
 
 /**
  * Inner product interface. Represents an inner product operation and its
