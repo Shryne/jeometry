@@ -21,62 +21,51 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.aljebra.vector.metric;
 
-import com.aljebra.field.Field;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Scalar interface.
+ * Degrees interface. Abstract representation of angles.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Scalar {
+public interface Degrees {
 
     /**
-     * Return the actual value of the scalar.
-     * @param field Scalar field
-     * @param <T> Scalar object type
-     * @return An object representing the scalar
+     * Return the actual value of the degrees.
+     * @param product Related {@link InnerProduct}
+     * @return A number representing the angle in radians
      */
-    <T> T value(final Field<T> field);
+    Number resolve(final InnerProduct product);
 
     /**
-     * Minimal representation of a scalar holding a reference to an object.
+     * Minimal representation of a degrees holding a reference to a number.
      * @author Hamdi Douss (douss.hamdi@gmail.com)
      * @version $Id$
-     * @param <T> Holded object type.
      * @since 0.1
      */
     @EqualsAndHashCode
     @ToString(includeFieldNames = false)
-    class Default<T> implements Scalar {
+    class Default implements Degrees {
         /**
-         * Wrapped object.
+         * Wrapped Number.
          */
-        private final T origin;
+        private final Number origin;
 
         /**
          * Constructor.
-         * @param num Wrapped object.
+         * @param num Wrapped number.
          */
-        public Default(final T num) {
+        public Default(final Number num) {
             this.origin = num;
         }
 
-        /**
-         * Gives the object representing the scalar.
-         * @return The wrapped object
-         */
-        public final T value() {
-            return this.origin;
-        }
-
         @Override
-        public <R> R value(final Field<R> field) {
-            return field.actual(this);
+        public Number resolve(final InnerProduct product) {
+            return this.origin;
         }
     }
 }

@@ -29,6 +29,7 @@ import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
+import com.aljebra.vector.metric.Degrees;
 import com.aljebra.vector.metric.InnerProduct;
 import java.util.stream.IntStream;
 
@@ -61,7 +62,7 @@ public final class Dot implements InnerProduct {
 
     @Override
     @DimensionsEqual
-    public Number angle(final Vect first, final Vect second) {
+    public Degrees angle(final Vect first, final Vect second) {
         final Double cross =
             Dot.val(first.coords()[0]) * Dot.val(second.coords()[1])
             - Dot.val(second.coords()[0]) * Dot.val(first.coords()[1]);
@@ -82,11 +83,12 @@ public final class Dot implements InnerProduct {
                 result = -arcos;
             }
         }
-        return result;
+        return new Degrees.Default(result);
     }
 
     @Override
-    public Vect rot(final Vect vect, final Number angle) {
+    public Vect rot(final Vect vect, final Degrees ang) {
+        final Number angle = this.resolve(ang);
         final FixedMatrix rot = new FixedMatrix(
             2, 2,
             Dot.wrap(Math.cos(angle.doubleValue())),

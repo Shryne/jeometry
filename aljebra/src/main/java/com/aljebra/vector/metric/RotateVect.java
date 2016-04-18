@@ -32,22 +32,31 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * A vector defined as a vector forming an angle with another vector.
+ * A vector defined as the rotation image of a vector by an angle.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode(callSuper = true)
-public final class AngledVect extends FixedVector {
+public final class RotateVect extends FixedVector {
 
     /**
      * Constructor.
-     * @param vector Vector to form angle with
+     * @param vector Vector to rotate
      * @param angle Rotation angle
      */
-    public AngledVect(final Vect vector, final Number angle) {
-        super(AngledVect.coords(vector, angle));
+    public RotateVect(final Vect vector, final Number angle) {
+        this(vector, new Degrees.Default(angle));
+    }
+
+    /**
+     * Constructor.
+     * @param vector Vector to rotate
+     * @param angle Rotation angle
+     */
+    public RotateVect(final Vect vector, final Degrees angle) {
+        super(RotateVect.coords(vector, angle));
     }
 
     /**
@@ -56,10 +65,10 @@ public final class AngledVect extends FixedVector {
      * @param angle Rotation angle
      * @return Scalar array of the rotated vector coordinates
      */
-    private static Scalar[] coords(final Vect vector, final Number angle) {
+    private static Scalar[] coords(final Vect vector, final Degrees angle) {
         final Scalar[] result = new Scalar[vector.coords().length];
         for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = AngledVect.coord(vector, angle, idx);
+            result[idx] = RotateVect.coord(vector, angle, idx);
         }
         return result;
     }
@@ -72,7 +81,7 @@ public final class AngledVect extends FixedVector {
      * @param dim Coordinate index
      * @return A scalar corresponding to a coordinate of the rotated vector
      */
-    private static Scalar coord(final Vect vector, final Number angle,
+    private static Scalar coord(final Vect vector, final Degrees angle,
         final int dim) {
         return new Scalar() {
             @Override

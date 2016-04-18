@@ -21,62 +21,44 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.aljebra.vector.metric;
 
-import com.aljebra.field.Field;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Scalar interface.
+ * A {@link Degrees} implementation defined as the sum of a {@link Degrees} set.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Scalar {
+@ToString(includeFieldNames = false)
+@EqualsAndHashCode
+public final class Sum implements Degrees {
 
     /**
-     * Return the actual value of the scalar.
-     * @param field Scalar field
-     * @param <T> Scalar object type
-     * @return An object representing the scalar
+     * Sum operands.
      */
-    <T> T value(final Field<T> field);
+    private final Multiset<Degrees> operands;
 
     /**
-     * Minimal representation of a scalar holding a reference to an object.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @param <T> Holded object type.
-     * @since 0.1
+     * Constructor.
+     * @param operands Sum operands
      */
-    @EqualsAndHashCode
-    @ToString(includeFieldNames = false)
-    class Default<T> implements Scalar {
-        /**
-         * Wrapped object.
-         */
-        private final T origin;
-
-        /**
-         * Constructor.
-         * @param num Wrapped object.
-         */
-        public Default(final T num) {
-            this.origin = num;
-        }
-
-        /**
-         * Gives the object representing the scalar.
-         * @return The wrapped object
-         */
-        public final T value() {
-            return this.origin;
-        }
-
-        @Override
-        public <R> R value(final Field<R> field) {
-            return field.actual(this);
-        }
+    public Sum(final Degrees... operands) {
+        this.operands = HashMultiset.create(Arrays.asList(operands));
     }
+
+    @Override
+    public Number resolve(final InnerProduct product) {
+        Double sum = 0.;
+        for (final Degrees angle : this.operands) {
+            sum += angle.resolve(product).doubleValue();
+        }
+        return sum;
+    }
+
 }

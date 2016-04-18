@@ -21,62 +21,45 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.aljebra.vector.metric;
 
-import com.aljebra.field.Field;
+import com.aljebra.vector.Vect;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Scalar interface.
+ * Degrees between two vectors.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Scalar {
+@ToString(includeFieldNames = false)
+@EqualsAndHashCode
+public final class VectsDegrees implements Degrees {
 
     /**
-     * Return the actual value of the scalar.
-     * @param field Scalar field
-     * @param <T> Scalar object type
-     * @return An object representing the scalar
+     * First vector.
      */
-    <T> T value(final Field<T> field);
+    private final Vect first;
 
     /**
-     * Minimal representation of a scalar holding a reference to an object.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @param <T> Holded object type.
-     * @since 0.1
+     * Second vector.
      */
-    @EqualsAndHashCode
-    @ToString(includeFieldNames = false)
-    class Default<T> implements Scalar {
-        /**
-         * Wrapped object.
-         */
-        private final T origin;
+    private final Vect second;
 
-        /**
-         * Constructor.
-         * @param num Wrapped object.
-         */
-        public Default(final T num) {
-            this.origin = num;
-        }
-
-        /**
-         * Gives the object representing the scalar.
-         * @return The wrapped object
-         */
-        public final T value() {
-            return this.origin;
-        }
-
-        @Override
-        public <R> R value(final Field<R> field) {
-            return field.actual(this);
-        }
+    /**
+     * Constructor.
+     * @param first First vector
+     * @param second Second vector
+     */
+    public VectsDegrees(final Vect first, final Vect second) {
+        this.first = first;
+        this.second = second;
     }
+
+    @Override
+    public Number resolve(final InnerProduct product) {
+        return product.angle(this.first, this.second).resolve(product);
+    }
+
 }

@@ -42,7 +42,7 @@ public final class PtCongruentSegment extends PtVectSegment {
      * @param seg Segment to be congruent to
      */
     public PtCongruentSegment(final Vect extremity, final Segment seg) {
-        super(extremity, new SegVect(new CongruentSegment((seg))));
+        super(extremity, new SegVect(new CongruentSegment(seg)));
     }
 
 }

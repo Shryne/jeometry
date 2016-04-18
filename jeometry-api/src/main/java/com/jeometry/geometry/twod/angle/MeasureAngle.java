@@ -21,62 +21,70 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.jeometry.geometry.twod.angle;
 
-import com.aljebra.field.Field;
-import lombok.EqualsAndHashCode;
+import com.aljebra.vector.Vect;
+import com.aljebra.vector.metric.RotateVect;
+import com.jeometry.geometry.twod.point.RandomPoint;
 import lombok.ToString;
 
 /**
- * Scalar interface.
+ * An angle defined by its measure.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Scalar {
+@ToString
+public final class MeasureAngle implements Angle {
 
     /**
-     * Return the actual value of the scalar.
-     * @param field Scalar field
-     * @param <T> Scalar object type
-     * @return An object representing the scalar
+     * Angle origin.
      */
-    <T> T value(final Field<T> field);
+    private final Vect org;
 
     /**
-     * Minimal representation of a scalar holding a reference to an object.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @param <T> Holded object type.
-     * @since 0.1
+     * Starting angle vector.
      */
-    @EqualsAndHashCode
-    @ToString(includeFieldNames = false)
-    class Default<T> implements Scalar {
-        /**
-         * Wrapped object.
-         */
-        private final T origin;
+    private final Vect frst;
 
-        /**
-         * Constructor.
-         * @param num Wrapped object.
-         */
-        public Default(final T num) {
-            this.origin = num;
-        }
+    /**
+     * Ending angle vector.
+     */
+    private final Vect scnd;
 
-        /**
-         * Gives the object representing the scalar.
-         * @return The wrapped object
-         */
-        public final T value() {
-            return this.origin;
-        }
+    /**
+     * Constructor.
+     * @param origin Angle summit (vertex)
+     * @param start Starting angle vector
+     * @param measure Angle measure
+     */
+    public MeasureAngle(final Vect origin, final Vect start,
+        final Number measure) {
+        this.org = origin;
+        this.frst = start;
+        this.scnd = new RotateVect(start, measure);
+    }
 
-        @Override
-        public <R> R value(final Field<R> field) {
-            return field.actual(this);
-        }
+    /**
+     * Constructor.
+     * @param measure Angle measure
+     */
+    public MeasureAngle(final Number measure) {
+        this(new RandomPoint(), new RandomPoint(), measure);
+    }
+
+    @Override
+    public Vect origin() {
+        return this.org;
+    }
+
+    @Override
+    public Vect start() {
+        return this.frst;
+    }
+
+    @Override
+    public Vect end() {
+        return this.scnd;
     }
 }

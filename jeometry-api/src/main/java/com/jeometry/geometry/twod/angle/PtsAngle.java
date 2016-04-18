@@ -43,13 +43,13 @@ public final class PtsAngle implements Angle {
 
     /**
      * Point belonging to the starting ray. The starting ray is defined by
-     * the angle origin as its origin and this point as a point in the ray.
+     * the angle origin as its origin, and this point as a point in the ray.
      */
     private final Vect frst;
 
     /**
      * Point belonging to the ending ray. The ending ray is defined by
-     * the angle origin as its origin and this point as a point in the ray.
+     * the angle origin as its origin, and this point as a point in the ray.
      */
     private final Vect scnd;
 

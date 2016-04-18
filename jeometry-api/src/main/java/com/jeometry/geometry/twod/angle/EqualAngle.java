@@ -21,57 +21,73 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.vector.metric;
+package com.jeometry.geometry.twod.angle;
 
-import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
+import com.aljebra.vector.metric.RotateVect;
+import com.aljebra.vector.metric.VectsDegrees;
+import com.jeometry.geometry.twod.point.RandomPoint;
+import lombok.ToString;
 
 /**
- * Inner product interface. Represents an inner product operation and its
- * induced properties.
+ * An angle defined by being equal to another angle.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface InnerProduct {
+@ToString
+public final class EqualAngle implements Angle {
 
     /**
-     * Calculates the inner product of two vectors.
-     * @param first First operand
-     * @param second Second operand
-     * @return A scalar representing the inner product
+     * Angle origin.
      */
-    Scalar product(final Vect first, final Vect second);
+    private final Vect org;
 
     /**
-     * Calculates the angle between two vectors.
-     * @param first First operand
-     * @param second Second operand
-     * @return The angle between two vectors
+     * Starting angle vector.
      */
-    Degrees angle(final Vect first, final Vect second);
+    private final Vect frst;
 
     /**
-     * Calculates the norm of a vector.
-     * @param vect Input vector
-     * @return A scalar representing the norm
+     * Ending angle vector.
      */
-    Scalar norm(final Vect vect);
+    private final Vect scnd;
 
     /**
-     * Rotates a vector with a given angle.
-     * @param vect Input vector
-     * @param angle Angle to form with the input vector
-     * @return A vector
+     * Constructor.
+     * @param origin Angle summit (vertex)
+     * @param start Starting angle vector
+     * @param angle Angle measure
      */
-    Vect rot(final Vect vect, final Degrees angle);
-
-    /**
-     * Calculates the actual value of the angle.
-     * @param angle Angle to resolve
-     * @return A number representing the angle
-     */
-    default Number resolve(final Degrees angle) {
-        return angle.resolve(this);
+    public EqualAngle(final Vect origin, final Vect start, final Angle angle) {
+        this.org = origin;
+        this.frst = start;
+        this.scnd = new RotateVect(
+            start, new VectsDegrees(angle.start(), angle.end())
+        );
     }
+
+    /**
+     * Constructor.
+     * @param angle Angle measure
+     */
+    public EqualAngle(final Angle angle) {
+        this(new RandomPoint(), new RandomPoint(), angle);
+    }
+
+    @Override
+    public Vect origin() {
+        return this.org;
+    }
+
+    @Override
+    public Vect start() {
+        return this.frst;
+    }
+
+    @Override
+    public Vect end() {
+        return this.scnd;
+    }
+
 }
