@@ -23,6 +23,8 @@
  */
 package com.jeometry.geometry.twod.point;
 
+import com.jeometry.twod.point.InLinePoint;
+
 /**
  * Tests for {@link InLinePoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)

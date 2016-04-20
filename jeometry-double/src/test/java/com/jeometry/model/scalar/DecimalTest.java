@@ -23,7 +23,7 @@
  */
 package com.jeometry.model.scalar;
 
-import com.aljebra.field.impl.Decimal;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Division;

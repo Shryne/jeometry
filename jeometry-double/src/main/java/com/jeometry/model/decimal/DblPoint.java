@@ -24,7 +24,7 @@
 package com.jeometry.model.decimal;
 
 import com.aljebra.scalar.Scalar;
-import com.jeometry.geometry.twod.point.XyPoint;
+import com.jeometry.twod.point.XyPoint;
 
 /**
  * Represents a 2D vector defined by (x,y) double coordinates.

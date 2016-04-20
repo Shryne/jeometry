@@ -23,11 +23,11 @@
  */
 package com.jeometry.main;
 
-import com.aljebra.field.impl.Decimal;
-import com.jeometry.geometry.twod.Figure;
-import com.jeometry.geometry.twod.segment.PtsSegment;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.render.awt.Awt;
+import com.jeometry.twod.Figure;
+import com.jeometry.twod.segment.PtsSegment;
 
 /**
  * Main segments testing class using {@link Awt} output.

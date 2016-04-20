@@ -23,8 +23,8 @@
  */
 package com.jeometry.render.awt;
 
-import com.jeometry.geometry.twod.Figure;
 import com.jeometry.render.Output;
+import com.jeometry.twod.Figure;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

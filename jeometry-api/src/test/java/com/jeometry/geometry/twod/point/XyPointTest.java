@@ -24,6 +24,7 @@
 package com.jeometry.geometry.twod.point;
 
 import com.aljebra.scalar.Scalar;
+import com.jeometry.twod.point.XyPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;

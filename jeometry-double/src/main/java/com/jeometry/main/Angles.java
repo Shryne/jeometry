@@ -23,11 +23,11 @@
  */
 package com.jeometry.main;
 
-import com.aljebra.field.impl.Decimal;
-import com.jeometry.geometry.twod.Figure;
-import com.jeometry.geometry.twod.angle.PtsAngle;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.render.awt.Awt;
+import com.jeometry.twod.Figure;
+import com.jeometry.twod.angle.PtsAngle;
 
 /**
  * Main angles testing class using {@link Awt} output.

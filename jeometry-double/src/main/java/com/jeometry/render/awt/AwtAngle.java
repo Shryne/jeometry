@@ -24,10 +24,10 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.impl.Decimal;
-import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.angle.Angle;
-import com.jeometry.geometry.twod.ray.PtDirRay;
+import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.twod.Shape;
+import com.jeometry.twod.angle.Angle;
+import com.jeometry.twod.ray.PtDirRay;
 import java.awt.Graphics2D;
 
 /**

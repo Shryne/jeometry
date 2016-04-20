@@ -23,6 +23,8 @@
  */
 package com.jeometry.geometry.twod.point;
 
+import com.jeometry.twod.point.OutsideLinePoint;
+
 /**
  * Tests for {@link OutsideLinePoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)

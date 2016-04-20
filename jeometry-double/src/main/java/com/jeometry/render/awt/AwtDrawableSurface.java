@@ -23,10 +23,10 @@
  */
 package com.jeometry.render.awt;
 
-import com.jeometry.geometry.twod.Figure;
-import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.line.PtDirLine;
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.twod.Figure;
+import com.jeometry.twod.Shape;
+import com.jeometry.twod.line.PtDirLine;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

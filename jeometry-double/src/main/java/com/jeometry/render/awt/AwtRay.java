@@ -24,12 +24,13 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.impl.Decimal;
-import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.line.LineAnalytics;
-import com.jeometry.geometry.twod.line.RayLine;
-import com.jeometry.geometry.twod.ray.Ray;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.twod.Shape;
+import com.jeometry.twod.line.analytics.Intercept;
+import com.jeometry.twod.line.analytics.Slope;
+import com.jeometry.twod.line.analytics.Vertical;
+import com.jeometry.twod.ray.Ray;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
@@ -60,10 +61,7 @@ public final class AwtRay extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final Ray ray = (Ray) renderable.renderable();
-        final LineAnalytics analytics = new LineAnalytics(
-            new RayLine(ray), this.field()
-        );
-        if (analytics.vertical()) {
+        if (new Vertical(ray).resolve(this.field())) {
             this.vertical(graphics, ray, context);
         } else {
             this.regular(graphics, context, ray);
@@ -78,14 +76,11 @@ public final class AwtRay extends AbstractAwtPaint {
      */
     private void regular(final Graphics2D graphics, final AwtContext ctxt,
         final Ray ray) {
-        final LineAnalytics analytics = new LineAnalytics(
-            new RayLine(ray), this.field()
-        );
         final int width = ctxt.width();
         final Field<Double> field = this.field();
         final Double xdir = field.actual(ray.direction().coords()[0]);
-        final Double slope = field.actual(analytics.slope());
-        final Double intercept = field.actual(analytics.intercept());
+        final Double slope = this.field().actual(new Slope(ray));
+        final Double intercept = this.field().actual(new Intercept(ray));
         final AwtTransform transform = new AwtTransform(ctxt);
         final Point origin = transform.transform(ray.origin());
         final Double limit;

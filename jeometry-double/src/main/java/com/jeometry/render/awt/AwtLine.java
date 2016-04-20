@@ -24,11 +24,13 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.impl.Decimal;
-import com.jeometry.geometry.twod.Shape;
-import com.jeometry.geometry.twod.line.Line;
-import com.jeometry.geometry.twod.line.LineAnalytics;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.twod.Shape;
+import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.analytics.Intercept;
+import com.jeometry.twod.line.analytics.Slope;
+import com.jeometry.twod.line.analytics.Vertical;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
@@ -59,28 +61,27 @@ public final class AwtLine extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final Line line = (Line) renderable.renderable();
-        final LineAnalytics analytics = new LineAnalytics(line, this.field());
-        if (analytics.vertical()) {
+        if (new Vertical(line).resolve(this.field())) {
             AwtLine.vertical(graphics, line, context);
         } else {
-            this.regular(graphics, analytics, context);
+            this.regular(graphics, line, context);
         }
     }
 
     /**
      * Draws a regular (non-vertical) line.
      * @param graphics Awt Graphics to draw upon
-     * @param analytics Analytics of the line to draw
+     * @param line Line to draw
      * @param context AwtContext
      */
     private void regular(final Graphics2D graphics,
-        final LineAnalytics analytics, final AwtContext context) {
+        final Line line, final AwtContext context) {
         final int width = context.width();
         final AwtTransform transform = new AwtTransform(context);
         final Double xstart = transform.inverse(new Point(0, 0)).dblx();
         final Double xend = transform.inverse(new Point(width, 0)).dblx();
-        final Double slope = this.field().actual(analytics.slope());
-        final Double intercept = this.field().actual(analytics.intercept());
+        final Double slope = this.field().actual(new Slope(line));
+        final Double intercept = this.field().actual(new Intercept(line));
         final Point start = transform.transform(
             new DblPoint(xstart, slope * xstart + intercept)
         );

@@ -23,7 +23,7 @@
  */
 package com.jeometry.render;
 
-import com.jeometry.geometry.twod.Figure;
+import com.jeometry.twod.Figure;
 
 /**
  * Interface that outputs a figure.

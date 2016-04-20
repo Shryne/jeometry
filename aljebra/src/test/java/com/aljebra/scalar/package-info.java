@@ -21,4 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.model.algebra.scalar;
+/**
+ * Tests for scalars definitions.
+ */
+package com.aljebra.scalar;

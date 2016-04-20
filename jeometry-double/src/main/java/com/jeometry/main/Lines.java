@@ -23,15 +23,15 @@
  */
 package com.jeometry.main;
 
-import com.aljebra.field.impl.Decimal;
-import com.jeometry.geometry.twod.Figure;
-import com.jeometry.geometry.twod.line.Line;
-import com.jeometry.geometry.twod.line.ParallelPassingByLine;
-import com.jeometry.geometry.twod.line.PtDirLine;
-import com.jeometry.geometry.twod.line.PtsLine;
-import com.jeometry.geometry.twod.point.XyPoint;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.render.awt.Awt;
+import com.jeometry.twod.Figure;
+import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.ParallelLine;
+import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.line.PtsLine;
+import com.jeometry.twod.point.XyPoint;
 
 /**
  * Main lines testing class using {@link Awt} output.
@@ -56,7 +56,7 @@ public final class Lines {
         final XyPoint pointp = Lines.random();
         final XyPoint pointk = Lines.random();
         final Line line = new PtsLine(pointa, pointp);
-        final Line second = new ParallelPassingByLine(pointk, line);
+        final Line second = new ParallelLine(line, pointk);
         final XyPoint pointb = Lines.random();
         final Line intersect = new PtsLine(pointa, pointb);
         final Line vert = new PtDirLine(pointb, new DblPoint(0., 1.));

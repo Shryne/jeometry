@@ -23,7 +23,7 @@
  */
 package com.aljebra.field;
 
-import com.aljebra.vector.metric.InnerProduct;
+import com.aljebra.metric.InnerProduct;
 
 /**
  * Interface describing a metric space field of scalars. A metric space defines

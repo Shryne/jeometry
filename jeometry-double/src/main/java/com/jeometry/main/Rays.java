@@ -24,11 +24,11 @@
 package com.jeometry.main;
 
 import com.aljebra.vector.Vect;
-import com.jeometry.geometry.twod.Figure;
-import com.jeometry.geometry.twod.ray.PtDirRay;
-import com.jeometry.geometry.twod.ray.Ray;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.render.awt.Awt;
+import com.jeometry.twod.Figure;
+import com.jeometry.twod.ray.PtDirRay;
+import com.jeometry.twod.ray.Ray;
 
 /**
  * Main rays testing class using {@link Awt} output.
