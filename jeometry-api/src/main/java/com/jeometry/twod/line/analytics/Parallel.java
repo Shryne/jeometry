@@ -21,51 +21,65 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod.point;
+package com.jeometry.twod.line.analytics;
 
-import com.aljebra.scalar.Random;
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.Sum;
-import com.aljebra.vector.Times;
-import com.aljebra.vector.Vect;
+import com.aljebra.field.Field;
+import com.aljebra.scalar.condition.And;
+import com.aljebra.scalar.condition.Equals;
+import com.aljebra.scalar.condition.Not;
+import com.aljebra.scalar.condition.Or;
+import com.aljebra.scalar.condition.Predicate;
 import com.jeometry.twod.line.Line;
-import lombok.ToString;
+import com.jeometry.twod.line.RayLine;
+import com.jeometry.twod.ray.Ray;
 
 /**
- * A point defined by belonging to a line. The point is dynamic regarding
- * to the passed line, which means that it is ensured that this point remains
- * belonging to the line even if modifications occur on the line.
+ * A predicate to determine if two lines have the same direction.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-public final class InLinePoint implements Vect {
+public final class Parallel implements Predicate {
 
     /**
-     * The line to belong to.
+     * First line.
      */
-    private final Line line;
+    private final Line first;
 
     /**
-     * A random scalar.
+     * Second line.
      */
-    private final Scalar factor;
+    private final Line second;
 
     /**
      * Constructor.
-     * @param line The line to belong to
+     * @param first First line
+     * @param second Second line
      */
-    public InLinePoint(final Line line) {
-        this.line = line;
-        this.factor = new Random();
+    public Parallel(final Line first, final Line second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    /**
+     * Constructor.
+     * @param first First ray
+     * @param second Second ray
+     */
+    public Parallel(final Ray first, final Ray second) {
+        this(new RayLine(first), new RayLine(second));
     }
 
     @Override
-    public Scalar[] coords() {
-        return new Sum(
-            new Times(this.line.direction(), this.factor), this.line.point()
-        ).coords();
+    public boolean resolve(final Field<?> field) {
+        return new Or(
+            new And(new Vertical(this.first), new Vertical(this.second)),
+            new And(
+                new Not(new Vertical(this.first)),
+                new Not(new Vertical(this.second)),
+                new Equals(new Slope(this.first), new Slope(this.second))
+            )
+        ).resolve(field);
     }
 
 }

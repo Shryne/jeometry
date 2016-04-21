@@ -35,7 +35,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Error implements Scalar {
+public final class Throwing implements Scalar {
 
     /**
      * Runtime exception.
@@ -46,7 +46,7 @@ public final class Error implements Scalar {
      * Constructor.
      * @param error Runtime exception
      */
-    public Error(final RuntimeException error) {
+    public Throwing(final RuntimeException error) {
         this.exception = error;
     }
 

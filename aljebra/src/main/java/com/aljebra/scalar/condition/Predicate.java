@@ -24,6 +24,7 @@
 package com.aljebra.scalar.condition;
 
 import com.aljebra.field.Field;
+import com.aljebra.scalar.Scalar;
 
 /**
  * Predicate interface. A predicate could be resolved to true or false given
@@ -40,4 +41,16 @@ public interface Predicate {
      * @return A boolean evaluation of the predicate
      */
     boolean resolve(final Field<?> field);
+
+    /**
+     * Returns a scalar that evaluates to the first passed scalar if this
+     * predicate is true, and evaluates to the second passed scalar if this
+     * predicate is false.
+     * @param truth Scalar if this predicate is true
+     * @param lies Scalar if this predicate is false
+     * @return A scalar whose evaluation depends on this predicate
+     */
+    default Scalar ifElse(final Scalar truth, final Scalar lies) {
+        return new Ternary(this, truth, lies);
+    }
 }
