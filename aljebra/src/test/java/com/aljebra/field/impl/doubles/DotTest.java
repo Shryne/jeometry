@@ -26,6 +26,7 @@ package com.aljebra.field.impl.doubles;
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
@@ -55,10 +56,10 @@ public final class DotTest {
     public ExpectedException thrown = ExpectedException.none();
 
     /**
-     * {@link Dot} calculates expected value.
+     * {@link Dot} calculates product.
      */
     @Test
-    public void returnsGoodValue() {
+    public void calculatesProduct() {
         final Vect vecta = Mockito.mock(Vect.class);
         final Vect vectb = Mockito.mock(Vect.class);
         final Scalar[] coords = DotTest.scalars();
@@ -76,10 +77,10 @@ public final class DotTest {
 
     /**
      * {@link Dot} throws exception if the two vectors don't have
-     * the same dimension.
+     * the same dimension when calculating product.
      */
     @Test
-    public void errorsWhenNotSameSize() {
+    public void errorsProductWhenNotSameSize() {
         this.thrown.expect(IllegalArgumentException.class);
         final Vect vecta = Mockito.mock(Vect.class);
         final Vect vectb = Mockito.mock(Vect.class);
@@ -88,6 +89,49 @@ public final class DotTest {
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
         new Dot().product(vecta, vectb);
+    }
+
+    /**
+     * {@link Dot} calculates angl.
+     */
+    @Test
+    public void calculatesAngle() {
+        final Vect vecta = DotTest.vect(1., 0.);
+        final double pifourth = Math.PI / 4;
+        final Dot dot = new Dot();
+        final double error = 1.e-5;
+        MatcherAssert.assertThat(
+            dot.angle(vecta, DotTest.vect(0., -1.)).resolve(dot).doubleValue(),
+            Matchers.closeTo(-Math.PI / 2, error)
+        );
+        MatcherAssert.assertThat(
+            dot.angle(vecta, DotTest.vect(-1., 0.)).resolve(dot).doubleValue(),
+            Matchers.closeTo(Math.PI, error)
+        );
+        MatcherAssert.assertThat(
+            dot.angle(vecta, DotTest.vect(0., 1.)).resolve(dot).doubleValue(),
+            Matchers.closeTo(Math.PI / 2, error)
+        );
+        MatcherAssert.assertThat(
+            dot.angle(vecta, DotTest.vect(1., 1.)).resolve(dot).doubleValue(),
+            Matchers.closeTo(pifourth, error)
+        );
+    }
+
+    /**
+     * {@link Dot} throws exception if the two vectors don't have
+     * the same dimension when calculating angle.
+     */
+    @Test
+    public void errorsAngleWhenNotSameSize() {
+        this.thrown.expect(IllegalArgumentException.class);
+        final Vect vecta = Mockito.mock(Vect.class);
+        final Vect vectb = Mockito.mock(Vect.class);
+        final Scalar[] acoords = DotTest.scalars();
+        final Scalar[] bcoords = DotTest.scalars(acoords.length + 1);
+        Mockito.when(vectb.coords()).thenReturn(bcoords);
+        Mockito.when(vecta.coords()).thenReturn(acoords);
+        new Dot().angle(vecta, vectb);
     }
 
     /**
@@ -118,5 +162,17 @@ public final class DotTest {
             result[idx] = Mockito.mock(Scalar.class);
         }
         return result;
+    }
+
+    /**
+     * Builds a 2D vector with the given doubles.
+     * @param xcoor Vector x coordinate
+     * @param ycoor Vector y coordinate
+     * @return A 2D vector
+     */
+    private static Vect vect(final double xcoor, final double ycoor) {
+        return new FixedVector(
+            new Scalar.Default<Double>(xcoor), new Scalar.Default<Double>(ycoor)
+        );
     }
 }

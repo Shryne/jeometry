@@ -36,7 +36,8 @@ import java.util.stream.IntStream;
 /**
  * Class implementing dot operation (scalar product) or inner product
  * of 2 vectors in Real numbers field. Current implementation suppose
- * a two dimension vector space in `vect` and `angle` methods implementation.
+ * a two dimension vector space in `vect` and `angle` methods implementation,
+ * and rely on {@link Decimal} field implementation.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -73,11 +74,11 @@ public final class Dot implements InnerProduct {
         if (Dot.val(norms) == 0) {
             result = 0.;
         } else {
-            final Double arcsin = Math.asin(Math.abs(cross) / Dot.val(norms));
+            final Double arcsin = Math.asin(cross / Dot.val(norms));
             final Double arcos = Math.acos(
                 Dot.val(this.product(first, second)) / Dot.val(norms)
             );
-            if (arcsin > 0) {
+            if (arcsin >= 0) {
                 result = arcos;
             } else {
                 result = -arcos;
