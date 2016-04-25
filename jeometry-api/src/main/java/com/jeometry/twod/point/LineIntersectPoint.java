@@ -23,16 +23,14 @@
  */
 package com.jeometry.twod.point;
 
-import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Division;
-import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
-import com.aljebra.scalar.Throwing;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.analytics.Intercept;
-import com.jeometry.twod.line.analytics.Parallel;
+import com.jeometry.twod.line.analytics.Intersecting;
+import com.jeometry.twod.line.analytics.LinePointOrdinate;
 import com.jeometry.twod.line.analytics.Slope;
 import com.jeometry.twod.line.analytics.Vertical;
 import lombok.ToString;
@@ -79,14 +77,8 @@ public final class LineIntersectPoint implements Vect {
      */
     private Scalar ordinate(final Scalar abcissa) {
         return new Vertical(this.first).ifElse(
-            new Add(
-                new Multiplication(new Slope(this.second), abcissa),
-                new Intercept(this.second)
-            ),
-            new Add(
-                new Multiplication(new Slope(this.first), abcissa),
-                new Intercept(this.first)
-            )
+            new LinePointOrdinate(this.second, abcissa),
+            new LinePointOrdinate(this.first, abcissa)
         );
     }
 
@@ -95,12 +87,7 @@ public final class LineIntersectPoint implements Vect {
      * @return Scalar representing the abscissa
      */
     private Scalar abscissa() {
-        return new Parallel(this.first, this.second).ifElse(
-            new Throwing(
-                new IllegalStateException(
-                    "Undefined intersecting point for two parallel lines."
-                )
-            ),
+        return new Intersecting(this.first, this.second).ifElse(
             LineIntersectPoint.vertical(
                 this.first,
                 LineIntersectPoint.vertical(
@@ -113,6 +100,9 @@ public final class LineIntersectPoint implements Vect {
                         new Diff(new Slope(this.first), new Slope(this.second))
                     )
                 )
+            ),
+            new IllegalStateException(
+                "Undefined intersecting point for two parallel lines."
             )
         );
     }

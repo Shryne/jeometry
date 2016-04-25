@@ -21,37 +21,54 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.metric.angle;
+package com.jeometry.twod.line.analytics;
 
-import com.aljebra.metric.InnerProduct;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.aljebra.field.Field;
+import com.aljebra.scalar.condition.Predicate;
+import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.RayLine;
+import com.jeometry.twod.ray.Ray;
 
 /**
- * Obtuse angle degrees.
+ * A predicate to determine if two lines intersect.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-@EqualsAndHashCode
-public final class Obtuse implements Degrees {
+public final class Intersecting implements Predicate {
 
     /**
-     * Random generated double.
+     * First line.
      */
-    private final double random;
+    private final Line first;
+
+    /**
+     * Second line.
+     */
+    private final Line second;
 
     /**
      * Constructor.
+     * @param first First line
+     * @param second Second line
      */
-    public Obtuse() {
-        this.random = Math.random();
+    public Intersecting(final Line first, final Line second) {
+        this.first = first;
+        this.second = second;
+    }
+
+    /**
+     * Constructor.
+     * @param first First ray
+     * @param second Second ray
+     */
+    public Intersecting(final Ray first, final Ray second) {
+        this(new RayLine(first), new RayLine(second));
     }
 
     @Override
-    public Number resolve(final InnerProduct product) {
-        return Math.PI / 2 + this.random * Math.PI / 2;
+    public boolean resolve(final Field<?> field) {
+        return !new Parallel(this.first, this.second).resolve(field);
     }
 
 }

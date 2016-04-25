@@ -24,7 +24,6 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
-import java.util.Random;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -47,7 +46,7 @@ public final class Acute implements Degrees {
      * Constructor.
      */
     public Acute() {
-        this.random = new Random().nextDouble();
+        this.random = Math.random();
     }
 
     @Override

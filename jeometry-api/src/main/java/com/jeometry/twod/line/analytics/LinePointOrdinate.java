@@ -21,49 +21,62 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar.condition;
+package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.Field;
+import com.aljebra.scalar.Add;
+import com.aljebra.scalar.Multiplication;
+import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
-import com.aljebra.scalar.Throwing;
+import com.jeometry.twod.line.Line;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
- * Predicate interface. A predicate could be resolved to true or false given
- * the field.
+ * A scalar representing the ordinate of a line belonging point,
+ * given its abscissa. If the line is vertical, this scalar will be random.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Predicate {
+@EqualsAndHashCode
+@ToString(includeFieldNames = false)
+public final class LinePointOrdinate implements Scalar {
 
     /**
-     * Evaluates this predicate on the given field.
-     * @param field Scalars field
-     * @return A boolean evaluation of the predicate
+     * Line to which belongs the point.
      */
-    boolean resolve(final Field<?> field);
+    private final Line line;
 
     /**
-     * Returns a scalar that evaluates to the first passed scalar if this
-     * predicate is true, and evaluates to the second passed scalar if this
-     * predicate is false.
-     * @param truth Scalar if this predicate is true
-     * @param lies Scalar if this predicate is false
-     * @return A scalar whose evaluation depends on this predicate
+     * Point abscissa.
      */
-    default Scalar ifElse(final Scalar truth, final Scalar lies) {
-        return new Ternary(this, truth, lies);
+    private final Scalar abscissa;
+
+    /**
+     * Constructor.
+     * @param line Line for which to calculate slope
+     * @param abscissa Point abscissa
+     */
+    public LinePointOrdinate(final Line line, final Scalar abscissa) {
+        this.line = line;
+        this.abscissa = abscissa;
     }
 
-    /**
-     * Returns a scalar that evaluates to the first passed scalar if this
-     * predicate is true, and throws the passed exception if this
-     * predicate is false.
-     * @param truth Scalar if this predicate is true
-     * @param err Exception to throw if this predicate is false
-     * @return A scalar whose evaluation depends on this predicate
-     */
-    default Scalar ifElse(final Scalar truth, final RuntimeException err) {
-        return this.ifElse(truth, new Throwing(err));
+    @Override
+    public <T> T value(final Field<T> field) {
+        final T result;
+        if (new Vertical(this.line).resolve(field)) {
+            result = field.actual(new Random());
+        } else {
+            result = field.actual(
+                new Add(
+                    new Multiplication(new Slope(this.line), this.abscissa),
+                    new Intercept(this.line)
+                )
+            );
+        }
+        return result;
     }
+
 }
