@@ -63,6 +63,14 @@ public final class DecimalRandomizer implements OrderedRandomizer<Double> {
 
     @Override
     public Double between(final Double lower, final Double upper) {
+        if (lower > upper) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "Could not get an element greater than %s and less than %s",
+                    lower, upper
+                )
+            );
+        }
         return this.rand.nextDouble() * (upper - lower) + lower;
     }
 

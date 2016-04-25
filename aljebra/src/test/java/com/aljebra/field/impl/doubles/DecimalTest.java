@@ -23,7 +23,11 @@
  */
 package com.aljebra.field.impl.doubles;
 
+import com.aljebra.field.OrderedRandomizer;
+import com.aljebra.scalar.Add;
+import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.Scalar.Default;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -39,7 +43,7 @@ import org.mockito.Mockito;
 public final class DecimalTest {
 
     /**
-     * AbstractField returns a different scalar.
+     * Decimal returns a different scalar.
      */
     @Test
     public void returnsDifferentScalar() {
@@ -54,7 +58,7 @@ public final class DecimalTest {
     }
 
     /**
-     * AbstractField calculates actual value for default scalar implementation.
+     * Decimal calculates actual value for default scalar implementation.
      */
     @Test
     public void calculatesActualValueForDefault() {
@@ -67,7 +71,7 @@ public final class DecimalTest {
     }
 
     /**
-     * AbstractField delegates actual value calculations
+     * Decimal delegates actual value calculations
      * for other scalar implementation.
      */
     @Test
@@ -76,5 +80,62 @@ public final class DecimalTest {
         final Scalar scalar = Mockito.mock(Scalar.class);
         field.actual(scalar);
         Mockito.verify(scalar).value(Mockito.eq(field));
+    }
+
+    /**
+     * Decimal delegates randomization to ordered randomizer.
+     */
+    @SuppressWarnings("unchecked")
+    @Test
+    public void delegatesRandomization() {
+        final OrderedRandomizer<Double> rand = Mockito.mock(
+            OrderedRandomizer.class
+        );
+        final Decimal field = new Decimal(rand);
+        final Default<Double> zero = new Scalar.Default<Double>(0.);
+        field.between(zero, zero);
+        field.greater(zero);
+        field.lower(zero);
+        Mockito.verify(rand).between(0., 0.);
+        Mockito.verify(rand).greater(0.);
+        Mockito.verify(rand).lower(0.);
+    }
+
+    /**
+     * Decimal can calculate multiplication.
+     */
+    @Test
+    public void calculatesMultiplication() {
+        final Decimal field = new Decimal();
+        final double first = Math.random();
+        final double second = Math.random();
+        MatcherAssert.assertThat(
+            field.actual(
+                new Multiplication(
+                    new Scalar.Default<Double>(first),
+                    new Scalar.Default<Double>(second)
+                )
+            ),
+            Matchers.equalTo(first * second)
+        );
+    }
+
+    /**
+     * Decimal can calculate addition.
+     */
+    @Test
+    public void calculatesAddition() {
+        final Decimal field = new Decimal();
+        final double first = Math.random();
+        final double second = Math.random();
+        MatcherAssert.assertThat(
+            field.actual(
+                new Add(
+                    new Scalar.Default<Double>(first),
+                    new Scalar.Default<Double>(second)
+                )
+            ),
+            Matchers.equalTo(first + second)
+        );
     }
 }

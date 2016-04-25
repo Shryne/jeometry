@@ -23,12 +23,11 @@
  */
 package com.aljebra.field.impl.doubles;
 
+import com.aljebra.metric.angle.Degrees;
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -62,7 +61,7 @@ public final class DotTest {
     public void calculatesProduct() {
         final Vect vecta = Mockito.mock(Vect.class);
         final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] coords = DotTest.scalars();
+        final Scalar[] coords = DotTest.scalars(DotTest.COORDS_LENGTH);
         Mockito.when(vectb.coords()).thenReturn(coords);
         Mockito.when(vecta.coords()).thenReturn(coords);
         final Scalar[] multis = new Scalar[coords.length];
@@ -84,7 +83,7 @@ public final class DotTest {
         this.thrown.expect(IllegalArgumentException.class);
         final Vect vecta = Mockito.mock(Vect.class);
         final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = DotTest.scalars();
+        final Scalar[] acoords = DotTest.scalars(DotTest.COORDS_LENGTH);
         final Scalar[] bcoords = DotTest.scalars(acoords.length + 1);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
@@ -92,29 +91,96 @@ public final class DotTest {
     }
 
     /**
-     * {@link Dot} calculates angl.
+     * {@link Dot} calculates angle.
      */
     @Test
     public void calculatesAngle() {
-        final Vect vecta = DotTest.vect(1., 0.);
+        final Vect vecta = new DblVect(1., 0.);
         final double pifourth = Math.PI / 4;
         final Dot dot = new Dot();
-        final double error = 1.e-5;
+        final double error = 1.e-6;
         MatcherAssert.assertThat(
-            dot.angle(vecta, DotTest.vect(0., -1.)).resolve(dot).doubleValue(),
+            dot.angle(vecta, new DblVect(0., -1.)).resolve(dot).doubleValue(),
             Matchers.closeTo(-Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            dot.angle(vecta, DotTest.vect(-1., 0.)).resolve(dot).doubleValue(),
+            dot.angle(vecta, new DblVect(-1., 0.)).resolve(dot).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
         MatcherAssert.assertThat(
-            dot.angle(vecta, DotTest.vect(0., 1.)).resolve(dot).doubleValue(),
+            dot.angle(vecta, new DblVect(0., 1.)).resolve(dot).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            dot.angle(vecta, DotTest.vect(1., 1.)).resolve(dot).doubleValue(),
+            dot.angle(vecta, new DblVect(1., 1.)).resolve(dot).doubleValue(),
             Matchers.closeTo(pifourth, error)
+        );
+    }
+
+    /**
+     * {@link Dot} calculates rotation.
+     */
+    @Test
+    public void calculatesRotation() {
+        final Vect vecta = new DblVect(1., 0.);
+        final Degrees pifourth = new Degrees.Default(Math.PI / 4);
+        final Dot dot = new Dot();
+        final Decimal field = new Decimal();
+        final double error = 1.e-6;
+        Scalar[] image = dot.rot(vecta, pifourth).coords();
+        MatcherAssert.assertThat(
+            field.actual(image[0]), Matchers.closeTo(Math.sqrt(2) / 2, error)
+        );
+        MatcherAssert.assertThat(
+            field.actual(image[1]), Matchers.closeTo(Math.sqrt(2) / 2, error)
+        );
+        image = dot.rot(vecta, new Degrees.Default(0)).coords();
+        MatcherAssert.assertThat(
+            field.actual(image[0]), Matchers.closeTo(1., error)
+        );
+        MatcherAssert.assertThat(
+            field.actual(image[1]), Matchers.closeTo(0., error)
+        );
+        image = dot.rot(vecta, new Degrees.Default(Math.PI / 2)).coords();
+        MatcherAssert.assertThat(
+            field.actual(image[0]), Matchers.closeTo(0., error)
+        );
+        MatcherAssert.assertThat(
+            field.actual(image[1]), Matchers.closeTo(1., error)
+        );
+        image = dot.rot(vecta, new Degrees.Default(Math.PI)).coords();
+        MatcherAssert.assertThat(
+            field.actual(image[0]), Matchers.closeTo(-1., error)
+        );
+        MatcherAssert.assertThat(
+            field.actual(image[1]), Matchers.closeTo(0., error)
+        );
+    }
+
+    /**
+     * {@link Dot} calculates norm.
+     */
+    @Test
+    public void calculatesNorm() {
+        final Decimal field = new Decimal();
+        final Dot dot = new Dot();
+        MatcherAssert.assertThat(
+            field.actual(dot.norm(new DblVect(1., 0.))),
+            Matchers.equalTo(1.)
+        );
+        MatcherAssert.assertThat(
+            field.actual(dot.norm(new DblVect(0., 0.))),
+            Matchers.equalTo(0.)
+        );
+        MatcherAssert.assertThat(
+            field.actual(dot.norm(new DblVect(1., 1.))),
+            Matchers.equalTo(Math.sqrt(2.))
+        );
+        final double expected = Math.sqrt(8);
+        final double mintwo = -2.;
+        MatcherAssert.assertThat(
+            field.actual(dot.norm(new DblVect(mintwo, mintwo))),
+            Matchers.equalTo(expected)
         );
     }
 
@@ -127,7 +193,7 @@ public final class DotTest {
         this.thrown.expect(IllegalArgumentException.class);
         final Vect vecta = Mockito.mock(Vect.class);
         final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = DotTest.scalars();
+        final Scalar[] acoords = DotTest.scalars(DotTest.COORDS_LENGTH);
         final Scalar[] bcoords = DotTest.scalars(acoords.length + 1);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
@@ -144,14 +210,6 @@ public final class DotTest {
     }
 
     /**
-     * Mocks an array of {@link Scalar} with a random length.
-     * @return An array of scalars.
-     */
-    private static Scalar[] scalars() {
-        return DotTest.scalars(new Random().nextInt(DotTest.COORDS_LENGTH));
-    }
-
-    /**
      * Mocks an array of {@link Scalar} with the given length.
      * @param length Array length to generate
      * @return An array of scalars.
@@ -164,15 +222,4 @@ public final class DotTest {
         return result;
     }
 
-    /**
-     * Builds a 2D vector with the given doubles.
-     * @param xcoor Vector x coordinate
-     * @param ycoor Vector y coordinate
-     * @return A 2D vector
-     */
-    private static Vect vect(final double xcoor, final double ycoor) {
-        return new FixedVector(
-            new Scalar.Default<Double>(xcoor), new Scalar.Default<Double>(ycoor)
-        );
-    }
 }

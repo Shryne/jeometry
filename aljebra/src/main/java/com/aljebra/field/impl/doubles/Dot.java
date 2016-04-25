@@ -36,7 +36,7 @@ import java.util.stream.IntStream;
 /**
  * Class implementing dot operation (scalar product) or inner product
  * of 2 vectors in Real numbers field. Current implementation suppose
- * a two dimension vector space in `vect` and `angle` methods implementation,
+ * a two dimension vector space in `rot` and `angle` methods implementation,
  * and rely on {@link Decimal} field implementation.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
