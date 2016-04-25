@@ -28,11 +28,9 @@ import com.aljebra.scalar.Division;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.analytics.Intercept;
 import com.jeometry.twod.line.analytics.Intersecting;
+import com.jeometry.twod.line.analytics.LineAnalytics;
 import com.jeometry.twod.line.analytics.LinePointOrdinate;
-import com.jeometry.twod.line.analytics.Slope;
-import com.jeometry.twod.line.analytics.Vertical;
 import lombok.ToString;
 
 /**
@@ -76,7 +74,7 @@ public final class LineIntersectPoint implements Vect {
      * @return Scalar representing the ordinate
      */
     private Scalar ordinate(final Scalar abcissa) {
-        return new Vertical(this.first).ifElse(
+        return new LineAnalytics(this.first).vertical().ifElse(
             new LinePointOrdinate(this.second, abcissa),
             new LinePointOrdinate(this.first, abcissa)
         );
@@ -87,17 +85,16 @@ public final class LineIntersectPoint implements Vect {
      * @return Scalar representing the abscissa
      */
     private Scalar abscissa() {
+        final LineAnalytics fst = new LineAnalytics(this.first);
+        final LineAnalytics snd = new LineAnalytics(this.second);
         return new Intersecting(this.first, this.second).ifElse(
-            LineIntersectPoint.vertical(
-                this.first,
-                LineIntersectPoint.vertical(
-                    this.second,
+            fst.vertical().ifElse(
+                this.first.point().coords()[0],
+                snd.vertical().ifElse(
+                    this.second.point().coords()[0],
                     new Division(
-                        new Diff(
-                            new Intercept(this.second),
-                            new Intercept(this.first)
-                        ),
-                        new Diff(new Slope(this.first), new Slope(this.second))
+                        new Diff(snd.intercept(), fst.intercept()),
+                        new Diff(fst.slope(), snd.slope())
                     )
                 )
             ),
@@ -107,17 +104,4 @@ public final class LineIntersectPoint implements Vect {
         );
     }
 
-    /**
-     * Builds a scalar representing the intersecting point abscissa if
-     * the given line is vertical, or else a scalar equal to the given scalar.
-     * @param line Line to check if vertical
-     * @param regular Scalar to return if the line is not vertical
-     * @return A ternary that checks if the given line is vertical
-     *  to return its x-coordinate, or else it returns the given scalar
-     */
-    private static Scalar vertical(final Line line, final Scalar regular) {
-        return new Vertical(line).ifElse(
-            line.point().coords()[0], regular
-        );
-    }
 }

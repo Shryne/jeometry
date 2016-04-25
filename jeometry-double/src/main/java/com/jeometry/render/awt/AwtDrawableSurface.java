@@ -26,7 +26,6 @@ package com.jeometry.render.awt;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.line.PtDirLine;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -45,6 +44,11 @@ import javax.swing.JPanel;
 public final class AwtDrawableSurface extends JPanel {
 
     /**
+     * Serial version ID.
+     */
+    private static final long serialVersionUID = 2741492657820010553L;
+
+    /**
      * Zoom increment/decrement amount.
      */
     private static final double ZOOM_AMOUNT = 1.5;
@@ -53,11 +57,6 @@ public final class AwtDrawableSurface extends JPanel {
      * Initial zoom value.
      */
     private static final double ZOOM_START = 10;
-
-    /**
-     * Serial version ID.
-     */
-    private static final long serialVersionUID = -2539212597748980908L;
 
     /**
      * Scale of the drawable surface.
@@ -77,7 +76,7 @@ public final class AwtDrawableSurface extends JPanel {
     /**
      * Drawable Panel center.
      */
-    private final transient  DblPoint center;
+    private final transient DblPoint center;
 
     /**
      * Ctor. Builds a {@link JPanel} as a drawable surface.
@@ -122,7 +121,7 @@ public final class AwtDrawableSurface extends JPanel {
                     painter.render(shape);
                 }
             }
-            this.axis(graphics);
+            this.axis(surface);
         }
     }
 
@@ -191,19 +190,8 @@ public final class AwtDrawableSurface extends JPanel {
      * Draws X-axis and Y-axis.
      * @param graphics AWT graphics to draw into
      */
-    private void axis(final Graphics graphics) {
-        final DblPoint origin = new DblPoint(0., 0.);
-        final Shape xaxis = new Shape(
-            new PtDirLine(origin, new DblPoint(1.0, 0.))
-        );
-        final Shape yaxis = new Shape(
-            new PtDirLine(origin, new DblPoint(0., 1.))
-        );
-        graphics.setColor(Color.RED);
-        for (final AbstractAwtPaint painter : this.painters) {
-            painter.render(xaxis);
-            painter.render(yaxis);
-        }
+    private void axis(final Graphics2D graphics) {
+        new AxisPaint(this.context()).paint(graphics);
     }
 
 }

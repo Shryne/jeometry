@@ -21,52 +21,58 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.render.awt;
+package com.jeometry.twod.line.analytics;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.condition.Predicate;
+import com.jeometry.twod.line.Line;
+import lombok.EqualsAndHashCode;
 
 /**
- * A holding class of the default list of {@link AbstractAwtPaint}.
+ * Convenience class to regroup line analytics predicates and scalars like
+ * vertical, slope and y-intercept.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Painters {
+@EqualsAndHashCode
+public final class LineAnalytics {
 
     /**
-     * Default painters.
+     * Line to analyze.
      */
-    private final transient List<AbstractAwtPaint> def;
+    private final Line line;
 
     /**
-     * Ctor.
+     * Constructor.
+     * @param line Line for which to calculate analytics
      */
-    public Painters() {
-        this.def = Painters.init();
+    public LineAnalytics(final Line line) {
+        this.line = line;
     }
 
     /**
-     * Accessor for the default AWT painters.
-     * @return A list of default painters
+     * Calculates the line slope.
+     * @return A scalar representing the line slope
      */
-    public List<AbstractAwtPaint> defaults() {
-        return new ArrayList<>(this.def);
+    public Scalar slope() {
+        return new Slope(this.line);
     }
 
     /**
-     * Initializes the list of the default painters.
-     * @return A list of default painters
+     * Calculates the line y-intercept.
+     * @return A scalar representing the line y-intercept
      */
-    private static List<AbstractAwtPaint> init() {
-        final int size = 6;
-        final List<AbstractAwtPaint> defaults = new ArrayList<>(size);
-        defaults.add(new AwtPoint());
-        defaults.add(new AwtCircle());
-        defaults.add(new AwtLine());
-        defaults.add(new AwtRay());
-        defaults.add(new AwtAngle());
-        defaults.add(new AwtSegment());
-        return defaults;
+    public Scalar intercept() {
+        return new Intercept(this.line);
     }
+
+    /**
+     * Checks if the line is vertical.
+     * @return A predicate for the line verticality
+     */
+    public Predicate vertical() {
+        return new Vertical(this.line);
+    }
+
 }

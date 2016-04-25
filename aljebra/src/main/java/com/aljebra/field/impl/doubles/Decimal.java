@@ -53,7 +53,7 @@ public final class Decimal
     /**
      * A tolerance threshold to consider two values as equal.
      */
-    private static final double TOLERANCE = 1.E-3;
+    private static final double TOLERANCE = 1.E-6;
 
     /**
      * Constructor.
