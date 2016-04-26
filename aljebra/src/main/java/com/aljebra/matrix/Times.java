@@ -40,7 +40,7 @@ import lombok.ToString;
 public final class Times implements Matrix {
 
     /**
-     * Vector.
+     * Matrix.
      */
     private final transient Matrix matrix;
 
@@ -51,11 +51,11 @@ public final class Times implements Matrix {
 
     /**
      * Constructor.
-     * @param vector Vector to multiply
+     * @param mat Matrix to multiply
      * @param scalar Scalar by which to multiply
      */
-    public Times(final Matrix vector, final Scalar scalar) {
-        this.matrix = vector;
+    public Times(final Matrix mat, final Scalar scalar) {
+        this.matrix = mat;
         this.scalar = scalar;
     }
 

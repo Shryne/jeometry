@@ -31,7 +31,9 @@ import com.aljebra.vector.Vect;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
@@ -41,6 +43,12 @@ import org.mockito.Mockito;
  * @since 0.1
  */
 public final class FixedMatrixTest {
+
+    /**
+     * Junit rule for expected exceptions.
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /**
      * {@link FixedMatrix} can return coordinates.
@@ -100,6 +108,22 @@ public final class FixedMatrixTest {
         MatcherAssert.assertThat(
             matrix.apply(input).coords(), FixedMatrixTest.matchers(expected)
         );
+    }
+
+    /**
+     * {@link FixedMatrix} throws exception when transforming
+     * a wrong vector size.
+     */
+    @Test
+    public void errorsWhenBadVectorSize() {
+        this.thrown.expect(IllegalArgumentException.class);
+        final int lines = 3;
+        final int cols = 4;
+        final FixedMatrix matrix = new FixedMatrix(
+            lines, cols, FixedMatrixTest.scalars(lines * cols)
+        );
+        final Vect input = new FixedVector(FixedMatrixTest.scalars(cols + 1));
+        matrix.apply(input);
     }
 
     /**

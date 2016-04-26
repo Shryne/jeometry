@@ -103,6 +103,14 @@ public class FixedMatrix implements Matrix {
 
     @Override
     public final Vect apply(final Vect input) {
+        if (input.coords().length != this.source) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "Incompatible vector dimension %s with matrix dimension %s",
+                    input.coords().length, this.source
+                )
+            );
+        }
         final Scalar[] result = new Scalar[this.target];
         for (int idx = 0; idx < this.target; ++idx) {
             result[idx] = this.product(input, idx + 1);
