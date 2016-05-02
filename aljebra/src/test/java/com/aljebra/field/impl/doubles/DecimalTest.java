@@ -25,13 +25,17 @@ package com.aljebra.field.impl.doubles;
 
 import com.aljebra.field.OrderedRandomizer;
 import com.aljebra.scalar.Add;
+import com.aljebra.scalar.AddInverse;
+import com.aljebra.scalar.MultInverse;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
@@ -43,14 +47,23 @@ import org.mockito.Mockito;
 public final class DecimalTest {
 
     /**
+     * Junit rule for expected exceptions.
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    /**
      * Decimal returns a different scalar.
      */
     @Test
     public void returnsDifferentScalar() {
-        final Decimal field = new Decimal();
-        final Scalar scalar = new Scalar.Default<Double>(
-            new Random().nextDouble()
-        );
+        final OrderedRandomizer<Double> rand = DecimalTest.randomizer();
+        final Decimal field = new Decimal(rand);
+        final double first = new Random().nextDouble();
+        final Scalar scalar = new Scalar.Default<Double>(first);
+        Mockito.when(
+            rand.between(Mockito.any(), Mockito.any())
+        ).thenReturn(first).thenReturn(Math.random());
         MatcherAssert.assertThat(
             "Generated scalar should be different than the passed one",
             !field.equals(scalar, field.other(scalar))
@@ -85,12 +98,9 @@ public final class DecimalTest {
     /**
      * Decimal delegates randomization to ordered randomizer.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void delegatesRandomization() {
-        final OrderedRandomizer<Double> rand = Mockito.mock(
-            OrderedRandomizer.class
-        );
+        final OrderedRandomizer<Double> rand = DecimalTest.randomizer();
         final Decimal field = new Decimal(rand);
         final Default<Double> zero = new Scalar.Default<Double>(0.);
         field.between(zero, zero);
@@ -121,6 +131,30 @@ public final class DecimalTest {
     }
 
     /**
+     * Decimal can calculate multiplication inverse.
+     */
+    @Test
+    public void calculatesMultiplicationInverse() {
+        final Decimal field = new Decimal();
+        final double epsilon = 1.e-6;
+        final double first = Math.random() + epsilon;
+        MatcherAssert.assertThat(
+            field.actual(new MultInverse(new Scalar.Default<Double>(first))),
+            Matchers.closeTo(1 / first, epsilon)
+        );
+    }
+
+    /**
+     * Decimal throws exception when trying to calculate
+     * multiplication inverse of zero.
+     */
+    @Test
+    public void errorsWhenZeroMultInverse() {
+        this.thrown.expect(IllegalArgumentException.class);
+        new Decimal().multiplication().inverse(0.);
+    }
+
+    /**
      * Decimal can calculate addition.
      */
     @Test
@@ -137,5 +171,28 @@ public final class DecimalTest {
             ),
             Matchers.equalTo(first + second)
         );
+    }
+
+    /**
+     * Decimal can calculate addition inverse.
+     */
+    @Test
+    public void calculatesAdditionInverse() {
+        final Decimal field = new Decimal();
+        final double epsilon = 1.e-6;
+        final double first = Math.random();
+        MatcherAssert.assertThat(
+            field.actual(new AddInverse(new Scalar.Default<Double>(first))),
+            Matchers.closeTo(-first, epsilon)
+        );
+    }
+
+    /**
+     * Returns a mocked double randomizer.
+     * @return A mocked double randomizer
+     */
+    @SuppressWarnings("unchecked")
+    private static OrderedRandomizer<Double> randomizer() {
+        return Mockito.mock(OrderedRandomizer.class);
     }
 }

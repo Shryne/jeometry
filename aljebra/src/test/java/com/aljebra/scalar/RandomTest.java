@@ -24,42 +24,26 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Scalar}.
+ * Tests for {@link Random}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ScalarTest {
-    /**
-     * Scalar.Default respects equals on value.
-     */
-    @Test
-    public void respectsEqual() {
-        MatcherAssert.assertThat(
-            new Scalar.Default<Double>(1.),
-            Matchers.equalTo(new Scalar.Default<Double>(1.))
-        );
-        final String test = "test";
-        MatcherAssert.assertThat(
-            new Scalar.Default<String>(test),
-            Matchers.equalTo(new Scalar.Default<String>(test))
-        );
-    }
+public final class RandomTest {
 
     /**
-     * {@link Scalar.Default} relies on field to calculate actual value.
+     * {@link Random} relies on field to calculate actual value.
      */
     @Test
     public void delegatesToField() {
-        final Scalar first = new Scalar.Default<Double>(1.);
         final Field<?> field = Mockito.mock(Field.class);
-        first.value(field);
-        Mockito.verify(field).actual(first);
+        Mockito.when(field.random()).thenReturn(Mockito.mock(Scalar.class));
+        new Random().value(field);
+        Mockito.verify(field).random();
     }
+
 }

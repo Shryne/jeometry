@@ -25,64 +25,28 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.FieldAddition;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Diff}.
+ * Tests for {@link AddIdentity}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DiffTest {
-    /**
-     * {@link Diff} respects equals on operands.
-     */
-    @Test
-    public void respectsEqual() {
-        MatcherAssert.assertThat(
-            new Diff(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
-            ),
-            Matchers.equalTo(
-                new Diff(
-                    new Scalar.Default<Double>(0.),
-                    new Scalar.Default<Double>(1.)
-                )
-            )
-        );
-        final String minuend = "test";
-        final String subtrahend = "test2";
-        MatcherAssert.assertThat(
-            new Diff(
-                new Scalar.Default<String>(minuend),
-                new Scalar.Default<String>(subtrahend)
-            ),
-            Matchers.equalTo(
-                new Diff(
-                    new Scalar.Default<String>(minuend),
-                    new Scalar.Default<String>(subtrahend)
-                )
-            )
-        );
-    }
+public final class AddIdentityTest {
 
     /**
-     * {@link Diff} relies on field addition to calculate actual value.
+     * {@link AddIdentity} relies on field addition to calculate actual value.
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void diffDelegatesToFieldAddition() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+    public void addIdentityDelegatesToFieldAddition() {
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
         Mockito.when(field.addition()).thenReturn(add);
-        new Diff(first, second).value(field);
+        new AddIdentity().value(field);
         Mockito.verify(field).addition();
-        Mockito.verify(add).inverse(Mockito.any());
-        Mockito.verify(add).add(Mockito.any(), Mockito.any());
+        Mockito.verify(add).neutral();
     }
 }

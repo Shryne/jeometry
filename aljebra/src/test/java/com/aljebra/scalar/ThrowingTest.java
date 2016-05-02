@@ -24,42 +24,33 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Scalar}.
+ * Tests for {@link Throwing}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ScalarTest {
-    /**
-     * Scalar.Default respects equals on value.
-     */
-    @Test
-    public void respectsEqual() {
-        MatcherAssert.assertThat(
-            new Scalar.Default<Double>(1.),
-            Matchers.equalTo(new Scalar.Default<Double>(1.))
-        );
-        final String test = "test";
-        MatcherAssert.assertThat(
-            new Scalar.Default<String>(test),
-            Matchers.equalTo(new Scalar.Default<String>(test))
-        );
-    }
+public final class ThrowingTest {
 
     /**
-     * {@link Scalar.Default} relies on field to calculate actual value.
+     * Junit rule for expected exceptions.
      */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    /**
+     * {@link Throwing} throws exception when trying to calculate actual value.
+     */
+    @SuppressWarnings("unchecked")
     @Test
-    public void delegatesToField() {
-        final Scalar first = new Scalar.Default<Double>(1.);
-        final Field<?> field = Mockito.mock(Field.class);
-        first.value(field);
-        Mockito.verify(field).actual(first);
+    public void throwsExceptionWhenValue() {
+        final RuntimeException rex = Mockito.mock(RuntimeException.class);
+        this.thrown.expect(rex.getClass());
+        new Throwing(rex).value(Mockito.mock(Field.class));
     }
 }

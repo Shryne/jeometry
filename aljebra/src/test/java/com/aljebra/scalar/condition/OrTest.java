@@ -21,7 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.aljebra.scalar.condition;
 
 import com.aljebra.field.Field;
 import org.hamcrest.MatcherAssert;
@@ -30,36 +30,62 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Scalar}.
+ * Tests for {@link Or}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ScalarTest {
+public final class OrTest {
+
     /**
-     * Scalar.Default respects equals on value.
+     * {@link Or} returns true if at least one predicate resolves to true.
      */
     @Test
-    public void respectsEqual() {
+    public void resolvesToTrueWhenOnePredicateTrue() {
         MatcherAssert.assertThat(
-            new Scalar.Default<Double>(1.),
-            Matchers.equalTo(new Scalar.Default<Double>(1.))
-        );
-        final String test = "test";
-        MatcherAssert.assertThat(
-            new Scalar.Default<String>(test),
-            Matchers.equalTo(new Scalar.Default<String>(test))
+            new Or(
+                OrTest.positive(), OrTest.negative(), OrTest.negative()
+            ).resolve(Mockito.mock(Field.class)),
+            Matchers.is(true)
         );
     }
 
     /**
-     * {@link Scalar.Default} relies on field to calculate actual value.
+     * {@link Or} resolves to false if all predicates resolve to false.
      */
     @Test
-    public void delegatesToField() {
-        final Scalar first = new Scalar.Default<Double>(1.);
-        final Field<?> field = Mockito.mock(Field.class);
-        first.value(field);
-        Mockito.verify(field).actual(first);
+    public void resolvesToFalseWhenAllPredicatesFalse() {
+        MatcherAssert.assertThat(
+            new Or(
+                OrTest.negative(), OrTest.negative(), OrTest.negative()
+            ).resolve(Mockito.mock(Field.class)),
+            Matchers.is(false)
+        );
+    }
+
+    /**
+     * Returns an always true predicate.
+     * @return A predicate always resolving to true
+     */
+    private static Predicate positive() {
+        return new Predicate() {
+            @Override
+            public boolean resolve(final Field<?> field) {
+                return true;
+            }
+        };
+    }
+
+    /**
+     * Returns an always false predicate.
+     * @return A predicate always resolving to false
+     */
+    private static Predicate negative() {
+        return new Predicate() {
+            @Override
+            public boolean resolve(final Field<?> field) {
+                return false;
+            }
+        };
     }
 }

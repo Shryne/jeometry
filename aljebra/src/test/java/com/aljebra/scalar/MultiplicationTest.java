@@ -23,6 +23,8 @@
  */
 package com.aljebra.scalar;
 
+import com.aljebra.field.Field;
+import com.aljebra.field.FieldMultiplication;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -46,6 +48,28 @@ public final class MultiplicationTest {
         MatcherAssert.assertThat(
             new Multiplication(first, second),
             Matchers.equalTo(new Multiplication(second, first))
+        );
+    }
+
+    /**
+     * {@link Multiplication} relies on field multiplication
+     * to calculate actual value.
+     */
+    @SuppressWarnings("unchecked")
+    @Test
+    public void multiplicationDelegatesToFieldMultiplication() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        final Field<Object> field = Mockito.mock(Field.class);
+        final FieldMultiplication<Object> mult = Mockito.mock(
+            FieldMultiplication.class
+        );
+        Mockito.when(field.multiplication()).thenReturn(mult);
+        new Multiplication(first, second).value(field);
+        Mockito.verify(field).multiplication();
+        Mockito.verify(mult).neutral();
+        Mockito.verify(mult, Mockito.times(2)).multiply(
+            Mockito.any(), Mockito.any()
         );
     }
 }

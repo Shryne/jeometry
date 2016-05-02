@@ -27,7 +27,7 @@ import com.aljebra.metric.InnerProduct;
 
 /**
  * Interface describing a metric space field of scalars. A metric space defines
- * scalar vector products, vector distances and norms.
+ * scalar vector products, angles, vector distances and norms.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @param <T> The actual objects constituting the field.

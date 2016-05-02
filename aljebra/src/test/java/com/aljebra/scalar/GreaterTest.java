@@ -25,60 +25,48 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.OrderedField;
-import java.util.Optional;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 /**
- * A random scalar that is between two other scalars.
+ * Tests for {@link Greater}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@EqualsAndHashCode
-@ToString(includeFieldNames = false)
-public final class Between implements Scalar {
+public final class GreaterTest {
 
     /**
-     * Random generated scalar.
+     * Junit rule for expected exceptions.
      */
-    private Optional<Scalar> generated;
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /**
-     * Scalar to be lower to.
+     * {@link Greater} relies on ordered field to calculate actual value.
      */
-    private final Scalar greater;
-
-    /**
-     * Scalar to be greater to.
-     */
-    private final Scalar lower;
-
-    /**
-     * Constructor.
-     * @param greater Scalar to be lower to
-     * @param lower Scalar to be greater to
-     */
-    public Between(final Scalar lower, final Scalar greater) {
-        this.lower = lower;
-        this.greater = greater;
-        this.generated = Optional.empty();
-    }
-    @Override
-    public <T> T value(final Field<T> field) {
-        if (field instanceof OrderedField<?>) {
-            final OrderedField<T> ordered = (OrderedField<T>) field;
-            if (!this.generated.isPresent()) {
-                this.generated = Optional.of(
-                    ordered.between(this.lower, this.greater)
-                );
-            }
-        } else {
-            throw new UnsupportedOperationException(
-                String.format("Field %s is not an ordered field", field)
-            );
-        }
-        return field.actual(this.generated.get());
+    @Test
+    public void delegatesToOrderedFieldRandomizer() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final OrderedField<?> field = Mockito.mock(OrderedField.class);
+        Mockito.when(
+            field.greater(Mockito.any())
+        ).thenReturn(Mockito.mock(Scalar.class));
+        new Greater(first).value(field);
+        Mockito.verify(field).greater(first);
     }
 
+    /**
+     * {@link Greater} throws exception if the field is not ordered.
+     */
+    @SuppressWarnings("unchecked")
+    @Test
+    public void throwsExceptionWhenUnorderedField() {
+        this.thrown.expect(UnsupportedOperationException.class);
+        new Greater(
+            Mockito.mock(Scalar.class)
+        ).value(Mockito.mock(Field.class));
+    }
 }

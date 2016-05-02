@@ -23,42 +23,73 @@
  */
 package com.aljebra.metric.vect;
 
+import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.angle.Degrees;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link BisectorVect}.
+ * Tests for {@link RotateVect}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class BisectorVectTest {
+public final class RotateVectTest {
 
     /**
-     * {@link BisectorVect} calculates bisector vector.
+     * Junit rule for expected exceptions.
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    /**
+     * {@link RotateVect} rotates vector.
      */
     @Test
-    public void calculatesBisector() {
+    public void rotatesVector() {
         final int dim = 2;
         final Vect first = Mockito.mock(Vect.class);
         final Vect second = Mockito.mock(Vect.class);
-        Mockito.when(first.coords()).thenReturn(BisectorVectTest.scalars(dim));
-        Mockito.when(second.coords()).thenReturn(BisectorVectTest.scalars(dim));
+        Mockito.when(first.coords()).thenReturn(RotateVectTest.scalars(dim));
+        Mockito.when(second.coords()).thenReturn(RotateVectTest.scalars(dim));
         final InnerProduct pdt = new Dot();
-        final Vect result = new BisectorVect(first, second);
         final double error = 1.e-6;
+        Degrees angle = new Degrees.Default(Math.random());
         MatcherAssert.assertThat(
-            pdt.angle(first, result).resolve(pdt).doubleValue(),
-            Matchers.closeTo(
-                pdt.angle(result, second).resolve(pdt).doubleValue(), error
-            )
+            pdt.angle(
+                first, new RotateVect(first, angle)
+            ).resolve(pdt).doubleValue(),
+            Matchers.closeTo(angle.resolve(pdt).doubleValue(), error)
         );
+        angle = new Degrees.Default(Math.random());
+        MatcherAssert.assertThat(
+            pdt.angle(
+                second, new RotateVect(second, angle)
+            ).resolve(pdt).doubleValue(),
+            Matchers.closeTo(angle.resolve(pdt).doubleValue(), error)
+        );
+    }
+
+    /**
+     * {@link RotateVect} coordinates cannot be evaluated when
+     * the field is not a metric space field.
+     */
+    @Test
+    public void errorsWhenEvaluatingCoordinates() {
+        this.thrown.expect(UnsupportedOperationException.class);
+        final Field<?> field = Mockito.mock(Field.class);
+        final int dim = 2;
+        final Vect first = Mockito.mock(Vect.class);
+        Mockito.when(first.coords()).thenReturn(RotateVectTest.scalars(dim));
+        new RotateVect(first, Math.random()).coords()[0].value(field);
     }
 
     /**
@@ -69,7 +100,7 @@ public final class BisectorVectTest {
     private static Scalar[] scalars(final int length) {
         final Scalar[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = BisectorVectTest.scalar(Math.random());
+            result[idx] = RotateVectTest.scalar(Math.random());
         }
         return result;
     }

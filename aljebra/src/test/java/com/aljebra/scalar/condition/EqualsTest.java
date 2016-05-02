@@ -21,68 +21,51 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.aljebra.scalar.condition;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldAddition;
+import com.aljebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Diff}.
+ * Tests for {@link Equals}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DiffTest {
+public final class EqualsTest {
+
     /**
-     * {@link Diff} respects equals on operands.
+     * {@link Equals} resolves to true if scalars are equal.
      */
     @Test
-    public void respectsEqual() {
+    public void resolvesToTrueWhenEqual() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        final Field<?> field = Mockito.mock(Field.class);
+        Mockito.when(field.equals(first, second)).thenReturn(true);
         MatcherAssert.assertThat(
-            new Diff(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
-            ),
-            Matchers.equalTo(
-                new Diff(
-                    new Scalar.Default<Double>(0.),
-                    new Scalar.Default<Double>(1.)
-                )
-            )
-        );
-        final String minuend = "test";
-        final String subtrahend = "test2";
-        MatcherAssert.assertThat(
-            new Diff(
-                new Scalar.Default<String>(minuend),
-                new Scalar.Default<String>(subtrahend)
-            ),
-            Matchers.equalTo(
-                new Diff(
-                    new Scalar.Default<String>(minuend),
-                    new Scalar.Default<String>(subtrahend)
-                )
-            )
+            new Equals(first, second).resolve(field),
+            Matchers.is(true)
         );
     }
 
     /**
-     * {@link Diff} relies on field addition to calculate actual value.
+     * {@link Equals} resolves to false if scalars are not equal.
      */
-    @SuppressWarnings("unchecked")
     @Test
-    public void diffDelegatesToFieldAddition() {
+    public void resolvesToFalseWhenNotEqual() {
         final Scalar first = Mockito.mock(Scalar.class);
         final Scalar second = Mockito.mock(Scalar.class);
-        final Field<Object> field = Mockito.mock(Field.class);
-        final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
-        Mockito.when(field.addition()).thenReturn(add);
-        new Diff(first, second).value(field);
-        Mockito.verify(field).addition();
-        Mockito.verify(add).inverse(Mockito.any());
-        Mockito.verify(add).add(Mockito.any(), Mockito.any());
+        final Field<?> field = Mockito.mock(Field.class);
+        Mockito.when(field.equals(first, second)).thenReturn(false);
+        MatcherAssert.assertThat(
+            new Equals(first, second).resolve(field),
+            Matchers.is(false)
+        );
     }
+
 }

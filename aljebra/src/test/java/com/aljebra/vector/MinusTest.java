@@ -23,7 +23,7 @@
  */
 package com.aljebra.vector;
 
-import com.aljebra.scalar.Add;
+import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Scalar;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -36,12 +36,12 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Sum}.
+ * Tests for {@link Minus}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class SumTest {
+public final class MinusTest {
 
     /**
      * Max scalar array length to generate(mock).
@@ -55,7 +55,7 @@ public final class SumTest {
     public ExpectedException thrown = ExpectedException.none();
 
     /**
-     * {@link Sum} throws exception if the two vectors don't have
+     * {@link Minus} throws exception if the two vectors don't have
      * the same dimension.
      */
     @Test
@@ -63,39 +63,38 @@ public final class SumTest {
         this.thrown.expect(IllegalArgumentException.class);
         final Vect vecta = Mockito.mock(Vect.class);
         final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = SumTest.scalars();
-        final Scalar[] bcoords = SumTest.scalars(acoords.length + 1);
+        final Scalar[] acoords = MinusTest.scalars();
+        final Scalar[] bcoords = MinusTest.scalars(acoords.length + 1);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        new Sum(vecta, vectb);
+        new Minus(vecta, vectb);
     }
 
     /**
-     * {@link Sum} coordinates equals to the field additions
+     * {@link Minus} coordinates equals to the field substraction
      * of vectors coordinates.
      */
     @Test
-    public void coordsEqualCoordsSum() {
+    public void coordsEqualCoordsDiff() {
         final Vect vecta = Mockito.mock(Vect.class);
         final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = SumTest.scalars();
-        final Scalar[] bcoords = SumTest.scalars(acoords.length);
+        final Scalar[] acoords = MinusTest.scalars();
+        final Scalar[] bcoords = MinusTest.scalars(acoords.length);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Matcher<Scalar[]> expected = SumTest.matchers(
+        final Matcher<Scalar[]> expected = MinusTest.matchers(
             IntStream.range(0, acoords.length)
-            .mapToObj(i -> new Add(acoords[i], bcoords[i]))
+            .mapToObj(i -> new Diff(acoords[i], bcoords[i]))
             .toArray(Scalar[]::new)
         );
-        MatcherAssert.assertThat(new Sum(vecta, vectb).coords(), expected);
+        MatcherAssert.assertThat(new Minus(vecta, vectb).coords(), expected);
     }
-
     /**
      * Mocks an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
     private static Scalar[] scalars() {
-        return SumTest.scalars(new Random().nextInt(SumTest.COORDS_LENGTH));
+        return MinusTest.scalars(new Random().nextInt(MinusTest.COORDS_LENGTH));
     }
 
     /**

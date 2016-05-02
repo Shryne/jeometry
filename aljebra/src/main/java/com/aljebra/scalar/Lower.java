@@ -61,7 +61,7 @@ public final class Lower implements Scalar {
     public <T> T value(final Field<T> field) {
         if (field instanceof OrderedField<?>) {
             final OrderedField<T> ordered = (OrderedField<T>) field;
-            if (this.generated.isPresent()) {
+            if (!this.generated.isPresent()) {
                 this.generated = Optional.of(ordered.lower(this.greater));
             }
         } else {

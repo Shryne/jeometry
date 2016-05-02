@@ -25,67 +25,31 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.FieldMultiplication;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Division}.
+ * Tests for {@link MultIdentity}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DivisionTest {
-    /**
-     * {@link Division} respects equals on divisor and dividend.
-     */
-    @Test
-    public void respectsEqual() {
-        MatcherAssert.assertThat(
-            new Division(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
-            ),
-            Matchers.equalTo(
-                new Division(
-                    new Scalar.Default<Double>(0.),
-                    new Scalar.Default<Double>(1.)
-                )
-            )
-        );
-        final String divisor = "test";
-        final String dividend = "test2";
-        MatcherAssert.assertThat(
-            new Division(
-                new Scalar.Default<String>(divisor),
-                new Scalar.Default<String>(dividend)
-            ),
-            Matchers.equalTo(
-                new Division(
-                    new Scalar.Default<String>(divisor),
-                    new Scalar.Default<String>(dividend)
-                )
-            )
-        );
-    }
+public final class MultIdentityTest {
 
     /**
-     * {@link Division} relies on field multiplication
+     * {@link MultIdentity} relies on field multiplication
      * to calculate actual value.
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void divisionDelegatesToFieldMultiplication() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+    public void multIdentityDelegatesToFieldMultiplication() {
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldMultiplication<Object> mult = Mockito.mock(
             FieldMultiplication.class
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
-        new Division(first, second).value(field);
+        new MultIdentity().value(field);
         Mockito.verify(field).multiplication();
-        Mockito.verify(mult).inverse(Mockito.any());
-        Mockito.verify(mult).multiply(Mockito.any(), Mockito.any());
+        Mockito.verify(mult).neutral();
     }
 }

@@ -21,45 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
-
-import com.aljebra.field.Field;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 /**
- * Tests for {@link Scalar}.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
+ * Tests for conditions.
  */
-public final class ScalarTest {
-    /**
-     * Scalar.Default respects equals on value.
-     */
-    @Test
-    public void respectsEqual() {
-        MatcherAssert.assertThat(
-            new Scalar.Default<Double>(1.),
-            Matchers.equalTo(new Scalar.Default<Double>(1.))
-        );
-        final String test = "test";
-        MatcherAssert.assertThat(
-            new Scalar.Default<String>(test),
-            Matchers.equalTo(new Scalar.Default<String>(test))
-        );
-    }
-
-    /**
-     * {@link Scalar.Default} relies on field to calculate actual value.
-     */
-    @Test
-    public void delegatesToField() {
-        final Scalar first = new Scalar.Default<Double>(1.);
-        final Field<?> field = Mockito.mock(Field.class);
-        first.value(field);
-        Mockito.verify(field).actual(first);
-    }
-}
+package com.aljebra.scalar;

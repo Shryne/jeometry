@@ -21,66 +21,72 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.aljebra.scalar.condition;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldAddition;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import com.aljebra.scalar.Scalar;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Add}.
+ * Tests for {@link Ternary}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class AddTest {
+public final class TernaryTest {
+
     /**
-     * {@link Add} respects equals with disregard
-     * to order of operands.
+     * {@link Ternary} evaluates to the first scalar
+     * returns true if all predicates are true.
      */
     @Test
-    public void additionIsCommutative() {
+    public void valueToFirstScalarWhenTrue() {
         final Scalar first = Mockito.mock(Scalar.class);
         final Scalar second = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new Add(first, second),
-            Matchers.equalTo(new Add(second, first))
-        );
+        final Field<?> field = Mockito.mock(Field.class);
+        new Ternary(TernaryTest.positive(), first, second).value(field);
+        Mockito.verify(field).actual(first);
+        Mockito.verify(field, Mockito.never()).actual(second);
     }
 
     /**
-     * {@link Add} operands are bag-like collection: duplicates counts.
+     * {@link Ternary} evaluates to the second scalar
+     * if the predicate resolves to false.
      */
     @Test
-    public void additionOperandsAreNotASet() {
+    public void valueToSecondScalarWhenFalse() {
         final Scalar first = Mockito.mock(Scalar.class);
         final Scalar second = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new Add(first, second, first),
-            Matchers.not(Matchers.equalTo(new Add(second, first)))
-        );
+        final Field<?> field = Mockito.mock(Field.class);
+        new Ternary(TernaryTest.negative(), first, second).value(field);
+        Mockito.verify(field).actual(second);
+        Mockito.verify(field, Mockito.never()).actual(first);
     }
 
     /**
-     * {@link Add} relies on field addition to calculate actual value.
+     * Returns an always true predicate.
+     * @return A predicate always resolving to true
      */
-    @SuppressWarnings("unchecked")
-    @Test
-    public void addDelegatesToFieldAddition() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final Field<Object> field = Mockito.mock(Field.class);
-        final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
-        Mockito.when(field.addition()).thenReturn(add);
-        new Add(first, second, first).value(field);
-        Mockito.verify(field).addition();
-        Mockito.verify(add).neutral();
-        final int invocations = 3;
-        Mockito.verify(add, Mockito.times(invocations)).add(
-            Mockito.any(), Mockito.any()
-        );
+    private static Predicate positive() {
+        return new Predicate() {
+            @Override
+            public boolean resolve(final Field<?> field) {
+                return true;
+            }
+        };
+    }
+
+    /**
+     * Returns an always false predicate.
+     * @return A predicate always resolving to false
+     */
+    private static Predicate negative() {
+        return new Predicate() {
+            @Override
+            public boolean resolve(final Field<?> field) {
+                return false;
+            }
+        };
     }
 }

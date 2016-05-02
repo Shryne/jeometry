@@ -23,6 +23,8 @@
  */
 package com.aljebra.metric.vect;
 
+import com.aljebra.field.Field;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.scalar.Scalar;
@@ -33,31 +35,33 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link BisectorVect}.
+ * Tests for {@link Normalized}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class BisectorVectTest {
+public final class NormalizedTest {
 
     /**
-     * {@link BisectorVect} calculates bisector vector.
+     * {@link Normalized} gives a normalized vector.
      */
     @Test
-    public void calculatesBisector() {
-        final int dim = 2;
+    public void normalizesVector() {
+        final int dim = 6;
         final Vect first = Mockito.mock(Vect.class);
         final Vect second = Mockito.mock(Vect.class);
-        Mockito.when(first.coords()).thenReturn(BisectorVectTest.scalars(dim));
-        Mockito.when(second.coords()).thenReturn(BisectorVectTest.scalars(dim));
+        Mockito.when(first.coords()).thenReturn(NormalizedTest.scalars(dim));
+        Mockito.when(second.coords()).thenReturn(NormalizedTest.scalars(dim));
         final InnerProduct pdt = new Dot();
-        final Vect result = new BisectorVect(first, second);
+        final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            pdt.angle(first, result).resolve(pdt).doubleValue(),
-            Matchers.closeTo(
-                pdt.angle(result, second).resolve(pdt).doubleValue(), error
-            )
+            dec.actual(pdt.norm(new Normalized(first))),
+            Matchers.closeTo(1., error)
+        );
+        MatcherAssert.assertThat(
+            dec.actual(pdt.norm(new Normalized(second))),
+            Matchers.closeTo(1., error)
         );
     }
 
@@ -69,7 +73,7 @@ public final class BisectorVectTest {
     private static Scalar[] scalars(final int length) {
         final Scalar[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = BisectorVectTest.scalar(Math.random());
+            result[idx] = NormalizedTest.scalar(Math.random());
         }
         return result;
     }

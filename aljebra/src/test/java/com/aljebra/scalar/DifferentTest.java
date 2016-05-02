@@ -24,42 +24,29 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Scalar}.
+ * Tests for {@link Different}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ScalarTest {
-    /**
-     * Scalar.Default respects equals on value.
-     */
-    @Test
-    public void respectsEqual() {
-        MatcherAssert.assertThat(
-            new Scalar.Default<Double>(1.),
-            Matchers.equalTo(new Scalar.Default<Double>(1.))
-        );
-        final String test = "test";
-        MatcherAssert.assertThat(
-            new Scalar.Default<String>(test),
-            Matchers.equalTo(new Scalar.Default<String>(test))
-        );
-    }
+public final class DifferentTest {
 
     /**
-     * {@link Scalar.Default} relies on field to calculate actual value.
+     * {@link Different} relies on field to calculate actual value.
      */
     @Test
     public void delegatesToField() {
-        final Scalar first = new Scalar.Default<Double>(1.);
+        final Scalar first = Mockito.mock(Scalar.class);
         final Field<?> field = Mockito.mock(Field.class);
-        first.value(field);
-        Mockito.verify(field).actual(first);
+        Mockito.when(
+            field.other(Mockito.any())
+        ).thenReturn(Mockito.mock(Scalar.class));
+        new Different(first).value(field);
+        Mockito.verify(field).other(first);
     }
+
 }
