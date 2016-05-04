@@ -21,43 +21,35 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod.line.analytics;
+package com.jeometry.twod.line;
 
-import com.aljebra.field.Field;
-import com.aljebra.scalar.condition.Predicate;
-import com.jeometry.twod.line.Line;
+import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.twod.line.analytics.PointInLine;
+import com.jeometry.twod.point.RandomPoint;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A predicate to determine if two lines intersect.
+ * Tests for {@link PtDirLine}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Intersecting implements Predicate {
+public final class PtDirLineTest {
 
     /**
-     * First line.
+     * {@link PtDirLine} builds a line with given point and given direction.
      */
-    private final Line first;
-
-    /**
-     * Second line.
-     */
-    private final Line second;
-
-    /**
-     * Constructor.
-     * @param first First line
-     * @param second Second line
-     */
-    public Intersecting(final Line first, final Line second) {
-        this.first = first;
-        this.second = second;
+    @Test
+    public void buildsWithGivenArgs() {
+        final RandomPoint point = new RandomPoint();
+        final RandomPoint dir = new RandomPoint();
+        final Line line = new PtDirLine(point, dir);
+        MatcherAssert.assertThat(
+            new PointInLine(point, line).resolve(new Decimal()),
+            Matchers.is(true)
+        );
+        MatcherAssert.assertThat(line.direction(), Matchers.is(dir));
     }
-
-    @Override
-    public boolean resolve(final Field<?> field) {
-        return !new Parallel(this.first, this.second).resolve(field);
-    }
-
 }

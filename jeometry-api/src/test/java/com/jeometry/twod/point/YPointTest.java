@@ -21,16 +21,32 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.twod.point;
 
-import com.jeometry.twod.point.RandomPoint;
+import com.aljebra.scalar.Scalar;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Tests for {@link RandomPoint}.
+ * Tests for {@link YPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class RandomPointTest {
-
+public final class YPointTest {
+    /**
+     * {@link YPoint} returns true coordinates.
+     */
+    @Test
+    public void buildsAVector() {
+        final Scalar ycoor = Mockito.mock(Scalar.class);
+        MatcherAssert.assertThat(
+            new YPoint(ycoor).ycoor(), Matchers.equalTo(ycoor)
+        );
+        MatcherAssert.assertThat(
+            new YPoint(ycoor).coords()[1], Matchers.equalTo(ycoor)
+        );
+    }
 }

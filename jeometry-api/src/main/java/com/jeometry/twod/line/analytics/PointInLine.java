@@ -24,68 +24,59 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.Field;
-import com.aljebra.scalar.Diff;
+import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.condition.Equals;
+import com.aljebra.scalar.condition.Predicate;
+import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.RayLine;
-import com.jeometry.twod.line.SgtLine;
-import com.jeometry.twod.ray.Ray;
-import com.jeometry.twod.segment.Segment;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
- * A scalar representing a line y-intercept.
+ * A predicate to determine if a point belongs to a line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@EqualsAndHashCode
-@ToString(includeFieldNames = false)
-public final class Intercept implements Scalar {
+public final class PointInLine implements Predicate {
 
     /**
-     * Line for which to calculate y-intercept.
+     * Point.
+     */
+    private final Vect point;
+
+    /**
+     * Line.
      */
     private final Line line;
 
     /**
      * Constructor.
-     * @param line Line for which to calculate intercept
+     * @param point Point
+     * @param line Line
      */
-    public Intercept(final Line line) {
+    public PointInLine(final Vect point, final Line line) {
+        this.point = point;
         this.line = line;
     }
 
-    /**
-     * Constructor.
-     * @param ray Ray for which to calculate intercept
-     */
-    public Intercept(final Ray ray) {
-        this(new RayLine(ray));
-    }
-
-    /**
-     * Constructor.
-     * @param seg Segment for which to calculate intercept
-     */
-    public Intercept(final Segment seg) {
-        this(new SgtLine(seg));
-    }
-
     @Override
-    public <T> T value(final Field<T> field) {
-        if (!new Vertical(this.line).resolve(field)) {
-            final Scalar[] coords = this.line.point().coords();
-            final Scalar slope = new Slope(this.line);
-            return field.actual(
-                new Diff(coords[1], new Multiplication(slope, coords[0]))
+    public boolean resolve(final Field<?> field) {
+        final Scalar xcoor = this.point.coords()[0];
+        final Predicate result;
+        if (new Vertical(this.line).resolve(field)) {
+            result = new Equals(xcoor, this.line.point().coords()[0]);
+        } else {
+            final LineAnalytics analytics = new LineAnalytics(this.line);
+            result = new Equals(
+                this.point.coords()[1],
+                new Add(
+                    new Multiplication(xcoor, analytics.slope()),
+                    analytics.intercept()
+                )
             );
         }
-        throw new IllegalStateException(
-            "Line has infinite slope. Could not calculate y-intercept."
-        );
+        return result.resolve(field);
     }
 
 }

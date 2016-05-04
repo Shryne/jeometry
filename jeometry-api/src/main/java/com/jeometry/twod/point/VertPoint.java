@@ -21,33 +21,25 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.twod.point;
 
-import com.aljebra.scalar.Scalar;
-import com.jeometry.twod.point.XPoint;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.mockito.Mockito;
+import com.aljebra.scalar.AddIdentity;
+import lombok.ToString;
 
 /**
- * Tests for {@link XPoint}.
+ * Represents a 2D vertical vector. A vertical vector have
+ * zero (addition neutral element) coordinate on X-axis.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class XPointTest {
+@ToString(callSuper = true)
+public class VertPoint extends XPoint {
     /**
-     * {@link XPoint} returns true coordinates.
+     * Constructor.
      */
-    @Test
-    public void buildsAVector() {
-        final Scalar xcoor = Mockito.mock(Scalar.class);
-        MatcherAssert.assertThat(
-            new XPoint(xcoor).xcoor(), Matchers.equalTo(xcoor)
-        );
-        MatcherAssert.assertThat(
-            new XPoint(xcoor).coords()[0], Matchers.equalTo(xcoor)
-        );
+    public VertPoint() {
+        super(new AddIdentity());
     }
+
 }

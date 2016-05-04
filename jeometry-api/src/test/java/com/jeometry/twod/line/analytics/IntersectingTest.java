@@ -23,41 +23,51 @@
  */
 package com.jeometry.twod.line.analytics;
 
-import com.aljebra.field.Field;
-import com.aljebra.scalar.condition.Predicate;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.point.DifferentPoint;
+import com.jeometry.twod.point.RandomPoint;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A predicate to determine if two lines intersect.
+ * Tests for {@link Intersecting}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Intersecting implements Predicate {
+public final class IntersectingTest {
 
     /**
-     * First line.
+     * {@link Intersecting} resolves to true when lines
+     * have different directions.
      */
-    private final Line first;
-
-    /**
-     * Second line.
-     */
-    private final Line second;
-
-    /**
-     * Constructor.
-     * @param first First line
-     * @param second Second line
-     */
-    public Intersecting(final Line first, final Line second) {
-        this.first = first;
-        this.second = second;
+    @Test
+    public void resolvesTrueWhenDifferentDirs() {
+        final Line any = new PtDirLine(new RandomPoint(), new RandomPoint());
+        MatcherAssert.assertThat(
+            new Intersecting(
+                any, new PtDirLine(
+                    new RandomPoint(), new DifferentPoint(any.direction())
+                )
+            ).resolve(new Decimal()),
+            Matchers.is(true)
+        );
     }
 
-    @Override
-    public boolean resolve(final Field<?> field) {
-        return !new Parallel(this.first, this.second).resolve(field);
+    /**
+     * {@link Intersecting} resolves to false when lines have same directions.
+     */
+    @Test
+    public void resolvesFalseWhenSameDirs() {
+        final Line any = new PtDirLine(new RandomPoint(), new RandomPoint());
+        MatcherAssert.assertThat(
+            new Intersecting(
+                any, new PtDirLine(new RandomPoint(), any.direction())
+            ).resolve(new Decimal()),
+            Matchers.is(false)
+        );
     }
-
 }

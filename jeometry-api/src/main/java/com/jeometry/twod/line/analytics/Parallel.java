@@ -27,7 +27,6 @@ import com.aljebra.field.Field;
 import com.aljebra.scalar.condition.And;
 import com.aljebra.scalar.condition.Equals;
 import com.aljebra.scalar.condition.Not;
-import com.aljebra.scalar.condition.Or;
 import com.aljebra.scalar.condition.Predicate;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.RayLine;
@@ -72,14 +71,14 @@ public final class Parallel implements Predicate {
 
     @Override
     public boolean resolve(final Field<?> field) {
-        return new Or(
-            new And(new Vertical(this.first), new Vertical(this.second)),
-            new And(
+        return new And(
+            new Vertical(this.first), new Vertical(this.second)
+            ).resolve(field) || new And(
                 new Not(new Vertical(this.first)),
-                new Not(new Vertical(this.second)),
-                new Equals(new Slope(this.first), new Slope(this.second))
-            )
-        ).resolve(field);
+                new Not(new Vertical(this.second))
+            ).resolve(field) && new Equals(
+                new Slope(this.first), new Slope(this.second)
+            ).resolve(field);
     }
 
 }

@@ -24,8 +24,6 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.Field;
-import com.aljebra.scalar.Add;
-import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.Line;
@@ -44,7 +42,7 @@ import lombok.ToString;
 public final class LinePointOrdinate implements Scalar {
 
     /**
-     * Line to which belongs the point.
+     * Line for which to calculate ordinate.
      */
     private final Line line;
 
@@ -55,7 +53,7 @@ public final class LinePointOrdinate implements Scalar {
 
     /**
      * Constructor.
-     * @param line Line for which to calculate slope
+     * @param line Line for which to calculate ordinate
      * @param abscissa Point abscissa
      */
     public LinePointOrdinate(final Line line, final Scalar abscissa) {
@@ -66,12 +64,20 @@ public final class LinePointOrdinate implements Scalar {
     @Override
     public <T> T value(final Field<T> field) {
         final T result;
-        if (new Vertical(this.line).resolve(field)) {
+        final boolean inline = field.equals(
+            this.line.point().coords()[0], this.abscissa
+        );
+        final boolean vertical = new Vertical(this.line).resolve(field);
+        if (vertical && !inline) {
+            throw new IllegalStateException(
+                "Vertical line could not pass by a point with this abscissa"
+            );
+        }
+        if (vertical && inline) {
             result = field.actual(new Random());
         } else {
             result = field.actual(
-                new Add(
-                    new Multiplication(new Slope(this.line), this.abscissa),
+                new Slope(this.line).mult(this.abscissa).add(
                     new Intercept(this.line)
                 )
             );

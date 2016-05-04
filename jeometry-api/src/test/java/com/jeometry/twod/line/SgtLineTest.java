@@ -21,4 +21,41 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod;
+package com.jeometry.twod.line;
+
+import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.twod.line.analytics.PointInLine;
+import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.segment.PtsSegment;
+import com.jeometry.twod.segment.Segment;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
+
+/**
+ * Tests for {@link SgtLine}.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+public final class SgtLineTest {
+
+    /**
+     * {@link SgtLine} builds a line wrapping the segment.
+     */
+    @Test
+    public void wrapsSegment() {
+        final Segment sgt = new PtsSegment(
+            new RandomPoint(), new RandomPoint()
+        );
+        final Line line = new SgtLine(sgt);
+        MatcherAssert.assertThat(
+            new PointInLine(sgt.start(), line).resolve(new Decimal()),
+            Matchers.is(true)
+        );
+        MatcherAssert.assertThat(
+            new PointInLine(sgt.end(), line).resolve(new Decimal()),
+            Matchers.is(true)
+        );
+    }
+}

@@ -21,43 +21,35 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod.line.analytics;
+package com.jeometry.twod.point;
 
-import com.aljebra.field.Field;
-import com.aljebra.scalar.condition.Predicate;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.PtsLine;
+import com.jeometry.twod.line.analytics.PointInLine;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A predicate to determine if two lines intersect.
+ * Tests for {@link OutsideLinePoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Intersecting implements Predicate {
+public final class OutsideLinePointTest {
 
     /**
-     * First line.
+     * {@link OutsideLinePoint} constructs a point not belonging to the line.
      */
-    private final Line first;
-
-    /**
-     * Second line.
-     */
-    private final Line second;
-
-    /**
-     * Constructor.
-     * @param first First line
-     * @param second Second line
-     */
-    public Intersecting(final Line first, final Line second) {
-        this.first = first;
-        this.second = second;
+    @Test
+    public void buildsAPointOutsideLine() {
+        final Line any = new PtsLine(new RandomPoint(), new RandomPoint());
+        MatcherAssert.assertThat(
+            new PointInLine(
+                new OutsideLinePoint(any), any
+            ).resolve(new Decimal()),
+            Matchers.is(false)
+        );
     }
-
-    @Override
-    public boolean resolve(final Field<?> field) {
-        return !new Parallel(this.first, this.second).resolve(field);
-    }
-
 }

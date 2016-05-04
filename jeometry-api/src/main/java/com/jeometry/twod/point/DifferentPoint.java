@@ -28,7 +28,9 @@ import com.aljebra.vector.Vect;
 import lombok.ToString;
 
 /**
- * Represents a random vector or a point, different than a given point.
+ * Represents a random vector or a point, different than a given point. It is
+ * guaranteed that all coordinates are different from
+ * the given point coordinates.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -37,7 +39,7 @@ import lombok.ToString;
 public class DifferentPoint extends XyPoint {
     /**
      * Constructor.
-     * @param point Point to be different to
+     * @param point Point to be different from
      */
     public DifferentPoint(final Vect point) {
         super(

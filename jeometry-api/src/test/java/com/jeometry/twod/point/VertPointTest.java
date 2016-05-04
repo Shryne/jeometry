@@ -21,33 +21,29 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.twod.point;
 
-import com.aljebra.scalar.Scalar;
-import com.jeometry.twod.point.YPoint;
+import com.aljebra.scalar.AddIdentity;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
- * Tests for {@link YPoint}.
+ * Tests for {@link VertPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class YPointTest {
+public final class VertPointTest {
+
     /**
-     * {@link YPoint} returns true coordinates.
+     * {@link VertPoint} builds vertical point.
      */
     @Test
-    public void buildsAVector() {
-        final Scalar ycoor = Mockito.mock(Scalar.class);
+    public void buildsHorizontalVector() {
         MatcherAssert.assertThat(
-            new YPoint(ycoor).ycoor(), Matchers.equalTo(ycoor)
-        );
-        MatcherAssert.assertThat(
-            new YPoint(ycoor).coords()[1], Matchers.equalTo(ycoor)
+            new VertPoint().xcoor(),
+            Matchers.equalTo(new AddIdentity())
         );
     }
 }

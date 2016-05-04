@@ -21,43 +21,35 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod.line.analytics;
+package com.jeometry.twod.point;
 
-import com.aljebra.field.Field;
-import com.aljebra.scalar.condition.Predicate;
-import com.jeometry.twod.line.Line;
+import com.aljebra.scalar.Different;
+import com.aljebra.vector.Vect;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A predicate to determine if two lines intersect.
+ * Tests for {@link DifferentPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Intersecting implements Predicate {
+public final class DifferentPointTest {
 
     /**
-     * First line.
+     * {@link DifferentPoint} constructs a different point than the passed one.
      */
-    private final Line first;
-
-    /**
-     * Second line.
-     */
-    private final Line second;
-
-    /**
-     * Constructor.
-     * @param first First line
-     * @param second Second line
-     */
-    public Intersecting(final Line first, final Line second) {
-        this.first = first;
-        this.second = second;
+    @Test
+    public void buildsDifferentPoint() {
+        final Vect point = new RandomPoint();
+        MatcherAssert.assertThat(
+            new DifferentPoint(point).xcoor(),
+            Matchers.equalTo(new Different(point.coords()[0]))
+        );
+        MatcherAssert.assertThat(
+            new DifferentPoint(point).ycoor(),
+            Matchers.equalTo(new Different(point.coords()[1]))
+        );
     }
-
-    @Override
-    public boolean resolve(final Field<?> field) {
-        return !new Parallel(this.first, this.second).resolve(field);
-    }
-
 }

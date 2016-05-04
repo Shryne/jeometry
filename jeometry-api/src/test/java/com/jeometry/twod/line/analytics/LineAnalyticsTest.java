@@ -23,41 +23,37 @@
  */
 package com.jeometry.twod.line.analytics;
 
-import com.aljebra.field.Field;
-import com.aljebra.scalar.condition.Predicate;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.point.RandomPoint;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A predicate to determine if two lines intersect.
+ * Tests for {@link LineAnalytics}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Intersecting implements Predicate {
+public final class LineAnalyticsTest {
 
     /**
-     * First line.
+     * {@link LineAnalytics} gives access to line analytics.
      */
-    private final Line first;
-
-    /**
-     * Second line.
-     */
-    private final Line second;
-
-    /**
-     * Constructor.
-     * @param first First line
-     * @param second Second line
-     */
-    public Intersecting(final Line first, final Line second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    @Override
-    public boolean resolve(final Field<?> field) {
-        return !new Parallel(this.first, this.second).resolve(field);
+    @Test
+    public void resolvesGivesAnalyticsAccess() {
+        final Line line = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final LineAnalytics analytics = new LineAnalytics(line);
+        MatcherAssert.assertThat(
+            analytics.slope(), Matchers.equalTo(new Slope(line))
+        );
+        MatcherAssert.assertThat(
+            analytics.intercept(), Matchers.equalTo(new Intercept(line))
+        );
+        MatcherAssert.assertThat(
+            analytics.vertical(), Matchers.equalTo(new Vertical(line))
+        );
     }
 
 }

@@ -21,33 +21,38 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.twod.line;
 
-import com.aljebra.scalar.Scalar;
-import com.jeometry.twod.point.XyPoint;
+import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.twod.line.analytics.PointInLine;
+import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Tests for {@link XyPoint}.
+ * Tests for {@link PtsLine}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class XyPointTest {
+public final class PtsLineTest {
+
     /**
-     * {@link XyPoint} returns true coordinates.
+     * {@link PtsLine} builds a line passing by the two given points.
      */
     @Test
-    public void buildsAVector() {
-        final Scalar.Default<Double> xcoor = new Scalar.Default<>(2.);
-        final Scalar.Default<Double> ycoor = new Scalar.Default<>(1.);
-        final XyPoint vector = new XyPoint(xcoor, ycoor);
-        final Scalar[] coords = vector.coords();
-        MatcherAssert.assertThat(coords[0], Matchers.equalTo(xcoor));
-        MatcherAssert.assertThat(coords[1], Matchers.equalTo(ycoor));
-        MatcherAssert.assertThat(vector.xcoor(), Matchers.equalTo(xcoor));
-        MatcherAssert.assertThat(vector.ycoor(), Matchers.equalTo(ycoor));
+    public void passesByTwoPoints() {
+        final RandomPoint pointa = new RandomPoint();
+        final RandomPoint pointb = new RandomPoint();
+        final Line line = new PtsLine(pointa, pointb);
+        MatcherAssert.assertThat(
+            new PointInLine(pointa, line).resolve(new Decimal()),
+            Matchers.is(true)
+        );
+        MatcherAssert.assertThat(
+            new PointInLine(pointb, line).resolve(new Decimal()),
+            Matchers.is(true)
+        );
     }
 }

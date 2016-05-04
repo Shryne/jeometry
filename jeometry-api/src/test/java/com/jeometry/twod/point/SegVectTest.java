@@ -21,16 +21,38 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.twod.point;
 
-import com.jeometry.twod.point.InLinePoint;
+import com.aljebra.scalar.Diff;
+import com.jeometry.twod.segment.PtsSegment;
+import com.jeometry.twod.segment.Segment;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Tests for {@link InLinePoint}.
+ * Tests for {@link SegVect}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class InLinePointTest {
+public final class SegVectTest {
 
+    /**
+     * {@link SegVect} builds segment vector.
+     */
+    @Test
+    public void buildsSegementVector() {
+        final RandomPoint start = new RandomPoint();
+        final RandomPoint end = new RandomPoint();
+        final Segment seg = new PtsSegment(start, end);
+        MatcherAssert.assertThat(
+            new SegVect(seg).xcoor(),
+            Matchers.equalTo(new Diff(end.xcoor(), start.xcoor()))
+        );
+        MatcherAssert.assertThat(
+            new SegVect(seg).ycoor(),
+            Matchers.equalTo(new Diff(end.ycoor(), start.ycoor()))
+        );
+    }
 }

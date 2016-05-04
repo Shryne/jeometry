@@ -44,6 +44,30 @@ public interface Scalar {
     <T> T value(final Field<T> field);
 
     /**
+     * Adds the given scalars to this scalar.
+     * @param operands Scalars to add
+     * @return A scalar defining the addition
+     */
+    default Scalar add(final Scalar... operands) {
+        final Scalar[] ops = new Scalar[operands.length + 1];
+        System.arraycopy(operands, 0, ops, 0, operands.length);
+        ops[operands.length] = this;
+        return new Add(ops);
+    }
+
+    /**
+     * Multiplies the given scalars to this scalar.
+     * @param operands Scalars to multiply
+     * @return A scalar defining the multiplication
+     */
+    default Scalar mult(final Scalar... operands) {
+        final Scalar[] ops = new Scalar[operands.length + 1];
+        System.arraycopy(operands, 0, ops, 0, operands.length);
+        ops[operands.length] = this;
+        return new Multiplication(ops);
+    }
+
+    /**
      * Minimal representation of a scalar holding a reference to an object.
      * @author Hamdi Douss (douss.hamdi@gmail.com)
      * @version $Id$

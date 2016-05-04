@@ -21,72 +21,57 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.jeometry.twod.point;
 
 import com.aljebra.field.Field;
+import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.scalar.Scalar;
+import com.jeometry.twod.segment.PtsSegment;
+import com.jeometry.twod.segment.Segment;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
- * Tests for {@link Scalar}.
+ * Tests for {@link MidSegPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ScalarTest {
+public final class MidSegPointTest {
 
     /**
-     * Scalar.Default respects equals on value.
+     * {@link MidSegPoint} constructs segment midpoint.
      */
     @Test
-    public void respectsEqual() {
-        MatcherAssert.assertThat(
-            new Scalar.Default<Double>(1.),
-            Matchers.equalTo(new Scalar.Default<Double>(1.))
+    public void buildsMidPointSeg() {
+        final Segment any = new PtsSegment(
+            new RandomPoint(), new RandomPoint()
         );
-        final String test = "test";
+        final Field<Double> dec = new Decimal();
+        final double error = 1.e-6;
+        final Scalar[] coords = new MidSegPoint(any).coords();
         MatcherAssert.assertThat(
-            new Scalar.Default<String>(test),
-            Matchers.equalTo(new Scalar.Default<String>(test))
+            coords[0].value(dec),
+            Matchers.closeTo(MidSegPointTest.mid(any)[0], error)
         );
-    }
-
-    /**
-     * {@link Scalar.Default} relies on field to calculate actual value.
-     */
-    @Test
-    public void delegatesToField() {
-        final Scalar first = new Scalar.Default<Double>(1.);
-        final Field<?> field = Mockito.mock(Field.class);
-        first.value(field);
-        Mockito.verify(field).actual(first);
-    }
-
-    /**
-     * Scalar can build addition.
-     */
-    @Test
-    public void buildsAddition() {
-        final Scalar scalar = new Scalar.Default<Object>(null);
-        final Scalar other = new Scalar.Default<Object>(null);
         MatcherAssert.assertThat(
-            scalar.add(other),
-            Matchers.equalTo(new Add(scalar, other))
+            coords[1].value(dec),
+            Matchers.closeTo(MidSegPointTest.mid(any)[1], error)
         );
     }
 
     /**
-     * Scalar can build multiplication.
+     * Checks if the given point belongs to the segment.
+     * @param any Segment
+     * @return True if the point belongs to the segment
      */
-    @Test
-    public void buildsMultiplication() {
-        final Scalar scalar = new Scalar.Default<Object>(null);
-        final Scalar other = new Scalar.Default<Object>(null);
-        MatcherAssert.assertThat(
-            scalar.mult(other),
-            Matchers.equalTo(new Multiplication(scalar, other))
-        );
+    private static Double[] mid(final Segment any) {
+        final Field<Double> dec = new Decimal();
+        final Double startx = any.start().coords()[0].value(dec);
+        final Double starty = any.start().coords()[1].value(dec);
+        final Double endx = any.end().coords()[0].value(dec);
+        final Double endy = any.end().coords()[1].value(dec);
+        return new Double[]{(endx + startx) / 2., (endy + starty) / 2.};
     }
 }

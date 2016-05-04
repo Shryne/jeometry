@@ -21,43 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod.line.analytics;
-
-import com.aljebra.field.Field;
-import com.aljebra.scalar.condition.Predicate;
-import com.jeometry.twod.line.Line;
-
 /**
- * A predicate to determine if two lines intersect.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
+ * Tests for Lines.
  */
-public final class Intersecting implements Predicate {
-
-    /**
-     * First line.
-     */
-    private final Line first;
-
-    /**
-     * Second line.
-     */
-    private final Line second;
-
-    /**
-     * Constructor.
-     * @param first First line
-     * @param second Second line
-     */
-    public Intersecting(final Line first, final Line second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    @Override
-    public boolean resolve(final Field<?> field) {
-        return !new Parallel(this.first, this.second).resolve(field);
-    }
-
-}
+package com.jeometry.twod.line;

@@ -28,7 +28,10 @@ import com.aljebra.scalar.AddIdentity;
 import com.aljebra.scalar.condition.Predicate;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.RayLine;
+import com.jeometry.twod.line.SgtLine;
 import com.jeometry.twod.ray.Ray;
+import com.jeometry.twod.segment.Segment;
+import lombok.EqualsAndHashCode;
 
 /**
  * A predicate to determine if a line is vertical.
@@ -36,6 +39,7 @@ import com.jeometry.twod.ray.Ray;
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode
 public final class Vertical implements Predicate {
 
     /**
@@ -57,6 +61,14 @@ public final class Vertical implements Predicate {
      */
     public Vertical(final Ray ray) {
         this(new RayLine(ray));
+    }
+
+    /**
+     * Constructor.
+     * @param seg Segment to check
+     */
+    public Vertical(final Segment seg) {
+        this(new SgtLine(seg));
     }
 
     @Override

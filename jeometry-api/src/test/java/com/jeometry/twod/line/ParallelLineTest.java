@@ -21,72 +21,64 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.jeometry.twod.line;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.vector.Vect;
+import com.jeometry.twod.line.analytics.Parallel;
+import com.jeometry.twod.line.analytics.PointInLine;
+import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.point.VertPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
- * Tests for {@link Scalar}.
+ * Tests for {@link ParallelLine}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class ScalarTest {
+public final class ParallelLineTest {
 
     /**
-     * Scalar.Default respects equals on value.
+     * {@link ParallelLine} builds a parallel line.
      */
     @Test
-    public void respectsEqual() {
+    public void buildsParallelLine() {
+        final Line line = new PtDirLine(new RandomPoint(), new RandomPoint());
         MatcherAssert.assertThat(
-            new Scalar.Default<Double>(1.),
-            Matchers.equalTo(new Scalar.Default<Double>(1.))
-        );
-        final String test = "test";
-        MatcherAssert.assertThat(
-            new Scalar.Default<String>(test),
-            Matchers.equalTo(new Scalar.Default<String>(test))
+            new Parallel(line, new ParallelLine(line)).resolve(new Decimal()),
+            Matchers.equalTo(true)
         );
     }
 
     /**
-     * {@link Scalar.Default} relies on field to calculate actual value.
+     * {@link ParallelLine} builds a parallel line to a vertical line.
      */
     @Test
-    public void delegatesToField() {
-        final Scalar first = new Scalar.Default<Double>(1.);
-        final Field<?> field = Mockito.mock(Field.class);
-        first.value(field);
-        Mockito.verify(field).actual(first);
-    }
-
-    /**
-     * Scalar can build addition.
-     */
-    @Test
-    public void buildsAddition() {
-        final Scalar scalar = new Scalar.Default<Object>(null);
-        final Scalar other = new Scalar.Default<Object>(null);
+    public void buildsParallelToVerticalLine() {
+        final Line line = new PtDirLine(new RandomPoint(), new VertPoint());
         MatcherAssert.assertThat(
-            scalar.add(other),
-            Matchers.equalTo(new Add(scalar, other))
+            new Parallel(line, new ParallelLine(line)).resolve(new Decimal()),
+            Matchers.equalTo(true)
         );
     }
 
     /**
-     * Scalar can build multiplication.
+     * {@link ParallelLine} builds a parallel line passing by a given point.
      */
     @Test
-    public void buildsMultiplication() {
-        final Scalar scalar = new Scalar.Default<Object>(null);
-        final Scalar other = new Scalar.Default<Object>(null);
+    public void buildsParallelPassingBy() {
+        final Line line = new PtDirLine(new RandomPoint(), new VertPoint());
+        final Vect pnt = new RandomPoint();
+        final ParallelLine parallel = new ParallelLine(line, pnt);
+        final Decimal dec = new Decimal();
         MatcherAssert.assertThat(
-            scalar.mult(other),
-            Matchers.equalTo(new Multiplication(scalar, other))
+            new Parallel(line, parallel).resolve(dec), Matchers.equalTo(true)
+        );
+        MatcherAssert.assertThat(
+            new PointInLine(pnt, parallel).resolve(dec), Matchers.equalTo(true)
         );
     }
 }

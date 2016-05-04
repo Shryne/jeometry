@@ -21,16 +21,32 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.geometry.twod.point;
+package com.jeometry.twod.point;
 
-import com.jeometry.twod.point.OutsideLinePoint;
+import com.aljebra.scalar.Scalar;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Tests for {@link OutsideLinePoint}.
+ * Tests for {@link XyPoint}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class OutsideLinePointTest {
-
+public final class XyPointTest {
+    /**
+     * {@link XyPoint} returns true coordinates.
+     */
+    @Test
+    public void buildsAVector() {
+        final Scalar.Default<Double> xcoor = new Scalar.Default<>(2.);
+        final Scalar.Default<Double> ycoor = new Scalar.Default<>(1.);
+        final XyPoint vector = new XyPoint(xcoor, ycoor);
+        final Scalar[] coords = vector.coords();
+        MatcherAssert.assertThat(coords[0], Matchers.equalTo(xcoor));
+        MatcherAssert.assertThat(coords[1], Matchers.equalTo(ycoor));
+        MatcherAssert.assertThat(vector.xcoor(), Matchers.equalTo(xcoor));
+        MatcherAssert.assertThat(vector.ycoor(), Matchers.equalTo(ycoor));
+    }
 }

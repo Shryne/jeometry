@@ -23,9 +23,7 @@
  */
 package com.jeometry.twod.line;
 
-import com.aljebra.scalar.AddInverse;
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.FixedVector;
+import com.aljebra.metric.vect.RotateVect;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.point.RandomPoint;
 import lombok.ToString;
@@ -69,8 +67,7 @@ public final class PerpLine implements Line {
 
     @Override
     public Vect direction() {
-        final Scalar[] coords = this.perp.direction().coords();
-        return new FixedVector(coords[1], new AddInverse(coords[0]));
+        return new RotateVect(this.perp.direction(), Math.PI / 2);
     }
 
     @Override

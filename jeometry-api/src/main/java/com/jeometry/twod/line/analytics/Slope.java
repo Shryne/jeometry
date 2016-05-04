@@ -28,7 +28,9 @@ import com.aljebra.scalar.Division;
 import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.RayLine;
+import com.jeometry.twod.line.SgtLine;
 import com.jeometry.twod.ray.Ray;
+import com.jeometry.twod.segment.Segment;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -61,6 +63,14 @@ public final class Slope implements Scalar {
      */
     public Slope(final Ray ray) {
         this(new RayLine(ray));
+    }
+
+    /**
+     * Constructor.
+     * @param seg Segment for which to calculate slope
+     */
+    public Slope(final Segment seg) {
+        this(new SgtLine(seg));
     }
 
     @Override
