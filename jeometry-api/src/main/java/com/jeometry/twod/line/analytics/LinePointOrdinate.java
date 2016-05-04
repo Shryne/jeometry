@@ -63,7 +63,6 @@ public final class LinePointOrdinate implements Scalar {
 
     @Override
     public <T> T value(final Field<T> field) {
-        final T result;
         final boolean inline = field.equals(
             this.line.point().coords()[0], this.abscissa
         );
@@ -73,6 +72,7 @@ public final class LinePointOrdinate implements Scalar {
                 "Vertical line could not pass by a point with this abscissa"
             );
         }
+        final T result;
         if (vertical && inline) {
             result = field.actual(new Random());
         } else {
