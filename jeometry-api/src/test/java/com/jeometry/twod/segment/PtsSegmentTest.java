@@ -21,47 +21,32 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod.ray;
+package com.jeometry.twod.segment;
 
 import com.aljebra.vector.Vect;
-import lombok.ToString;
+import com.jeometry.twod.point.RandomPoint;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A ray defined by its origin and its direction.
+ * Tests for {@link PtsSegment}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString
-public class PtDirRay implements Ray {
+public final class PtsSegmentTest {
 
     /**
-     * Direction.
+     * {@link PtsSegment} builds a segment with given extremities.
      */
-    private final Vect dir;
-
-    /**
-     * Point belonging to the line.
-     */
-    private final Vect org;
-
-    /**
-     * Constructor.
-     * @param direction Ray direction
-     * @param point Ray origin
-     */
-    public PtDirRay(final Vect point, final Vect direction) {
-        this.dir = direction;
-        this.org = point;
+    @Test
+    public void createsSegmentWithExtremities() {
+        final Vect start = new RandomPoint();
+        final Vect end = new RandomPoint();
+        final Segment segment = new PtsSegment(start, end);
+        MatcherAssert.assertThat(segment.start(), Matchers.equalTo(start));
+        MatcherAssert.assertThat(segment.end(), Matchers.equalTo(end));
     }
 
-    @Override
-    public final Vect direction() {
-        return this.dir;
-    }
-
-    @Override
-    public final Vect origin() {
-        return this.org;
-    }
 }

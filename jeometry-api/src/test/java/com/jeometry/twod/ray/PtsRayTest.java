@@ -23,45 +23,43 @@
  */
 package com.jeometry.twod.ray;
 
+import com.aljebra.field.Field;
+import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.vector.Minus;
 import com.aljebra.vector.Vect;
-import lombok.ToString;
+import com.jeometry.twod.line.RayLine;
+import com.jeometry.twod.line.analytics.PointInLine;
+import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.ray.PtsRay;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A ray defined by its origin and its direction.
+ * Tests for {@link PtsRay}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString
-public class PtDirRay implements Ray {
+public final class PtsRayTest {
 
     /**
-     * Direction.
+     * {@link PtsRay} builds a with the given points.
      */
-    private final Vect dir;
-
-    /**
-     * Point belonging to the line.
-     */
-    private final Vect org;
-
-    /**
-     * Constructor.
-     * @param direction Ray direction
-     * @param point Ray origin
-     */
-    public PtDirRay(final Vect point, final Vect direction) {
-        this.dir = direction;
-        this.org = point;
+    @Test
+    public void buildsPointsRay() {
+        final Vect origin = new RandomPoint();
+        final Vect belongs = new RandomPoint();
+        final Ray ray = new PtsRay(origin, belongs);
+        MatcherAssert.assertThat(ray.origin(), Matchers.equalTo(origin));
+        MatcherAssert.assertThat(
+            ray.direction(), Matchers.equalTo(new Minus(belongs, origin))
+        );
+        final Field<Double> dec = new Decimal();
+        MatcherAssert.assertThat(
+            new PointInLine(belongs, new RayLine(ray)).resolve(dec),
+            Matchers.is(true)
+        );
     }
 
-    @Override
-    public final Vect direction() {
-        return this.dir;
-    }
-
-    @Override
-    public final Vect origin() {
-        return this.org;
-    }
 }

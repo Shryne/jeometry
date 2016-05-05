@@ -23,45 +23,44 @@
  */
 package com.jeometry.twod.ray;
 
+import com.aljebra.field.impl.doubles.Dot;
+import com.aljebra.metric.InnerProduct;
 import com.aljebra.vector.Vect;
-import lombok.ToString;
+import com.jeometry.twod.angle.VectsAngle;
+import com.jeometry.twod.point.RandomPoint;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A ray defined by its origin and its direction.
+ * Tests for {@link AngleBisector}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString
-public class PtDirRay implements Ray {
+public final class AngleBisectorTest {
 
     /**
-     * Direction.
+     * {@link AngleBisector} builds a ray bisecting an angle.
      */
-    private final Vect dir;
-
-    /**
-     * Point belonging to the line.
-     */
-    private final Vect org;
-
-    /**
-     * Constructor.
-     * @param direction Ray direction
-     * @param point Ray origin
-     */
-    public PtDirRay(final Vect point, final Vect direction) {
-        this.dir = direction;
-        this.org = point;
+    @Test
+    public void buildsBisectorRay() {
+        final Vect origin = new RandomPoint();
+        final Vect start = new RandomPoint();
+        final Vect end = new RandomPoint();
+        final Ray bisector = new AngleBisector(
+            new VectsAngle(origin, start, end)
+        );
+        final Vect dir = bisector.direction();
+        final InnerProduct dot = new Dot();
+        final double error = 1.e-6;
+        MatcherAssert.assertThat(
+            dot.angle(start, dir).resolve(dot).doubleValue(),
+            Matchers.closeTo(
+                dot.angle(dir, end).resolve(dot).doubleValue(), error
+            )
+        );
+        MatcherAssert.assertThat(bisector.origin(), Matchers.equalTo(origin));
     }
 
-    @Override
-    public final Vect direction() {
-        return this.dir;
-    }
-
-    @Override
-    public final Vect origin() {
-        return this.org;
-    }
 }

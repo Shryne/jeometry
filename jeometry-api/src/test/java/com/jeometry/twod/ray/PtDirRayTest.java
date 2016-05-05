@@ -24,44 +24,29 @@
 package com.jeometry.twod.ray;
 
 import com.aljebra.vector.Vect;
-import lombok.ToString;
+import com.jeometry.twod.point.RandomPoint;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A ray defined by its origin and its direction.
+ * Tests for {@link PtDirRay}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString
-public class PtDirRay implements Ray {
+public final class PtDirRayTest {
 
     /**
-     * Direction.
+     * {@link PtDirRay} builds a with the given origin and the given direction.
      */
-    private final Vect dir;
-
-    /**
-     * Point belonging to the line.
-     */
-    private final Vect org;
-
-    /**
-     * Constructor.
-     * @param direction Ray direction
-     * @param point Ray origin
-     */
-    public PtDirRay(final Vect point, final Vect direction) {
-        this.dir = direction;
-        this.org = point;
+    @Test
+    public void buildsPointDirRay() {
+        final Vect origin = new RandomPoint();
+        final Vect dir = new RandomPoint();
+        final Ray ray = new PtDirRay(origin, dir);
+        MatcherAssert.assertThat(ray.origin(), Matchers.equalTo(origin));
+        MatcherAssert.assertThat(ray.direction(), Matchers.equalTo(dir));
     }
 
-    @Override
-    public final Vect direction() {
-        return this.dir;
-    }
-
-    @Override
-    public final Vect origin() {
-        return this.org;
-    }
 }

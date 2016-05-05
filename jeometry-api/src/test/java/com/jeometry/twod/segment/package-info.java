@@ -21,47 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod.ray;
-
-import com.aljebra.vector.Vect;
-import lombok.ToString;
-
 /**
- * A ray defined by its origin and its direction.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
+ * Tests for segments.
  */
-@ToString
-public class PtDirRay implements Ray {
-
-    /**
-     * Direction.
-     */
-    private final Vect dir;
-
-    /**
-     * Point belonging to the line.
-     */
-    private final Vect org;
-
-    /**
-     * Constructor.
-     * @param direction Ray direction
-     * @param point Ray origin
-     */
-    public PtDirRay(final Vect point, final Vect direction) {
-        this.dir = direction;
-        this.org = point;
-    }
-
-    @Override
-    public final Vect direction() {
-        return this.dir;
-    }
-
-    @Override
-    public final Vect origin() {
-        return this.org;
-    }
-}
+package com.jeometry.twod.segment;
