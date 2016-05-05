@@ -26,6 +26,7 @@ package com.aljebra.vector;
 import com.aljebra.aspects.DimensionsEqual;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Scalar;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -35,6 +36,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString
+@EqualsAndHashCode
 public final class Minus implements Vect {
     /**
      * First operand.
