@@ -42,8 +42,11 @@ public final class RandomPointTest {
     @Test
     public void buildsARandomVector() {
         final XyPoint vector = new RandomPoint();
-        final Random rand = new Random();
-        MatcherAssert.assertThat(vector.xcoor(), Matchers.equalTo(rand));
-        MatcherAssert.assertThat(vector.ycoor(), Matchers.equalTo(rand));
+        MatcherAssert.assertThat(
+            vector.xcoor(), Matchers.instanceOf(Random.class)
+        );
+        MatcherAssert.assertThat(
+            vector.ycoor(), Matchers.instanceOf(Random.class)
+        );
     }
 }

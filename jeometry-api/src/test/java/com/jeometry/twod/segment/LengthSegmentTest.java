@@ -90,7 +90,7 @@ public final class LengthSegmentTest {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            length.value(dec),
+            Math.abs(length.value(dec)),
             Matchers.closeTo(
                 new Norm(new Minus(seg.end(), seg.start())).value(dec), error
             )
@@ -109,7 +109,7 @@ public final class LengthSegmentTest {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            length.value(dec),
+            Math.abs(length.value(dec)),
             Matchers.closeTo(
                 new Norm(new Minus(seg.end(), seg.start())).value(dec), error
             )

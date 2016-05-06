@@ -25,6 +25,7 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.FieldAddition;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -61,6 +62,19 @@ public final class AddTest {
         MatcherAssert.assertThat(
             new Add(first, second, first),
             Matchers.not(Matchers.equalTo(new Add(second, first)))
+        );
+    }
+
+    /**
+     * {@link Add} give operands access.
+     */
+    @Test
+    public void exposesOperands() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        MatcherAssert.assertThat(
+            Arrays.asList(new Add(first, second).operands()),
+            Matchers.containsInAnyOrder(first, second)
         );
     }
 

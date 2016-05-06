@@ -27,12 +27,12 @@ import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
-import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.Random;
+import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Normalized}.
@@ -47,11 +47,8 @@ public final class NormalizedTest {
      */
     @Test
     public void normalizesVector() {
-        final int dim = 6;
-        final Vect first = Mockito.mock(Vect.class);
-        final Vect second = Mockito.mock(Vect.class);
-        Mockito.when(first.coords()).thenReturn(NormalizedTest.scalars(dim));
-        Mockito.when(second.coords()).thenReturn(NormalizedTest.scalars(dim));
+        final Vect first = new FixedVector(new Random(), new Random());
+        final Vect second = new FixedVector(new Random(), new Random());
         final InnerProduct pdt = new Dot();
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
@@ -65,25 +62,4 @@ public final class NormalizedTest {
         );
     }
 
-    /**
-     * Mocks an array of {@link Scalar} with a given length.
-     * @param length Array length
-     * @return An array of scalars
-     */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = NormalizedTest.scalar(Math.random());
-        }
-        return result;
-    }
-
-    /**
-     * Returns a default scalar of the double.
-     * @param num A double
-     * @return A scalar
-     */
-    private static Scalar scalar(final double num) {
-        return new Scalar.Default<Double>(num);
-    }
 }

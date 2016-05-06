@@ -30,7 +30,6 @@ import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.RayLine;
 import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.point.RandomPoint;
-import com.jeometry.twod.ray.PtsRay;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
