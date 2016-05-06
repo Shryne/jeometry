@@ -21,41 +21,43 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
+package com.jeometry.twod;
 
-import com.aljebra.field.Field;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link Random}.
+ * Tests for {@link Shape}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class RandomTest {
+public final class ShapeTest {
 
     /**
-     * {@link Random} relies on field to calculate actual value.
+     * {@link Shape} gives access to renderable and name.
      */
     @Test
-    public void delegatesToField() {
-        final Field<?> field = Mockito.mock(Field.class);
-        Mockito.when(field.random()).thenReturn(Mockito.mock(Scalar.class));
-        new Random().value(field);
-        Mockito.verify(field).random();
+    public void exposesRenderableAndName() {
+        final Renderable rend = Mockito.mock(Renderable.class);
+        final String name = "hello";
+        final Shape shape = new Shape(rend, name);
+        MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
+        MatcherAssert.assertThat(shape.name(), Matchers.equalTo(name));
+        MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(false));
     }
 
     /**
-     * {@link Random} does not rely on internal fields for equality
-     * (object default equality).
+     * {@link Shape} accepts anonymous renderable and become anonymous shape.
      */
     @Test
-    public void equalsAsObject() {
-        MatcherAssert.assertThat(
-            new Random(), Matchers.not(Matchers.equalTo(new Random()))
-        );
+    public void acceptsAnonymousRenderable() {
+        final Renderable rend = Mockito.mock(Renderable.class);
+        final Shape shape = new Shape(rend);
+        MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
+        MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(true));
     }
+
 }

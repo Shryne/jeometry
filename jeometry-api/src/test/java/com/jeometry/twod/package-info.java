@@ -21,41 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar;
-
-import com.aljebra.field.Field;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 /**
- * Tests for {@link Random}.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
- * @since 0.1
+ * Two dimensions Geometry tests.
  */
-public final class RandomTest {
-
-    /**
-     * {@link Random} relies on field to calculate actual value.
-     */
-    @Test
-    public void delegatesToField() {
-        final Field<?> field = Mockito.mock(Field.class);
-        Mockito.when(field.random()).thenReturn(Mockito.mock(Scalar.class));
-        new Random().value(field);
-        Mockito.verify(field).random();
-    }
-
-    /**
-     * {@link Random} does not rely on internal fields for equality
-     * (object default equality).
-     */
-    @Test
-    public void equalsAsObject() {
-        MatcherAssert.assertThat(
-            new Random(), Matchers.not(Matchers.equalTo(new Random()))
-        );
-    }
-}
+package com.jeometry.twod;

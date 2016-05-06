@@ -23,66 +23,41 @@
  */
 package com.jeometry.twod;
 
-import com.aljebra.scalar.Diff;
-import com.aljebra.scalar.Multiplication;
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.Vect;
+import com.jeometry.twod.line.Line;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Class representing cross operation (vectorial product) between 2 vectors.
- * Since we operate in a 2D space, the main value of the cross operation is a
- * scalar representing the norm of the operation.
+ * Tests for {@link RenderSupport}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class Cross {
+public final class RenderSupportTest {
 
     /**
-     * First operand.
+     * {@link RenderSupport} delegates to wrapped renderer when shape class
+     * is supported.
      */
-    private final Vect fop;
-
-    /**
-     * Second operand.
-     */
-    private final Vect sop;
-
-    /**
-     * Constructor.
-     * @param first First operand
-     * @param second Second operand
-     */
-    public Cross(final Vect first, final Vect second) {
-        this.fop = first;
-        this.sop = second;
+    @Test
+    public void delegatesToWrappedWhenSupported() {
+        final Renderer rend = Mockito.mock(Renderer.class);
+        final Shape shape = new Shape(Mockito.mock(Line.class));
+        final RenderSupport renderer = new RenderSupport(rend, Line.class);
+        renderer.render(shape);
+        Mockito.verify(rend).render(shape);
     }
 
     /**
-     * Gives first operand.
-     * @return The first operand of the cross.
+     * {@link RenderSupport} does nothing when shape class is not supported.
      */
-    public Vect first() {
-        return this.fop;
-    }
-
-    /**
-     * Gives second operand.
-     * @return The second operand of the cross.
-     */
-    public Vect second() {
-        return this.sop;
-    }
-
-    /**
-     * Calculates the norm of the cross product.
-     * @return Cross product value.
-     */
-    public Scalar value() {
-        return new Diff(
-            new Multiplication(this.fop.coords()[0], this.sop.coords()[1]),
-            new Multiplication(this.sop.coords()[0], this.fop.coords()[1])
-        );
+    @Test
+    public void ignoresUnsupportedShape() {
+        final Renderer rend = Mockito.mock(Renderer.class);
+        final Shape shape = new Shape(Mockito.mock(Renderable.class));
+        final RenderSupport renderer = new RenderSupport(rend, Line.class);
+        renderer.render(shape);
+        Mockito.verify(rend, Mockito.never()).render(shape);
     }
 
 }
