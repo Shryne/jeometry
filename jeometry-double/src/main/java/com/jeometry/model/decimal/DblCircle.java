@@ -37,10 +37,10 @@ public class DblCircle extends PtRadCircle {
 
     /**
      * Constructor.
-     * @param radius Radius
      * @param center Circle center
+     * @param radius Radius
      */
-    public DblCircle(final Double radius, final Vect center) {
+    public DblCircle(final Vect center, final Double radius) {
         super(center, new Scalar.Default<>(radius));
     }
 

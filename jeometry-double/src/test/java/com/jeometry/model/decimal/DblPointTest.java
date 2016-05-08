@@ -21,7 +21,44 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package com.jeometry.model.decimal;
+
+import com.aljebra.scalar.Scalar;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
+
 /**
- * Awt output implementation.
+ * Tests for {@link DblPoint}.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
  */
-package com.jeometry.render.awt;
+public final class DblPointTest {
+
+    /**
+     * {@link DblPoint} accepts double coordinates.
+     */
+    @Test
+    public void acceptsDoubleRadius() {
+        final double xcoor = Math.random();
+        final double ycoor = Math.random();
+        final DblPoint point = new DblPoint(xcoor, ycoor);
+        MatcherAssert.assertThat(
+            point.xcoor(),
+            Matchers.equalTo(new Scalar.Default<Double>(xcoor))
+        );
+        MatcherAssert.assertThat(
+            point.ycoor(),
+            Matchers.equalTo(new Scalar.Default<Double>(ycoor))
+        );
+        MatcherAssert.assertThat(
+            point.dblx(), Matchers.equalTo(xcoor)
+        );
+        MatcherAssert.assertThat(
+            point.dbly(),
+            Matchers.equalTo(ycoor)
+        );
+    }
+
+}

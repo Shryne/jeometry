@@ -22,6 +22,6 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * Awt output implementation.
+ * Tests for convenient geometry objects.
  */
-package com.jeometry.render.awt;
+package com.jeometry.model.decimal;

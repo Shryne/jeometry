@@ -76,7 +76,7 @@ public final class AwtDrawableSurface extends JPanel {
     /**
      * Drawable Panel center.
      */
-    private final transient DblPoint center;
+    private transient DblPoint center;
 
     /**
      * Ctor. Builds a {@link JPanel} as a drawable surface.
@@ -157,8 +157,9 @@ public final class AwtDrawableSurface extends JPanel {
      * @param amounty Amount to translate by on Y-Axis
      */
     public void translate(final double amountx, final double amounty) {
-        this.center.setDblX(this.center.dblx() + amountx);
-        this.center.setDblY(this.center.dbly() + amounty);
+        this.center = new DblPoint(
+            this.center.dblx() + amountx, this.center.dbly() + amounty
+        );
     }
 
     /**

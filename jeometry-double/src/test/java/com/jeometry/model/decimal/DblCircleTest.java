@@ -21,4 +21,33 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.main;
+package com.jeometry.model.decimal;
+
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+/**
+ * Tests for {@link DblCircle}.
+ * @author Hamdi Douss (douss.hamdi@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+public final class DblCircleTest {
+
+    /**
+     * {@link DblCircle} accepts double radius.
+     */
+    @Test
+    public void acceptsDoubleRadius() {
+        final double radius = Math.random();
+        MatcherAssert.assertThat(
+            new DblCircle(Mockito.mock(Vect.class), radius).radius(),
+            Matchers.equalTo(new Scalar.Default<Double>(radius))
+        );
+    }
+
+}

@@ -22,6 +22,6 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * Awt output implementation.
+ * Tests for Awt output implementation.
  */
 package com.jeometry.render.awt;

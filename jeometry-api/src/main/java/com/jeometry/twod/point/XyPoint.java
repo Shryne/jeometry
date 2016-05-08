@@ -71,20 +71,4 @@ public class XyPoint extends FixedVector implements Renderable {
         return this.coords()[1];
     }
 
-    /**
-     * Modifies X coordinate of the vector.
-     * @param xcor New X coordinate
-     */
-    public final void setX(final Scalar xcor) {
-        this.setCoor(0, xcor);
-    }
-
-    /**
-     * Modifies Y Coordinate of the vector.
-     * @param ycor New Y coordinate
-     */
-    public final void setY(final Scalar ycor) {
-        this.setCoor(1, ycor);
-    }
-
 }

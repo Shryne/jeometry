@@ -60,22 +60,6 @@ public final class DblPoint extends XyPoint {
     }
 
     /**
-     * Convenience method to set a double as a x coordinate.
-     * @param xcoor X coordinate to set
-     */
-    public void setDblX(final Double xcoor) {
-        this.setX(new Scalar.Default<>(xcoor));
-    }
-
-    /**
-     * Convenience method to set a double as a y coordinate.
-     * @param ycoor Y coordinate to set
-     */
-    public void setDblY(final Double ycoor) {
-        this.setY(new Scalar.Default<>(ycoor));
-    }
-
-    /**
      * Returns wrapped double value.
      * @param scalar Scalar
      * @return Double value
