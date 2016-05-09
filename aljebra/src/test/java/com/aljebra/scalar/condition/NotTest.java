@@ -23,10 +23,14 @@
  */
 package com.aljebra.scalar.condition;
 
+import com.aljebra.field.AbstractField;
 import com.aljebra.field.Field;
+import com.aljebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
@@ -36,6 +40,12 @@ import org.mockito.Mockito;
  * @since 0.1
  */
 public final class NotTest {
+
+    /**
+     * Junit rule for expected exceptions.
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /**
      * {@link Not} resolves to false if predicate resolves to true.
@@ -57,6 +67,32 @@ public final class NotTest {
             new Not(NotTest.negative()).resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
+    }
+
+    /**
+     * {@link Not} can build a ternary.
+     */
+    @Test
+    public void buildsTernary() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        final Field<?> field = Mockito.mock(Field.class);
+        new Not(NotTest.negative()).ifElse(first, second).value(field);
+        Mockito.verify(field).actual(first);
+        Mockito.verify(field, Mockito.never()).actual(second);
+    }
+
+    /**
+     * {@link Not} can build a throwing ternary.
+     */
+    @Test
+    public void buildsThrowing() {
+        final RuntimeException err = new RuntimeException();
+        this.thrown.expect(err.getClass());
+        final Field<?> field = Mockito.mock(AbstractField.class);
+        new Not(NotTest.positive()).ifElse(
+            Mockito.mock(Scalar.class), err
+        ).value(field);
     }
 
     /**

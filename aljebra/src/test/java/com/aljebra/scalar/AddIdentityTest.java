@@ -25,6 +25,8 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.FieldAddition;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -48,5 +50,16 @@ public final class AddIdentityTest {
         new AddIdentity().value(field);
         Mockito.verify(field).addition();
         Mockito.verify(add).neutral();
+    }
+
+    /**
+     * {@link AddIdentity} respects equal.
+     */
+    @Test
+    public void respectsEqual() {
+        MatcherAssert.assertThat(
+            new AddIdentity(),
+            Matchers.equalTo(new AddIdentity())
+        );
     }
 }

@@ -28,7 +28,6 @@ import com.aljebra.scalar.MultInverse;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Times;
 import com.aljebra.vector.Vect;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -38,7 +37,6 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-@EqualsAndHashCode(callSuper = true)
 public final class Normalized extends FixedVector {
 
     /**

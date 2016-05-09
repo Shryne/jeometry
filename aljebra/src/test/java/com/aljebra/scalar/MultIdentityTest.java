@@ -25,6 +25,8 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.FieldMultiplication;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -51,5 +53,16 @@ public final class MultIdentityTest {
         new MultIdentity().value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).neutral();
+    }
+
+    /**
+     * {@link MultIdentity} respects equal.
+     */
+    @Test
+    public void respectsEqual() {
+        MatcherAssert.assertThat(
+            new MultIdentity(),
+            Matchers.equalTo(new MultIdentity())
+        );
     }
 }

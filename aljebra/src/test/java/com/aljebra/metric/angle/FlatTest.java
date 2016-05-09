@@ -43,11 +43,24 @@ public final class FlatTest {
     @Test
     public void resolvesFlatAngle() {
         final double error = 1.e-6;
+        final InnerProduct product = Mockito.mock(InnerProduct.class);
         MatcherAssert.assertThat(
-            new Flat().resolve(
-                Mockito.mock(InnerProduct.class)
-            ).doubleValue(),
+            new Flat().resolve(product).doubleValue(),
             Matchers.closeTo(Math.PI, error)
+        );
+        MatcherAssert.assertThat(
+            new Flat().flat(product), Matchers.is(true)
+        );
+    }
+
+    /**
+     * {@link Flat} respects equal.
+     */
+    @Test
+    public void respectsEqual() {
+        MatcherAssert.assertThat(
+            new Flat(),
+            Matchers.equalTo(new Flat())
         );
     }
 }

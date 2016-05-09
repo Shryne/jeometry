@@ -43,11 +43,23 @@ public final class RightTest {
     @Test
     public void resolvesRightAngle() {
         final double error = 1.e-6;
+        final InnerProduct product = Mockito.mock(InnerProduct.class);
         MatcherAssert.assertThat(
-            new Right().resolve(
-                Mockito.mock(InnerProduct.class)
-            ).doubleValue(),
+            new Right().resolve(product).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
+        );
+        MatcherAssert.assertThat(
+            new Right().right(product), Matchers.is(true)
+        );
+    }
+
+    /**
+     * {@link Right} respects equal.
+     */
+    @Test
+    public void respectsEqual() {
+        MatcherAssert.assertThat(
+            new Right(), Matchers.equalTo(new Right())
         );
     }
 }

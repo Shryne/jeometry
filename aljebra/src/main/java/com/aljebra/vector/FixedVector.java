@@ -41,7 +41,7 @@ public class FixedVector implements Vect {
     /**
      * Coordinates.
      */
-    private Scalar[] coors;
+    private final Scalar[] coors;
 
     /**
      * Constructor.
@@ -50,15 +50,6 @@ public class FixedVector implements Vect {
     public FixedVector(final Scalar... coor) {
         super();
         this.coors = coor;
-    }
-
-    /**
-     * Modifies a coordinate of the vector.
-     * @param axis The base component to which the new coordinate is applied.
-     * @param cor New coordinate
-     */
-    public final void setCoor(final int axis, final Scalar cor) {
-        this.coors[axis] = cor;
     }
 
     @Override

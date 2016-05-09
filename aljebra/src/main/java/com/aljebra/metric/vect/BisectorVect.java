@@ -27,7 +27,6 @@ import com.aljebra.metric.angle.Times;
 import com.aljebra.metric.angle.VectsDegrees;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -37,7 +36,6 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-@EqualsAndHashCode(callSuper = true)
 public final class BisectorVect extends FixedVector {
 
     /**
