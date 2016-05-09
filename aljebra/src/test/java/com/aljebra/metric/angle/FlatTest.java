@@ -52,6 +52,9 @@ public final class FlatTest {
         MatcherAssert.assertThat(
             new Flat().flat(product), Matchers.is(true)
         );
+        MatcherAssert.assertThat(
+            new Flat().right(product), Matchers.is(false)
+        );
     }
 
     /**

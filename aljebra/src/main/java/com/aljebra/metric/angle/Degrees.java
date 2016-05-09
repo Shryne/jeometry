@@ -48,7 +48,9 @@ public interface Degrees {
      * @return True if the angle is right
      */
     default boolean right(final InnerProduct product) {
-        return this.resolve(product).doubleValue() % (Math.PI / 2) == 0;
+        return Double.valueOf(
+            this.resolve(product).doubleValue() % Math.PI
+        ).equals(Math.PI / 2);
     }
 
     /**

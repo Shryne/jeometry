@@ -23,60 +23,36 @@
  */
 package com.aljebra.metric.angle;
 
-import com.aljebra.metric.InnerProduct;
-import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
- * Tests for {@link Right}.
+ * Tests for {@link Degrees}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class RightTest {
+public final class DegreesTest {
 
     /**
-     * {@link Right} resolves to an right angle.
-     */
-    @Test
-    public void resolvesRightAngle() {
-        final double error = 1.e-6;
-        final InnerProduct product = Mockito.mock(InnerProduct.class);
-        MatcherAssert.assertThat(
-            new Right().resolve(product).doubleValue(),
-            Matchers.closeTo(Math.PI / 2, error)
-        );
-        MatcherAssert.assertThat(
-            new Right().right(product), Matchers.is(true)
-        );
-        MatcherAssert.assertThat(
-            new Right().flat(product), Matchers.is(false)
-        );
-    }
-
-    /**
-     * {@link Right} respects equal.
+     * {@link Degrees.Default} respects equals on value.
      */
     @Test
     public void respectsEqual() {
+        final double num = Math.random();
         MatcherAssert.assertThat(
-            new Right(), Matchers.equalTo(new Right())
+            new Degrees.Default(num),
+            Matchers.equalTo(new Degrees.Default(num))
         );
         MatcherAssert.assertThat(
-            new Right().hashCode(),
-            Matchers.equalTo(new Right().hashCode())
+            new Degrees.Default(num).hashCode(),
+            Matchers.equalTo(new Degrees.Default(num).hashCode())
         );
         MatcherAssert.assertThat(
-            new Right(),
+            new Degrees.Default(num),
             Matchers.not(
-                Matchers.equalTo(
-                    new VectsDegrees(
-                        Mockito.mock(Vect.class), Mockito.mock(Vect.class)
-                    )
-                )
+                Matchers.equalTo(new Degrees.Default(2))
             )
         );
     }
