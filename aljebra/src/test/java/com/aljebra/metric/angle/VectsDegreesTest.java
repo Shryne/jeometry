@@ -25,6 +25,8 @@ package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.vector.Vect;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -50,5 +52,28 @@ public final class VectsDegreesTest {
         ).thenReturn(Mockito.mock(Degrees.class));
         new VectsDegrees(first, second).resolve(pdt);
         Mockito.verify(pdt).angle(first, second);
+    }
+
+    /**
+     * {@link VectsDegrees} respects equals and hashcode on vectors.
+     */
+    @Test
+    public void respectsEqual() {
+        final Vect first = Mockito.mock(Vect.class);
+        final Vect second = Mockito.mock(Vect.class);
+        MatcherAssert.assertThat(
+            new VectsDegrees(first, second),
+            Matchers.equalTo(new VectsDegrees(first, second))
+        );
+        MatcherAssert.assertThat(
+            new VectsDegrees(first, second).hashCode(),
+            Matchers.equalTo(new VectsDegrees(first, second).hashCode())
+        );
+        MatcherAssert.assertThat(
+            new VectsDegrees(first, second),
+            Matchers.not(
+                Matchers.equalTo(new VectsDegrees(second, first))
+            )
+        );
     }
 }

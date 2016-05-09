@@ -24,7 +24,6 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -33,7 +32,6 @@ import lombok.ToString;
  * @version $Id$
  * @since 0.1
  */
-@EqualsAndHashCode
 @ToString(includeFieldNames = false)
 public final class Throwing implements Scalar {
 

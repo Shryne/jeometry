@@ -25,6 +25,8 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.FieldAddition;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -50,5 +52,29 @@ public final class AddInverseTest {
         new AddInverse(scalar).value(field);
         Mockito.verify(field).addition();
         Mockito.verify(add).inverse(Mockito.any());
+    }
+
+    /**
+     * {@link AddInverse} respects equals and hashcode
+     * regarding the scalar to inverse.
+     */
+    @Test
+    public void respectsEqualAndHashcode() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        MatcherAssert.assertThat(
+            new AddInverse(first),
+            Matchers.equalTo(new AddInverse(first))
+        );
+        MatcherAssert.assertThat(
+            new AddInverse(first),
+            Matchers.not(Matchers.equalTo(new AddInverse(second)))
+        );
+        MatcherAssert.assertThat(
+            new AddInverse(first).hashCode(),
+            Matchers.equalTo(
+                new AddInverse(first).hashCode()
+            )
+        );
     }
 }

@@ -24,6 +24,7 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -54,13 +55,27 @@ public final class FlatTest {
     }
 
     /**
-     * {@link Flat} respects equal.
+     * {@link Flat} respects equals and hashcode.
      */
     @Test
-    public void respectsEqual() {
+    public void respectsEqualAndHashcode() {
         MatcherAssert.assertThat(
             new Flat(),
             Matchers.equalTo(new Flat())
+        );
+        MatcherAssert.assertThat(
+            new Flat().hashCode(),
+            Matchers.equalTo(new Flat().hashCode())
+        );
+        MatcherAssert.assertThat(
+            new Flat(),
+            Matchers.not(
+                Matchers.equalTo(
+                    new VectsDegrees(
+                        Mockito.mock(Vect.class), Mockito.mock(Vect.class)
+                    )
+                )
+            )
         );
     }
 }

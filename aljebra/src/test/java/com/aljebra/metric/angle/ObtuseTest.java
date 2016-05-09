@@ -50,4 +50,5 @@ public final class ObtuseTest {
         );
         MatcherAssert.assertThat(angle, Matchers.lessThanOrEqualTo(Math.PI));
     }
+
 }

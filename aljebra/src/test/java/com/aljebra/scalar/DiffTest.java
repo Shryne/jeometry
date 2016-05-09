@@ -38,7 +38,7 @@ import org.mockito.Mockito;
  */
 public final class DiffTest {
     /**
-     * {@link Diff} respects equals on operands.
+     * {@link Diff} respects equals and hashcode on operands.
      */
     @Test
     public void respectsEqual() {
@@ -67,6 +67,32 @@ public final class DiffTest {
                 )
             )
         );
+        MatcherAssert.assertThat(
+            new Diff(
+                new Scalar.Default<String>(minuend),
+                new Scalar.Default<String>(subtrahend)
+            ),
+            Matchers.not(
+                Matchers.equalTo(
+                    new Diff(
+                        new Scalar.Default<String>(minuend),
+                        new Scalar.Default<String>(minuend)
+                    )
+                )
+            )
+        );
+        MatcherAssert.assertThat(
+            new Diff(
+                new Scalar.Default<String>(minuend),
+                new Scalar.Default<String>(subtrahend)
+            ).hashCode(),
+            Matchers.equalTo(
+                new Diff(
+                    new Scalar.Default<String>(minuend),
+                    new Scalar.Default<String>(subtrahend)
+                ).hashCode()
+            )
+        );
     }
 
     /**
@@ -84,5 +110,21 @@ public final class DiffTest {
         Mockito.verify(field).addition();
         Mockito.verify(add).inverse(Mockito.any());
         Mockito.verify(add).add(Mockito.any(), Mockito.any());
+    }
+
+    /**
+     * {@link Diff} returns minuend and subtrahend.
+     */
+    @Test
+    public void givesAccessToMinuendAndSubtrahend() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        final Diff difference = new Diff(first, second);
+        MatcherAssert.assertThat(
+            difference.first(), Matchers.equalTo(first)
+        );
+        MatcherAssert.assertThat(
+            difference.second(), Matchers.equalTo(second)
+        );
     }
 }

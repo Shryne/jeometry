@@ -25,7 +25,12 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.FieldMultiplication;
+import com.aljebra.field.impl.doubles.Decimal;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
@@ -35,6 +40,12 @@ import org.mockito.Mockito;
  * @since 0.1
  */
 public final class MultInverseTest {
+
+    /**
+     * Junit rule for expected exceptions.
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /**
      * {@link MultInverse} relies on field multiplication
@@ -52,5 +63,39 @@ public final class MultInverseTest {
         new MultInverse(scalar).value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).inverse(Mockito.any());
+    }
+
+    /**
+     * {@link MultInverse} throws exception when evaluating addition identity
+     * inverse.
+     */
+    @Test
+    public void throwsExceptionWhenInvertingAddIdentity() {
+        this.thrown.expect(IllegalArgumentException.class);
+        new MultInverse(new AddIdentity()).value(new Decimal());
+    }
+
+    /**
+     * {@link MultInverse} respects equals and hashcode
+     * regarding the scalar to inverse.
+     */
+    @Test
+    public void respectsEqualAndHashcode() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        MatcherAssert.assertThat(
+            new MultInverse(first),
+            Matchers.equalTo(new MultInverse(first))
+        );
+        MatcherAssert.assertThat(
+            new MultInverse(first),
+            Matchers.not(Matchers.equalTo(new MultInverse(second)))
+        );
+        MatcherAssert.assertThat(
+            new MultInverse(first).hashCode(),
+            Matchers.equalTo(
+                new MultInverse(first).hashCode()
+            )
+        );
     }
 }

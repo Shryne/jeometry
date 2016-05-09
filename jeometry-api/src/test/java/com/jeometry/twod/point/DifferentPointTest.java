@@ -23,7 +23,7 @@
  */
 package com.jeometry.twod.point;
 
-import com.aljebra.scalar.Different;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -43,13 +43,14 @@ public final class DifferentPointTest {
     @Test
     public void buildsDifferentPoint() {
         final Vect point = new RandomPoint();
+        final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new DifferentPoint(point).xcoor(),
-            Matchers.equalTo(new Different(point.coords()[0]))
+            new DifferentPoint(point).xcoor().value(field),
+            Matchers.not(Matchers.equalTo(point.coords()[0].value(field)))
         );
         MatcherAssert.assertThat(
-            new DifferentPoint(point).ycoor(),
-            Matchers.equalTo(new Different(point.coords()[1]))
+            new DifferentPoint(point).ycoor().value(field),
+            Matchers.not(Matchers.equalTo(point.coords()[1].value(field)))
         );
     }
 }

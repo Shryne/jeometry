@@ -24,6 +24,7 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -60,6 +61,20 @@ public final class RightTest {
     public void respectsEqual() {
         MatcherAssert.assertThat(
             new Right(), Matchers.equalTo(new Right())
+        );
+        MatcherAssert.assertThat(
+            new Right().hashCode(),
+            Matchers.equalTo(new Right().hashCode())
+        );
+        MatcherAssert.assertThat(
+            new Right(),
+            Matchers.not(
+                Matchers.equalTo(
+                    new VectsDegrees(
+                        Mockito.mock(Vect.class), Mockito.mock(Vect.class)
+                    )
+                )
+            )
         );
     }
 }

@@ -38,10 +38,10 @@ import org.mockito.Mockito;
  */
 public final class DivisionTest {
     /**
-     * {@link Division} respects equals on divisor and dividend.
+     * {@link Division} respects equals and hashcode on divisor and dividend.
      */
     @Test
-    public void respectsEqual() {
+    public void respectsEqualAndHashcode() {
         MatcherAssert.assertThat(
             new Division(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
@@ -60,11 +60,25 @@ public final class DivisionTest {
                 new Scalar.Default<String>(divisor),
                 new Scalar.Default<String>(dividend)
             ),
+            Matchers.not(
+                Matchers.equalTo(
+                    new Division(
+                        new Scalar.Default<String>(dividend),
+                        new Scalar.Default<String>(dividend)
+                    )
+                )
+            )
+        );
+        MatcherAssert.assertThat(
+            new Division(
+                new Scalar.Default<String>(divisor),
+                new Scalar.Default<String>(dividend)
+            ).hashCode(),
             Matchers.equalTo(
                 new Division(
                     new Scalar.Default<String>(divisor),
                     new Scalar.Default<String>(dividend)
-                )
+                ).hashCode()
             )
         );
     }
@@ -87,5 +101,21 @@ public final class DivisionTest {
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).inverse(Mockito.any());
         Mockito.verify(mult).multiply(Mockito.any(), Mockito.any());
+    }
+
+    /**
+     * {@link Division} returns dividend and divisor.
+     */
+    @Test
+    public void givesAccessToDividendAndDivisor() {
+        final Scalar first = Mockito.mock(Scalar.class);
+        final Scalar second = Mockito.mock(Scalar.class);
+        final Division division = new Division(first, second);
+        MatcherAssert.assertThat(
+            division.first(), Matchers.equalTo(first)
+        );
+        MatcherAssert.assertThat(
+            division.second(), Matchers.equalTo(second)
+        );
     }
 }

@@ -24,7 +24,6 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -34,7 +33,6 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-@EqualsAndHashCode
 public final class Acute implements Degrees {
 
     /**

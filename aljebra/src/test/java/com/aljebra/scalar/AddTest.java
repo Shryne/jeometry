@@ -39,7 +39,7 @@ import org.mockito.Mockito;
  */
 public final class AddTest {
     /**
-     * {@link Add} respects equals with disregard
+     * {@link Add} respects equals and hashcode with disregard
      * to order of operands.
      */
     @Test
@@ -49,6 +49,16 @@ public final class AddTest {
         MatcherAssert.assertThat(
             new Add(first, second),
             Matchers.equalTo(new Add(second, first))
+        );
+        MatcherAssert.assertThat(
+            new Add(first, second),
+            Matchers.not(
+                Matchers.equalTo(new Add(first, first))
+            )
+        );
+        MatcherAssert.assertThat(
+            new Add(first, second).hashCode(),
+            Matchers.equalTo(new Add(second, first).hashCode())
         );
     }
 
