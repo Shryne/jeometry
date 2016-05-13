@@ -26,11 +26,9 @@ package com.jeometry.twod.point;
 import com.aljebra.scalar.AddIdentity;
 import com.aljebra.scalar.Between;
 import com.aljebra.scalar.MultIdentity;
-import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
-import com.aljebra.vector.Vect;
 import com.jeometry.twod.segment.Segment;
 import lombok.ToString;
 
@@ -41,33 +39,22 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InSegPoint implements Vect {
-
-    /**
-     * A random scalar.
-     */
-    private final Scalar factor;
-
-    /**
-     * The segment to belong to.
-     */
-    private final Segment seg;
+public final class InSegPoint extends XyPoint {
 
     /**
      * Constructor.
      * @param seg The segment to belong to
      */
     public InSegPoint(final Segment seg) {
-        this.factor = new Between(new AddIdentity(), new MultIdentity());
-        this.seg = seg;
-    }
-
-    @Override
-    public Scalar[] coords() {
-        return new Sum(
-            new Times(new Minus(this.seg.end(), this.seg.start()), this.factor),
-            this.seg.start()
-        ).coords();
+        super(
+            new Sum(
+                new Times(
+                    new Minus(seg.end(), seg.start()),
+                    new Between(new AddIdentity(), new MultIdentity())
+                ),
+                seg.start()
+            )
+        );
     }
 
 }

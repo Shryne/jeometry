@@ -24,10 +24,8 @@
 package com.jeometry.twod.point;
 
 import com.aljebra.scalar.Random;
-import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
-import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
 import lombok.ToString;
 
@@ -40,32 +38,14 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class InLinePoint implements Vect {
-
-    /**
-     * The line to belong to.
-     */
-    private final Line line;
-
-    /**
-     * A random scalar.
-     */
-    private final Scalar factor;
+public final class InLinePoint extends XyPoint {
 
     /**
      * Constructor.
      * @param line The line to belong to
      */
     public InLinePoint(final Line line) {
-        this.line = line;
-        this.factor = new Random();
-    }
-
-    @Override
-    public Scalar[] coords() {
-        return new Sum(
-            new Times(this.line.direction(), this.factor), this.line.point()
-        ).coords();
+        super(new Sum(new Times(line.direction(), new Random()), line.point()));
     }
 
 }

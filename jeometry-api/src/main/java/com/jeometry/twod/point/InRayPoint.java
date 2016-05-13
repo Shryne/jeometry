@@ -25,10 +25,8 @@ package com.jeometry.twod.point;
 
 import com.aljebra.scalar.AddIdentity;
 import com.aljebra.scalar.Greater;
-import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
-import com.aljebra.vector.Vect;
 import com.jeometry.twod.ray.Ray;
 import lombok.ToString;
 
@@ -39,32 +37,19 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InRayPoint implements Vect {
-
-    /**
-     * A random scalar.
-     */
-    private final Scalar factor;
-
-    /**
-     * The ray to belong to.
-     */
-    private final Ray ray;
+public final class InRayPoint extends XyPoint {
 
     /**
      * Constructor.
      * @param ray The ray to belong to
      */
     public InRayPoint(final Ray ray) {
-        this.factor = new Greater(new AddIdentity());
-        this.ray = ray;
-    }
-
-    @Override
-    public Scalar[] coords() {
-        return new Sum(
-            new Times(this.ray.direction(), this.factor), this.ray.origin()
-        ).coords();
+        super(
+            new Sum(
+                new Times(ray.direction(), new Greater(new AddIdentity())),
+                ray.origin()
+            )
+        );
     }
 
 }

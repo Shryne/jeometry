@@ -25,6 +25,7 @@ package com.jeometry.twod.point;
 
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Sum;
+import com.jeometry.twod.Renderable;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PerpLine;
 import lombok.ToString;
@@ -36,7 +37,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class OutsideLinePoint extends FixedVector {
+public final class OutsideLinePoint extends FixedVector implements Renderable {
 
     /**
      * Constructor.

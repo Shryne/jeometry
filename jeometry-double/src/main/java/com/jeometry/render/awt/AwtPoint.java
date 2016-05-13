@@ -25,8 +25,8 @@ package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.vector.Vect;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.point.XyPoint;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
@@ -43,7 +43,7 @@ public final class AwtPoint extends AbstractAwtPaint {
      * @param field Field for scalar operations
      */
     public AwtPoint(final Field<Double> field) {
-        super(field, XyPoint.class);
+        super(field, Vect.class);
     }
 
     /**
@@ -57,7 +57,7 @@ public final class AwtPoint extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final int size = 4;
-        final XyPoint point = (XyPoint) renderable.renderable();
+        final Vect point = (Vect) renderable.renderable();
         final Point awtpt = new AwtTransform(context).transform(point);
         graphics.drawRect(awtpt.x - size / 2, awtpt.y - size / 2, size, size);
     }

@@ -26,6 +26,7 @@ package com.jeometry.twod.point;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Division;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.analytics.Intersecting;
@@ -40,17 +41,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString
-public final class LineIntersectPoint implements Vect {
-
-    /**
-     * First line.
-     */
-    private final Line first;
-
-    /**
-     * Second line.
-     */
-    private final Line second;
+public final class LineIntersectPoint extends XyPoint {
 
     /**
      * Constructor.
@@ -58,40 +49,51 @@ public final class LineIntersectPoint implements Vect {
      * @param second Second line
      */
     public LineIntersectPoint(final Line first, final Line second) {
-        this.first = first;
-        this.second = second;
+        super(LineIntersectPoint.vector(first, second));
     }
 
-    @Override
-    public Scalar[] coords() {
-        final Scalar abscissa = this.abscissa();
-        return new Scalar[] {abscissa, this.ordinate(abscissa)};
+    /**
+     * Builds a vector corresponding to the intersection point.
+     * @param first First line
+     * @param second Second line
+     * @return The intersection point
+     */
+    private static Vect vector(final Line first, final Line second) {
+        final Scalar abscissa = LineIntersectPoint.abscissa(first, second);
+        return new FixedVector(
+            abscissa, LineIntersectPoint.ordinate(first, second, abscissa)
+        );
     }
 
     /**
      * Calculates the ordinate of the intersecting point given its the abscissa.
+     * @param first First line
+     * @param second Second line
      * @param abcissa Intersecting point abscissa
      * @return Scalar representing the ordinate
      */
-    private Scalar ordinate(final Scalar abcissa) {
-        return new LineAnalytics(this.first).vertical().ifElse(
-            new LinePointOrdinate(this.second, abcissa),
-            new LinePointOrdinate(this.first, abcissa)
+    private static Scalar ordinate(final Line first, final Line second,
+        final Scalar abcissa) {
+        return new LineAnalytics(first).vertical().ifElse(
+            new LinePointOrdinate(second, abcissa),
+            new LinePointOrdinate(first, abcissa)
         );
     }
 
     /**
      * Calculates abscissa of the intersecting point.
+     * @param first First line
+     * @param second Second line
      * @return Scalar representing the abscissa
      */
-    private Scalar abscissa() {
-        final LineAnalytics fst = new LineAnalytics(this.first);
-        final LineAnalytics snd = new LineAnalytics(this.second);
-        return new Intersecting(this.first, this.second).ifElse(
+    private static Scalar abscissa(final Line first, final Line second) {
+        final LineAnalytics fst = new LineAnalytics(first);
+        final LineAnalytics snd = new LineAnalytics(second);
+        return new Intersecting(first, second).ifElse(
             fst.vertical().ifElse(
-                this.first.point().coords()[0],
+                first.point().coords()[0],
                 snd.vertical().ifElse(
-                    this.second.point().coords()[0],
+                    second.point().coords()[0],
                     new Division(
                         new Diff(snd.intercept(), fst.intercept()),
                         new Diff(fst.slope(), snd.slope())

@@ -41,24 +41,14 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class MidSegPoint implements Vect {
-
-    /**
-     * The segment to midpoint.
-     */
-    private final Segment seg;
+public final class MidSegPoint extends XyPoint {
 
     /**
      * Constructor.
      * @param seg The segment to belong to
      */
     public MidSegPoint(final Segment seg) {
-        this.seg = seg;
-    }
-
-    @Override
-    public Scalar[] coords() {
-        return MidSegPoint.vector(this.seg).coords();
+        super(MidSegPoint.vector(seg));
     }
 
     /**
