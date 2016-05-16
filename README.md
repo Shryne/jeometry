@@ -11,7 +11,7 @@ jeometry is easily extensible for a developer who wants to enhance the library w
 
 
 #Quick start
-Before digging into depper details, let's begin with a quick start to clarify what could jeometry be for.
+Before digging into deeper details, let's begin with a quick start to clarify what could jeometry be about.
 Supposing we have this geometric figure to draw:
 
 ```
@@ -61,7 +61,7 @@ jeometry offers many classes to build geometric shapes for which you can check t
 Now that we built the `figure` object, we can pass it to an [Output](https://github.com/HDouss/jeometry/blob/master/jeometry-double/src/main/java/com/jeometry/render/Output.java) to render the figure.
 For now, the only available `Output` available in jeometry is the `Awt` output, that will produce an [AWT](https://en.wikipedia.org/wiki/Abstract_Window_Toolkit) window with the figure drawn on the screen.
 
-The above code:
+This code:
 ```java
 new Awt().render(figure);
 ```
