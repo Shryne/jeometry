@@ -21,49 +21,49 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod.point;
+package com.jeometry.twod.circle.analytics;
 
-import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.field.Field;
 import com.aljebra.metric.scalar.Norm;
+import com.aljebra.scalar.condition.Predicate;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.circle.Circle;
-import com.jeometry.twod.circle.PtsCircle;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
 
 /**
- * Tests for {@link InCirclePoint}.
+ * A predicate to determine if a point belongs to a circle.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class InCirclePointTest {
+public final class PointInCircle implements Predicate {
 
     /**
-     * {@link InCirclePoint} constructs a point belonging to the circle.
+     * Point.
      */
-    @Test
-    public void buildsAPointInCircle() {
-        final Circle any = new PtsCircle(
-            new RandomPoint(), new RandomPoint()
-        );
-        MatcherAssert.assertThat(
-            InCirclePointTest.belongs(new InCirclePoint(any), any),
-            Matchers.is(true)
+    private final Vect point;
+
+    /**
+     * Circle.
+     */
+    private final Circle circle;
+
+    /**
+     * Constructor.
+     * @param point Point
+     * @param circle Circle
+     */
+    public PointInCircle(final Vect point, final Circle circle) {
+        this.point = point;
+        this.circle = circle;
+    }
+
+    @Override
+    public boolean resolve(final Field<?> field) {
+        return field.equals(
+            this.circle.radius(),
+            new Norm(new Minus(this.point, this.circle.center()))
         );
     }
 
-    /**
-     * Checks if the given point belongs to the circle.
-     * @param pnt Point
-     * @param any Circle
-     * @return True if the point belongs to the circle
-     */
-    private static boolean belongs(final Vect pnt, final Circle any) {
-        return new Decimal().equals(
-            new Norm(new Minus(any.center(), pnt)), any.radius()
-        );
-    }
 }
