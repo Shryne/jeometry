@@ -24,7 +24,9 @@
 package com.jeometry.twod.scalar;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.scalar.Random;
+import com.aljebra.scalar.AddIdentity;
+import com.aljebra.scalar.Greater;
+import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.segment.LengthSegment;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -43,7 +45,7 @@ public final class SegmentLengthTest {
      */
     @Test
     public void resolvesToSegmentLength() {
-        final Random length = new Random();
+        final Scalar length = new Greater(new AddIdentity());
         final Decimal field = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
