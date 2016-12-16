@@ -60,4 +60,16 @@ public final class PtsCircleTest {
             )
         );
     }
+
+    /**
+     * {@link PtsCircle} builds a circle with correct center.
+     */
+    @Test
+    public void buildsCircleWithCenter() {
+        final RandomPoint center = new RandomPoint();
+        final Circle circle = new PtsCircle(center);
+        MatcherAssert.assertThat(
+            circle.center(), Matchers.equalTo(center)
+        );
+    }
 }

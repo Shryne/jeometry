@@ -26,6 +26,7 @@ package com.jeometry.twod.circle;
 import com.aljebra.metric.scalar.Norm;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Vect;
+import com.jeometry.twod.point.DifferentPoint;
 import lombok.ToString;
 
 /**
@@ -45,6 +46,14 @@ public class PtsCircle extends PtRadCircle {
      */
     public PtsCircle(final Vect center, final Vect point) {
         super(center, new Norm(new Minus(point, center)));
+    }
+
+    /**
+     * Ctor. Builds a random circle defined by its center.
+     * @param center Circle center
+     */
+    public PtsCircle(final Vect center) {
+        this(center, new DifferentPoint(center));
     }
 
 }
