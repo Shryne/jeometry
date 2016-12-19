@@ -25,12 +25,11 @@ package com.jeometry.twod.segment;
 
 import com.aljebra.scalar.Throwing;
 import com.aljebra.vector.FixedVector;
-import com.aljebra.vector.Minus;
-import com.aljebra.vector.Sum;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.circle.Circle;
 import com.jeometry.twod.circle.analytics.PointInCircle;
 import com.jeometry.twod.point.InCirclePoint;
+import com.jeometry.twod.point.PtReflectionPoint;
 import lombok.ToString;
 
 /**
@@ -60,18 +59,8 @@ public class CircleDiameter extends PtsSegment {
     public CircleDiameter(final Circle circle, final Vect point) {
         super(
             CircleDiameter.extremity(point, circle),
-            CircleDiameter.opposed(point, circle)
+            new PtReflectionPoint(circle.center(), point)
         );
-    }
-
-    /**
-     * Builds the diametrically opposed point to the passed point.
-     * @param point Point
-     * @param circle Circle
-     * @return The diametrically opposed point given the circle
-     */
-    private static Vect opposed(final Vect point, final Circle circle) {
-        return new Sum(circle.center(), new Minus(circle.center(), point));
     }
 
     /**
