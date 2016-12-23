@@ -30,7 +30,9 @@ import com.aljebra.scalar.condition.Not;
 import com.aljebra.scalar.condition.Predicate;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.RayLine;
+import com.jeometry.twod.line.SgtLine;
 import com.jeometry.twod.ray.Ray;
+import com.jeometry.twod.segment.Segment;
 
 /**
  * A predicate to determine if two lines have the same direction.
@@ -67,6 +69,15 @@ public final class Parallel implements Predicate {
      */
     public Parallel(final Ray first, final Ray second) {
         this(new RayLine(first), new RayLine(second));
+    }
+
+    /**
+     * Constructor.
+     * @param first First segment
+     * @param second Second segment
+     */
+    public Parallel(final Segment first, final Segment second) {
+        this(new SgtLine(first), new SgtLine(second));
     }
 
     @Override

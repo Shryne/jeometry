@@ -25,12 +25,12 @@ package com.jeometry.twod.segment;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.metric.scalar.Norm;
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.Minus;
 import com.aljebra.vector.Vect;
+import com.jeometry.twod.line.analytics.Parallel;
 import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.scalar.SegmentLength;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -48,15 +48,15 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsCongruentSegment() {
-        final Segment ref = new RandomSegment();
+        final Segment ref = new PtVectSegment(
+            new RandomPoint(), new RandomPoint()
+        );
         final Segment seg = new LengthSegment(ref);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Norm(new Minus(ref.end(), ref.start())).value(dec),
-            Matchers.closeTo(
-                new Norm(new Minus(seg.end(), seg.start())).value(dec), error
-            )
+            new SegmentLength(ref).value(dec),
+            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
         );
     }
 
@@ -66,16 +66,16 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsCongruentSegmentWithStartPoint() {
-        final Segment ref = new RandomSegment();
+        final Segment ref = new PtVectSegment(
+            new RandomPoint(), new RandomPoint()
+        );
         final Vect start = new RandomPoint();
         final Segment seg = new LengthSegment(start, ref);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Norm(new Minus(ref.end(), ref.start())).value(dec),
-            Matchers.closeTo(
-                new Norm(new Minus(seg.end(), seg.start())).value(dec), error
-            )
+            new SegmentLength(ref).value(dec),
+            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
         );
         MatcherAssert.assertThat(seg.start(), Matchers.equalTo(start));
     }
@@ -91,9 +91,7 @@ public final class LengthSegmentTest {
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             Math.abs(length.value(dec)),
-            Matchers.closeTo(
-                new Norm(new Minus(seg.end(), seg.start())).value(dec), error
-            )
+            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
         );
     }
 
@@ -110,10 +108,33 @@ public final class LengthSegmentTest {
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             Math.abs(length.value(dec)),
-            Matchers.closeTo(
-                new Norm(new Minus(seg.end(), seg.start())).value(dec), error
-            )
+            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
         );
         MatcherAssert.assertThat(seg.start(), Matchers.equalTo(start));
+    }
+
+    /**
+     * {@link LengthSegment} builds a segment with the given length,
+     * having the passed start extremity and the given direction.
+     */
+    @Test
+    public void createsLengthSegmentWithStartPointAndDirection() {
+        final Scalar length = new Random();
+        final Vect start = new RandomPoint();
+        final Vect dir = new RandomPoint();
+        final Segment seg = new LengthSegment(start, dir, length);
+        final Field<Double> dec = new Decimal();
+        final double error = 1.e-6;
+        MatcherAssert.assertThat(
+            Math.abs(length.value(dec)),
+            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
+        );
+        MatcherAssert.assertThat(seg.start(), Matchers.equalTo(start));
+        MatcherAssert.assertThat(
+            new Parallel(
+                new PtVectSegment(new RandomPoint(), dir), seg
+            ).resolve(dec),
+            Matchers.is(true)
+        );
     }
 }

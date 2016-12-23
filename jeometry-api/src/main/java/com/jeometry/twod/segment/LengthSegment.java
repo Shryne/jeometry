@@ -81,8 +81,19 @@ public final class LengthSegment implements Segment {
      * @param length Segment length
      */
     public LengthSegment(final Vect start, final Scalar length) {
+        this(start, new RandomPoint(), length);
+    }
+
+    /**
+     * Constructor. Builds a segment with the given length, having the given
+     * direction and having the passed point as one of its extremities.
+     * @param strt Segment extremity
+     * @param dir Segment direction
+     * @param length Segment length
+     */
+    public LengthSegment(final Vect strt, final Vect dir, final Scalar length) {
         this.seg = new PtVectSegment(
-            start, new Times(new Normalized(new RandomPoint()), length)
+            strt, new Times(new Normalized(dir), length)
         );
     }
 
