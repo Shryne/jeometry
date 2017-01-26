@@ -28,7 +28,6 @@ import com.aljebra.field.FieldAddition;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import java.util.Arrays;
-import java.util.function.BinaryOperator;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -66,36 +65,12 @@ public final class Add implements Scalar {
     @Override
     public <T> T value(final Field<T> field) {
         final FieldAddition<T> addition = field.addition();
-        return Arrays.stream(this.operands()).map(field::actual).reduce(
-            addition.neutral(), new Add.Operator<T>(addition)
-        );
-    }
-
-    /**
-     * BinaryOperator implementation based on the field addition.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @param <T> Scalar object type
-     * @since 0.1
-     */
-    private static final class Operator<T> implements BinaryOperator<T> {
-        /**
-         * Field addition.
-         */
-        private final FieldAddition<T> addition;
-
-        /**
-         * Constructor.
-         * @param addition Field addition
-         */
-        Operator(final FieldAddition<T> addition) {
-            this.addition = addition;
+        T result = addition.neutral();
+        final Scalar[] operands = this.operands();
+        for (int idx = 0; idx < operands.length; ++idx) {
+            result = addition.add(result, operands[idx].value(field));
         }
-
-        @Override
-        public T apply(final T operand, final T second) {
-            return this.addition.add(operand, second);
-        }
+        return result;
     }
 
 }

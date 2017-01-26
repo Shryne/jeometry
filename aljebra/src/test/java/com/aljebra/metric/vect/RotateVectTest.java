@@ -82,14 +82,15 @@ public final class RotateVectTest {
      * {@link RotateVect} coordinates cannot be evaluated when
      * the field is not a metric space field.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenEvaluatingCoordinates() {
         this.thrown.expect(UnsupportedOperationException.class);
-        final Field<?> field = Mockito.mock(Field.class);
-        final int dim = 2;
         final Vect first = Mockito.mock(Vect.class);
-        Mockito.when(first.coords()).thenReturn(RotateVectTest.scalars(dim));
-        new RotateVect(first, Math.random()).coords()[0].value(field);
+        Mockito.when(first.coords()).thenReturn(RotateVectTest.scalars(2));
+        new RotateVect(
+            first, Math.random()
+        ).coords()[0].value(Mockito.mock(Field.class));
     }
 
     /**

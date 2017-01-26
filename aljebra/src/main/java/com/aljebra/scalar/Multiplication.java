@@ -28,7 +28,6 @@ import com.aljebra.field.FieldMultiplication;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import java.util.Arrays;
-import java.util.function.BinaryOperator;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -65,37 +64,13 @@ public final class Multiplication implements Scalar {
 
     @Override
     public <T> T value(final Field<T> field) {
-        final FieldMultiplication<T> multip = field.multiplication();
-        return Arrays.stream(this.operands()).map(field::actual).reduce(
-            multip.neutral(), new Multiplication.Operator<T>(multip)
-        );
-    }
-
-    /**
-     * BinaryOperator implementation based on the field multiplication.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @param <T> Scalar object type
-     * @since 0.1
-     */
-    private static final class Operator<T> implements BinaryOperator<T> {
-        /**
-         * Field multiplication.
-         */
-        private final FieldMultiplication<T> multip;
-
-        /**
-         * Constructor.
-         * @param multip Field multiplication
-         */
-        Operator(final FieldMultiplication<T> multip) {
-            this.multip = multip;
+        final FieldMultiplication<T> mult = field.multiplication();
+        T result = mult.neutral();
+        final Scalar[] operands = this.operands();
+        for (int idx = 0; idx   < operands.length; ++idx) {
+            result = mult.multiply(result, operands[idx].value(field));
         }
-
-        @Override
-        public T apply(final T operand, final T second) {
-            return this.multip.multiply(operand, second);
-        }
+        return result;
     }
 
 }

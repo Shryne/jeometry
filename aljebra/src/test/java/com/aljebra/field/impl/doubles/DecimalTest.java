@@ -53,7 +53,7 @@ public final class DecimalTest {
     public ExpectedException thrown = ExpectedException.none();
 
     /**
-     * Decimal returns a different scalar.
+     * Decimal can generate a different scalar.
      */
     @Test
     public void returnsDifferentScalar() {
@@ -75,10 +75,9 @@ public final class DecimalTest {
      */
     @Test
     public void calculatesActualValueForDefault() {
-        final Decimal field = new Decimal();
         final Scalar.Default<?> scalar = Mockito.mock(Scalar.Default.class);
         MatcherAssert.assertThat(
-            field.actual(scalar), Matchers.equalTo(scalar.value())
+            new Decimal().actual(scalar), Matchers.equalTo(scalar.value())
         );
         Mockito.verify(scalar, Mockito.never()).value(Mockito.any());
     }
@@ -116,11 +115,10 @@ public final class DecimalTest {
      */
     @Test
     public void calculatesMultiplication() {
-        final Decimal field = new Decimal();
         final double first = Math.random();
         final double second = Math.random();
         MatcherAssert.assertThat(
-            field.actual(
+            new Decimal().actual(
                 new Multiplication(
                     new Scalar.Default<Double>(first),
                     new Scalar.Default<Double>(second)
@@ -135,11 +133,12 @@ public final class DecimalTest {
      */
     @Test
     public void calculatesMultiplicationInverse() {
-        final Decimal field = new Decimal();
         final double epsilon = 1.e-6;
         final double first = Math.random() + epsilon;
         MatcherAssert.assertThat(
-            field.actual(new MultInverse(new Scalar.Default<Double>(first))),
+            new Decimal().actual(
+                new MultInverse(new Scalar.Default<Double>(first))
+            ),
             Matchers.closeTo(1 / first, epsilon)
         );
     }
@@ -159,11 +158,10 @@ public final class DecimalTest {
      */
     @Test
     public void calculatesAddition() {
-        final Decimal field = new Decimal();
         final double first = Math.random();
         final double second = Math.random();
         MatcherAssert.assertThat(
-            field.actual(
+            new Decimal().actual(
                 new Add(
                     new Scalar.Default<Double>(first),
                     new Scalar.Default<Double>(second)
@@ -178,11 +176,12 @@ public final class DecimalTest {
      */
     @Test
     public void calculatesAdditionInverse() {
-        final Decimal field = new Decimal();
         final double epsilon = 1.e-6;
         final double first = Math.random();
         MatcherAssert.assertThat(
-            field.actual(new AddInverse(new Scalar.Default<Double>(first))),
+            new Decimal().actual(
+                new AddInverse(new Scalar.Default<Double>(first))
+            ),
             Matchers.closeTo(-first, epsilon)
         );
     }

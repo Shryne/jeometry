@@ -29,7 +29,6 @@ import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
-import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -47,17 +46,23 @@ public final class NormalizedTest {
      */
     @Test
     public void normalizesVector() {
-        final Vect first = new FixedVector(new Random(), new Random());
-        final Vect second = new FixedVector(new Random(), new Random());
         final InnerProduct pdt = new Dot();
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            dec.actual(pdt.norm(new Normalized(first))),
+            dec.actual(
+                pdt.norm(
+                    new Normalized(new FixedVector(new Random(), new Random()))
+                )
+            ),
             Matchers.closeTo(1., error)
         );
         MatcherAssert.assertThat(
-            dec.actual(pdt.norm(new Normalized(second))),
+            dec.actual(
+                pdt.norm(
+                    new Normalized(new FixedVector(new Random(), new Random()))
+                )
+            ),
             Matchers.closeTo(1., error)
         );
     }

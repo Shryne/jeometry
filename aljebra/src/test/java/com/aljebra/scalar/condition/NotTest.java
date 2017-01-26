@@ -53,7 +53,7 @@ public final class NotTest {
     @Test
     public void resolvesToTrueWhenPredicateIsFalse() {
         MatcherAssert.assertThat(
-            new Not(NotTest.positive()).resolve(Mockito.mock(Field.class)),
+            new Not(new True()).resolve(Mockito.mock(Field.class)),
             Matchers.is(false)
         );
     }
@@ -64,7 +64,7 @@ public final class NotTest {
     @Test
     public void resolvesToFalseWhenPredicateIsTrue() {
         MatcherAssert.assertThat(
-            new Not(NotTest.negative()).resolve(Mockito.mock(Field.class)),
+            new Not(new False()).resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
     }
@@ -77,7 +77,7 @@ public final class NotTest {
         final Scalar first = Mockito.mock(Scalar.class);
         final Scalar second = Mockito.mock(Scalar.class);
         final Field<?> field = Mockito.mock(Field.class);
-        new Not(NotTest.negative()).ifElse(first, second).value(field);
+        new Not(new False()).ifElse(first, second).value(field);
         Mockito.verify(field).actual(first);
         Mockito.verify(field, Mockito.never()).actual(second);
     }
@@ -90,34 +90,8 @@ public final class NotTest {
         final RuntimeException err = new RuntimeException();
         this.thrown.expect(err.getClass());
         final Field<?> field = Mockito.mock(AbstractField.class);
-        new Not(NotTest.positive()).ifElse(
+        new Not(new True()).ifElse(
             Mockito.mock(Scalar.class), err
         ).value(field);
-    }
-
-    /**
-     * Returns an always true predicate.
-     * @return A predicate always resolving to true
-     */
-    private static Predicate positive() {
-        return new Predicate() {
-            @Override
-            public boolean resolve(final Field<?> field) {
-                return true;
-            }
-        };
-    }
-
-    /**
-     * Returns an always false predicate.
-     * @return A predicate always resolving to false
-     */
-    private static Predicate negative() {
-        return new Predicate() {
-            @Override
-            public boolean resolve(final Field<?> field) {
-                return false;
-            }
-        };
     }
 }

@@ -25,9 +25,8 @@ package com.aljebra.matrix;
 
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.stream.IntStream;
-import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -61,14 +60,12 @@ public final class SumTest {
         final FixedMatrix first = new FixedMatrix(lines, cols, coorsa);
         final FixedMatrix second = new FixedMatrix(lines, cols, coorsb);
         final Matrix sum = new Sum(first, second);
-        final Matcher<Scalar[]> expected = SumTest.matchers(
-            IntStream.range(0, lines * cols)
-            .mapToObj(i -> new Add(coorsa[i], coorsb[i]))
-            .toArray(Scalar[]::new)
-        );
+        final Scalar[] expected = new com.aljebra.vector.Sum(
+            new FixedVector(coorsa), new FixedVector(coorsb)
+        ).coords();
         MatcherAssert.assertThat(sum.lines(), Matchers.equalTo(lines));
         MatcherAssert.assertThat(sum.columns(), Matchers.equalTo(cols));
-        MatcherAssert.assertThat(sum.coords(), expected);
+        MatcherAssert.assertThat(sum.coords(), Matchers.equalTo(expected));
     }
 
     /**
@@ -120,26 +117,34 @@ public final class SumTest {
         );
         MatcherAssert.assertThat(
             matrix.line(1),
-            SumTest.matchers(
-                new Add(scalara, scalare), new Add(scalarc, scalarg)
+            Matchers.equalTo(
+                new Scalar[]{
+                    new Add(scalara, scalare), new Add(scalarc, scalarg),
+                }
             )
         );
         MatcherAssert.assertThat(
             matrix.line(2),
-            SumTest.matchers(
-                new Add(scalarb, scalarf), new Add(scalard, scalarh)
+            Matchers.equalTo(
+                new Scalar[]{
+                    new Add(scalarb, scalarf), new Add(scalard, scalarh),
+                }
             )
         );
         MatcherAssert.assertThat(
             matrix.column(1),
-            SumTest.matchers(
-                new Add(scalara, scalare), new Add(scalarb, scalarf)
+            Matchers.equalTo(
+                new Scalar[]{
+                    new Add(scalara, scalare), new Add(scalarb, scalarf),
+                }
             )
         );
         MatcherAssert.assertThat(
             matrix.column(2),
-            SumTest.matchers(
-                new Add(scalarc, scalarg), new Add(scalard, scalarh)
+            Matchers.equalTo(
+                new Scalar[]{
+                    new Add(scalarc, scalarg), new Add(scalard, scalarh),
+                }
             )
         );
     }
@@ -202,17 +207,4 @@ public final class SumTest {
         return result;
     }
 
-    /**
-     * Build an equality matcher for elements of a scalar array.
-     * @param scalars Scalar array
-     * @return A hamcrest equality matcher
-     */
-    @SuppressWarnings("unchecked")
-    private static Matcher<Scalar[]> matchers(final Scalar... scalars) {
-        final Matcher<Scalar>[] matchers = new Matcher[scalars.length];
-        for (int idx = 0; idx < scalars.length; ++idx) {
-            matchers[idx] = Matchers.equalTo(scalars[idx]);
-        }
-        return Matchers.array(matchers);
-    }
 }

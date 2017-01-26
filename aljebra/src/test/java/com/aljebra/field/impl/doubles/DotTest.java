@@ -55,7 +55,7 @@ public final class DotTest {
     public ExpectedException thrown = ExpectedException.none();
 
     /**
-     * {@link Dot} calculates product.
+     * {@link Dot} can calculate vector product.
      */
     @Test
     public void calculatesProduct() {
@@ -91,7 +91,7 @@ public final class DotTest {
     }
 
     /**
-     * {@link Dot} calculates angle.
+     * {@link Dot} can calculate angle between two vectors.
      */
     @Test
     public void calculatesAngle() {
@@ -118,7 +118,7 @@ public final class DotTest {
     }
 
     /**
-     * {@link Dot} calculates rotation.
+     * {@link Dot} can calculate rotation.
      */
     @Test
     public void calculatesRotation() {
@@ -158,7 +158,7 @@ public final class DotTest {
     }
 
     /**
-     * {@link Dot} calculates norm.
+     * {@link Dot} can calculate norm.
      */
     @Test
     public void calculatesNorm() {

@@ -31,7 +31,6 @@ import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
-import java.util.stream.IntStream;
 
 /**
  * Class implementing dot operation (scalar product) or inner product
@@ -49,11 +48,11 @@ public final class Dot implements InnerProduct {
     public Scalar product(final Vect foperand, final Vect soperand) {
         final Scalar[] first = foperand.coords();
         final Scalar[] second = soperand.coords();
-        return new Add(
-            IntStream.range(0, first.length)
-            .mapToObj(i -> new Multiplication(first[i], second[i]))
-            .toArray(Multiplication[]::new)
-        );
+        final Multiplication[] multis = new Multiplication[first.length];
+        for (int idx = 0; idx < first.length; ++idx) {
+            multis[idx] = Dot.mult(first[idx], second[idx]);
+        }
+        return new Add(multis);
     }
 
     @Override
@@ -67,16 +66,16 @@ public final class Dot implements InnerProduct {
         final Double cross =
             Dot.val(first.coords()[0]) * Dot.val(second.coords()[1])
             - Dot.val(second.coords()[0]) * Dot.val(first.coords()[1]);
-        final Scalar norms = new Multiplication(
-            this.norm(first), this.norm(second)
+        final Double norms = Dot.val(
+            new Multiplication(this.norm(first), this.norm(second))
         );
         final Double result;
-        if (Dot.val(norms) == 0) {
+        if (norms == 0) {
             result = 0.;
         } else {
-            final Double arcsin = Math.asin(cross / Dot.val(norms));
+            final Double arcsin = Math.asin(cross / norms);
             final Double arcos = Math.acos(
-                Dot.val(this.product(first, second)) / Dot.val(norms)
+                Dot.val(this.product(first, second)) / norms
             );
             if (arcsin >= 0) {
                 result = arcos;
@@ -98,6 +97,16 @@ public final class Dot implements InnerProduct {
             Dot.wrap(Math.cos(angle.doubleValue()))
         );
         return rot.apply(vect);
+    }
+
+    /**
+     * Multiplies two scalars.
+     * @param first First operand
+     * @param sec Second operand
+     * @return A scalar representing scalar multiplication
+     */
+    private static Multiplication mult(final Scalar first, final Scalar sec) {
+        return new Multiplication(first, sec);
     }
 
     /**

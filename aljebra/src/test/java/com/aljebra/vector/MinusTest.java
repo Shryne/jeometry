@@ -26,8 +26,6 @@ package com.aljebra.vector;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Scalar;
 import java.util.Random;
-import java.util.stream.IntStream;
-import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -82,13 +80,25 @@ public final class MinusTest {
         final Scalar[] bcoords = MinusTest.scalars(acoords.length);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Matcher<Scalar[]> expected = MinusTest.matchers(
-            IntStream.range(0, acoords.length)
-            .mapToObj(i -> new Diff(acoords[i], bcoords[i]))
-            .toArray(Scalar[]::new)
+        final Scalar[] expected = new Scalar[acoords.length];
+        for (int idx = 0; idx < expected.length; ++idx) {
+            expected[idx] = MinusTest.minus(acoords[idx], bcoords[idx]);
+        }
+        MatcherAssert.assertThat(
+            new Minus(vecta, vectb).coords(), Matchers.equalTo(expected)
         );
-        MatcherAssert.assertThat(new Minus(vecta, vectb).coords(), expected);
     }
+
+    /**
+     * Calculates the difference between two scalars.
+     * @param scalar First scalar
+     * @param another Second scalar
+     * @return A scalar representing the difference between two scalars
+     */
+    private static Scalar minus(final Scalar scalar, final Scalar another) {
+        return new Diff(scalar, another);
+    }
+
     /**
      * Mocks an array of {@link Scalar} with a random length.
      * @return An array of scalars.
@@ -110,17 +120,4 @@ public final class MinusTest {
         return result;
     }
 
-    /**
-     * Build an equality matcher for elements of a scalar array.
-     * @param scalars Scalar array
-     * @return A hamcrest equality matcher
-     */
-    @SuppressWarnings("unchecked")
-    private static Matcher<Scalar[]> matchers(final Scalar... scalars) {
-        final Matcher<Scalar>[] matchers = new Matcher[scalars.length];
-        for (int idx = 0; idx < scalars.length; ++idx) {
-            matchers[idx] = Matchers.equalTo(scalars[idx]);
-        }
-        return Matchers.array(matchers);
-    }
 }

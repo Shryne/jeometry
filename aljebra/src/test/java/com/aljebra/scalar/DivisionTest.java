@@ -90,14 +90,14 @@ public final class DivisionTest {
     @SuppressWarnings("unchecked")
     @Test
     public void divisionDelegatesToFieldMultiplication() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldMultiplication<Object> mult = Mockito.mock(
             FieldMultiplication.class
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
-        new Division(first, second).value(field);
+        new Division(
+            Mockito.mock(Scalar.class), Mockito.mock(Scalar.class)
+        ).value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).inverse(Mockito.any());
         Mockito.verify(mult).multiply(Mockito.any(), Mockito.any());

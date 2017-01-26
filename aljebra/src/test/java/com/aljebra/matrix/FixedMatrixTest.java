@@ -28,7 +28,6 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -60,7 +59,7 @@ public final class FixedMatrixTest {
         final Scalar[] scalars = FixedMatrixTest.scalars(lines * cols);
         final FixedMatrix matrix = new FixedMatrix(lines, cols, scalars);
         MatcherAssert.assertThat(
-            matrix.coords(), FixedMatrixTest.matchers(scalars)
+            matrix.coords(), Matchers.equalTo(scalars)
         );
     }
 
@@ -77,16 +76,16 @@ public final class FixedMatrixTest {
             2, 2, scalara, scalarb, scalarc, scalard
         );
         MatcherAssert.assertThat(
-            matrix.line(1), FixedMatrixTest.matchers(scalara, scalarc)
+            matrix.line(1), Matchers.equalTo(new Scalar[]{scalara, scalarc})
         );
         MatcherAssert.assertThat(
-            matrix.line(2), FixedMatrixTest.matchers(scalarb, scalard)
+            matrix.line(2), Matchers.equalTo(new Scalar[]{scalarb, scalard})
         );
         MatcherAssert.assertThat(
-            matrix.column(1), FixedMatrixTest.matchers(scalara, scalarb)
+            matrix.column(1), Matchers.equalTo(new Scalar[]{scalara, scalarb})
         );
         MatcherAssert.assertThat(
-            matrix.column(2), FixedMatrixTest.matchers(scalarc, scalard)
+            matrix.column(2), Matchers.equalTo(new Scalar[]{scalarc, scalard})
         );
     }
 
@@ -106,7 +105,7 @@ public final class FixedMatrixTest {
             expected[idx] = FixedMatrixTest.pdt(input, matrix.line(idx + 1));
         }
         MatcherAssert.assertThat(
-            matrix.apply(input).coords(), FixedMatrixTest.matchers(expected)
+            matrix.apply(input).coords(), Matchers.equalTo(expected)
         );
     }
 
@@ -148,19 +147,5 @@ public final class FixedMatrixTest {
             result[idx] = Mockito.mock(Scalar.class);
         }
         return result;
-    }
-
-    /**
-     * Build an equality matcher for elements of a scalar array.
-     * @param scalars Scalar array
-     * @return A hamcrest equality matcher
-     */
-    @SuppressWarnings("unchecked")
-    private static Matcher<Scalar[]> matchers(final Scalar... scalars) {
-        final Matcher<Scalar>[] matchers = new Matcher[scalars.length];
-        for (int idx = 0; idx < scalars.length; ++idx) {
-            matchers[idx] = Matchers.equalTo(scalars[idx]);
-        }
-        return Matchers.array(matchers);
     }
 }

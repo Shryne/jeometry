@@ -26,7 +26,6 @@ package com.aljebra.matrix;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import java.util.Random;
-import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -57,12 +56,12 @@ public final class VectorMatrixTest {
         MatcherAssert.assertThat(scalarmat.lines(), Matchers.equalTo(1));
         MatcherAssert.assertThat(scalarmat.columns(), Matchers.equalTo(dim));
         MatcherAssert.assertThat(
-            scalarmat.coords(), VectorMatrixTest.matchers(coorsa)
+            scalarmat.coords(), Matchers.equalTo(coorsa)
         );
         MatcherAssert.assertThat(vectmat.lines(), Matchers.equalTo(1));
         MatcherAssert.assertThat(vectmat.columns(), Matchers.equalTo(dim));
         MatcherAssert.assertThat(
-            vectmat.coords(), VectorMatrixTest.matchers(coorsa)
+            vectmat.coords(), Matchers.equalTo(coorsa)
         );
     }
 
@@ -79,17 +78,4 @@ public final class VectorMatrixTest {
         return result;
     }
 
-    /**
-     * Build an equality matcher for elements of a scalar array.
-     * @param scalars Scalar array
-     * @return A hamcrest equality matcher
-     */
-    @SuppressWarnings("unchecked")
-    private static Matcher<Scalar[]> matchers(final Scalar... scalars) {
-        final Matcher<Scalar>[] matchers = new Matcher[scalars.length];
-        for (int idx = 0; idx < scalars.length; ++idx) {
-            matchers[idx] = Matchers.equalTo(scalars[idx]);
-        }
-        return Matchers.array(matchers);
-    }
 }

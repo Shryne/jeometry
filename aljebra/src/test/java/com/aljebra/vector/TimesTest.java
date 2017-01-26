@@ -26,8 +26,6 @@ package com.aljebra.vector;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import java.util.Random;
-import java.util.stream.IntStream;
-import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -56,12 +54,23 @@ public final class TimesTest {
         final Scalar factor = TimesTest.scalars(1)[0];
         final Scalar[] acoords = TimesTest.scalars();
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Matcher<Scalar[]> expected = TimesTest.matchers(
-            IntStream.range(0, acoords.length)
-            .mapToObj(i -> new Multiplication(acoords[i], factor))
-            .toArray(Scalar[]::new)
+        final Scalar[] expected = new Scalar[acoords.length];
+        for (int idx = 0; idx < expected.length; ++idx) {
+            expected[idx] = TimesTest.mult(acoords[idx], factor);
+        }
+        MatcherAssert.assertThat(
+            new Times(vecta, factor).coords(), Matchers.equalTo(expected)
         );
-        MatcherAssert.assertThat(new Times(vecta, factor).coords(), expected);
+    }
+
+    /**
+     * Calculates the product of two scalars.
+     * @param scalar First scalar
+     * @param another Second scalar
+     * @return A scalar representing the multiplication of two scalars
+     */
+    private static Scalar mult(final Scalar scalar, final Scalar another) {
+        return new Multiplication(scalar, another);
     }
 
     /**
@@ -85,17 +94,4 @@ public final class TimesTest {
         return result;
     }
 
-    /**
-     * Build an equality matcher for elements of a scalar array.
-     * @param scalars Scalar array
-     * @return A hamcrest equality matcher
-     */
-    @SuppressWarnings("unchecked")
-    private static Matcher<Scalar[]> matchers(final Scalar... scalars) {
-        final Matcher<Scalar>[] matchers = new Matcher[scalars.length];
-        for (int idx = 0; idx < scalars.length; ++idx) {
-            matchers[idx] = Matchers.equalTo(scalars[idx]);
-        }
-        return Matchers.array(matchers);
-    }
 }

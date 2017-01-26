@@ -25,7 +25,6 @@ package com.aljebra.field.impl.doubles;
 
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
-import java.util.Arrays;
 
 /**
  * A convenient class for double vectors.
@@ -44,14 +43,25 @@ public final class DblVect extends FixedVector {
     }
 
     /**
-     * Wraps double array into Scalar array.
+     * Wraps double array into scalar array.
      * @param coords Double array
      * @return A scalar array wrapping the doubles
      */
     private static Scalar[] wrap(final Double... coords) {
-        return Arrays.stream(coords).map(
-            i -> new Scalar.Default<Double>(i)
-        ).toArray(Scalar[]::new);
+        final Scalar[] result = new Scalar[coords.length];
+        for (int idx = 0; idx < coords.length; ++idx) {
+            result[idx] = DblVect.wrap(coords[idx]);
+        }
+        return result;
+    }
+
+    /**
+     * Wraps a double into a scalar.
+     * @param num A double
+     * @return A scalar wrapping the double
+     */
+    private static Scalar wrap(final Double num) {
+        return new Scalar.Default<Double>(num);
     }
 
 }

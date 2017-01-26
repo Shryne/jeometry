@@ -44,7 +44,7 @@ public final class OrTest {
     public void resolvesToTrueWhenOnePredicateTrue() {
         MatcherAssert.assertThat(
             new Or(
-                OrTest.positive(), OrTest.negative(), OrTest.negative()
+                new True(), new False(), new False()
             ).resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
@@ -57,35 +57,9 @@ public final class OrTest {
     public void resolvesToFalseWhenAllPredicatesFalse() {
         MatcherAssert.assertThat(
             new Or(
-                OrTest.negative(), OrTest.negative(), OrTest.negative()
+                new False(), new False(), new False()
             ).resolve(Mockito.mock(Field.class)),
             Matchers.is(false)
         );
-    }
-
-    /**
-     * Returns an always true predicate.
-     * @return A predicate always resolving to true
-     */
-    private static Predicate positive() {
-        return new Predicate() {
-            @Override
-            public boolean resolve(final Field<?> field) {
-                return true;
-            }
-        };
-    }
-
-    /**
-     * Returns an always false predicate.
-     * @return A predicate always resolving to false
-     */
-    private static Predicate negative() {
-        return new Predicate() {
-            @Override
-            public boolean resolve(final Field<?> field) {
-                return false;
-            }
-        };
     }
 }

@@ -45,7 +45,7 @@ public final class TernaryTest {
         final Scalar first = Mockito.mock(Scalar.class);
         final Scalar second = Mockito.mock(Scalar.class);
         final Field<?> field = Mockito.mock(Field.class);
-        new Ternary(TernaryTest.positive(), first, second).value(field);
+        new Ternary(new True(), first, second).value(field);
         Mockito.verify(field).actual(first);
         Mockito.verify(field, Mockito.never()).actual(second);
     }
@@ -59,34 +59,8 @@ public final class TernaryTest {
         final Scalar first = Mockito.mock(Scalar.class);
         final Scalar second = Mockito.mock(Scalar.class);
         final Field<?> field = Mockito.mock(Field.class);
-        new Ternary(TernaryTest.negative(), first, second).value(field);
+        new Ternary(new False(), first, second).value(field);
         Mockito.verify(field).actual(second);
         Mockito.verify(field, Mockito.never()).actual(first);
-    }
-
-    /**
-     * Returns an always true predicate.
-     * @return A predicate always resolving to true
-     */
-    private static Predicate positive() {
-        return new Predicate() {
-            @Override
-            public boolean resolve(final Field<?> field) {
-                return true;
-            }
-        };
-    }
-
-    /**
-     * Returns an always false predicate.
-     * @return A predicate always resolving to false
-     */
-    private static Predicate negative() {
-        return new Predicate() {
-            @Override
-            public boolean resolve(final Field<?> field) {
-                return false;
-            }
-        };
     }
 }
