@@ -50,8 +50,9 @@ public final class PtReflectionCircleTest {
         final Random radius = new Random();
         final RandomPoint center = new RandomPoint();
         final RandomPoint across = new RandomPoint();
-        final Circle input = new PtRadCircle(center, radius);
-        final Circle result = new PtReflectionCircle(across, input);
+        final Circle result = new PtReflectionCircle(
+            across, new PtRadCircle(center, radius)
+        );
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
@@ -74,8 +75,9 @@ public final class PtReflectionCircleTest {
     public void buildsReflectionAcrossOrigin() {
         final Random radius = new Random();
         final RandomPoint center = new RandomPoint();
-        final Circle input = new PtRadCircle(center, radius);
-        final Circle result = new PtReflectionCircle(input);
+        final Circle result = new PtReflectionCircle(
+            new PtRadCircle(center, radius)
+        );
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
