@@ -21,44 +21,33 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar.condition;
+package com.aljebra.field.impl.doubles;
 
-import com.aljebra.field.Field;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import java.util.Arrays;
+import com.aljebra.field.FieldMultiplication;
 
 /**
- * A predicate that is true if all of the given predicates are true.
+ * Double multiplication implementation.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class And implements Predicate {
+public final class DblMult implements FieldMultiplication<Double> {
 
-    /**
-     * Predicates.
-     */
-    private final Multiset<Predicate> opers;
-
-    /**
-     * Constructor.
-     * @param operands Predicates
-     */
-    public And(final Predicate... operands) {
-        this.opers = HashMultiset.create(Arrays.asList(operands));
+    @Override
+    public Double multiply(final Double operand, final Double second) {
+        return operand * second;
     }
 
     @Override
-    public boolean resolve(final Field<?> field) {
-        boolean result = true;
-        for (final Predicate predicate : this.opers) {
-            if (!predicate.resolve(field)) {
-                result = false;
-                break;
-            }
-        }
-        return result;
+    public Double neutral() {
+        return 1.;
     }
 
+    @Override
+    public Double inverse(final Double elt) {
+        if (Double.valueOf(0).equals(elt)) {
+            throw new IllegalArgumentException("Division by zero");
+        }
+        return 1. / elt;
+    }
 }

@@ -25,8 +25,6 @@ package com.aljebra.field.impl.doubles;
 
 import com.aljebra.field.AbstractOrderedField;
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldAddition;
-import com.aljebra.field.FieldMultiplication;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.field.OrderedRandomizer;
 import com.aljebra.metric.InnerProduct;
@@ -67,7 +65,7 @@ public final class Decimal
      * @param rand Randomizer
      */
     public Decimal(final OrderedRandomizer<Double> rand) {
-        super(new Decimal.Addition(), new Decimal.Mult(), rand);
+        super(new DblAddition(), new DblMult(), rand);
     }
 
     @Override
@@ -88,56 +86,5 @@ public final class Decimal
     @Override
     public InnerProduct product() {
         return new Dot();
-    }
-
-    /**
-     * Double multiplication implementation.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @since 0.1
-     */
-    private static class Mult implements FieldMultiplication<Double> {
-
-        @Override
-        public Double multiply(final Double operand, final Double second) {
-            return operand * second;
-        }
-
-        @Override
-        public Double neutral() {
-            return 1.;
-        }
-
-        @Override
-        public Double inverse(final Double elt) {
-            if (Double.valueOf(0).equals(elt)) {
-                throw new IllegalArgumentException("Division by zero");
-            }
-            return 1. / elt;
-        }
-    }
-
-    /**
-     * Double addition implementation.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
-     * @since 0.1
-     */
-    private static class Addition implements FieldAddition<Double> {
-
-        @Override
-        public Double add(final Double operand, final Double second) {
-            return operand + second;
-        }
-
-        @Override
-        public Double neutral() {
-            return 0.;
-        }
-
-        @Override
-        public Double inverse(final Double elt) {
-            return -elt;
-        }
     }
 }

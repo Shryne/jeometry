@@ -21,44 +21,44 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar.condition;
+package com.aljebra.field.impl.doubles;
 
-import com.aljebra.field.Field;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import java.util.Arrays;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A predicate that is true if all of the given predicates are true.
+ * Tests for {@link DblAddition}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class And implements Predicate {
+public final class DblAdditionTest {
 
     /**
-     * Predicates.
+     * DblAddition can calculate addition.
      */
-    private final Multiset<Predicate> opers;
-
-    /**
-     * Constructor.
-     * @param operands Predicates
-     */
-    public And(final Predicate... operands) {
-        this.opers = HashMultiset.create(Arrays.asList(operands));
+    @Test
+    public void calculatesAddition() {
+        final double first = Math.random();
+        final double second = Math.random();
+        MatcherAssert.assertThat(
+            new DblAddition().add(first, second),
+            Matchers.equalTo(first + second)
+        );
     }
 
-    @Override
-    public boolean resolve(final Field<?> field) {
-        boolean result = true;
-        for (final Predicate predicate : this.opers) {
-            if (!predicate.resolve(field)) {
-                result = false;
-                break;
-            }
-        }
-        return result;
+    /**
+     * DblAddition can calculate addition inverse.
+     */
+    @Test
+    public void calculatesAdditionInverse() {
+        final double epsilon = 1.e-6;
+        final double first = Math.random();
+        MatcherAssert.assertThat(
+            new DblAddition().inverse(first),
+            Matchers.closeTo(-first, epsilon)
+        );
     }
 
 }

@@ -24,10 +24,6 @@
 package com.aljebra.field.impl.doubles;
 
 import com.aljebra.field.OrderedRandomizer;
-import com.aljebra.scalar.Add;
-import com.aljebra.scalar.AddInverse;
-import com.aljebra.scalar.MultInverse;
-import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import java.util.Random;
@@ -108,82 +104,6 @@ public final class DecimalTest {
         Mockito.verify(rand).between(0., 0.);
         Mockito.verify(rand).greater(0.);
         Mockito.verify(rand).lower(0.);
-    }
-
-    /**
-     * Decimal can calculate multiplication.
-     */
-    @Test
-    public void calculatesMultiplication() {
-        final double first = Math.random();
-        final double second = Math.random();
-        MatcherAssert.assertThat(
-            new Decimal().actual(
-                new Multiplication(
-                    new Scalar.Default<Double>(first),
-                    new Scalar.Default<Double>(second)
-                )
-            ),
-            Matchers.equalTo(first * second)
-        );
-    }
-
-    /**
-     * Decimal can calculate multiplication inverse.
-     */
-    @Test
-    public void calculatesMultiplicationInverse() {
-        final double epsilon = 1.e-6;
-        final double first = Math.random() + epsilon;
-        MatcherAssert.assertThat(
-            new Decimal().actual(
-                new MultInverse(new Scalar.Default<Double>(first))
-            ),
-            Matchers.closeTo(1 / first, epsilon)
-        );
-    }
-
-    /**
-     * Decimal throws exception when trying to calculate
-     * multiplication inverse of zero.
-     */
-    @Test
-    public void errorsWhenZeroMultInverse() {
-        this.thrown.expect(IllegalArgumentException.class);
-        new Decimal().multiplication().inverse(0.);
-    }
-
-    /**
-     * Decimal can calculate addition.
-     */
-    @Test
-    public void calculatesAddition() {
-        final double first = Math.random();
-        final double second = Math.random();
-        MatcherAssert.assertThat(
-            new Decimal().actual(
-                new Add(
-                    new Scalar.Default<Double>(first),
-                    new Scalar.Default<Double>(second)
-                )
-            ),
-            Matchers.equalTo(first + second)
-        );
-    }
-
-    /**
-     * Decimal can calculate addition inverse.
-     */
-    @Test
-    public void calculatesAdditionInverse() {
-        final double epsilon = 1.e-6;
-        final double first = Math.random();
-        MatcherAssert.assertThat(
-            new Decimal().actual(
-                new AddInverse(new Scalar.Default<Double>(first))
-            ),
-            Matchers.closeTo(-first, epsilon)
-        );
     }
 
     /**
