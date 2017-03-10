@@ -53,6 +53,11 @@ public final class Buttons extends JPanel {
     private final AwtDrawableSurface drawable;
 
     /**
+     * Whether Components has benn initiated.
+     */
+    private boolean initiated;
+
+    /**
      * Ctor.
      * @param drawable The drawable surface
      */
@@ -61,10 +66,18 @@ public final class Buttons extends JPanel {
         this.drawable = drawable;
     }
 
+    @Override
+    public void repaint() {
+        if (!this.initiated && this.drawable != null) {
+            this.init();
+        }
+        super.repaint();
+    }
+
     /**
      * Builds the component.
      */
-    public void build() {
+    private void init() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(this.button("up", 0, Buttons.TRANSLATE_AMOUNT));
         this.add(this.button("down", 0, -Buttons.TRANSLATE_AMOUNT));
@@ -92,6 +105,7 @@ public final class Buttons extends JPanel {
                 }
             }
         );
+        this.initiated = true;
     }
 
     /**

@@ -54,6 +54,11 @@ public final class Awt extends JFrame implements Output {
     private final AwtDrawableSurface drawable;
 
     /**
+     * Whether Components has benn initiated.
+     */
+    private boolean initiated;
+
+    /**
      * Ctor. Builds a {@link JFrame} with a drawable surface and 4 control
      * buttons.
      */
@@ -64,7 +69,9 @@ public final class Awt extends JFrame implements Output {
 
     @Override
     public void render(final Figure fig) {
-        this.init();
+        if (!this.initiated) { 
+            this.init();
+        }
         this.drawable.setFigure(fig);
         this.repaint();
         this.setVisible(true);
@@ -113,8 +120,9 @@ public final class Awt extends JFrame implements Output {
         this.drawable.mouseReact();
         content.add(this.drawable, BorderLayout.CENTER);
         final Buttons buttons = new Buttons(this.drawable);
-        buttons.build();
+        buttons.repaint();
         content.add(buttons, BorderLayout.EAST);
+        this.initiated = true;
     }
 
 }

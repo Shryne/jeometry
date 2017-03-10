@@ -58,8 +58,7 @@ public final class Figure implements Iterable<Shape> {
         final String name = shape.name();
         Preconditions.checkArgument(
             !this.shaps.containsKey(name),
-            "A shape with name [%s] already exists in the figure",
-            name
+            "A shape with name [%s] already exists in the figure", name
         );
         if (shape.anonymous()) {
             this.anonymous.add(shape);
