@@ -69,7 +69,7 @@ public final class Awt extends JFrame implements Output {
 
     @Override
     public void render(final Figure fig) {
-        if (!this.initiated) { 
+        if (!this.initiated) {
             this.init();
         }
         this.drawable.setFigure(fig);
@@ -119,7 +119,7 @@ public final class Awt extends JFrame implements Output {
         content.setLayout(new BorderLayout(0, 0));
         this.drawable.mouseReact();
         content.add(this.drawable, BorderLayout.CENTER);
-        content.add(new Buttons(this.drawable), BorderLayout.EAST);
+        content.add(new Buttons(this.drawable).init(), BorderLayout.EAST);
         this.initiated = true;
     }
 

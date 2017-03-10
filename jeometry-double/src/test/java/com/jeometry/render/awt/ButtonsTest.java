@@ -41,7 +41,7 @@ public final class ButtonsTest {
     @Test
     public void buildsButtons() {
         final Buttons buttons = new Buttons(new AwtDrawableSurface());
-        buttons.build();
+        buttons.init();
         final int expected = 6;
         MatcherAssert.assertThat(
             buttons.getComponentCount(),

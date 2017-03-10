@@ -58,15 +58,14 @@ public final class Buttons extends JPanel {
      */
     public Buttons(final AwtDrawableSurface drawable) {
         super();
-        this.drawable = this.init(drawable);
+        this.drawable = drawable;
     }
 
     /**
      * Builds the component.
-     * @param drawable Drawable surface
-     * @return Drawable surface
+     * @return This buttons JPanel
      */
-    private AwtDrawableSurface init(final AwtDrawableSurface drawable) {
+    public JPanel init() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(this.button("up", 0, Buttons.TRANSLATE_AMOUNT));
         this.add(this.button("down", 0, -Buttons.TRANSLATE_AMOUNT));
@@ -80,8 +79,8 @@ public final class Buttons extends JPanel {
             new MouseAdapter() {
                 @Override
                 public void mouseClicked(final MouseEvent event) {
-                    drawable.zoomIn();
-                    drawable.repaint();
+                    Buttons.this.drawable.zoomIn();
+                    Buttons.this.drawable.repaint();
                 }
             }
         );
@@ -89,12 +88,12 @@ public final class Buttons extends JPanel {
             new MouseAdapter() {
                 @Override
                 public void mouseClicked(final MouseEvent event) {
-                    drawable.zoomOut();
-                    drawable.repaint();
+                    Buttons.this.drawable.zoomOut();
+                    Buttons.this.drawable.repaint();
                 }
             }
         );
-        return drawable;
+        return this;
     }
 
     /**
