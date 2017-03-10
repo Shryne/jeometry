@@ -119,9 +119,7 @@ public final class Awt extends JFrame implements Output {
         content.setLayout(new BorderLayout(0, 0));
         this.drawable.mouseReact();
         content.add(this.drawable, BorderLayout.CENTER);
-        final Buttons buttons = new Buttons(this.drawable);
-        buttons.repaint();
-        content.add(buttons, BorderLayout.EAST);
+        content.add(new Buttons(this.drawable), BorderLayout.EAST);
         this.initiated = true;
     }
 

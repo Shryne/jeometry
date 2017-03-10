@@ -53,31 +53,20 @@ public final class Buttons extends JPanel {
     private final AwtDrawableSurface drawable;
 
     /**
-     * Whether Components has benn initiated.
-     */
-    private boolean initiated;
-
-    /**
      * Ctor.
      * @param drawable The drawable surface
      */
     public Buttons(final AwtDrawableSurface drawable) {
         super();
-        this.drawable = drawable;
-    }
-
-    @Override
-    public void repaint() {
-        if (!this.initiated && this.drawable != null) {
-            this.init();
-        }
-        super.repaint();
+        this.drawable = this.init(drawable);
     }
 
     /**
      * Builds the component.
+     * @param drawable Drawable surface
+     * @return Drawable surface
      */
-    private void init() {
+    private AwtDrawableSurface init(final AwtDrawableSurface drawable) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(this.button("up", 0, Buttons.TRANSLATE_AMOUNT));
         this.add(this.button("down", 0, -Buttons.TRANSLATE_AMOUNT));
@@ -91,8 +80,8 @@ public final class Buttons extends JPanel {
             new MouseAdapter() {
                 @Override
                 public void mouseClicked(final MouseEvent event) {
-                    Buttons.this.drawable.zoomIn();
-                    Buttons.this.drawable.repaint();
+                    drawable.zoomIn();
+                    drawable.repaint();
                 }
             }
         );
@@ -100,12 +89,12 @@ public final class Buttons extends JPanel {
             new MouseAdapter() {
                 @Override
                 public void mouseClicked(final MouseEvent event) {
-                    Buttons.this.drawable.zoomOut();
-                    Buttons.this.drawable.repaint();
+                    drawable.zoomOut();
+                    drawable.repaint();
                 }
             }
         );
-        this.initiated = true;
+        return drawable;
     }
 
     /**
