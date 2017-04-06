@@ -43,10 +43,10 @@ final Figure figure = new Figure().add(ppoint)
 
 The above code shows some of the jeometry API classes. Let's detail the purpose of these classes:
 * `RandomPoint`: builds a random 2D point
-* `PtsLine`: builds a line passing by the two points passed in the constructor, that are in our cas two random points
-* `ParallelLine`: builds a line that is parallel to a line passed in the constructor (and optionally passing by a point passed in the constructor)
+* `PtsLine`: builds a line passing by the two points -passed in the constructor-. In our case, they are two random points
+* `ParallelLine`: builds a line that is parallel to a line -passed in the constructor- (and optionally passing by a point -passed in the constructor-)
 * `InLinePoint`: builds a random point belonging to the line passed in the constructor
-* `PerpLine`: builds a line that is perpendicular to a line passed in the constructor (and optionally passing by a point passed in the constructor)
+* `PerpLine`: builds a line that is perpendicular to a line -passed in the constructor- (and optionally passing by a point -passed in the constructor-)
 * `LineIntersectPoint`: builds the point formed by the intersection of the two lines passed in the constructor
 * `DblCircle`: builds a circle with the passed point as its center and the passed `double` as its radius (note here that the prefix `Dbl` is to indicate that the passed radius is a `double`, more details will be given hereafter about that)
 
@@ -59,7 +59,7 @@ jeometry offers many classes to build geometric shapes for which you can check t
 * [Segments](https://github.com/HDouss/jeometry/tree/master/jeometry-api/src/main/java/com/jeometry/twod/segment)
 
 Now that we built the `figure` object, we can pass it to an [Output](https://github.com/HDouss/jeometry/blob/master/jeometry-double/src/main/java/com/jeometry/render/Output.java) to render the figure.
-For now, the only available `Output` in jeometry is the `Awt` output, that will produce an [AWT](https://en.wikipedia.org/wiki/Abstract_Window_Toolkit) window with the figure drawn on the screen (that is by the way pannable and zoomable).
+For now, the only available `Output` in jeometry is the `Awt` output, that will produce an [AWT](https://en.wikipedia.org/wiki/Abstract_Window_Toolkit) window with the figure drawn on the screen (that is -by the way- pannable and zoomable).
 
 This code:
 ```java
