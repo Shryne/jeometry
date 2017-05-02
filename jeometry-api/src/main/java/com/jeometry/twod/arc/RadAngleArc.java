@@ -25,11 +25,12 @@ package com.jeometry.twod.arc;
 
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
+import com.jeometry.twod.circle.Circle;
 import lombok.ToString;
 
 /**
- * Arc implementation class describing an arc by a center, a radius,
- * a starting and an ending angle.
+ * Arc implementation class describing an arc by a circle a starting
+ * and an ending angle.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -59,16 +60,14 @@ public class RadAngleArc implements Arc {
 
     /**
      * Ctor.
-     * @param radius Arc radius
-     * @param center Arc center
+     * @param circle Circle arc
      * @param start Arc starting angle
      * @param end Arc ending angle
-     * @checkstyle ParameterNumberCheck (3 lines)
      */
-    public RadAngleArc(final Vect center, final Scalar radius,
-        final Number start, final Number end) {
-        this.rdx = radius;
-        this.cntr = center;
+    public RadAngleArc(final Circle circle, final Number start,
+        final Number end) {
+        this.rdx = circle.radius();
+        this.cntr = circle.center();
         this.starting = start;
         this.ending = end;
     }

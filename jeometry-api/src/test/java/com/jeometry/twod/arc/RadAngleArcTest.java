@@ -25,6 +25,7 @@ package com.jeometry.twod.arc;
 
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
+import com.jeometry.twod.circle.PtRadCircle;
 import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -43,14 +44,14 @@ public final class RadAngleArcTest {
      */
     @Test
     public void buildsArc() {
-        final RandomPoint point = new RandomPoint();
+        final RandomPoint pnt = new RandomPoint();
         final Scalar rdx = new Random();
         final double start = Math.random();
         final double end = Math.random();
         final double error = 1.e-6;
-        final Arc arc = new RadAngleArc(point, rdx, start, end);
+        final Arc arc = new RadAngleArc(new PtRadCircle(pnt, rdx), start, end);
         MatcherAssert.assertThat(
-            arc.center(), Matchers.equalTo(point)
+            arc.center(), Matchers.equalTo(pnt)
         );
         MatcherAssert.assertThat(
             arc.radius(), Matchers.equalTo(rdx)
