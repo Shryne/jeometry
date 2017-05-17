@@ -34,7 +34,7 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Tests for {@link PtReflectionCircleTest}.
+ * Tests for {@link PtReflectionCircle}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
