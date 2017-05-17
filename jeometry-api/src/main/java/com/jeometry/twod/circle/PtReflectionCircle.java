@@ -48,7 +48,7 @@ public final class PtReflectionCircle extends PtRadCircle {
     }
 
     /**
-     * Constructor. Builds the reflection point across the origin.
+     * Constructor. Builds the reflection circle across the origin.
      * @param input The circle to reflect
      */
     public PtReflectionCircle(final Circle input) {
