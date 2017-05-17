@@ -42,7 +42,7 @@ import org.junit.Test;
 public final class PtReflectionCircleTest {
 
     /**
-     * {@link PtReflectionCircleTest} can build the reflection circle
+     * {@link PtReflectionCircle} can build the reflection circle
      * given the reflection center.
      */
     @Test
@@ -68,7 +68,7 @@ public final class PtReflectionCircleTest {
     }
 
     /**
-     * {@link PtReflectionCircleTest} can build the reflection circle
+     * {@link PtReflectionCircle} can build the reflection circle
      * across the origin if not given the center.
      */
     @Test
