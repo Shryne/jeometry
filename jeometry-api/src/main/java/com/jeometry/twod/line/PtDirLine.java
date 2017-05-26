@@ -47,8 +47,8 @@ public class PtDirLine implements Line {
 
     /**
      * Constructor.
-     * @param direction Direction of the line
      * @param point Point belonging to the line
+     * @param direction Direction of the line
      */
     public PtDirLine(final Vect point, final Vect direction) {
         this.dir = direction;
