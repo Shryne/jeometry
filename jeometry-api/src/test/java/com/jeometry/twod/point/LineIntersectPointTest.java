@@ -26,6 +26,8 @@ package com.jeometry.twod.point;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.line.RandomLine;
+import com.jeometry.twod.line.VerticalLine;
 import com.jeometry.twod.line.analytics.PointInLine;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -52,7 +54,7 @@ public final class LineIntersectPointTest {
      */
     @Test
     public void buildsAPointInLines() {
-        final Line any = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line any = new RandomLine();
         final Line other = new PtDirLine(
             new RandomPoint(), new DifferentPoint(any.direction())
         );
@@ -74,9 +76,9 @@ public final class LineIntersectPointTest {
      */
     @Test
     public void buildsAPointInLinesWhenVertical() {
-        final Line any = new PtDirLine(new RandomPoint(), new VertPoint());
-        final Line vertical = new PtDirLine(
-            new RandomPoint(), new DifferentPoint(any.direction())
+        final Line vertical = new VerticalLine();
+        final Line any = new PtDirLine(
+            new RandomPoint(), new DifferentPoint(vertical.direction())
         );
         final LineIntersectPoint pnt = new LineIntersectPoint(any, vertical);
         final LineIntersectPoint other = new LineIntersectPoint(vertical, any);
@@ -106,7 +108,7 @@ public final class LineIntersectPointTest {
     @Test
     public void errorsIfparallel() {
         this.thrown.expect(IllegalStateException.class);
-        final Line any = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line any = new RandomLine();
         final LineIntersectPoint pnt = new LineIntersectPoint(
             any, new PtDirLine(new RandomPoint(), any.direction())
         );

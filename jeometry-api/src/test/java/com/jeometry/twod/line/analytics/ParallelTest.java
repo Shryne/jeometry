@@ -26,6 +26,7 @@ package com.jeometry.twod.line.analytics;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.point.DifferentPoint;
 import com.jeometry.twod.point.RandomPoint;
 import com.jeometry.twod.point.VertPoint;
@@ -76,7 +77,7 @@ public final class ParallelTest {
      */
     @Test
     public void resolvesFalseIfDifferentDirs() {
-        final Line any = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line any = new RandomLine();
         MatcherAssert.assertThat(
             new Parallel(
                 any,
@@ -93,7 +94,7 @@ public final class ParallelTest {
      */
     @Test
     public void resolvesTrueIfSameDirs() {
-        final Line any = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line any = new RandomLine();
         MatcherAssert.assertThat(
             new Parallel(
                 any, new PtDirLine(new RandomPoint(), any.direction())

@@ -27,7 +27,7 @@ import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.vector.VectEquals;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtsLine;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.point.LineReflectionPoint;
 import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
@@ -48,7 +48,7 @@ public final class LineReflectionCircleTest {
     @Test
     public void buildsReflectedCircle() {
         final RandomPoint center = new RandomPoint();
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         final Circle input = new PtsCircle(center, new RandomPoint());
         final Circle result = new LineReflectionCircle(line, input);
         final Field<Double> dec = new Decimal();

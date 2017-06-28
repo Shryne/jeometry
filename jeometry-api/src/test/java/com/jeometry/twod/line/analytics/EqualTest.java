@@ -27,9 +27,9 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
 import com.jeometry.twod.line.PtsLine;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.point.InLinePoint;
 import com.jeometry.twod.point.OutsideLinePoint;
-import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public final class EqualTest {
      */
     @Test
     public void resolvesTrueIfSameLine() {
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         MatcherAssert.assertThat(
             new Equal(line, line).resolve(new Decimal()),
             Matchers.is(true)
@@ -59,7 +59,7 @@ public final class EqualTest {
      */
     @Test
     public void resolvesTrueIfEqualLines() {
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         MatcherAssert.assertThat(
             new Equal(
                 line, new PtsLine(new InLinePoint(line), new InLinePoint(line))
@@ -73,7 +73,7 @@ public final class EqualTest {
      */
     @Test
     public void resolvesFalseIfOnlyParallel() {
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         MatcherAssert.assertThat(
             new Equal(
                 line,

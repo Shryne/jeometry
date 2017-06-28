@@ -28,7 +28,7 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PerpBisector;
-import com.jeometry.twod.line.PtsLine;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.line.analytics.Equal;
 import com.jeometry.twod.segment.PtsSegment;
 import org.hamcrest.MatcherAssert;
@@ -50,7 +50,7 @@ public final class LineReflectionPointTest {
     @Test
     public void buildsReflectedPoint() {
         final Vect input = new RandomPoint();
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         final Field<Double> field = new Decimal();
         MatcherAssert.assertThat(
             new Equal(

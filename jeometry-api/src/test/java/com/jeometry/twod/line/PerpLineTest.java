@@ -28,7 +28,6 @@ import com.aljebra.metric.angle.VectsDegrees;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.point.RandomPoint;
-import com.jeometry.twod.point.VertPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public final class PerpLineTest {
      */
     @Test
     public void buildsPerpendicularLine() {
-        final Line line = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectsDegrees(
@@ -64,7 +63,7 @@ public final class PerpLineTest {
      */
     @Test
     public void buildsPerpendicularToVerticalLine() {
-        final Line line = new PtDirLine(new RandomPoint(), new VertPoint());
+        final Line line = new VerticalLine();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectsDegrees(
@@ -82,7 +81,7 @@ public final class PerpLineTest {
      */
     @Test
     public void buildsPerpendicularPassingBy() {
-        final Line line = new PtDirLine(new RandomPoint(), new VertPoint());
+        final Line line = new RandomLine();
         final Vect pnt = new RandomPoint();
         final Line perp = new PerpLine(line, pnt);
         final double error = 1.e-6;

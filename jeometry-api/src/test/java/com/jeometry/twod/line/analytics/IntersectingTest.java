@@ -26,6 +26,7 @@ package com.jeometry.twod.line.analytics;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.point.DifferentPoint;
 import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
@@ -46,7 +47,7 @@ public final class IntersectingTest {
      */
     @Test
     public void resolvesTrueWhenDifferentDirs() {
-        final Line any = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line any = new RandomLine();
         MatcherAssert.assertThat(
             new Intersecting(
                 any, new PtDirLine(
@@ -62,7 +63,7 @@ public final class IntersectingTest {
      */
     @Test
     public void resolvesFalseWhenSameDirs() {
-        final Line any = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line any = new RandomLine();
         MatcherAssert.assertThat(
             new Intersecting(
                 any, new PtDirLine(new RandomPoint(), any.direction())

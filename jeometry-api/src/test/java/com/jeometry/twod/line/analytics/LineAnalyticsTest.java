@@ -24,8 +24,7 @@
 package com.jeometry.twod.line.analytics;
 
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtDirLine;
-import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.line.RandomLine;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -43,7 +42,7 @@ public final class LineAnalyticsTest {
      */
     @Test
     public void resolvesGivesAnalyticsAccess() {
-        final Line line = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         final LineAnalytics analytics = new LineAnalytics(line);
         MatcherAssert.assertThat(
             analytics.slope(), Matchers.equalTo(new Slope(line))

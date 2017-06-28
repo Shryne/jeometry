@@ -28,7 +28,7 @@ import com.aljebra.metric.angle.VectsDegrees;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtsLine;
-import com.jeometry.twod.line.analytics.Parallel;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.line.analytics.PointInLine;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -48,7 +48,7 @@ public final class ProjectionPointTest {
      */
     @Test
     public void buildsBelongingPoint() {
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         MatcherAssert.assertThat(
             new PointInLine(
                 new ProjectionPoint(line, new RandomPoint(), new RandomPoint()),
@@ -64,20 +64,21 @@ public final class ProjectionPointTest {
      */
     @Test
     public void makesParallelLine() {
-        final Line dir = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line dir = new RandomLine();
         final Vect input = new RandomPoint();
+        final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Parallel(
+            new VectsDegrees(
                 new PtsLine(
-                    input,
-                    new ProjectionPoint(
-                        new PtsLine(new RandomPoint(), new RandomPoint()),
-                        dir, input
-                    )
-                ),
-                dir
-            ).resolve(new Decimal()),
-            Matchers.is(true)
+                    input, new ProjectionPoint(new RandomLine(), dir, input)
+                ).direction(),
+                dir.direction()
+            ).resolve(new Decimal().product()).doubleValue(),
+            Matchers.anyOf(
+                Matchers.closeTo(0., error),
+                Matchers.closeTo(-Math.PI, error),
+                Matchers.closeTo(Math.PI, error)
+            )
         );
     }
 
@@ -86,7 +87,7 @@ public final class ProjectionPointTest {
      */
     @Test
     public void buildsOrthogonalProjection() {
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         final Vect input = new RandomPoint();
         final double error = 1.e-6;
         MatcherAssert.assertThat(

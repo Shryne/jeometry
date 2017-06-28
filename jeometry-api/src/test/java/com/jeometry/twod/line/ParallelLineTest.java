@@ -28,7 +28,6 @@ import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.analytics.Parallel;
 import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.point.RandomPoint;
-import com.jeometry.twod.point.VertPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public final class ParallelLineTest {
      */
     @Test
     public void buildsParallelLine() {
-        final Line line = new PtDirLine(new RandomPoint(), new RandomPoint());
+        final Line line = new RandomLine();
         MatcherAssert.assertThat(
             new Parallel(line, new ParallelLine(line)).resolve(new Decimal()),
             Matchers.equalTo(true)
@@ -58,7 +57,7 @@ public final class ParallelLineTest {
      */
     @Test
     public void buildsParallelToVerticalLine() {
-        final Line line = new PtDirLine(new RandomPoint(), new VertPoint());
+        final Line line = new VerticalLine();
         MatcherAssert.assertThat(
             new Parallel(line, new ParallelLine(line)).resolve(new Decimal()),
             Matchers.equalTo(true)
@@ -70,7 +69,7 @@ public final class ParallelLineTest {
      */
     @Test
     public void buildsParallelPassingBy() {
-        final Line line = new PtDirLine(new RandomPoint(), new VertPoint());
+        final Line line = new RandomLine();
         final Vect pnt = new RandomPoint();
         final ParallelLine parallel = new ParallelLine(line, pnt);
         final Decimal dec = new Decimal();

@@ -25,7 +25,7 @@ package com.jeometry.twod.point;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtsLine;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.line.analytics.PointInLine;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -44,7 +44,7 @@ public final class InLinePointTest {
      */
     @Test
     public void buildsAPointInLine() {
-        final Line any = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line any = new RandomLine();
         MatcherAssert.assertThat(
             new PointInLine(new InLinePoint(any), any).resolve(new Decimal()),
             Matchers.is(true)
