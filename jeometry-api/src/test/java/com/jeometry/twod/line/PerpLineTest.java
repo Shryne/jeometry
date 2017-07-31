@@ -24,8 +24,8 @@
 package com.jeometry.twod.line;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.metric.angle.VectsDegrees;
 import com.aljebra.vector.Vect;
+import com.jeometry.twod.line.analytics.Perpendicular;
 import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
@@ -46,15 +46,9 @@ public final class PerpLineTest {
     @Test
     public void buildsPerpendicularLine() {
         final Line line = new RandomLine();
-        final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
-                line.direction(), new PerpLine(line).direction()
-            ).resolve(new Decimal().product()).doubleValue(),
-            Matchers.anyOf(
-                Matchers.closeTo(Math.PI / 2, error),
-                Matchers.closeTo(-Math.PI / 2, error)
-            )
+            new Perpendicular(line, new PerpLine(line)).resolve(new Decimal()),
+            Matchers.is(true)
         );
     }
 
@@ -64,15 +58,9 @@ public final class PerpLineTest {
     @Test
     public void buildsPerpendicularToVerticalLine() {
         final Line line = new VerticalLine();
-        final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
-                line.direction(), new PerpLine(line).direction()
-            ).resolve(new Decimal().product()).doubleValue(),
-            Matchers.anyOf(
-                Matchers.closeTo(Math.PI / 2, error),
-                Matchers.closeTo(-Math.PI / 2, error)
-            )
+            new Perpendicular(line, new PerpLine(line)).resolve(new Decimal()),
+            Matchers.is(true)
         );
     }
 
@@ -84,18 +72,13 @@ public final class PerpLineTest {
         final Line line = new RandomLine();
         final Vect pnt = new RandomPoint();
         final Line perp = new PerpLine(line, pnt);
-        final double error = 1.e-6;
+        final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new VectsDegrees(
-                line.direction(), perp.direction()
-            ).resolve(new Decimal().product()).doubleValue(),
-            Matchers.anyOf(
-                Matchers.closeTo(Math.PI / 2, error),
-                Matchers.closeTo(-Math.PI / 2, error)
-            )
+            new Perpendicular(line, perp).resolve(field),
+            Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(pnt, perp).resolve(new Decimal()),
+            new PointInLine(pnt, perp).resolve(field),
             Matchers.equalTo(true)
         );
     }

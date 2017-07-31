@@ -24,8 +24,8 @@
 package com.jeometry.twod.line;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.metric.angle.VectsDegrees;
 import com.aljebra.scalar.Scalar;
+import com.jeometry.twod.line.analytics.Perpendicular;
 import com.jeometry.twod.point.LineIntersectPoint;
 import com.jeometry.twod.point.RandomPoint;
 import com.jeometry.twod.segment.PtsSegment;
@@ -50,15 +50,11 @@ public final class PerpBisectorTest {
         final Segment seg = new PtsSegment(
             new RandomPoint(), new RandomPoint()
         );
-        final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
-                new SgtLine(seg).direction(), new PerpBisector(seg).direction()
-            ).resolve(new Decimal().product()).doubleValue(),
-            Matchers.anyOf(
-                Matchers.closeTo(Math.PI / 2, error),
-                Matchers.closeTo(-Math.PI / 2, error)
-            )
+            new Perpendicular(
+                new SgtLine(seg), new PerpBisector(seg)
+            ).resolve(new Decimal()),
+            Matchers.is(true)
         );
     }
 

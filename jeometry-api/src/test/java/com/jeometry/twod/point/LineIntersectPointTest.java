@@ -24,8 +24,9 @@
 package com.jeometry.twod.point;
 
 import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.twod.line.IntersectingLine;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.line.ParallelLine;
 import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.line.VerticalLine;
 import com.jeometry.twod.line.analytics.PointInLine;
@@ -55,9 +56,7 @@ public final class LineIntersectPointTest {
     @Test
     public void buildsAPointInLines() {
         final Line any = new RandomLine();
-        final Line other = new PtDirLine(
-            new RandomPoint(), new DifferentPoint(any.direction())
-        );
+        final Line other = new IntersectingLine(any);
         final LineIntersectPoint pnt = new LineIntersectPoint(any, other);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
@@ -77,9 +76,7 @@ public final class LineIntersectPointTest {
     @Test
     public void buildsAPointInLinesWhenVertical() {
         final Line vertical = new VerticalLine();
-        final Line any = new PtDirLine(
-            new RandomPoint(), new DifferentPoint(vertical.direction())
-        );
+        final Line any = new IntersectingLine(vertical);
         final LineIntersectPoint pnt = new LineIntersectPoint(any, vertical);
         final LineIntersectPoint other = new LineIntersectPoint(vertical, any);
         final Decimal field = new Decimal();
@@ -110,7 +107,7 @@ public final class LineIntersectPointTest {
         this.thrown.expect(IllegalStateException.class);
         final Line any = new RandomLine();
         final LineIntersectPoint pnt = new LineIntersectPoint(
-            any, new PtDirLine(new RandomPoint(), any.direction())
+            any, new ParallelLine(any)
         );
         new PointInLine(pnt, any).resolve(new Decimal());
     }

@@ -24,11 +24,11 @@
 package com.jeometry.twod.point;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.metric.angle.VectsDegrees;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtsLine;
-import com.jeometry.twod.line.RandomLine;
+import com.jeometry.twod.line.analytics.Parallel;
+import com.jeometry.twod.line.analytics.Perpendicular;
 import com.jeometry.twod.line.analytics.PointInLine;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -48,7 +48,7 @@ public final class ProjectionPointTest {
      */
     @Test
     public void buildsBelongingPoint() {
-        final Line line = new RandomLine();
+        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
         MatcherAssert.assertThat(
             new PointInLine(
                 new ProjectionPoint(line, new RandomPoint(), new RandomPoint()),
@@ -64,21 +64,19 @@ public final class ProjectionPointTest {
      */
     @Test
     public void makesParallelLine() {
-        final Line dir = new RandomLine();
+        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
         final Vect input = new RandomPoint();
-        final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
+            new Parallel(
                 new PtsLine(
-                    input, new ProjectionPoint(new RandomLine(), dir, input)
-                ).direction(),
-                dir.direction()
-            ).resolve(new Decimal().product()).doubleValue(),
-            Matchers.anyOf(
-                Matchers.closeTo(0., error),
-                Matchers.closeTo(-Math.PI, error),
-                Matchers.closeTo(Math.PI, error)
-            )
+                    input,
+                    new ProjectionPoint(
+                        new PtsLine(new RandomPoint(), new RandomPoint()),
+                        line, input
+                    )
+                ), line
+            ).resolve(new Decimal()),
+            Matchers.is(true)
         );
     }
 
@@ -87,20 +85,15 @@ public final class ProjectionPointTest {
      */
     @Test
     public void buildsOrthogonalProjection() {
-        final Line line = new RandomLine();
+        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
         final Vect input = new RandomPoint();
-        final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
+            new Perpendicular(
                 new PtsLine(
                     input, new ProjectionPoint(line, input)
-                ).direction(),
-                line.direction()
-            ).resolve(new Decimal().product()).doubleValue(),
-            Matchers.anyOf(
-                Matchers.closeTo(Math.PI / 2, error),
-                Matchers.closeTo(-Math.PI / 2, error)
-            )
+                ), line
+            ).resolve(new Decimal()),
+            Matchers.is(true)
         );
     }
 
