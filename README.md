@@ -11,7 +11,7 @@ It provides a simple API to:
 jeometry is easily extensible for a developer who wants to enhance the library with custom shapes, as well as to add more geometric figure output medium (for example: svg file, but there is no limit to imagination).
 
 
-#Quick start
+# Quick start
 Before digging into deeper details, let's begin with a quick start to clarify what could jeometry be about.
 Supposing we have this geometric figure to draw:
 
@@ -69,7 +69,7 @@ new Awt().render(figure);
 will produce this window:
 <img alt="Figure on screen" src="https://github.com/HDouss/jeometry/blob/gh-pages/images/sample1.png" />
 
-#Project structure
+# Project structure
 jeometry is a maven project divided into 3 sub modules:
 * `aljebra`: `aljebra` is a standalone module that defines abstract [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) concepts such as [fields](https://en.wikipedia.org/wiki/Field_(mathematics)), [ordered fields](https://en.wikipedia.org/wiki/Ordered_field), [scalars](https://en.wikipedia.org/wiki/Scalar_(mathematics)), [vectors](https://en.wikipedia.org/wiki/Vector_(mathematics_and_physics)), [matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics))...
 * `jeometry-api`: an `aljebra` dependent module that defines common geometric shapes. The only (mathematic) assumption in these definitions is that we operate in a 2D [vector space](https://en.wikipedia.org/wiki/Vector_space). Scalars manipulated in this module are abstract and could theoretically be elements of any mathematical field (they are not necessarily real numbers)
