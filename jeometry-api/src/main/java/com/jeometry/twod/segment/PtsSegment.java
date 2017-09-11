@@ -33,7 +33,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public  class PtsSegment implements Segment {
+public class PtsSegment implements Segment {
 
     /**
      * First segment extremity.
