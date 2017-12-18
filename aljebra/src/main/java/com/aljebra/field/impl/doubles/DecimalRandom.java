@@ -23,7 +23,7 @@
  */
 package com.aljebra.field.impl.doubles;
 
-import com.aljebra.field.OrderedRandomizer;
+import com.aljebra.field.OrderedRandom;
 import java.util.Random;
 
 /**
@@ -33,7 +33,7 @@ import java.util.Random;
  * @version $Id$
  * @since 0.1
  */
-public final class DecimalRandomizer implements OrderedRandomizer<Double> {
+public final class DecimalRandom implements OrderedRandom<Double> {
 
     /**
      * Minimum value to generate when randomizing a double.
@@ -55,7 +55,7 @@ public final class DecimalRandomizer implements OrderedRandomizer<Double> {
      * @param min Minimum value to generate when randomizing a double
      * @param max Maximum value to generate when randomizing a double
      */
-    public DecimalRandomizer(final double min, final double max) {
+    public DecimalRandom(final double min, final double max) {
         this.min = min;
         this.max = max;
         this.rand = new Random();

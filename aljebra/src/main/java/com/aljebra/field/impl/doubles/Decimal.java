@@ -26,7 +26,7 @@ package com.aljebra.field.impl.doubles;
 import com.aljebra.field.AbstractOrderedField;
 import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
-import com.aljebra.field.OrderedRandomizer;
+import com.aljebra.field.OrderedRandom;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.scalar.Scalar;
 
@@ -57,14 +57,14 @@ public final class Decimal
      * Constructor.
      */
     public Decimal() {
-        this(new DecimalRandomizer(Decimal.MINBOUND, Decimal.MAXBOUND));
+        this(new DecimalRandom(Decimal.MINBOUND, Decimal.MAXBOUND));
     }
 
     /**
      * Constructor.
      * @param rand Randomizer
      */
-    public Decimal(final OrderedRandomizer<Double> rand) {
+    public Decimal(final OrderedRandom<Double> rand) {
         super(new DblAddition(), new DblMult(), rand);
     }
 

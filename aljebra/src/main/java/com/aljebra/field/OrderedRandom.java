@@ -32,7 +32,7 @@ package com.aljebra.field;
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */
-public interface OrderedRandomizer<T> {
+public interface OrderedRandom<T> {
 
     /**
      * Generates a random scalar "between" two other scalars. The word "between"

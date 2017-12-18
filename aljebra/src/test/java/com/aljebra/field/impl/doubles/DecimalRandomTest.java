@@ -30,12 +30,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * Tests for {@link DecimalRandomizer}.
+ * Tests for {@link DecimalRandom}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DecimalRandomizerTest {
+public final class DecimalRandomTest {
 
     /**
      * Minimal double bound.
@@ -58,10 +58,10 @@ public final class DecimalRandomizerTest {
      */
     @Test
     public void returnsLowerDouble() {
-        final DecimalRandomizer rand = new DecimalRandomizer(
-            DecimalRandomizerTest.MIN, DecimalRandomizerTest.MAX
+        final DecimalRandom rand = new DecimalRandom(
+            DecimalRandomTest.MIN, DecimalRandomTest.MAX
         );
-        final Double value = DecimalRandomizerTest.random();
+        final Double value = DecimalRandomTest.random();
         MatcherAssert.assertThat(
             rand.lower(value), Matchers.lessThanOrEqualTo(value)
         );
@@ -72,10 +72,10 @@ public final class DecimalRandomizerTest {
      */
     @Test
     public void returnsGreaterDouble() {
-        final DecimalRandomizer rand = new DecimalRandomizer(
-            DecimalRandomizerTest.MIN, DecimalRandomizerTest.MAX
+        final DecimalRandom rand = new DecimalRandom(
+            DecimalRandomTest.MIN, DecimalRandomTest.MAX
         );
-        final Double value = DecimalRandomizerTest.random();
+        final Double value = DecimalRandomTest.random();
         MatcherAssert.assertThat(
             rand.greater(value), Matchers.greaterThanOrEqualTo(value)
         );
@@ -86,10 +86,10 @@ public final class DecimalRandomizerTest {
      */
     @Test
     public void returnsBetweenDouble() {
-        final DecimalRandomizer rand = new DecimalRandomizer(
-            DecimalRandomizerTest.MIN, DecimalRandomizerTest.MAX
+        final DecimalRandom rand = new DecimalRandom(
+            DecimalRandomTest.MIN, DecimalRandomTest.MAX
         );
-        final Double value = DecimalRandomizerTest.random();
+        final Double value = DecimalRandomTest.random();
         MatcherAssert.assertThat(
             rand.between(value, value + 1),
             Matchers.allOf(
@@ -104,10 +104,10 @@ public final class DecimalRandomizerTest {
      */
     @Test
     public void returnsBetweenEqualDouble() {
-        final DecimalRandomizer rand = new DecimalRandomizer(
-            DecimalRandomizerTest.MIN, DecimalRandomizerTest.MAX
+        final DecimalRandom rand = new DecimalRandom(
+            DecimalRandomTest.MIN, DecimalRandomTest.MAX
         );
-        final Double value = DecimalRandomizerTest.random();
+        final Double value = DecimalRandomTest.random();
         MatcherAssert.assertThat(
             rand.between(value, value),
             Matchers.equalTo(value)
@@ -121,10 +121,10 @@ public final class DecimalRandomizerTest {
     @Test
     public void errorsWhenLowerGreaterThanUpper() {
         this.thrown.expect(IllegalArgumentException.class);
-        final DecimalRandomizer rand = new DecimalRandomizer(
-            DecimalRandomizerTest.MIN, DecimalRandomizerTest.MAX
+        final DecimalRandom rand = new DecimalRandom(
+            DecimalRandomTest.MIN, DecimalRandomTest.MAX
         );
-        final Double value = DecimalRandomizerTest.random();
+        final Double value = DecimalRandomTest.random();
         rand.between(value, value - 1);
     }
 
@@ -134,7 +134,7 @@ public final class DecimalRandomizerTest {
      */
     private static Double random() {
         return Math.random()
-            * (DecimalRandomizerTest.MAX - DecimalRandomizerTest.MIN)
-            + DecimalRandomizerTest.MIN;
+            * (DecimalRandomTest.MAX - DecimalRandomTest.MIN)
+            + DecimalRandomTest.MIN;
     }
 }

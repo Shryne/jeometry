@@ -23,7 +23,7 @@
  */
 package com.aljebra.field.impl.doubles;
 
-import com.aljebra.field.OrderedRandomizer;
+import com.aljebra.field.OrderedRandom;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import java.util.Random;
@@ -53,7 +53,7 @@ public final class DecimalTest {
      */
     @Test
     public void returnsDifferentScalar() {
-        final OrderedRandomizer<Double> rand = DecimalTest.randomizer();
+        final OrderedRandom<Double> rand = DecimalTest.randomizer();
         final Decimal field = new Decimal(rand);
         final double first = new Random().nextDouble();
         final Scalar scalar = new Scalar.Default<Double>(first);
@@ -95,7 +95,7 @@ public final class DecimalTest {
      */
     @Test
     public void delegatesRandomization() {
-        final OrderedRandomizer<Double> rand = DecimalTest.randomizer();
+        final OrderedRandom<Double> rand = DecimalTest.randomizer();
         final Decimal field = new Decimal(rand);
         final Default<Double> zero = new Scalar.Default<Double>(0.);
         field.between(zero, zero);
@@ -111,7 +111,7 @@ public final class DecimalTest {
      * @return A mocked double randomizer
      */
     @SuppressWarnings("unchecked")
-    private static OrderedRandomizer<Double> randomizer() {
-        return Mockito.mock(OrderedRandomizer.class);
+    private static OrderedRandom<Double> randomizer() {
+        return Mockito.mock(OrderedRandom.class);
     }
 }

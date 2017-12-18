@@ -26,7 +26,7 @@ package com.aljebra.field;
 import com.aljebra.scalar.Scalar;
 
 /**
- * Abstract Ordered Field implementation based on {@link OrderedRandomizer}
+ * Abstract Ordered Field implementation based on {@link OrderedRandom}
  * for scalar randomization.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
@@ -39,7 +39,7 @@ public abstract class AbstractOrderedField<T> extends
     /**
      * Randomizer.
      */
-    private final OrderedRandomizer<T> random;
+    private final OrderedRandom<T> random;
 
     /**
      * Constructor.
@@ -48,7 +48,7 @@ public abstract class AbstractOrderedField<T> extends
      * @param random Ordered randomizer implementation
      */
     public AbstractOrderedField(final FieldAddition<T> add,
-        final FieldMultiplication<T> mul, final OrderedRandomizer<T> random) {
+        final FieldMultiplication<T> mul, final OrderedRandom<T> random) {
         super(add, mul);
         this.random = random;
     }
