@@ -55,9 +55,9 @@ public final class Circles {
         final double rdxtwo = 3.;
         final double rdxthree = 5.;
         final Figure figure = new Figure()
-            .add(new DblCircle(rdxone, pointa))
-            .add(new DblCircle(rdxtwo, pointb))
-            .add(new DblCircle(rdxthree, pointc))
+            .add(new DblCircle(pointa, rdxone))
+            .add(new DblCircle(pointb, rdxtwo))
+            .add(new DblCircle(pointc, rdxthree))
             .add(pointa).add(pointb).add(pointc);
         final Awt awt = new Awt().withSize(50, 50);
         awt.render(figure);
