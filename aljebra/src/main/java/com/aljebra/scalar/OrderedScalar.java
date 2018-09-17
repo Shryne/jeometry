@@ -23,43 +23,33 @@
  */
 package com.aljebra.scalar;
 
+import com.aljebra.field.Field;
 import com.aljebra.field.OrderedField;
-import java.util.Optional;
-import lombok.ToString;
 
 /**
- * A random scalar that is greater than another one.
+ * Scalar interface.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-public final class Greater implements OrderedScalar {
+public interface OrderedScalar extends Scalar {
 
     /**
-     * Random generated scalar.
+     * Return the actual value of the scalar.
+     * @param field Scalar field
+     * @param <T> Scalar object type
+     * @return An object representing the scalar
      */
-    private Optional<Scalar> generated;
+    <T> T value(final OrderedField<T> field);
 
-    /**
-     * Scalar to be greater to.
-     */
-    private final Scalar lower;
-
-    /**
-     * Constructor.
-     * @param lower Scalar to be greater to
-     */
-    public Greater(final Scalar lower) {
-        this.lower = lower;
-        this.generated = Optional.empty();
-    }
     @Override
-    public <T> T value(final OrderedField<T> field) {
-        if (!this.generated.isPresent()) {
-            this.generated = Optional.of(field.greater(this.lower));
+    default <T> T value(final Field<T> field) {
+        if (field instanceof OrderedField<?>) {
+            return this.value((OrderedField<T>) field);
+        } else {
+            throw new UnsupportedOperationException(
+                String.format("Field %s is not an ordered field", field)
+            );
         }
-        return field.actual(this.generated.get());
     }
-
 }

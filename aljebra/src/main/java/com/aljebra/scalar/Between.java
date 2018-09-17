@@ -23,7 +23,6 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.OrderedField;
 import java.util.Optional;
 import lombok.ToString;
@@ -35,7 +34,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Between implements Scalar {
+public final class Between implements OrderedScalar {
 
     /**
      * Random generated scalar.
@@ -62,18 +61,12 @@ public final class Between implements Scalar {
         this.greater = greater;
         this.generated = Optional.empty();
     }
+
     @Override
-    public <T> T value(final Field<T> field) {
-        if (field instanceof OrderedField<?>) {
-            final OrderedField<T> ordered = (OrderedField<T>) field;
-            if (!this.generated.isPresent()) {
-                this.generated = Optional.of(
-                    ordered.between(this.lower, this.greater)
-                );
-            }
-        } else {
-            throw new UnsupportedOperationException(
-                String.format("Field %s is not an ordered field", field)
+    public <T> T value(final OrderedField<T> field) {
+        if (!this.generated.isPresent()) {
+            this.generated = Optional.of(
+                field.between(this.lower, this.greater)
             );
         }
         return field.actual(this.generated.get());
