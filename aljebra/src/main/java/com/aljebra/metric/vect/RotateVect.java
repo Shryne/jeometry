@@ -23,9 +23,9 @@
  */
 package com.aljebra.metric.vect;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.metric.angle.Degrees;
+import com.aljebra.metric.scalar.MetricScalar;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
@@ -84,22 +84,12 @@ public final class RotateVect extends FixedVector {
      */
     private static Scalar coord(final Vect vector, final Degrees angle,
         final int dim) {
-        return new Scalar() {
+        return new MetricScalar() {
             @Override
-            public <T> T value(final Field<T> field) {
-                if (field instanceof MetricSpaceField<?>) {
-                    final MetricSpaceField<T> metric =
-                        (MetricSpaceField<T>) field;
-                    return field.actual(
-                        metric.product().rot(vector, angle).coords()[dim]
-                    );
-                } else {
-                    throw new UnsupportedOperationException(
-                        String.format(
-                            "Field %s is not a metric space field", field
-                        )
-                    );
-                }
+            public <T> T value(final MetricSpaceField<T> field) {
+                return field.actual(
+                    field.product().rot(vector, angle).coords()[dim]
+                );
             }
         };
     }

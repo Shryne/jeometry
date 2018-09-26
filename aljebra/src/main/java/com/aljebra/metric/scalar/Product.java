@@ -24,9 +24,7 @@
 package com.aljebra.metric.scalar;
 
 import com.aljebra.aspects.DimensionsEqual;
-import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
-import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -40,7 +38,7 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Product implements Scalar {
+public final class Product implements MetricScalar {
 
     /**
      * First operand.
@@ -64,17 +62,8 @@ public final class Product implements Scalar {
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
-        if (field instanceof MetricSpaceField<?>) {
-            final MetricSpaceField<T> metric = (MetricSpaceField<T>) field;
-            return field.actual(
-                metric.product().product(this.first, this.second)
-            );
-        } else {
-            throw new UnsupportedOperationException(
-                String.format("Field %s is not a metric space field", field)
-            );
-        }
+    public <T> T value(final MetricSpaceField<T> field) {
+        return field.actual(field.product().product(this.first, this.second));
     }
 
 }

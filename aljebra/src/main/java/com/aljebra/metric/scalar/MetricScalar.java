@@ -23,36 +23,34 @@
  */
 package com.aljebra.metric.scalar;
 
+import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
-import com.aljebra.vector.Vect;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.aljebra.scalar.Scalar;
 
 /**
- * A scalar representing the norm of a vector.
+ * Metric Scalar interface.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@EqualsAndHashCode
-@ToString(includeFieldNames = false)
-public final class Norm implements MetricScalar {
+public interface MetricScalar extends Scalar {
 
     /**
-     * Vector.
+     * Return the actual value of the scalar.
+     * @param field Scalar field
+     * @param <T> Scalar object type
+     * @return An object representing the scalar
      */
-    private final Vect vector;
+    <T> T value(final MetricSpaceField<T> field);
 
-    /**
-     * Constructor.
-     * @param vector Vector for which to calculate the norm
-     */
-    public Norm(final Vect vector) {
-        this.vector = vector;
-    }
     @Override
-    public <T> T value(final MetricSpaceField<T> field) {
-        return field.actual(field.product().norm(this.vector));
+    default <T> T value(final Field<T> field) {
+        if (field instanceof MetricSpaceField<?>) {
+            return this.value((MetricSpaceField<T>) field);
+        } else {
+            throw new UnsupportedOperationException(
+                String.format("Field %s is not a metric space field", field)
+            );
+        }
     }
-
 }
