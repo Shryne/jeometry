@@ -27,7 +27,7 @@ import com.aljebra.field.Field;
 import com.aljebra.field.OrderedField;
 
 /**
- * Scalar interface.
+ * Ordered Scalar interface.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
