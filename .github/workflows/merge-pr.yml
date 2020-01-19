@@ -12,6 +12,12 @@ jobs:
     - name: Merge master
       run: |
         git merge origin/master
+    - name: setup headless environment
+      run: |
+        export DISPLAY=':99.0'
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+    - name: Run Maven build
+      run: |
         mvn clean install
     - name: Push to master
       uses: devmasx/merge-branch@v1.1.0
