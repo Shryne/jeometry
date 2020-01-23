@@ -23,10 +23,12 @@
  */
 package com.jeometry.twod;
 
+import com.jeometry.twod.style.Style;
+import com.jeometry.twod.style.impl.DefaultStyle;
 import lombok.ToString;
 
 /**
- * Represents a Shape. A shape is a named {@link Renderable}.
+ * Represents a Shape. A shape is a {@link Renderable} with rendering options.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -50,17 +52,43 @@ public final class Shape {
     private final String symbol;
 
     /**
+     * Renderable style.
+     */
+    private final Style options;
+
+    /**
      * Ctor.
+     * @param rndrable Renderable
+     * @param symbol Renderable name
+     * @param style Renderable style
+     */
+    public Shape(final Renderable rndrable, final String symbol,
+        final Style style) {
+        this.rndrable = rndrable;
+        this.symbol = symbol;
+        this.options = style;
+    }
+
+    /**
+     * Ctor. Builds a named renderable with a default style.
      * @param rndrable Renderable
      * @param symbol Renderable name
      */
     public Shape(final Renderable rndrable, final String symbol) {
-        this.rndrable = rndrable;
-        this.symbol = symbol;
+        this(rndrable, symbol, new DefaultStyle());
     }
 
     /**
-     * Ctor. Builds an anonymous renderable.
+     * Ctor. Builds an anonymous renderable with a the given style.
+     * @param rndrable Renderable
+     * @param style Renderable style
+     */
+    public Shape(final Renderable rndrable, final Style style) {
+        this(rndrable, Shape.NO_NAME, style);
+    }
+
+    /**
+     * Ctor. Builds an anonymous renderable with a default style.
      * @param rndrable Renderable
      */
     public Shape(final Renderable rndrable) {
@@ -89,5 +117,13 @@ public final class Shape {
      */
     public boolean anonymous() {
         return Shape.NO_NAME.equals(this.symbol);
+    }
+
+    /**
+     * Accessor for the renderbale style.
+     * @return The renderable style.
+     */
+    public Style style() {
+        return this.options;
     }
 }
