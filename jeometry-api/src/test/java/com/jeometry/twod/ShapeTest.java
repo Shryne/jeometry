@@ -23,6 +23,8 @@
  */
 package com.jeometry.twod;
 
+import com.jeometry.twod.style.Style;
+import com.jeometry.twod.style.impl.DefaultStyle;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -37,16 +39,18 @@ import org.mockito.Mockito;
 public final class ShapeTest {
 
     /**
-     * {@link Shape} gives access to renderable and name.
+     * {@link Shape} gives access to renderable, style and name.
      */
     @Test
-    public void exposesRenderableAndName() {
+    public void exposesRenderableNameAndStyle() {
         final Renderable rend = Mockito.mock(Renderable.class);
+        final Style style = Mockito.mock(Style.class);
         final String name = "hello";
-        final Shape shape = new Shape(rend, name);
+        final Shape shape = new Shape(rend, name, style);
         MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
         MatcherAssert.assertThat(shape.name(), Matchers.equalTo(name));
         MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(false));
+        MatcherAssert.assertThat(shape.style(), Matchers.equalTo(style));
     }
 
     /**
@@ -60,4 +64,33 @@ public final class ShapeTest {
         MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(true));
     }
 
+    /**
+     * {@link Shape} accepts anonymous renderable with a style.
+     */
+    @Test
+    public void acceptsAnonymousRenderableWithStyle() {
+        final Renderable rend = Mockito.mock(Renderable.class);
+        final Style style = Mockito.mock(Style.class);
+        final Shape shape = new Shape(rend, style);
+        MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
+        MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(shape.style(), Matchers.equalTo(style));
+    }
+
+    /**
+     * {@link Shape} accepts named renderable and gives access to a default
+     * style.
+     */
+    @Test
+    public void acceptsNamedRenderableWithoutStyle() {
+        final Renderable rend = Mockito.mock(Renderable.class);
+        final String name = "default";
+        final Shape shape = new Shape(rend, name);
+        MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
+        MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(false));
+        MatcherAssert.assertThat(shape.name(), Matchers.equalTo(name));
+        MatcherAssert.assertThat(
+            shape.style(), Matchers.instanceOf(DefaultStyle.class)
+        );
+    }
 }
