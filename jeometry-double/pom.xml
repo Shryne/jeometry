@@ -27,9 +27,9 @@
     http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.jeometry</groupId>
+        <groupId>com.github.hdouss</groupId>
         <artifactId>jeometry</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>jeometry-double</artifactId>
     <description>Java Geometry library abstract API</description>
