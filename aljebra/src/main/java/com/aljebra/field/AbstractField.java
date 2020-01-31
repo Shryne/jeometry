@@ -26,7 +26,7 @@ package com.aljebra.field;
 import com.aljebra.scalar.Scalar;
 
 /**
- * Abstract Field implementation based on {@link Default} implementation
+ * Abstract Field implementation based on {@link Scalar.Default} implementation
  * for returning actual scalar objects.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
