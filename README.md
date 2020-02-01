@@ -74,3 +74,16 @@ jeometry is a maven project divided into 3 sub modules:
 * `aljebra`: `aljebra` is a standalone module that defines abstract [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) concepts such as [fields](https://en.wikipedia.org/wiki/Field_(mathematics)), [ordered fields](https://en.wikipedia.org/wiki/Ordered_field), [scalars](https://en.wikipedia.org/wiki/Scalar_(mathematics)), [vectors](https://en.wikipedia.org/wiki/Vector_(mathematics_and_physics)), [matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics))...
 * `jeometry-api`: an `aljebra` dependent module that defines common geometric shapes. The only (mathematic) assumption in these definitions is that we operate in a 2D [vector space](https://en.wikipedia.org/wiki/Vector_space). Scalars manipulated in this module are abstract and could theoretically be elements of any mathematical field (they are not necessarily real numbers)
 * `jeometry-double`: a `jeometry-api` dependent module that defines convenient classes to build shapes with real number scalars (for now implemented as java double). In addition, `jeometry-double` defines the figure `Output` interface and offers an AWT drawing implementation of the geometric figure
+
+# How to contribute
+To contribute, just submit a pull request. The pull request should necessarily resolves an issue. Feel free to create an issue if your pull request does not solve an existing issue. Keep in mind that:
+* The project uses [Qulice](https://www.qulice.com/) 0.16.5 (will upgrade [soon](https://github.com/HDouss/jeometry/milestone/2)) for static analysis quality control
+* Pull requests has a [travis](https://github.com/HDouss/jeometry/blob/master/.travis.yml) build check, and a coveralls test coverage check
+* Coveralls check succeeds if coverage is at least 90%, and if the coverage does not drop from the last check by more than 5% (this will get lowered soon)
+* If the two checks succeeds and code review comments (if any) are resolved, the pull request will be labeled by [`tomerge`](https://github.com/HDouss/jeometry/labels/tomerge). This will trigger a GitHub [workflow](https://github.com/HDouss/jeometry/blob/master/.github/workflows/merge-pr.yml)
+* The pull request merging GitHub workflow will:
+  * Checkout your branch
+  * Merge it locally (inside the container running the workflow) with master branch
+  * Perform a build (`mvn clean install`)
+  * If the build succeeds the PR is merged into master branch
+  * This guarantees that the master branch is always in a succeeding build state
