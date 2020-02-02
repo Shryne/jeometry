@@ -23,7 +23,10 @@
  */
 package com.jeometry.twod.style.impl;
 
+import com.jeometry.twod.style.Dash;
+import com.jeometry.twod.style.Stroke;
 import com.jeometry.twod.style.Style;
+import java.awt.Color;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -42,7 +45,12 @@ public final class DefaultStyleTest {
     @Test
     public void buildsDefaultStyle() {
         final Style style = new DefaultStyle();
-        MatcherAssert.assertThat(style.fillStyle(), Matchers.equalTo(null));
-        MatcherAssert.assertThat(style.strokeStyle(), Matchers.equalTo(null));
+        MatcherAssert.assertThat(
+            style.fillStyle().color().getAlpha(), Matchers.equalTo(0)
+        );
+        final Stroke stroke = style.strokeStyle();
+        MatcherAssert.assertThat(stroke.color(), Matchers.equalTo(Color.BLACK));
+        MatcherAssert.assertThat(stroke.width(), Matchers.equalTo(1.f));
+        MatcherAssert.assertThat(stroke.dash(), Matchers.equalTo(Dash.SOLID));
     }
 }
