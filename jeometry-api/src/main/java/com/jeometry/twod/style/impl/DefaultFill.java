@@ -24,54 +24,39 @@
 package com.jeometry.twod.style.impl;
 
 import com.jeometry.twod.style.Fill;
-import com.jeometry.twod.style.Stroke;
-import com.jeometry.twod.style.Style;
+import java.awt.Color;
 
 /**
- * Default style class.
+ * Default fill style class.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DefaultStyle implements Style {
+public final class DefaultFill implements Fill {
 
     /**
-     * Stroke style.
+     * Stroke color.
      */
-    private final Stroke stroke;
+    private final Color clr;
 
     /**
-     * Fill style.
-     * @return
+     * Ctor. Build a fill style with the passed color.
+     * @param clr Color
      */
-    private final Fill fill;
-
-    /**
-     * Ctor. Builds a style with the passed stroke and fill styles.
-     * @param stroke Stroke style
-     * @param fill Fill style
-     */
-    public DefaultStyle(final Stroke stroke, final Fill fill) {
-        this.stroke = stroke;
-        this.fill = fill;
+    public DefaultFill(final Color clr) {
+        this.clr = clr;
     }
 
     /**
-     * Ctor. Builds a style with a {@link DefaultStroke} and a
-     * {@link DefaultFill}.
+     * Ctor. Builds a transparent color fill style.
      */
-    public DefaultStyle() {
-        this(new DefaultStroke(), new DefaultFill());
+    public DefaultFill() {
+        this(new Color(0, true));
     }
 
     @Override
-    public Stroke strokeStyle() {
-        return this.stroke;
-    }
-
-    @Override
-    public Fill fillStyle() {
-        return this.fill;
+    public Color color() {
+        return this.clr;
     }
 
 }

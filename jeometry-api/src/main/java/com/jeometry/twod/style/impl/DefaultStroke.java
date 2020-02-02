@@ -23,55 +23,65 @@
  */
 package com.jeometry.twod.style.impl;
 
-import com.jeometry.twod.style.Fill;
+import com.jeometry.twod.style.Dash;
 import com.jeometry.twod.style.Stroke;
-import com.jeometry.twod.style.Style;
+import java.awt.Color;
 
 /**
- * Default style class.
+ * Default stroke style class.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DefaultStyle implements Style {
+public final class DefaultStroke implements Stroke {
 
     /**
-     * Stroke style.
+     * Stroke color.
      */
-    private final Stroke stroke;
+    private final Color clr;
 
     /**
-     * Fill style.
-     * @return
+     * Stroke dashing style.
      */
-    private final Fill fill;
+    private final Dash dsh;
 
     /**
-     * Ctor. Builds a style with the passed stroke and fill styles.
-     * @param stroke Stroke style
-     * @param fill Fill style
+     * Stroke width.
      */
-    public DefaultStyle(final Stroke stroke, final Fill fill) {
-        this.stroke = stroke;
-        this.fill = fill;
+    private final float wdth;
+
+    /**
+     * Ctor. Build a stroke style with the passed color, dash pattern and width.
+     * @param clr Color
+     * @param dash Dash pattern
+     * @param width Width
+     */
+    public DefaultStroke(final Color clr, final Dash dash, final float width) {
+        this.clr = clr;
+        this.dsh = dash;
+        this.wdth = width;
     }
 
     /**
-     * Ctor. Builds a style with a {@link DefaultStroke} and a
-     * {@link DefaultFill}.
+     * Ctor. Builds a stroke style with black color, solid style and 1px width.
      */
-    public DefaultStyle() {
-        this(new DefaultStroke(), new DefaultFill());
+    public DefaultStroke() {
+        this(Color.BLACK, Dash.SOLID, 1.f);
     }
 
     @Override
-    public Stroke strokeStyle() {
-        return this.stroke;
+    public float width() {
+        return this.wdth;
     }
 
     @Override
-    public Fill fillStyle() {
-        return this.fill;
+    public Color color() {
+        return this.clr;
+    }
+
+    @Override
+    public Dash dash() {
+        return this.dsh;
     }
 
 }
