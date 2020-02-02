@@ -27,12 +27,12 @@ import com.jeometry.twod.style.Fill;
 import java.awt.Color;
 
 /**
- * Default fill style class.
+ * Fixed color fill style class.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DefaultFill implements Fill {
+public final class FixedColorFill implements Fill {
 
     /**
      * Stroke color.
@@ -43,15 +43,8 @@ public final class DefaultFill implements Fill {
      * Ctor. Build a fill style with the passed color.
      * @param clr Color
      */
-    public DefaultFill(final Color clr) {
+    public FixedColorFill(final Color clr) {
         this.clr = clr;
-    }
-
-    /**
-     * Ctor. Builds a transparent color fill style.
-     */
-    public DefaultFill() {
-        this(new Color(0, true));
     }
 
     @Override

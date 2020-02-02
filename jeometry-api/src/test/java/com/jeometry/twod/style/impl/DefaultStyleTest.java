@@ -23,13 +23,13 @@
  */
 package com.jeometry.twod.style.impl;
 
-import com.jeometry.twod.style.Dash;
+import com.jeometry.twod.style.Fill;
 import com.jeometry.twod.style.Stroke;
 import com.jeometry.twod.style.Style;
-import java.awt.Color;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Tests for {@link DefaultStyle}.
@@ -43,14 +43,39 @@ public final class DefaultStyleTest {
      * {@link DefaultStyle} gives a default stroke and a default fill styles.
      */
     @Test
-    public void buildsDefaultStyle() {
+    public void defaultsToTransparentAndDefaultStroke() {
         final Style style = new DefaultStyle();
         MatcherAssert.assertThat(
-            style.fillStyle().color().getAlpha(), Matchers.equalTo(0)
+            style.fillStyle(), Matchers.instanceOf(TransparentFill.class)
         );
-        final Stroke stroke = style.strokeStyle();
-        MatcherAssert.assertThat(stroke.color(), Matchers.equalTo(Color.BLACK));
-        MatcherAssert.assertThat(stroke.width(), Matchers.equalTo(1.f));
-        MatcherAssert.assertThat(stroke.dash(), Matchers.equalTo(Dash.SOLID));
+        MatcherAssert.assertThat(
+            style.strokeStyle(), Matchers.instanceOf(DefaultStroke.class)
+        );
+    }
+
+    /**
+     * {@link DefaultStyle} accepts fill style and only defaults stroke style.
+     */
+    @Test
+    public void acceptsFillOverride() {
+        final Fill fill = Mockito.mock(Fill.class);
+        final Style style = new DefaultStyle(fill);
+        MatcherAssert.assertThat(style.fillStyle(), Matchers.equalTo(fill));
+        MatcherAssert.assertThat(
+            style.strokeStyle(), Matchers.instanceOf(DefaultStroke.class)
+        );
+    }
+
+    /**
+     * {@link DefaultStyle} accepts stroke style and only defaults fill style.
+     */
+    @Test
+    public void acceptsStrokeOverride() {
+        final Stroke stroke = Mockito.mock(Stroke.class);
+        final Style style = new DefaultStyle(stroke);
+        MatcherAssert.assertThat(style.strokeStyle(), Matchers.equalTo(stroke));
+        MatcherAssert.assertThat(
+            style.fillStyle(), Matchers.instanceOf(TransparentFill.class)
+        );
     }
 }

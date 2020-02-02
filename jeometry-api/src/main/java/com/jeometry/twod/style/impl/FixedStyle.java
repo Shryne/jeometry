@@ -25,40 +25,44 @@ package com.jeometry.twod.style.impl;
 
 import com.jeometry.twod.style.Fill;
 import com.jeometry.twod.style.Stroke;
+import com.jeometry.twod.style.Style;
 
 /**
- * Default style class. A {@link FixedStyle} that defaults to
- * {@link TransparentFill} and {@link DefaultStroke}.
+ * Fixed style class.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DefaultStyle extends FixedStyle {
+public class FixedStyle implements Style {
 
     /**
-     * Ctor. Builds a style with the passed stroke style and the
-     * {@link TransparentFill} fill style.
-     * @param stroke Stroke style
+     * Stroke style.
      */
-    public DefaultStyle(final Stroke stroke) {
-        super(stroke, new TransparentFill());
-    }
+    private final Stroke stroke;
 
     /**
-     * Ctor. Builds a style with the passed fill style and the
-     * {@link DefaultStroke} stroke style.
+     * Fill style.
+     */
+    private final Fill fill;
+
+    /**
+     * Ctor. Builds a style with the passed stroke and fill styles.
+     * @param stroke Stroke style
      * @param fill Fill style
      */
-    public DefaultStyle(final Fill fill) {
-        super(new DefaultStroke(), fill);
+    public FixedStyle(final Stroke stroke, final Fill fill) {
+        this.stroke = stroke;
+        this.fill = fill;
     }
 
-    /**
-     * Ctor. Builds a style with a {@link DefaultStroke} and a
-     * {@link FixedColorFill}.
-     */
-    public DefaultStyle() {
-        this(new DefaultStroke());
+    @Override
+    public final Stroke strokeStyle() {
+        return this.stroke;
+    }
+
+    @Override
+    public final Fill fillStyle() {
+        return this.fill;
     }
 
 }
