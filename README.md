@@ -87,3 +87,15 @@ To contribute, just submit a pull request. The pull request should necessarily r
   * Perform a build (`mvn clean install`)
   * If the build succeeds the PR is merged into master branch
   * This guarantees that the master branch is always in a succeeding build state
+
+# Milestones and release management
+Every issue in the project is assigned to a milestone. [Milestones](https://github.com/HDouss/jeometry/milestones) define the scope of each jeometry version. When all the issues of a milestone are resolved, we close this milestone.
+Closing the milestone will automatically trigger the Release GitHub [workflow](https://github.com/HDouss/jeometry/blob/master/.github/workflows/release.yml). This workflow will:
+* Checkout master branch
+* Update version in pom: run `mvn versions:set -DnewVersion=` with the milestone title as parameter
+* Commit the changes locally
+* Test, package and deploy to [Sonatype](https://central.sonatype.org/) and [Maven Central](https://search.maven.org/)
+* Upon deployment, that commit is tagged and the tag is pushed
+* Generates a description containing the issues of the milestone and creates a GitHub release with it
+* Uploads the package and the javadoc as assets of the GitHub release
+ 
