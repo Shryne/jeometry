@@ -28,60 +28,27 @@ import com.jeometry.twod.style.Stroke;
 import java.awt.Color;
 
 /**
- * Default stroke style class.
+ * Default stroke style class. Defines a stroke style with a solid 1px black
+ * stroke.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 public final class DefaultStroke implements Stroke {
 
-    /**
-     * Stroke color.
-     */
-    private final Color clr;
-
-    /**
-     * Stroke dashing style.
-     */
-    private final Dash dsh;
-
-    /**
-     * Stroke width.
-     */
-    private final float wdth;
-
-    /**
-     * Ctor. Build a stroke style with the passed color, dash pattern and width.
-     * @param clr Color
-     * @param dash Dash pattern
-     * @param width Width
-     */
-    public DefaultStroke(final Color clr, final Dash dash, final float width) {
-        this.clr = clr;
-        this.dsh = dash;
-        this.wdth = width;
-    }
-
-    /**
-     * Ctor. Builds a stroke style with black color, solid style and 1px width.
-     */
-    public DefaultStroke() {
-        this(Color.BLACK, Dash.SOLID, 1.f);
-    }
-
     @Override
     public float width() {
-        return this.wdth;
+        return 1.f;
     }
 
     @Override
     public Color color() {
-        return this.clr;
+        return Color.BLACK;
     }
 
     @Override
     public Dash dash() {
-        return this.dsh;
+        return Dash.SOLID;
     }
 
 }

@@ -23,42 +23,26 @@
  */
 package com.jeometry.twod.style.impl;
 
-import com.jeometry.twod.style.Fill;
-import com.jeometry.twod.style.Stroke;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Default style class. A {@link FixedStyle} that defaults to
- * {@link TransparentFill} and {@link DefaultStroke}.
+ * Tests for {@link TransparentFill}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DefaultStyle extends FixedStyle {
+public final class TransparentFillTest {
 
     /**
-     * Ctor. Builds a style with the passed stroke style and the
-     * {@link TransparentFill} fill style.
-     * @param stroke Stroke style
+     * {@link TransparentFill} gives a zero alpha color.
      */
-    public DefaultStyle(final Stroke stroke) {
-        super(stroke, new TransparentFill());
-    }
-
-    /**
-     * Ctor. Builds a style with the passed fill style and the
-     * {@link DefaultStroke} stroke style.
-     * @param fill Fill style
-     */
-    public DefaultStyle(final Fill fill) {
-        super(new DefaultStroke(), fill);
-    }
-
-    /**
-     * Ctor. Builds a style with a {@link DefaultStroke} and a
-     * {@link FixedColorFill}.
-     */
-    public DefaultStyle() {
-        this(new DefaultStroke());
+    @Test
+    public void respondsWithZeroAlpha() {
+        MatcherAssert.assertThat(
+            new TransparentFill().color().getAlpha(), Matchers.equalTo(0)
+        );
     }
 
 }

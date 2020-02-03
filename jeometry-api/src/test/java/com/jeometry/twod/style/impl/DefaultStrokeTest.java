@@ -23,42 +23,47 @@
  */
 package com.jeometry.twod.style.impl;
 
-import com.jeometry.twod.style.Fill;
-import com.jeometry.twod.style.Stroke;
+import com.jeometry.twod.style.Dash;
+import java.awt.Color;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Default style class. A {@link FixedStyle} that defaults to
- * {@link TransparentFill} and {@link DefaultStroke}.
+ * Tests for {@link DefaultStroke}.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class DefaultStyle extends FixedStyle {
+public final class DefaultStrokeTest {
 
     /**
-     * Ctor. Builds a style with the passed stroke style and the
-     * {@link TransparentFill} fill style.
-     * @param stroke Stroke style
+     * {@link DefaultStroke} gives a 1px width.
      */
-    public DefaultStyle(final Stroke stroke) {
-        super(stroke, new TransparentFill());
+    @Test
+    public void respondsWithOnePixelWidth() {
+        MatcherAssert.assertThat(
+            new DefaultStroke().width(), Matchers.equalTo(1.f)
+        );
     }
 
     /**
-     * Ctor. Builds a style with the passed fill style and the
-     * {@link DefaultStroke} stroke style.
-     * @param fill Fill style
+     * {@link DefaultStroke} gives a black color stroke.
      */
-    public DefaultStyle(final Fill fill) {
-        super(new DefaultStroke(), fill);
+    @Test
+    public void respondsWithBlackStroke() {
+        MatcherAssert.assertThat(
+            new DefaultStroke().color(), Matchers.equalTo(Color.BLACK)
+        );
     }
 
     /**
-     * Ctor. Builds a style with a {@link DefaultStroke} and a
-     * {@link FixedColorFill}.
+     * {@link DefaultStroke} gives a solid stroke.
      */
-    public DefaultStyle() {
-        this(new DefaultStroke());
+    @Test
+    public void respondsSolidStroke() {
+        MatcherAssert.assertThat(
+            new DefaultStroke().dash(), Matchers.equalTo(Dash.SOLID)
+        );
     }
-
 }
