@@ -39,15 +39,15 @@ final Circle circle = new DblCircle(rpoint, 2.);
 final Figure figure = new Figure().add(ppoint)
     .add(lline).add(mline)
     .add(qpoint).add(
-	    new Shape(
-		    nline, new DefaultStyle(new FixedStroke(Color.BLUE, Dash.DASHED, 2f))
-		)
+        new Shape(
+            nline, new DefaultStyle(new FixedStroke(Color.BLUE, Dash.DASHED, 2f))
+        )
     )
     .add(rpoint).add(
-	    new Shape(
-		    circle, new DefaultStyle(new FixedColorFill(Color.RED))
-		)
-	);
+        new Shape(
+            circle, new DefaultStyle(new FixedColorFill(Color.RED))
+        )
+    );
 ```
 Note that this figure will output the Line N with a blue, dashed, 2px width line, and the circle C filled with red color.
 The above code shows some of the jeometry API classes. Let's detail the purpose of these classes:
