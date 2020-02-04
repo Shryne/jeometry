@@ -38,10 +38,18 @@ final XyPoint rpoint = new LineIntersectPoint(lline, nline);
 final Circle circle = new DblCircle(rpoint, 2.);
 final Figure figure = new Figure().add(ppoint)
     .add(lline).add(mline)
-    .add(qpoint).add(nline)
-    .add(rpoint).add(circle);
+    .add(qpoint).add(
+	    new Shape(
+		    nline, new DefaultStyle(new FixedStroke(Color.BLUE, Dash.DASHED, 2f))
+		)
+    )
+    .add(rpoint).add(
+	    new Shape(
+		    circle, new DefaultStyle(new FixedColorFill(Color.RED))
+		)
+	);
 ```
-
+Note that this figure will output the Line N with a blue, dashed, 2px width line, and the circle C filled with red color.
 The above code shows some of the jeometry API classes. Let's detail the purpose of these classes:
 * `RandomPoint`: builds a random 2D point
 * `PtsLine`: builds a line passing by the two points -passed in the constructor-. In our case, they are two random points
@@ -50,6 +58,11 @@ The above code shows some of the jeometry API classes. Let's detail the purpose 
 * `PerpLine`: builds a line that is perpendicular to a line -passed in the constructor- (and optionally passing by a point -passed in the constructor-)
 * `LineIntersectPoint`: builds the point formed by the intersection of the two lines passed in the constructor
 * `DblCircle`: builds a circle with the passed point as its center and the passed `double` as its radius (note here that the prefix `Dbl` is to indicate that the passed radius is a `double`, more details will be given hereafter about that)
+* `Shape`: builds a renderable with a style
+* `DefaultStyle`: builds a default style, with the capability of overriding the filling style, or the stroking style
+* `FixedStroke`: builds a stroking style with a color, a pattern and a width
+* `FixedColorFill`: builds a filling style with the passed color
+
 
 jeometry offers many classes to build geometric shapes for which you can check the javadoc to know how and what each class is for:
 * [Points](https://github.com/HDouss/jeometry/tree/master/jeometry-api/src/main/java/com/jeometry/twod/point)
