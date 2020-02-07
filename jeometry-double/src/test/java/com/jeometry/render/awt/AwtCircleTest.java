@@ -29,6 +29,9 @@ import com.aljebra.vector.FixedVector;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.circle.Circle;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.style.Fill;
+import com.jeometry.twod.style.Stroke;
+import com.jeometry.twod.style.Style;
 import java.awt.Graphics2D;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -58,8 +61,15 @@ public final class AwtCircleTest {
         final AwtCircle painter = new AwtCircle(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(circle));
+        final Style style = Mockito.mock(Style.class);
+        Mockito.when(style.strokeStyle()).thenReturn(
+            Mockito.mock(Stroke.class)
+        );
+        Mockito.when(style.fillStyle()).thenReturn(Mockito.mock(Fill.class));
+        painter.render(new Shape(circle, style));
         Mockito.verify(circle).center();
+        Mockito.verify(style).fillStyle();
+        Mockito.verify(style).strokeStyle();
     }
 
     /**

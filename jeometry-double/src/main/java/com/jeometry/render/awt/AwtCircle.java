@@ -57,12 +57,14 @@ public final class AwtCircle extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final Circle circle = (Circle) renderable.renderable();
-        final int size = (int) (
-            context.scale() * this.field().actual(circle.radius())
-        );
+        final int size = (int) (context.scale() * this.field().actual(
+            circle.radius()
+        ));
         final Point center = new AwtTransform(context)
             .transform(circle.center());
         graphics.drawOval(center.x - size, center.y - size, 2 * size, 2 * size);
+        graphics.setColor(renderable.style().fillStyle().color());
+        graphics.fillOval(center.x - size, center.y - size, 2 * size, 2 * size);
     }
 
 }
