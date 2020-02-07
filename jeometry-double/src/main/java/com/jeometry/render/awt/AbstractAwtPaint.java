@@ -24,6 +24,7 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
+import com.jeometry.render.awt.style.AwtStroke;
 import com.jeometry.twod.RenderSupport;
 import com.jeometry.twod.Renderable;
 import com.jeometry.twod.Renderer;
@@ -32,10 +33,10 @@ import java.awt.Graphics2D;
 import java.util.Arrays;
 
 /**
- * Represents an abstract AWT renderer accepting an AWT {@link Graphics2D}
- * to draw with and an {@link AwtContext} describing the context for drawing.
- * This renderer relies on {@link RenderSupport} and is built with classes
- * to support.
+ * Represents an abstract AWT renderer accepting an AWT {@link Graphics2D} to
+ * draw with and an {@link AwtContext} describing the context for drawing. This
+ * renderer relies on {@link RenderSupport} and is built with classes to
+ * support.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -95,6 +96,9 @@ public abstract class AbstractAwtPaint implements Renderer {
             new Renderer() {
                 @Override
                 public void render(final Shape renderable) {
+                    AbstractAwtPaint.this.graphics.setStroke(
+                        new AwtStroke(renderable.style().strokeStyle())
+                    );
                     AbstractAwtPaint.this.draw(
                         renderable, AbstractAwtPaint.this.graphics,
                         AbstractAwtPaint.this.context
