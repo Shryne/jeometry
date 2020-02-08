@@ -7,6 +7,8 @@ on:
 jobs:
   perform-release:
     runs-on: ubuntu-latest
+    env:
+      DISPLAY: ':99'
     steps:
     - uses: actions/checkout@v2
     - name: Create a new temporary branch
@@ -19,6 +21,9 @@ jobs:
         commit_message: ${{ github.event.milestone.title }}
         author_name: github-actions[bot]
         author_email: github-actions[bot]@users.noreply.github.com
+    - name: Setup headless environment
+      run: |
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
     - name: Deploy maven package to Nexus
       uses: samuelmeuli/action-maven-publish@v1
       with:
