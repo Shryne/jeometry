@@ -80,7 +80,7 @@ This code:
 new Awt().render(figure);
 ```
 will produce this window:
-<img alt="Figure on screen" src="https://github.com/HDouss/jeometry/blob/gh-pages/images/sample1.png" />
+<img alt="Figure on screen" src="https://github.com/HDouss/jeometry/blob/gh-pages/images/sample1v2.png" />
 
 # Project structure
 jeometry is a maven project divided into 3 sub modules:
