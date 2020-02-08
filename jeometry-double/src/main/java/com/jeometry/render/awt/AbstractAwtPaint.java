@@ -29,6 +29,7 @@ import com.jeometry.twod.RenderSupport;
 import com.jeometry.twod.Renderable;
 import com.jeometry.twod.Renderer;
 import com.jeometry.twod.Shape;
+import com.jeometry.twod.style.Stroke;
 import java.awt.Graphics2D;
 import java.util.Arrays;
 
@@ -96,12 +97,12 @@ public abstract class AbstractAwtPaint implements Renderer {
             new Renderer() {
                 @Override
                 public void render(final Shape renderable) {
-                    AbstractAwtPaint.this.graphics.setStroke(
-                        new AwtStroke(renderable.style().strokeStyle())
-                    );
+                    final Graphics2D graph = AbstractAwtPaint.this.graphics;
+                    final Stroke stroke = renderable.style().strokeStyle();
+                    graph.setStroke(new AwtStroke(stroke));
+                    graph.setColor(stroke.color());
                     AbstractAwtPaint.this.draw(
-                        renderable, AbstractAwtPaint.this.graphics,
-                        AbstractAwtPaint.this.context
+                        renderable, graph, AbstractAwtPaint.this.context
                     );
                 }
             },

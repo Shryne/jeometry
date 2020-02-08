@@ -24,10 +24,14 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.point.RandomPoint;
 import com.jeometry.twod.point.XyPoint;
+import com.jeometry.twod.style.Dash;
+import com.jeometry.twod.style.impl.DefaultStyle;
+import com.jeometry.twod.style.impl.FixedStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -45,10 +49,7 @@ public final class AwtPointTest {
      */
     @Test
     public void rendersPoints() {
-        final XyPoint point = new XyPoint(
-            new Scalar.Default<Double>(Math.random()),
-            new Scalar.Default<Double>(Math.random())
-        );
+        final XyPoint point = new RandomPoint();
         final AwtPoint painter = new AwtPoint(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
@@ -58,6 +59,30 @@ public final class AwtPointTest {
             Mockito.anyInt(), Mockito.anyInt(),
             Mockito.anyInt(), Mockito.anyInt()
         );
+    }
+
+    /**
+     * {@link AwtPoint} uses right color.
+     */
+    @Test
+    public void usesRightColor() {
+        final XyPoint point = new RandomPoint();
+        final AwtPoint painter = new AwtPoint(new Decimal());
+        painter.setContext(new AwtDrawableSurface().context());
+        final Graphics2D graphics = Mockito.mock(Graphics2D.class);
+        painter.setGraphics(graphics);
+        painter.render(
+            new Shape(
+                point, new DefaultStyle(
+                    new FixedStroke(Color.CYAN, Dash.SOLID, 1.f)
+                )
+            )
+        );
+        Mockito.verify(graphics).drawRect(
+            Mockito.anyInt(), Mockito.anyInt(),
+            Mockito.anyInt(), Mockito.anyInt()
+        );
+        Mockito.verify(graphics).setColor(Color.CYAN);
     }
 
     /**
