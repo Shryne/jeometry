@@ -26,8 +26,10 @@ package com.jeometry.render.awt;
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.render.awt.style.AwtStroke;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.style.impl.DefaultStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -80,6 +82,7 @@ public final class AxisPaint {
             new PtDirLine(origin, new DblPoint(0., 1.))
         );
         final Color color = graphics.getColor();
+        graphics.setStroke(new AwtStroke(new DefaultStroke()));
         graphics.setColor(Color.RED);
         new AwtLine(this.field).draw(xaxis, graphics, this.ctx);
         new AwtLine(this.field).draw(yaxis, graphics, this.ctx);

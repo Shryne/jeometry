@@ -24,6 +24,7 @@
 package com.jeometry.render.awt;
 
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.render.awt.style.AwtStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -49,6 +50,17 @@ public final class AxisPaintTest {
         Mockito.when(graphics.getColor()).thenReturn(Color.BLUE);
         new AxisPaint(ctx).paint(graphics);
         Mockito.verify(graphics).setColor(Color.BLUE);
+    }
+
+    /**
+     * {@link AxisPaint} uses default awt stroke.
+     */
+    @Test
+    public void overridesGraphicsStroke() {
+        final AwtContext ctx = AxisPaintTest.context();
+        final Graphics2D graphics = Mockito.mock(Graphics2D.class);
+        new AxisPaint(ctx).paint(graphics);
+        Mockito.verify(graphics).setStroke(Mockito.isA(AwtStroke.class));
     }
 
     /**
