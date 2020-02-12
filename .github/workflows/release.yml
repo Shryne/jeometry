@@ -61,21 +61,57 @@ jobs:
         body: ${{ steps.changelog.outputs.body }}
         draft: false
         prerelease: false
-    - name: Upload jar as a GitHub release asset
+    - name: Upload aljebra jar as a GitHub release asset
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: target/concat-${{ github.event.milestone.title }}.jar
-        asset_name: concat-${{ github.event.milestone.title }}.jar
+        asset_path: aljebra/target/aljebra-${{ github.event.milestone.title }}.jar
+        asset_name: aljebra-${{ github.event.milestone.title }}.jar
         asset_content_type: application/java-archive
-    - name: Upload javadoc as a GitHub release asset
+    - name: Upload aljebra javadoc as a GitHub release asset
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: target/concat-${{ github.event.milestone.title }}-javadoc.jar
-        asset_name: concat-${{ github.event.milestone.title }}-javadoc.jar
+        asset_path: aljebra/target/aljebra-${{ github.event.milestone.title }}-javadoc.jar
+        asset_name: aljebra-${{ github.event.milestone.title }}-javadoc.jar
+        asset_content_type: application/java-archive
+    - name: Upload jeometry-api jar as a GitHub release asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: jeometry-api/target/jeometry-api-${{ github.event.milestone.title }}.jar
+        asset_name: jeometry-api-${{ github.event.milestone.title }}.jar
+        asset_content_type: application/java-archive
+    - name: Upload jeometry-api javadoc as a GitHub release asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: jeometry-api/target/jeometry-api-${{ github.event.milestone.title }}-javadoc.jar
+        asset_name: jeometry-api-${{ github.event.milestone.title }}-javadoc.jar
+        asset_content_type: application/java-archive
+    - name: Upload jeometry-double jar as a GitHub release asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: jeometry-double/target/jeometry-double-${{ github.event.milestone.title }}.jar
+        asset_name: jeometry-double-${{ github.event.milestone.title }}.jar
+        asset_content_type: application/java-archive
+    - name: Upload jeometry-double javadoc as a GitHub release asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: jeometry-double/target/jeometry-double-${{ github.event.milestone.title }}-javadoc.jar
+        asset_name: jeometry-double-${{ github.event.milestone.title }}-javadoc.jar
         asset_content_type: application/java-archive
