@@ -26,7 +26,7 @@ package com.jeometry.twod.point;
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
-import com.jeometry.twod.segment.PtsSegment;
+import com.jeometry.twod.segment.RandomSegment;
 import com.jeometry.twod.segment.Segment;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -45,9 +45,7 @@ public final class MidSegPointTest {
      */
     @Test
     public void buildsMidPointSeg() {
-        final Segment any = new PtsSegment(
-            new RandomPoint(), new RandomPoint()
-        );
+        final Segment any = new RandomSegment();
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         final Scalar[] coords = new MidSegPoint(any).coords();
@@ -62,6 +60,20 @@ public final class MidSegPointTest {
     }
 
     /**
+     * {@link MidSegPoint} toString prints underlying coordinates.
+     */
+    @Test
+    public void toStringPrintsCoordinates() {
+        final MidSegPoint point = new MidSegPoint(new RandomSegment());
+        MatcherAssert.assertThat(
+            point.toString(), Matchers.allOf(
+                Matchers.containsString(point.xcoor().toString()),
+                Matchers.containsString(point.ycoor().toString())
+            )
+        );
+    }
+
+    /**
      * Checks if the given point belongs to the segment.
      * @param any Segment
      * @return True if the point belongs to the segment
@@ -72,6 +84,6 @@ public final class MidSegPointTest {
         final Double starty = any.start().coords()[1].value(dec);
         final Double endx = any.end().coords()[0].value(dec);
         final Double endy = any.end().coords()[1].value(dec);
-        return new Double[]{(endx + startx) / 2., (endy + starty) / 2.};
+        return new Double[] {(endx + startx) / 2., (endy + starty) / 2.};
     }
 }

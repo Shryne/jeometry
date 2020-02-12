@@ -25,7 +25,6 @@ package com.jeometry.twod.point;
 
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
-import lombok.ToString;
 
 /**
  * A point defined as the reflection of a point, across a given line.
@@ -33,7 +32,6 @@ import lombok.ToString;
  * @version $Id$
  * @since 0.1
  */
-@ToString
 public final class LineReflectionPoint extends XyPoint {
 
     /**
