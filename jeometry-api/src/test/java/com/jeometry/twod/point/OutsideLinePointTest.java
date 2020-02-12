@@ -52,4 +52,18 @@ public final class OutsideLinePointTest {
             Matchers.is(false)
         );
     }
+
+    /**
+     * {@link OutsideLinePoint} toString prints underlying coordinates.
+     */
+    @Test
+    public void toStringPrintsCoordinates() {
+        final OutsideLinePoint point = new OutsideLinePoint(new RandomLine());
+        MatcherAssert.assertThat(
+            point.toString(), Matchers.allOf(
+                Matchers.containsString(point.coords()[0].toString()),
+                Matchers.containsString(point.coords()[1].toString())
+            )
+        );
+    }
 }

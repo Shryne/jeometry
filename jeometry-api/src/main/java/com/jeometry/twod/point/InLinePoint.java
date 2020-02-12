@@ -27,17 +27,15 @@ import com.aljebra.scalar.Random;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
 import com.jeometry.twod.line.Line;
-import lombok.ToString;
 
 /**
- * A point defined by belonging to a line. The point is dynamic regarding
- * to the passed line, which means that it is ensured that this point remains
- * belonging to the line even if modifications occur on the line.
+ * A point defined by belonging to a line. The point is dynamic regarding to the
+ * passed line, which means that it is ensured that this point remains belonging
+ * to the line even if modifications occur on the line.
  * @author Hamdi Douss (douss.hamdi@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
 public final class InLinePoint extends XyPoint {
 
     /**

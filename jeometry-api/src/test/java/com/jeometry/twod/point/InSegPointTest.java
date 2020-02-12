@@ -29,7 +29,7 @@ import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.analytics.Intercept;
 import com.jeometry.twod.line.analytics.Slope;
 import com.jeometry.twod.line.analytics.Vertical;
-import com.jeometry.twod.segment.PtsSegment;
+import com.jeometry.twod.segment.RandomSegment;
 import com.jeometry.twod.segment.Segment;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -48,12 +48,24 @@ public final class InSegPointTest {
      */
     @Test
     public void buildsAPointInSeg() {
-        final Segment any = new PtsSegment(
-            new RandomPoint(), new RandomPoint()
-        );
+        final Segment any = new RandomSegment();
         MatcherAssert.assertThat(
             InSegPointTest.belongs(new InSegPoint(any), any),
             Matchers.is(true)
+        );
+    }
+
+    /**
+     * {@link InSegPoint} toString prints underlying coordinates.
+     */
+    @Test
+    public void toStringPrintsCoordinates() {
+        final InSegPoint point = new InSegPoint(new RandomSegment());
+        MatcherAssert.assertThat(
+            point.toString(), Matchers.allOf(
+                Matchers.containsString(point.xcoor().toString()),
+                Matchers.containsString(point.ycoor().toString())
+            )
         );
     }
 
@@ -78,7 +90,7 @@ public final class InSegPointTest {
             final double error = 1.e-6;
             result = Math.abs(
                 ycoor - (xcoor * new Slope(any).value(dec)
-                + new Intercept(any).value(dec))
+                    + new Intercept(any).value(dec))
             ) < error;
         }
         final boolean between = xcoor >= Math.min(startx, endx)

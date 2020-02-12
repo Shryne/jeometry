@@ -56,6 +56,22 @@ public final class InRayPointTest {
     }
 
     /**
+     * {@link InRayPoint} toString prints underlying coordinates.
+     */
+    @Test
+    public void toStringPrintsCoordinates() {
+        final InRayPoint point = new InRayPoint(
+            new PtsRay(new RandomPoint(), new RandomPoint())
+        );
+        MatcherAssert.assertThat(
+            point.toString(), Matchers.allOf(
+                Matchers.containsString(point.xcoor().toString()),
+                Matchers.containsString(point.ycoor().toString())
+            )
+        );
+    }
+
+    /**
      * Checks if the given point belongs to the ray.
      * @param pnt Point
      * @param any Ray
@@ -80,7 +96,7 @@ public final class InRayPointTest {
                 || xdir < 0 && xcoor < xorigin;
             result = Math.abs(
                 ycoor - xcoor * new Slope(any).value(dec)
-                - new Intercept(any).value(dec)
+                    - new Intercept(any).value(dec)
             ) < error && between;
         }
         return result;
