@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import java.util.List;
 /**
  * Polyline interface describing a connected sequence of line segments.
  * Polyline is defined by its ordered points sequence.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public interface Polyline extends Renderable {

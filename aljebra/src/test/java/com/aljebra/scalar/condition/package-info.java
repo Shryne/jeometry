@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -24,4 +24,4 @@
 /**
  * Tests for conditions.
  */
-package com.aljebra.scalar;
+package com.aljebra.scalar.condition;

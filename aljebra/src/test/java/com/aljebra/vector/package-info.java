@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -24,4 +24,4 @@
 /**
  * Tests for vectors definitions.
  */
-package com.jeometry.model.algebra.vector;
+package com.aljebra.vector;

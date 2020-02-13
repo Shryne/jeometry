@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import lombok.ToString;
 
 /**
  * A scalar representing the norm of a vector.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @EqualsAndHashCode
@@ -50,6 +48,7 @@ public final class Norm implements MetricScalar {
     public Norm(final Vect vector) {
         this.vector = vector;
     }
+
     @Override
     public <T> T value(final MetricSpaceField<T> field) {
         return field.actual(field.product().norm(this.vector));

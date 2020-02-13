@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import lombok.ToString;
 
 /**
  * Represents a vector defined by fixed coordinates.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @EqualsAndHashCode
@@ -48,8 +46,7 @@ public class FixedVector implements Vect {
      * @param coor Vector coordinates
      */
     public FixedVector(final Scalar... coor) {
-        super();
-        this.coors = coor;
+        this.coors = Arrays.copyOf(coor, coor.length);
     }
 
     @Override

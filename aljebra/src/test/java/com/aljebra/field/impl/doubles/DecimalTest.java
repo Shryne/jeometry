@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -36,8 +36,6 @@ import org.mockito.Mockito;
 
 /**
  * Tests for {@link Decimal}.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class DecimalTest {
@@ -97,7 +95,7 @@ public final class DecimalTest {
     public void delegatesRandomization() {
         final OrderedRandom<Double> rand = DecimalTest.randomizer();
         final Decimal field = new Decimal(rand);
-        final Default<Double> zero = new Scalar.Default<Double>(0.);
+        final Default<Double> zero = new Scalar.Default<>(0.);
         field.between(zero, zero);
         field.greater(zero);
         field.lower(zero);

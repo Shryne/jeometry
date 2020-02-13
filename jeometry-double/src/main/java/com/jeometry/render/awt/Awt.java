@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -32,8 +32,6 @@ import javax.swing.border.EmptyBorder;
 
 /**
  * Represents an AWT JFrame {@link Output} drawing the figure on an AWT window.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class Awt extends JFrame implements Output {

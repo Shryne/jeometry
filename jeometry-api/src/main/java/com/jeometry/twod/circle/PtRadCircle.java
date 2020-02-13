@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import lombok.ToString;
 
 /**
  * Circle implementation class describing a circle by a center and a radius.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString
@@ -48,8 +46,8 @@ public class PtRadCircle implements Circle {
 
     /**
      * Ctor.
-     * @param radius Circle radius
      * @param center Circle center
+     * @param radius Circle radius
      */
     public PtRadCircle(final Vect center, final Scalar radius) {
         this.rdx = radius;

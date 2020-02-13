@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import java.util.Random;
 /**
  * A Decimal randomizer. Implementation generates doubles within a minimum
  * and a maximum bounds.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class DecimalRandom implements OrderedRandom<Double> {

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -25,8 +25,6 @@ package com.aljebra.field;
 
 /**
  * Interface describing a field addition operation.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */
@@ -38,7 +36,7 @@ public interface FieldAddition<T> {
      * @param second Second addition operand
      * @return Addition result
      */
-    T add(final T operand, final T second);
+    T add(T operand, T second);
 
     /**
      * Gives the neutral element of addition.
@@ -51,5 +49,5 @@ public interface FieldAddition<T> {
      * @param elt Element to inverse
      * @return Inverse of the passed element
      */
-    T inverse(final T elt);
+    T inverse(T elt);
 }

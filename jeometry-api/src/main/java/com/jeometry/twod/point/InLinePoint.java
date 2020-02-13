@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -32,8 +32,6 @@ import com.jeometry.twod.line.Line;
  * A point defined by belonging to a line. The point is dynamic regarding to the
  * passed line, which means that it is ensured that this point remains belonging
  * to the line even if modifications occur on the line.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class InLinePoint extends XyPoint {

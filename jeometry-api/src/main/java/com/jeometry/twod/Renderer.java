@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -25,8 +25,6 @@ package com.jeometry.twod;
 
 /**
  * Renderer interface capable of rendering a {@link Shape}.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public interface Renderer {
@@ -35,5 +33,5 @@ public interface Renderer {
      * Renders a {@link Shape}.
      * @param renderable Renderable to render
      */
-    void render(final Shape renderable);
+    void render(Shape renderable);
 }

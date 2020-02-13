@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import java.awt.event.MouseWheelEvent;
 /**
  * Mouse listener translating drawable surface when dragging, and zooming
  * drawable surface when moving mouse wheel.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 class MouseZoomTranslate extends MouseAdapter {
