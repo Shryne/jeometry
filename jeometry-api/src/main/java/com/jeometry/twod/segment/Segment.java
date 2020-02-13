@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -28,8 +28,6 @@ import com.jeometry.twod.Renderable;
 
 /**
  * Segment interface describing a segment by its two extremities.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public interface Segment extends Renderable {

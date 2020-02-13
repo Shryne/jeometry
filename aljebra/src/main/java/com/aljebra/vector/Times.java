@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import lombok.ToString;
 
 /**
  * A vector represented as the multiplication of a vector by a scalar.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)

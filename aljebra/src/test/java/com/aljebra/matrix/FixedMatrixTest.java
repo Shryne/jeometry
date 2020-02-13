@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -37,8 +37,6 @@ import org.mockito.Mockito;
 
 /**
  * Tests for {@link FixedMatrix}.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class FixedMatrixTest {
@@ -68,10 +66,10 @@ public final class FixedMatrixTest {
      */
     @Test
     public void returnsLinesAndColumns() {
-        final Default<String> scalara = new Scalar.Default<String>("a");
-        final Default<String> scalarb = new Scalar.Default<String>("b");
-        final Default<String> scalarc = new Scalar.Default<String>("c");
-        final Default<String> scalard = new Scalar.Default<String>("d");
+        final Default<String> scalara = new Scalar.Default<>("a");
+        final Default<String> scalarb = new Scalar.Default<>("b");
+        final Default<String> scalarc = new Scalar.Default<>("c");
+        final Default<String> scalard = new Scalar.Default<>("d");
         final FixedMatrix matrix = new FixedMatrix(
             2, 2, scalara, scalarb, scalarc, scalard
         );

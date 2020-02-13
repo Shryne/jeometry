@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,8 +33,6 @@ import lombok.ToString;
 
 /**
  * A scalar represented as the scalar sum of a set of scalars.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @EqualsAndHashCode
@@ -67,8 +65,8 @@ public final class Add implements Scalar {
         final FieldAddition<T> addition = field.addition();
         T result = addition.neutral();
         final Scalar[] operands = this.operands();
-        for (int idx = 0; idx < operands.length; ++idx) {
-            result = addition.add(result, operands[idx].value(field));
+        for (final Scalar operand:operands) {
+            result = addition.add(result, operand.value(field));
         }
         return result;
     }

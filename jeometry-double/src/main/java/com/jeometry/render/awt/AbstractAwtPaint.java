@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -38,8 +38,6 @@ import java.util.Arrays;
  * draw with and an {@link AwtContext} describing the context for drawing. This
  * renderer relies on {@link RenderSupport} and is built with classes to
  * support.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public abstract class AbstractAwtPaint implements Renderer {

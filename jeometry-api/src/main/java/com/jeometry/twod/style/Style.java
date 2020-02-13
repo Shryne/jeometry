@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -26,8 +26,6 @@ package com.jeometry.twod.style;
 /**
  * Style interface defining rendering styles like filling style and stroke
  * style.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public interface Style {

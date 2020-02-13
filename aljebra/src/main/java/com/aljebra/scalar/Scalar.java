@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import lombok.ToString;
 
 /**
  * Scalar interface.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public interface Scalar {
@@ -41,14 +39,14 @@ public interface Scalar {
      * @param <T> Scalar object type
      * @return An object representing the scalar
      */
-    <T> T value(final Field<T> field);
+    <T> T value(Field<T> field);
 
     /**
      * Adds the given scalars to this scalar.
      * @param operands Scalars to add
      * @return A scalar defining the addition
      */
-    default Scalar add(final Scalar... operands) {
+    default Scalar add(Scalar... operands) {
         final Scalar[] ops = new Scalar[operands.length + 1];
         System.arraycopy(operands, 0, ops, 0, operands.length);
         ops[operands.length] = this;
@@ -60,7 +58,7 @@ public interface Scalar {
      * @param operands Scalars to multiply
      * @return A scalar defining the multiplication
      */
-    default Scalar mult(final Scalar... operands) {
+    default Scalar mult(Scalar... operands) {
         final Scalar[] ops = new Scalar[operands.length + 1];
         System.arraycopy(operands, 0, ops, 0, operands.length);
         ops[operands.length] = this;
@@ -69,8 +67,6 @@ public interface Scalar {
 
     /**
      * Minimal representation of a scalar holding a reference to an object.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
      * @param <T> Holded object type.
      * @since 0.1
      */
@@ -94,7 +90,7 @@ public interface Scalar {
          * Gives the object representing the scalar.
          * @return The wrapped object
          */
-        public final T value() {
+        public T value() {
             return this.origin;
         }
 

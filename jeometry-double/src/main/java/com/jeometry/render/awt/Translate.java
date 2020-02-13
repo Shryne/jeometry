@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import java.awt.event.MouseEvent;
 /**
  * Mouse listener translating drawable surface when clicking
  * control buttons.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class Translate extends MouseAdapter {

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -37,8 +37,6 @@ import org.aspectj.lang.annotation.Before;
  * annotation, its vectors or matrices arguments will be checked if they
  * have the same size. If it is not the case an {@link IllegalArgumentException}
  * will be thrown.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @Aspect
@@ -67,21 +65,21 @@ public final class SameDimensionCheck {
     public void constructor(final JoinPoint jpoint) {
         final Object[] args = jpoint.getArgs();
         final Map<Class<?>, Object> ref = new HashMap<>();
-        for (int arg = 0; arg < args.length; ++arg) {
-            for (int idx = 0; idx < this.clazz.length; ++idx) {
-                final Class<?> type = args[arg].getClass().getComponentType();
-                if (type != null && this.clazz[idx].isAssignableFrom(type)) {
-                    SameDimensionCheck.validate(args[arg]);
+        for (final Object arg: args) {
+            for (final Class claz : this.clazz) {
+                final Class<?> type = arg.getClass().getComponentType();
+                if (type != null && claz.isAssignableFrom(type)) {
+                    SameDimensionCheck.validate(arg);
                 }
-                if (!this.clazz[idx].isAssignableFrom(args[arg].getClass())) {
+                if (!claz.isAssignableFrom(arg.getClass())) {
                     continue;
                 }
-                final Object reference = ref.get(this.clazz[idx]);
+                final Object reference = ref.get(claz);
                 if (reference == null) {
-                    ref.put(this.clazz[idx], args[arg]);
+                    ref.put(claz, arg);
                     continue;
                 }
-                SameDimensionCheck.validate(reference, args[arg]);
+                SameDimensionCheck.validate(reference, arg);
             }
         }
     }

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,8 +33,6 @@ import java.lang.annotation.Target;
  * arguments to have the same dimension.
  * Add this annotation to the method or the constructor you want its vectors
  * or matrices arguments to be checked to have the same size.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @Target({ElementType.METHOD, ElementType.CONSTRUCTOR})

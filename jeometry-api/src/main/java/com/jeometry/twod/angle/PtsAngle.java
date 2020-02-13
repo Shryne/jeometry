@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import lombok.ToString;
 /**
  * An angle defined by three points: a summit, a point belonging
  * to the starting ray and a point belonging to the ending ray.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString
