@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,8 +33,6 @@ import lombok.ToString;
 
 /**
  * A scalar represented as the multiplication of a set of scalars.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @EqualsAndHashCode
@@ -67,8 +65,8 @@ public final class Multiplication implements Scalar {
         final FieldMultiplication<T> mult = field.multiplication();
         T result = mult.neutral();
         final Scalar[] operands = this.operands();
-        for (int idx = 0; idx   < operands.length; ++idx) {
-            result = mult.multiply(result, operands[idx].value(field));
+        for (final Scalar operand:operands) {
+            result = mult.multiply(result, operand.value(field));
         }
         return result;
     }

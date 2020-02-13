@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -32,8 +32,6 @@ import com.aljebra.scalar.Scalar;
 
 /**
  * A {@link Field} implementation based on double.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class Decimal
@@ -43,6 +41,7 @@ public final class Decimal
      * Minimum value to generate when randomizing a scalar.
      */
     private static final double MINBOUND = -10;
+
     /**
      * Maximum value to generate when randomizing a scalar.
      */

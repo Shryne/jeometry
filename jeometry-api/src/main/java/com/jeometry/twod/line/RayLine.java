@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import lombok.ToString;
 /**
  * A line defined by "porting" a ray. The line has the same direction as the ray
  * and the origin of the ray belongs to the line.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)

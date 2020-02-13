@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -28,8 +28,6 @@ import com.jeometry.twod.line.Line;
 
 /**
  * A point defined as the reflection of a point, across a given line.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class LineReflectionPoint extends XyPoint {

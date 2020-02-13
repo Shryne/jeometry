@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import lombok.ToString;
 
 /**
  * A random scalar that is greater than another one.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
@@ -54,6 +52,7 @@ public final class Greater implements OrderedScalar {
         this.lower = lower;
         this.generated = Optional.empty();
     }
+
     @Override
     public <T> T value(final OrderedField<T> field) {
         if (!this.generated.isPresent()) {

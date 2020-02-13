@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -36,8 +36,6 @@ import com.jeometry.twod.segment.Segment;
 
 /**
  * A predicate to determine if two lines have the same direction.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class Parallel implements Predicate {

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import java.awt.Color;
 /**
  * Default stroke style class. Defines a stroke style with a solid 1px black
  * stroke.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class DefaultStroke implements Stroke {

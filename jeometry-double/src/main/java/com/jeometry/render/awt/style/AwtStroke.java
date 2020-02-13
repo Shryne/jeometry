@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import java.awt.BasicStroke;
 
 /**
  * An implementation of {@link BasicStroke} based on {@link Stroke}.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class AwtStroke extends BasicStroke {

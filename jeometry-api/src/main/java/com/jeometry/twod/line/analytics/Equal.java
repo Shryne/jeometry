@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -31,8 +31,6 @@ import com.jeometry.twod.line.Line;
 /**
  * A predicate to determine if two lines are equal. that means the two lines
  * have the same direction and pass by the same points.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class Equal implements Predicate {

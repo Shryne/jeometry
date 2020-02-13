@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -31,8 +31,6 @@ import java.util.Set;
  * A {@link Renderer} wrapper class. {@link RenderSupport} wraps a renderer
  * and relies on passed classes to delegates rendering iff the renderable is
  * supported (subclass/subinterface of passed classes).
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class RenderSupport implements Renderer {

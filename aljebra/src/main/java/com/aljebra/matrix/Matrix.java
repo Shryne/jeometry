@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import com.aljebra.vector.Vect;
  * Matrix interface. Represents an m*n dimension matrix that can be assimilated
  * to a linear transformation from n-dimension vector space to a m-dimension
  * vector space. The two vector spaces are supposed to be over the same field.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public interface Matrix {
@@ -49,21 +47,21 @@ public interface Matrix {
      * @param index Column index
      * @return A scalar array representing the i-th column
      */
-    Scalar[] column(final int index);
+    Scalar[] column(int index);
 
     /**
      * Access the j-th line of the matrix.
      * @param index Line index
      * @return A scalar array representing the j-th line
      */
-    Scalar[] line(final int index);
+    Scalar[] line(int index);
 
     /**
      * Applies the linear transformation represented by this matrix on a vector.
      * @param input Input vector
      * @return Tranformation result
      */
-    Vect apply(final Vect input);
+    Vect apply(Vect input);
 
     /**
      * Gives the matrix columns count which corresponds

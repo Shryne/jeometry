@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import com.aljebra.scalar.Scalar;
 
 /**
  * Metric Scalar interface.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public interface MetricScalar extends Scalar {
@@ -41,10 +39,10 @@ public interface MetricScalar extends Scalar {
      * @param <T> Scalar object type
      * @return An object representing the scalar
      */
-    <T> T value(final MetricSpaceField<T> field);
+    <T> T value(MetricSpaceField<T> field);
 
     @Override
-    default <T> T value(final Field<T> field) {
+    default <T> T value(Field<T> field) {
         if (field instanceof MetricSpaceField<?>) {
             return this.value((MetricSpaceField<T>) field);
         } else {

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import lombok.ToString;
 /**
  * Represents a 2D vertical vector. A vertical vector have
  * zero (addition neutral element) coordinate on X-axis.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString(callSuper = true)

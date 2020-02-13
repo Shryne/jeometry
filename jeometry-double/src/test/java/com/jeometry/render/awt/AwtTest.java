@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -41,8 +41,6 @@ import org.mockito.Mockito;
 
 /**
  * Tests for {@link Awt}.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class AwtTest {
@@ -127,9 +125,9 @@ public final class AwtTest {
     private static AwtDrawableSurface drawable(final Awt awt) {
         final Component[] comps = awt.getContentPane().getComponents();
         AwtDrawableSurface result = null;
-        for (int idx = 0; idx < comps.length; ++idx) {
-            if (comps[idx] instanceof AwtDrawableSurface) {
-                result = (AwtDrawableSurface) comps[idx];
+        for (final Component comp : comps) {
+            if (comp instanceof AwtDrawableSurface) {
+                result = (AwtDrawableSurface) comp;
                 break;
             }
         }

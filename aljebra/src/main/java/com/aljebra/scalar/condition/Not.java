@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -27,8 +27,6 @@ import com.aljebra.field.Field;
 
 /**
  * A predicate that is true if the given predicates is false.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class Not implements Predicate {
