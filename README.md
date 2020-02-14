@@ -83,11 +83,19 @@ will produce this window:
 
 <img alt="Figure on screen" src="https://github.com/HDouss/jeometry/blob/gh-pages/images/sample1v2.png" />
 
-# Project structure
+# Usage and project structure
 jeometry is a maven project divided into 3 sub modules:
 * `aljebra`: `aljebra` is a standalone module that defines abstract [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) concepts such as [fields](https://en.wikipedia.org/wiki/Field_(mathematics)), [ordered fields](https://en.wikipedia.org/wiki/Ordered_field), [scalars](https://en.wikipedia.org/wiki/Scalar_(mathematics)), [vectors](https://en.wikipedia.org/wiki/Vector_(mathematics_and_physics)), [matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics))...
-* `jeometry-api`: an `aljebra` dependent module that defines common geometric shapes. The only (mathematic) assumption in these definitions is that we operate in a 2D [vector space](https://en.wikipedia.org/wiki/Vector_space). Scalars manipulated in this module are abstract and could theoretically be elements of any mathematical field (they are not necessarily real numbers)
-* `jeometry-double`: a `jeometry-api` dependent module that defines convenient classes to build shapes with real number scalars (for now implemented as java double). In addition, `jeometry-double` defines the figure `Output` interface and offers an AWT drawing implementation of the geometric figure
+* `jeometry-api`: an `aljebra` dependant module that defines common geometric shapes. The only (mathematic) assumption in these definitions is that we operate in a 2D [vector space](https://en.wikipedia.org/wiki/Vector_space). Scalars manipulated in this module are abstract and could theoretically be elements of any mathematical field (they are not necessarily real numbers)
+* `jeometry-double`: a `jeometry-api` dependant module that defines convenient classes to build shapes with real number scalars (for now implemented as java double). In addition, `jeometry-double` defines the figure `Output` interface and offers an AWT drawing implementation of the geometric figure
+
+Depending on what module you need, you should declare this dependency in your pom file in order to use jeometry:
+```xml
+<dependency>
+  <groupId>com.github.hdouss</groupId>
+  <artifactId>jeometry-double</artifactId>
+</dependency>
+```
 
 # How to contribute
 To contribute, just submit a pull request. The pull request should necessarily resolves an issue. Feel free to create an issue if your pull request does not solve an existing issue. Keep in mind that:
