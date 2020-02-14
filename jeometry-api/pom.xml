@@ -29,7 +29,7 @@
     <parent>
         <groupId>com.github.hdouss</groupId>
         <artifactId>jeometry</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.2</version>
     </parent>
     <artifactId>jeometry-api</artifactId>
     <description>Java Geometry library abstract API</description>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.github.hdouss</groupId>
             <artifactId>aljebra</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>0.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
