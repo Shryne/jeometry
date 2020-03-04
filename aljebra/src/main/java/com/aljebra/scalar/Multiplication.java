@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,24 +33,23 @@ import lombok.ToString;
 
 /**
  * A scalar represented as the multiplication of a set of scalars.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Multiplication implements Scalar {
+public final class Multiplication<T> implements Scalar<T> {
 
     /**
      * Multiplication operands.
      */
-    private final Multiset<Scalar> opers;
+    private final Multiset<Scalar<T>> opers;
 
     /**
      * Constructor.
      * @param operands Multiplication operands
      */
-    public Multiplication(final Scalar... operands) {
+    @SuppressWarnings("unchecked")
+    public Multiplication(final Scalar<T>... operands) {
         this.opers = HashMultiset.create(Arrays.asList(operands));
     }
 
@@ -58,17 +57,18 @@ public final class Multiplication implements Scalar {
      * Gives the multiplication operands.
      * @return Operands of the multiplication.
      */
-    public Scalar[] operands() {
+    @SuppressWarnings("unchecked")
+    public Scalar<T>[] operands() {
         return this.opers.toArray(new Scalar[this.opers.size()]);
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         final FieldMultiplication<T> mult = field.multiplication();
         T result = mult.neutral();
-        final Scalar[] operands = this.operands();
-        for (int idx = 0; idx   < operands.length; ++idx) {
-            result = mult.multiply(result, operands[idx].value(field));
+        final Scalar<T>[] operands = this.operands();
+        for (final Scalar<T> operand : operands) {
+            result = mult.multiply(result, operand.value(field));
         }
         return result;
     }

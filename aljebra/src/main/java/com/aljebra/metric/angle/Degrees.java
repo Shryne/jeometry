@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,25 +29,23 @@ import lombok.ToString;
 
 /**
  * Degrees interface. Abstract representation of angles.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
-public interface Degrees {
+public interface Degrees<T> {
 
     /**
      * Return the actual value of the degrees.
      * @param product Related {@link InnerProduct}
      * @return A number representing the angle in radians
      */
-    Number resolve(final InnerProduct product);
+    Number resolve(InnerProduct<T> product);
 
     /**
      * Determines if this angle is right.
      * @param product Related {@link InnerProduct}
      * @return True if the angle is right
      */
-    default boolean right(final InnerProduct product) {
+    default boolean right(InnerProduct<T> product) {
         return Double.valueOf(
             this.resolve(product).doubleValue() % Math.PI
         ).equals(Math.PI / 2);
@@ -58,19 +56,17 @@ public interface Degrees {
      * @param product Related {@link InnerProduct}
      * @return True if the angle is flat
      */
-    default boolean flat(final InnerProduct product) {
+    default boolean flat(InnerProduct<T> product) {
         return this.resolve(product).doubleValue() % Math.PI == 0;
     }
 
     /**
      * Minimal representation of a degrees holding a reference to a number.
-     * @author Hamdi Douss (douss.hamdi@gmail.com)
-     * @version $Id$
      * @since 0.1
      */
     @EqualsAndHashCode
     @ToString(includeFieldNames = false)
-    class Default implements Degrees {
+    class Default<T> implements Degrees<T> {
         /**
          * Wrapped Number.
          */
@@ -85,7 +81,7 @@ public interface Degrees {
         }
 
         @Override
-        public Number resolve(final InnerProduct product) {
+        public Number resolve(final InnerProduct<T> product) {
             return this.origin;
         }
     }

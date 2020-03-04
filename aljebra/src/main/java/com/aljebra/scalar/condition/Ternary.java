@@ -37,22 +37,22 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
-public final class Ternary implements Scalar {
+public final class Ternary<T> implements Scalar<T> {
 
     /**
      * Predicate to evaluate.
      */
-    private final Predicate pred;
+    private final Predicate<T> pred;
 
     /**
      * Scalar to evaluate to if predicate is verified.
      */
-    private final Scalar right;
+    private final Scalar<T> right;
 
     /**
      * Scalar to evaluate to if predicate is not verified.
      */
-    private final Scalar wrong;
+    private final Scalar<T> wrong;
 
     /**
      * Constructor.
@@ -60,14 +60,14 @@ public final class Ternary implements Scalar {
      * @param oks Scalar to evaluate to if predicate is true
      * @param kos Scalar to evaluate to if predicate is false
      */
-    public Ternary(final Predicate pred, final Scalar oks, final Scalar kos) {
+    public Ternary(final Predicate<T> pred, final Scalar<T> oks, final Scalar<T> kos) {
         this.pred = pred;
         this.right = oks;
         this.wrong = kos;
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         final T result;
         if (this.pred.resolve(field)) {
             result = field.actual(this.right);

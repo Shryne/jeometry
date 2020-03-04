@@ -37,52 +37,52 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Times implements Matrix {
+public final class Times<T> implements Matrix<T> {
 
     /**
      * Matrix.
      */
-    private final transient Matrix matrix;
+    private final transient Matrix<T> matrix;
 
     /**
      * Scalar.
      */
-    private final transient Scalar scalar;
+    private final transient Scalar<T> scalar;
 
     /**
      * Constructor.
      * @param mat Matrix to multiply
      * @param scalar Scalar by which to multiply
      */
-    public Times(final Matrix mat, final Scalar scalar) {
+    public Times(final Matrix<T> mat, final Scalar<T> scalar) {
         this.matrix = mat;
         this.scalar = scalar;
     }
 
     @Override
-    public Scalar[] coords() {
-        return new com.aljebra.vector.Times(
-            new FixedVector(this.matrix.coords()), this.scalar
+    public Scalar<T>[] coords() {
+        return new com.aljebra.vector.Times<T>(
+            new FixedVector<T>(this.matrix.coords()), this.scalar
         ).coords();
     }
 
     @Override
-    public Scalar[] column(final int index) {
-        return new com.aljebra.vector.Times(
-            new FixedVector(this.matrix.column(index)), this.scalar
+    public Scalar<T>[] column(final int index) {
+        return new com.aljebra.vector.Times<T>(
+            new FixedVector<T>(this.matrix.column(index)), this.scalar
         ).coords();
     }
 
     @Override
-    public Scalar[] line(final int index) {
-        return new com.aljebra.vector.Times(
-            new FixedVector(this.matrix.line(index)), this.scalar
+    public Scalar<T>[] line(final int index) {
+        return new com.aljebra.vector.Times<T>(
+            new FixedVector<T>(this.matrix.line(index)), this.scalar
         ).coords();
     }
 
     @Override
-    public Vect apply(final Vect input) {
-        return new com.aljebra.vector.Times(
+    public Vect<T> apply(final Vect<T> input) {
+        return new com.aljebra.vector.Times<T>(
             this.matrix.apply(input), this.scalar
         );
     }

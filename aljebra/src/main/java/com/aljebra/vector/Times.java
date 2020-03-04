@@ -36,32 +36,33 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Times implements Vect {
+public final class Times<T> implements Vect<T> {
 
     /**
      * Vector.
      */
-    private final transient Vect vector;
+    private final transient Vect<T> vector;
 
     /**
      * Scalar.
      */
-    private final transient Scalar scalar;
+    private final transient Scalar<T> scalar;
 
     /**
      * Constructor.
      * @param vector Vector to multiply
      * @param scalar Scalar by which to multiply
      */
-    public Times(final Vect vector, final Scalar scalar) {
+    public Times(final Vect<T> vector, final Scalar<T> scalar) {
         this.vector = vector;
         this.scalar = scalar;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Scalar[] coords() {
-        final Scalar[] coors = this.vector.coords();
-        final Scalar[] result = new Scalar[coors.length];
+    public Scalar<T>[] coords() {
+        final Scalar<T>[] coors = this.vector.coords();
+        final Scalar<T>[] result = new Scalar[coors.length];
         for (int idx = 0; idx < coors.length; ++idx) {
             result[idx] = this.mult(coors[idx]);
         }
@@ -74,7 +75,8 @@ public final class Times implements Vect {
      * @param scl Scalar
      * @return Multiplication
      */
-    private Multiplication mult(final Scalar scl) {
-        return new Multiplication(scl, this.scalar);
+    @SuppressWarnings("unchecked")
+    private Multiplication<T> mult(final Scalar<T> scl) {
+        return new Multiplication<T>(scl, this.scalar);
     }
 }

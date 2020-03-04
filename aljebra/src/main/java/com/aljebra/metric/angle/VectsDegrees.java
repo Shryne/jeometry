@@ -36,30 +36,30 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class VectsDegrees implements Degrees {
+public final class VectsDegrees<T> implements Degrees<T> {
 
     /**
      * First vector.
      */
-    private final Vect first;
+    private final Vect<T> first;
 
     /**
      * Second vector.
      */
-    private final Vect second;
+    private final Vect<T> second;
 
     /**
      * Constructor.
      * @param first First vector
      * @param second Second vector
      */
-    public VectsDegrees(final Vect first, final Vect second) {
+    public VectsDegrees(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public Number resolve(final InnerProduct product) {
+    public Number resolve(final InnerProduct<T> product) {
         return product.angle(this.first, this.second).resolve(product);
     }
 

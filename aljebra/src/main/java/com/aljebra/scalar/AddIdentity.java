@@ -35,10 +35,10 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class AddIdentity implements Scalar {
+public final class AddIdentity<T> implements Scalar<T> {
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         return field.addition().neutral();
     }
 

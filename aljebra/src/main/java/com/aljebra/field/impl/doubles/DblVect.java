@@ -32,7 +32,7 @@ import com.aljebra.vector.FixedVector;
  * @version $Id$
  * @since 0.1
  */
-public final class DblVect extends FixedVector {
+public final class DblVect extends FixedVector<Double> {
 
     /**
      * Constructor.
@@ -47,8 +47,9 @@ public final class DblVect extends FixedVector {
      * @param coords Double array
      * @return A scalar array wrapping the doubles
      */
-    private static Scalar[] wrap(final Double... coords) {
-        final Scalar[] result = new Scalar[coords.length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Double>[] wrap(final Double... coords) {
+        final Scalar<Double>[] result = new Scalar[coords.length];
         for (int idx = 0; idx < coords.length; ++idx) {
             result[idx] = DblVect.wrap(coords[idx]);
         }
@@ -60,7 +61,7 @@ public final class DblVect extends FixedVector {
      * @param num A double
      * @return A scalar wrapping the double
      */
-    private static Scalar wrap(final Double num) {
+    private static Scalar<Double> wrap(final Double num) {
         return new Scalar.Default<Double>(num);
     }
 

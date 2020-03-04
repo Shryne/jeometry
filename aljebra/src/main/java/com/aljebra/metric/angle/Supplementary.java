@@ -36,23 +36,23 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Supplementary implements Degrees {
+public final class Supplementary<T> implements Degrees<T> {
 
     /**
      * Angle.
      */
-    private final transient Degrees angle;
+    private final transient Degrees<T> angle;
 
     /**
      * Constructor.
      * @param angle Angle to supplement
      */
-    public Supplementary(final Degrees angle) {
+    public Supplementary(final Degrees<T> angle) {
         this.angle = angle;
     }
 
     @Override
-    public Number resolve(final InnerProduct product) {
+    public Number resolve(final InnerProduct<T> product) {
         return Math.PI - this.angle.resolve(product).doubleValue();
     }
 

@@ -33,7 +33,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Obtuse implements Degrees {
+public final class Obtuse<T> implements Degrees<T> {
 
     /**
      * Random generated double.
@@ -48,7 +48,7 @@ public final class Obtuse implements Degrees {
     }
 
     @Override
-    public Number resolve(final InnerProduct product) {
+    public Number resolve(final InnerProduct<T> product) {
         return Math.PI / 2 + this.random * Math.PI / 2;
     }
 

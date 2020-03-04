@@ -38,17 +38,17 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Product implements MetricScalar {
+public final class Product<T> implements MetricScalar<T> {
 
     /**
      * First operand.
      */
-    private final Vect first;
+    private final Vect<T> first;
 
     /**
      * Second operand.
      */
-    private final Vect second;
+    private final Vect<T> second;
 
     /**
      * Constructor.
@@ -56,13 +56,13 @@ public final class Product implements MetricScalar {
      * @param second Second operand
      */
     @DimensionsEqual
-    public Product(final Vect first, final Vect second) {
+    public Product(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public <T> T value(final MetricSpaceField<T> field) {
+    public T value(final MetricSpaceField<T> field) {
         return field.actual(field.product().product(this.first, this.second));
     }
 

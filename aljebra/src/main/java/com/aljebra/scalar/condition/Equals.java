@@ -32,30 +32,30 @@ import com.aljebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public final class Equals implements Predicate {
+public final class Equals<T> implements Predicate<T> {
 
     /**
      * First Scalar.
      */
-    private final Scalar first;
+    private final Scalar<T> first;
 
     /**
      * Second Scalar.
      */
-    private final Scalar second;
+    private final Scalar<T> second;
 
     /**
      * Constructor.
      * @param first First scalar
      * @param second Second scalar
      */
-    public Equals(final Scalar first, final Scalar second) {
+    public Equals(final Scalar<T> first, final Scalar<T> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public boolean resolve(final Field<?> field) {
+    public boolean resolve(final Field<T> field) {
         return field.equals(this.first, this.second);
     }
 

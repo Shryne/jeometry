@@ -40,12 +40,12 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
-public class FixedMatrix implements Matrix {
+public class FixedMatrix<T> implements Matrix<T> {
 
     /**
      * Coordinates.
      */
-    private Scalar[] coors;
+    private Scalar<T>[] coors;
 
     /**
      * Source vector space dimension.
@@ -63,8 +63,9 @@ public class FixedMatrix implements Matrix {
      * @param columns Matrix columns count
      * @param coor Matrix coordinates to be given in a column by column order
      */
+    @SuppressWarnings("unchecked")
     public FixedMatrix(final int lines, final int columns,
-        final Scalar... coor) {
+        final Scalar<T>... coor) {
         this.source = columns;
         this.target = lines;
         this.coors = this.valid(coor);
@@ -76,33 +77,35 @@ public class FixedMatrix implements Matrix {
      * @param col Column index of the coordinate to modify (1-based index)
      * @param cor New coordinate
      */
-    public final void setCoor(final int lin, final int col, final Scalar cor) {
+    public final void setCoor(final int lin, final int col, final Scalar<T> cor) {
         this.coors[this.index(lin, col)] = cor;
     }
 
     @Override
-    public final Scalar[] coords() {
+    public final Scalar<T>[] coords() {
         return Arrays.copyOf(this.coors, this.coors.length);
     }
 
     @Override
-    public final Scalar[] column(final int index) {
+    public final Scalar<T>[] column(final int index) {
         final int first = this.index(1, index);
         return Arrays.copyOfRange(this.coors, first, first + this.target);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public final Scalar[] line(final int index) {
+    public final Scalar<T>[] line(final int index) {
         final int first = this.index(index, 1);
-        final Scalar[] result = new Scalar[this.source];
+        final Scalar<T>[] result = new Scalar[this.source];
         for (int idx = 0; idx < this.source; ++idx) {
             result[idx] = this.coors[first + idx * this.target];
         }
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public final Vect apply(final Vect input) {
+    public final Vect<T> apply(final Vect<T> input) {
         if (input.coords().length != this.source) {
             throw new IllegalArgumentException(
                 String.format(
@@ -111,11 +114,11 @@ public class FixedMatrix implements Matrix {
                 )
             );
         }
-        final Scalar[] result = new Scalar[this.target];
+        final Scalar<T>[] result = new Scalar[this.target];
         for (int idx = 0; idx < this.target; ++idx) {
             result[idx] = this.product(input, idx + 1);
         }
-        return new FixedVector(result);
+        return new FixedVector<T>(result);
     }
 
     @Override
@@ -144,8 +147,8 @@ public class FixedMatrix implements Matrix {
      * @param idx Matrix column index
      * @return Product
      */
-    private Scalar product(final Vect input, final int idx) {
-        return new Product(input, new FixedVector(this.line(idx)));
+    private Scalar<T> product(final Vect<T> input, final int idx) {
+        return new Product<T>(input, new FixedVector<T>(this.line(idx)));
     }
 
     /**
@@ -155,7 +158,8 @@ public class FixedMatrix implements Matrix {
      * @param coor Scalar array to check
      * @return The scalar array if it is valid
      */
-    private Scalar[] valid(final Scalar... coor) {
+    @SuppressWarnings("unchecked")
+    private Scalar<T>[] valid(final Scalar<T>... coor) {
         final int expected = this.source * this.target;
         Preconditions.checkArgument(
             expected == coor.length,

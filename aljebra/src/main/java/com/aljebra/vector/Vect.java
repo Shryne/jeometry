@@ -31,12 +31,12 @@ import com.aljebra.scalar.Scalar;
  * @version $Id$
  * @since 0.1
  */
-public interface Vect {
+public interface Vect<T> {
 
     /**
      * Vector coordinates.
      * @return Coordinate
      */
-    Scalar[] coords();
+    Scalar<T>[] coords();
 
 }

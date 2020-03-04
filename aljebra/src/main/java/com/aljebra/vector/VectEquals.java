@@ -34,32 +34,32 @@ import com.aljebra.scalar.condition.Predicate;
  * @version $Id$
  * @since 0.1
  */
-public final class VectEquals implements Predicate {
+public final class VectEquals<T> implements Predicate<T> {
 
     /**
      * First vector.
      */
-    private final Vect first;
+    private final Vect<T> first;
 
     /**
      * Second vector.
      */
-    private final Vect second;
+    private final Vect<T> second;
 
     /**
      * Constructor.
      * @param first First vector
      * @param second Second vector
      */
-    public VectEquals(final Vect first, final Vect second) {
+    public VectEquals(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public boolean resolve(final Field<?> field) {
-        final Scalar[] fcoords = this.first.coords();
-        final Scalar[] scoords = this.second.coords();
+    public boolean resolve(final Field<T> field) {
+        final Scalar<T>[] fcoords = this.first.coords();
+        final Scalar<T>[] scoords = this.second.coords();
         return fcoords.length == scoords.length
             && VectEquals.arraysEqual(fcoords, scoords, field);
     }
@@ -71,8 +71,8 @@ public final class VectEquals implements Predicate {
      * @param field Scalars field
      * @return True if the two arrays are equals
      */
-    private static boolean arraysEqual(final Scalar[] first,
-        final Scalar[] second, final Field<?> field) {
+    private static <T> boolean arraysEqual(final Scalar<T>[] first,
+        final Scalar<T>[] second, final Field<T> field) {
         boolean result = true;
         for (int idx = 0; idx < second.length; ++idx) {
             if (!VectEquals.scalarEqual(first[idx], second[idx], field)) {
@@ -90,9 +90,9 @@ public final class VectEquals implements Predicate {
      * @param field Scalars field
      * @return True if the two scalars are equals
      */
-    private static boolean scalarEqual(final Scalar first, final Scalar second,
-        final Field<?> field) {
-        return new Equals(first, second).resolve(field);
+    private static <T> boolean scalarEqual(final Scalar<T> first, final Scalar<T> second,
+        final Field<T> field) {
+        return new Equals<T>(first, second).resolve(field);
     }
 
 }

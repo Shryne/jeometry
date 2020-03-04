@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -32,8 +32,6 @@ import com.aljebra.scalar.Scalar;
  * <li>Generate random ordered scalars</li>
  * <li>Compare two scalars by order</li>
  * </ul>
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */
@@ -47,20 +45,20 @@ public interface OrderedField<T> extends Field<T> {
      * @param upper Upper bound scalar
      * @return A random scalar between two scalars
      */
-    Scalar between(final Scalar lower, final Scalar upper);
+    Scalar<T> between(Scalar<T> lower, Scalar<T> upper);
 
     /**
      * Generates a random scalar greater than the given scalar.
      * @param lower Lower bound scalar
      * @return A random scalar
      */
-    Scalar greater(final Scalar lower);
+    Scalar<T> greater(Scalar<T> lower);
 
     /**
      * Generates a random scalar smaller than the given scalar.
      * @param upper Upper bound scalar
      * @return A random scalar
      */
-    Scalar lower(final Scalar upper);
+    Scalar<T> lower(Scalar<T> upper);
 
 }

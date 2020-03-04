@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,24 +33,23 @@ import lombok.ToString;
 
 /**
  * A scalar represented as the scalar sum of a set of scalars.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Add implements Scalar {
+public final class Add<T> implements Scalar<T> {
 
     /**
      * Addition operands.
      */
-    private final Multiset<Scalar> opers;
+    private final Multiset<Scalar<T>> opers;
 
     /**
      * Constructor.
      * @param operands Addition operands
      */
-    public Add(final Scalar... operands) {
+    @SuppressWarnings("unchecked")
+    public Add(final Scalar<T>... operands) {
         this.opers = HashMultiset.create(Arrays.asList(operands));
     }
 
@@ -58,17 +57,18 @@ public final class Add implements Scalar {
      * Gives the addition operands.
      * @return Operands of the sum.
      */
-    public Scalar[] operands() {
+    @SuppressWarnings("unchecked")
+    public Scalar<T>[] operands() {
         return this.opers.toArray(new Scalar[this.opers.size()]);
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         final FieldAddition<T> addition = field.addition();
         T result = addition.neutral();
-        final Scalar[] operands = this.operands();
-        for (int idx = 0; idx < operands.length; ++idx) {
-            result = addition.add(result, operands[idx].value(field));
+        final Scalar<T>[] operands = this.operands();
+        for (final Scalar<T> operand : operands) {
+            result = addition.add(result, operand.value(field));
         }
         return result;
     }

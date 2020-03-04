@@ -33,7 +33,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Throwing implements Scalar {
+public final class Throwing<T> implements Scalar<T> {
 
     /**
      * Runtime exception.
@@ -49,7 +49,7 @@ public final class Throwing implements Scalar {
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         throw this.exception;
     }
 

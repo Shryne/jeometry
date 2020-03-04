@@ -36,22 +36,22 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Norm implements MetricScalar {
+public final class Norm<T> implements MetricScalar<T> {
 
     /**
      * Vector.
      */
-    private final Vect vector;
+    private final Vect<T> vector;
 
     /**
      * Constructor.
      * @param vector Vector for which to calculate the norm
      */
-    public Norm(final Vect vector) {
+    public Norm(final Vect<T> vector) {
         this.vector = vector;
     }
     @Override
-    public <T> T value(final MetricSpaceField<T> field) {
+    public T value(final MetricSpaceField<T> field) {
         return field.actual(field.product().norm(this.vector));
     }
 

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -28,11 +28,9 @@ import com.aljebra.field.OrderedField;
 
 /**
  * Ordered Scalar interface.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
-public interface OrderedScalar extends Scalar {
+public interface OrderedScalar<T> extends Scalar<T> {
 
     /**
      * Return the actual value of the scalar.
@@ -40,10 +38,10 @@ public interface OrderedScalar extends Scalar {
      * @param <T> Scalar object type
      * @return An object representing the scalar
      */
-    <T> T value(final OrderedField<T> field);
+    T value(OrderedField<T> field);
 
     @Override
-    default <T> T value(final Field<T> field) {
+    default T value(Field<T> field) {
         if (field instanceof OrderedField<?>) {
             return this.value((OrderedField<T>) field);
         } else {

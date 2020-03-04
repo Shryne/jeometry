@@ -39,6 +39,6 @@ public interface MetricSpaceField<T> extends OrderedField<T> {
      * Gives the inner product operation.
      * @return Inner product implementation
      */
-    InnerProduct product();
+    InnerProduct<T> product();
 
 }

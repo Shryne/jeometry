@@ -36,17 +36,17 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class BisectorVect extends FixedVector {
+public final class BisectorVect<T> extends FixedVector<T> {
 
     /**
      * Constructor.
      * @param first First vector
      * @param second Second vector
      */
-    public BisectorVect(final Vect first, final Vect second) {
+    public BisectorVect(final Vect<T> first, final Vect<T> second) {
         super(
-            new RotateVect(
-                first, new Times(new VectsDegrees(first, second), 1 / 2.)
+            new RotateVect<T>(
+                first, new Times<T>(new VectsDegrees<T>(first, second), 1 / 2.)
             ).coords()
         );
     }

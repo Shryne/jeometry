@@ -40,15 +40,15 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode(callSuper = true)
-public final class RotateVect extends FixedVector {
+public final class RotateVect<T> extends FixedVector<T> {
 
     /**
      * Constructor.
      * @param vector Vector to rotate
      * @param angle Rotation angle
      */
-    public RotateVect(final Vect vector, final Number angle) {
-        this(vector, new Degrees.Default(angle));
+    public RotateVect(final Vect<T> vector, final Number angle) {
+        this(vector, new Degrees.Default<T>(angle));
     }
 
     /**
@@ -56,7 +56,7 @@ public final class RotateVect extends FixedVector {
      * @param vector Vector to rotate
      * @param angle Rotation angle
      */
-    public RotateVect(final Vect vector, final Degrees angle) {
+    public RotateVect(final Vect<T> vector, final Degrees<T> angle) {
         super(RotateVect.coords(vector, angle));
     }
 
@@ -66,8 +66,9 @@ public final class RotateVect extends FixedVector {
      * @param angle Rotation angle
      * @return Scalar array of the rotated vector coordinates
      */
-    private static Scalar[] coords(final Vect vector, final Degrees angle) {
-        final Scalar[] result = new Scalar[vector.coords().length];
+    @SuppressWarnings("unchecked")
+    private static <T> Scalar<T>[] coords(final Vect<T> vector, final Degrees<T> angle) {
+        final Scalar<T>[] result = new Scalar[vector.coords().length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = RotateVect.coord(vector, angle, idx);
         }
@@ -82,11 +83,11 @@ public final class RotateVect extends FixedVector {
      * @param dim Coordinate index
      * @return A scalar corresponding to a coordinate of the rotated vector
      */
-    private static Scalar coord(final Vect vector, final Degrees angle,
+    private static <T> Scalar<T> coord(final Vect<T> vector, final Degrees<T> angle,
         final int dim) {
-        return new MetricScalar() {
+        return new MetricScalar<T>() {
             @Override
-            public <T> T value(final MetricSpaceField<T> field) {
+            public T value(final MetricSpaceField<T> field) {
                 return field.actual(
                     field.product().rot(vector, angle).coords()[dim]
                 );

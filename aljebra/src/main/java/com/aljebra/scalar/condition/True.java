@@ -31,10 +31,10 @@ import com.aljebra.field.Field;
  * @version $Id$
  * @since 0.1
  */
-public final class True implements Predicate {
+public final class True<T> implements Predicate<T> {
 
     @Override
-    public boolean resolve(final Field<?> field) {
+    public boolean resolve(final Field<T> field) {
         return true;
     }
 

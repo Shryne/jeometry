@@ -69,7 +69,7 @@ public final class Decimal
     }
 
     @Override
-    public Scalar random() {
+    public Scalar<Double> random() {
         return this.between(
             new Scalar.Default<Double>(Decimal.MINBOUND),
             new Scalar.Default<Double>(Decimal.MAXBOUND)
@@ -77,14 +77,14 @@ public final class Decimal
     }
 
     @Override
-    public boolean equals(final Scalar first, final Scalar second) {
+    public boolean equals(final Scalar<Double> first, final Scalar<Double> second) {
         return Math.abs(
             this.actual(first) - this.actual(second)
         ) < Decimal.TOLERANCE;
     }
 
     @Override
-    public InnerProduct product() {
+    public InnerProduct<Double> product() {
         return new Dot();
     }
 }

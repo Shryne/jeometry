@@ -35,13 +35,13 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class TransposeMatrix extends FixedMatrix {
+public class TransposeMatrix<T> extends FixedMatrix<T> {
 
     /**
      * Constructor.
      * @param mat Matrix to transpose
      */
-    public TransposeMatrix(final Matrix mat) {
+    public TransposeMatrix(final Matrix<T> mat) {
         super(mat.columns(), mat.lines(), TransposeMatrix.transpose(mat));
     }
 
@@ -50,10 +50,11 @@ public class TransposeMatrix extends FixedMatrix {
      * @param mat Matrix to transpose
      * @return Scalar coordinates of the transposed matrix
      */
-    private static Scalar[] transpose(final Matrix mat) {
+    @SuppressWarnings("unchecked")
+    private static <T> Scalar<T>[] transpose(final Matrix<T> mat) {
         final int lines = mat.lines();
         final int cols = mat.columns();
-        final Scalar[] result = new Scalar[lines * cols];
+        final Scalar<T>[] result = new Scalar[lines * cols];
         for (int line = 0; line < lines; ++line) {
             System.arraycopy(mat.line(line + 1), 0, result, line * cols, cols);
         }

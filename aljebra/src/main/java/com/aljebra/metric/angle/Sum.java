@@ -38,25 +38,26 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Sum implements Degrees {
+public final class Sum<T> implements Degrees<T> {
 
     /**
      * Sum operands.
      */
-    private final Multiset<Degrees> operands;
+    private final Multiset<Degrees<T>> operands;
 
     /**
      * Constructor.
      * @param operands Sum operands
      */
-    public Sum(final Degrees... operands) {
+    @SuppressWarnings("unchecked")
+    public Sum(final Degrees<T>... operands) {
         this.operands = HashMultiset.create(Arrays.asList(operands));
     }
 
     @Override
-    public Number resolve(final InnerProduct product) {
+    public Number resolve(final InnerProduct<T> product) {
         Double sum = 0.;
-        for (final Degrees angle : this.operands) {
+        for (final Degrees<T> angle : this.operands) {
             sum += angle.resolve(product).doubleValue();
         }
         return sum;

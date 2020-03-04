@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,8 +33,6 @@ import com.aljebra.scalar.Scalar;
  * <li>Define the multiplication identity</li>
  * <li>Compare two scalars for equality</li>
  * </ul>
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */
@@ -44,14 +42,14 @@ public interface Field<T> {
      * Generates a random scalar.
      * @return A random scalar
      */
-    Scalar random();
+    Scalar<T> random();
 
     /**
      * Generates a random scalar other than a given scalar.
      * @param scalar The scalar to be different to.
      * @return A random scalar different from given one.
      */
-    Scalar other(final Scalar scalar);
+    Scalar<T> other(Scalar<T> scalar);
 
     /**
      * Operates equality on scalars.
@@ -59,14 +57,14 @@ public interface Field<T> {
      * @param other Second scalar
      * @return True if the two scalars are considered equal
      */
-    boolean equals(final Scalar scalar, final Scalar other);
+    boolean equals(Scalar<T> scalar, Scalar<T> other);
 
     /**
      * Returns the actual object represented by the given scalar.
      * @param scalar Scalar
      * @return The actual object
      */
-    T actual(final Scalar scalar);
+    T actual(Scalar<T> scalar);
 
     /**
      * Returns the field addition operation.
