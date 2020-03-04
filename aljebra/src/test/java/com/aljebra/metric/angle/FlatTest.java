@@ -41,40 +41,42 @@ public final class FlatTest {
     /**
      * {@link Flat} resolves to an flat angle.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesFlatAngle() {
         final double error = 1.e-6;
-        final InnerProduct product = Mockito.mock(InnerProduct.class);
+        final InnerProduct<Object> product = Mockito.mock(InnerProduct.class);
         MatcherAssert.assertThat(
-            new Flat().resolve(product).doubleValue(),
+            new Flat<Object>().resolve(product).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
         MatcherAssert.assertThat(
-            new Flat().flat(product), Matchers.is(true)
+            new Flat<Object>().flat(product), Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new Flat().right(product), Matchers.is(false)
+            new Flat<Object>().right(product), Matchers.is(false)
         );
     }
 
     /**
      * {@link Flat} respects equals and hashcode.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqualAndHashcode() {
         MatcherAssert.assertThat(
-            new Flat(),
-            Matchers.equalTo(new Flat())
+            new Flat<Object>(),
+            Matchers.equalTo(new Flat<Object>())
         );
         MatcherAssert.assertThat(
-            new Flat().hashCode(),
-            Matchers.equalTo(new Flat().hashCode())
+            new Flat<Object>().hashCode(),
+            Matchers.equalTo(new Flat<Object>().hashCode())
         );
         MatcherAssert.assertThat(
-            new Flat(),
+            new Flat<Object>(),
             Matchers.not(
                 Matchers.equalTo(
-                    new VectsDegrees(
+                    new VectsDegrees<Object>(
                         Mockito.mock(Vect.class), Mockito.mock(Vect.class)
                     )
                 )

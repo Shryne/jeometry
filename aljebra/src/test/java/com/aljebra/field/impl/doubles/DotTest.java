@@ -57,20 +57,21 @@ public final class DotTest {
     /**
      * {@link Dot} can calculate vector product.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void calculatesProduct() {
-        final Vect vecta = Mockito.mock(Vect.class);
-        final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] coords = DotTest.scalars(DotTest.COORDS_LENGTH);
+        final Vect<Double> vecta = Mockito.mock(Vect.class);
+        final Vect<Double> vectb = Mockito.mock(Vect.class);
+        final Scalar<Double>[] coords = DotTest.scalars(DotTest.COORDS_LENGTH);
         Mockito.when(vectb.coords()).thenReturn(coords);
         Mockito.when(vecta.coords()).thenReturn(coords);
-        final Scalar[] multis = new Scalar[coords.length];
+        final Scalar<Double>[] multis = new Scalar[coords.length];
         for (int idx = 0; idx < coords.length; ++idx) {
             multis[idx] = DotTest.square(coords[idx]);
         }
         MatcherAssert.assertThat(
             new Dot().product(vecta, vectb),
-            Matchers.equalTo(new Add(multis))
+            Matchers.equalTo(new Add<Double>(multis))
         );
     }
 
@@ -78,13 +79,14 @@ public final class DotTest {
      * {@link Dot} throws exception if the two vectors don't have
      * the same dimension when calculating product.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsProductWhenNotSameSize() {
         this.thrown.expect(IllegalArgumentException.class);
-        final Vect vecta = Mockito.mock(Vect.class);
-        final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = DotTest.scalars(DotTest.COORDS_LENGTH);
-        final Scalar[] bcoords = DotTest.scalars(acoords.length + 1);
+        final Vect<Double> vecta = Mockito.mock(Vect.class);
+        final Vect<Double> vectb = Mockito.mock(Vect.class);
+        final Scalar<Double>[] acoords = DotTest.scalars(DotTest.COORDS_LENGTH);
+        final Scalar<Double>[] bcoords = DotTest.scalars(acoords.length + 1);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
         new Dot().product(vecta, vectb);
@@ -95,7 +97,7 @@ public final class DotTest {
      */
     @Test
     public void calculatesAngle() {
-        final Vect vecta = new DblVect(1., 0.);
+        final Vect<Double> vecta = new DblVect(1., 0.);
         final double pifourth = Math.PI / 4;
         final Dot dot = new Dot();
         final double error = 1.e-6;
@@ -122,33 +124,33 @@ public final class DotTest {
      */
     @Test
     public void calculatesRotation() {
-        final Vect vecta = new DblVect(1., 0.);
-        final Degrees pifourth = new Degrees.Default(Math.PI / 4);
+        final Vect<Double> vecta = new DblVect(1., 0.);
+        final Degrees<Double> pifourth = new Degrees.Default<Double>(Math.PI / 4);
         final Dot dot = new Dot();
         final Decimal field = new Decimal();
         final double error = 1.e-6;
-        Scalar[] image = dot.rot(vecta, pifourth).coords();
+        Scalar<Double>[] image = dot.rot(vecta, pifourth).coords();
         MatcherAssert.assertThat(
             field.actual(image[0]), Matchers.closeTo(Math.sqrt(2) / 2, error)
         );
         MatcherAssert.assertThat(
             field.actual(image[1]), Matchers.closeTo(Math.sqrt(2) / 2, error)
         );
-        image = dot.rot(vecta, new Degrees.Default(0)).coords();
+        image = dot.rot(vecta, new Degrees.Default<Double>(0)).coords();
         MatcherAssert.assertThat(
             field.actual(image[0]), Matchers.closeTo(1., error)
         );
         MatcherAssert.assertThat(
             field.actual(image[1]), Matchers.closeTo(0., error)
         );
-        image = dot.rot(vecta, new Degrees.Default(Math.PI / 2)).coords();
+        image = dot.rot(vecta, new Degrees.Default<Double>(Math.PI / 2)).coords();
         MatcherAssert.assertThat(
             field.actual(image[0]), Matchers.closeTo(0., error)
         );
         MatcherAssert.assertThat(
             field.actual(image[1]), Matchers.closeTo(1., error)
         );
-        image = dot.rot(vecta, new Degrees.Default(Math.PI)).coords();
+        image = dot.rot(vecta, new Degrees.Default<Double>(Math.PI)).coords();
         MatcherAssert.assertThat(
             field.actual(image[0]), Matchers.closeTo(-1., error)
         );
@@ -188,13 +190,14 @@ public final class DotTest {
      * {@link Dot} throws exception if the two vectors don't have
      * the same dimension when calculating angle.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsAngleWhenNotSameSize() {
         this.thrown.expect(IllegalArgumentException.class);
-        final Vect vecta = Mockito.mock(Vect.class);
-        final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = DotTest.scalars(DotTest.COORDS_LENGTH);
-        final Scalar[] bcoords = DotTest.scalars(acoords.length + 1);
+        final Vect<Double> vecta = Mockito.mock(Vect.class);
+        final Vect<Double> vectb = Mockito.mock(Vect.class);
+        final Scalar<Double>[] acoords = DotTest.scalars(DotTest.COORDS_LENGTH);
+        final Scalar<Double>[] bcoords = DotTest.scalars(acoords.length + 1);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
         new Dot().angle(vecta, vectb);
@@ -205,8 +208,9 @@ public final class DotTest {
      * @param oper The scalar to square
      * @return A {@link Multiplication} object representing the square
      */
-    private static Multiplication square(final Scalar oper) {
-        return new Multiplication(oper, oper);
+    @SuppressWarnings("unchecked")
+    private static Multiplication<Double> square(final Scalar<Double> oper) {
+        return new Multiplication<Double>(oper, oper);
     }
 
     /**
@@ -214,8 +218,9 @@ public final class DotTest {
      * @param length Array length to generate
      * @return An array of scalars.
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Double>[] scalars(final int length) {
+        final Scalar<Double>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);
         }

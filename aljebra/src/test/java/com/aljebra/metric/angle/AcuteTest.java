@@ -40,9 +40,10 @@ public final class AcuteTest {
     /**
      * {@link Acute} resolves to an acute angle.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesAcuteAngle() {
-        final double angle = new Acute().resolve(
+        final double angle = new Acute<Object>().resolve(
             Mockito.mock(InnerProduct.class)
         ).doubleValue();
         MatcherAssert.assertThat(angle, Matchers.greaterThanOrEqualTo(0.));
