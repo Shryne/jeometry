@@ -29,27 +29,28 @@ import lombok.ToString;
 
 /**
  * A scalar representing the addition inverse of another scalar.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class AddInverse implements Scalar {
+public final class AddInverse<T> implements Scalar<T> {
 
     /**
      * Scalar to inverse.
      */
-    private final Scalar inverse;
+    private final Scalar<T> inverse;
 
     /**
      * Constructor.
      * @param inv Scalar to inverse
      */
-    public AddInverse(final Scalar inv) {
+    public AddInverse(final Scalar<T> inv) {
         this.inverse = inv;
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         return field.addition().inverse(field.actual(this.inverse));
     }
 

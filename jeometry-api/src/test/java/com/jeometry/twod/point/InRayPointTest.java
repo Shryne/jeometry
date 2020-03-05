@@ -75,7 +75,7 @@ public final class InRayPointTest {
      * @param any Ray
      * @return True if the point belongs to the ray
      */
-    private static boolean belongs(final Vect pnt, final Ray any) {
+    private static boolean belongs(final Vect<Double> pnt, final Ray<Double> any) {
         final Field<Double> dec = new Decimal();
         final double xcoor = pnt.coords()[0].value(dec);
         final double ycoor = pnt.coords()[1].value(dec);
@@ -93,8 +93,8 @@ public final class InRayPointTest {
             final boolean between = xdir > 0 && xcoor > xorigin
                 || xdir < 0 && xcoor < xorigin;
             result = Math.abs(
-                ycoor - xcoor * new Slope(any).value(dec)
-                    - new Intercept(any).value(dec)
+                ycoor - xcoor * new Slope<Double>(any).value(dec)
+                    - new Intercept<Double>(any).value(dec)
             ) < error && between;
         }
         return result;

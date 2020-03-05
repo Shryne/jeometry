@@ -29,14 +29,15 @@ import lombok.ToString;
 
 /**
  * A scalar representing the multiplication identity.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class MultIdentity implements Scalar {
+public final class MultIdentity<T> implements Scalar<T> {
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         return field.multiplication().neutral();
     }
 

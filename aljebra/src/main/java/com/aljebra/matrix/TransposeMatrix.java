@@ -29,29 +29,32 @@ import lombok.ToString;
 
 /**
  * Represents a matrix as the transpose of another matrix.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class TransposeMatrix extends FixedMatrix {
+public class TransposeMatrix<T> extends FixedMatrix<T> {
 
     /**
      * Constructor.
      * @param mat Matrix to transpose
      */
-    public TransposeMatrix(final Matrix mat) {
+    public TransposeMatrix(final Matrix<T> mat) {
         super(mat.columns(), mat.lines(), TransposeMatrix.transpose(mat));
     }
 
     /**
      * Transposes a matrix.
      * @param mat Matrix to transpose
+     * @param <T> scalar types
      * @return Scalar coordinates of the transposed matrix
      */
-    private static Scalar[] transpose(final Matrix mat) {
+    @SuppressWarnings("unchecked")
+    private static <T> Scalar<T>[] transpose(final Matrix<T> mat) {
         final int lines = mat.lines();
         final int cols = mat.columns();
-        final Scalar[] result = new Scalar[lines * cols];
+        final Scalar<T>[] result = new Scalar[lines * cols];
         for (int line = 0; line < lines; ++line) {
             System.arraycopy(mat.line(line + 1), 0, result, line * cols, cols);
         }

@@ -30,24 +30,26 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Represents a one-row-matrix defined by a vector.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
-public class VectorMatrix extends FixedMatrix {
+public class VectorMatrix<T> extends FixedMatrix<T> {
 
     /**
      * Constructor.
      * @param coor Scalars to build the matrix from
      */
-    public VectorMatrix(final Scalar... coor) {
-        this(new FixedVector(coor));
+    @SuppressWarnings("unchecked")
+    public VectorMatrix(final Scalar<T>... coor) {
+        this(new FixedVector<T>(coor));
     }
 
     /**
      * Constructor.
      * @param vector Vector to build the matrix from
      */
-    public VectorMatrix(final Vect vector) {
+    public VectorMatrix(final Vect<T> vector) {
         super(1, vector.coords().length, vector.coords());
     }
 }

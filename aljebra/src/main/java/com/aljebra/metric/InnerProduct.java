@@ -30,9 +30,10 @@ import com.aljebra.vector.Vect;
 /**
  * Inner product interface. Represents an inner product operation and its
  * induced properties.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface InnerProduct {
+public interface InnerProduct<T> {
 
     /**
      * Calculates the inner product of two vectors.
@@ -40,7 +41,7 @@ public interface InnerProduct {
      * @param second Second operand
      * @return A scalar representing the inner product
      */
-    Scalar product(Vect first, Vect second);
+    Scalar<T> product(Vect<T> first, Vect<T> second);
 
     /**
      * Calculates the angle between two vectors.
@@ -48,14 +49,14 @@ public interface InnerProduct {
      * @param second Second operand
      * @return The angle between two vectors
      */
-    Degrees angle(Vect first, Vect second);
+    Degrees<T> angle(Vect<T> first, Vect<T> second);
 
     /**
      * Calculates the norm of a vector.
      * @param vect Input vector
      * @return A scalar representing the norm
      */
-    Scalar norm(Vect vect);
+    Scalar<T> norm(Vect<T> vect);
 
     /**
      * Rotates a vector with a given angle.
@@ -63,14 +64,14 @@ public interface InnerProduct {
      * @param angle Angle to form with the input vector
      * @return A vector
      */
-    Vect rot(Vect vect, Degrees angle);
+    Vect<T> rot(Vect<T> vect, Degrees<T> angle);
 
     /**
      * Calculates the actual value of the angle.
      * @param angle Angle to resolve
      * @return A number representing the angle
      */
-    default Number resolve(Degrees angle) {
+    default Number resolve(Degrees<T> angle) {
         return angle.resolve(this);
     }
 }

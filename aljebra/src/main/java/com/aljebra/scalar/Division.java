@@ -30,27 +30,28 @@ import lombok.ToString;
 
 /**
  * A scalar represented as the division of a scalar by another scalar.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString
-public final class Division implements Scalar {
+public final class Division<T> implements Scalar<T> {
     /**
      * First operand.
      */
-    private final Scalar dividend;
+    private final Scalar<T> dividend;
 
     /**
      * Second operand.
      */
-    private final Scalar divisor;
+    private final Scalar<T> divisor;
 
     /**
      * Constructor.
      * @param first First operand (dividend)
      * @param second Second operand (divisor)
      */
-    public Division(final Scalar first, final Scalar second) {
+    public Division(final Scalar<T> first, final Scalar<T> second) {
         this.dividend = first;
         this.divisor = second;
     }
@@ -59,7 +60,7 @@ public final class Division implements Scalar {
      * Gives first operand (dividend).
      * @return The first operand of the division.
      */
-    public Scalar first() {
+    public Scalar<T> first() {
         return this.dividend;
     }
 
@@ -67,12 +68,12 @@ public final class Division implements Scalar {
      * Gives second operand (divisor).
      * @return The second operand of the sum.
      */
-    public Scalar second() {
+    public Scalar<T> second() {
         return this.divisor;
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         final FieldMultiplication<T> mult = field.multiplication();
         final T inverse = mult.inverse(field.actual(this.divisor));
         return mult.multiply(field.actual(this.dividend), inverse);

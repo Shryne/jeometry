@@ -29,14 +29,15 @@ import lombok.ToString;
 
 /**
  * A scalar representing the addition identity.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class AddIdentity implements Scalar {
+public final class AddIdentity<T> implements Scalar<T> {
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         return field.addition().neutral();
     }
 

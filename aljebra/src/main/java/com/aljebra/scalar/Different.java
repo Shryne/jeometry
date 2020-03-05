@@ -29,32 +29,33 @@ import lombok.ToString;
 
 /**
  * A random scalar different than a given scalar.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Different implements Scalar {
+public final class Different<T> implements Scalar<T> {
 
     /**
      * Random generated scalar.
      */
-    private Optional<Scalar> generated;
+    private Optional<Scalar<T>> generated;
 
     /**
      * Scalar to be different to.
      */
-    private final Scalar scl;
+    private final Scalar<T> scl;
 
     /**
      * Constructor.
      * @param scl Scalar to be different to
      */
-    public Different(final Scalar scl) {
+    public Different(final Scalar<T> scl) {
         this.generated = Optional.empty();
         this.scl = scl;
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         if (!this.generated.isPresent()) {
             this.generated = Optional.of(field.other(this.scl));
         }

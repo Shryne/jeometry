@@ -38,26 +38,27 @@ public final class ComplementaryTest {
     /**
      * {@link Complementary} resolves to a complementary angle.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesComplementaryAngle() {
-        final Degrees first = new Degrees.Default(Math.random());
-        final Degrees second = new Degrees.Default(Math.random());
-        final Degrees third = new Degrees.Default(Math.random());
-        final InnerProduct pdt = Mockito.mock(InnerProduct.class);
+        final Degrees<Double> first = new Degrees.Default<>(Math.random());
+        final Degrees<Double> second = new Degrees.Default<>(Math.random());
+        final Degrees<Double> third = new Degrees.Default<>(Math.random());
+        final InnerProduct<Double> pdt = Mockito.mock(InnerProduct.class);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Complementary(first).resolve(pdt).doubleValue()
-            + first.resolve(pdt).doubleValue(),
+            new Complementary<Double>(first).resolve(pdt).doubleValue()
+                + first.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            new Complementary(second).resolve(pdt).doubleValue()
-            + second.resolve(pdt).doubleValue(),
+            new Complementary<Double>(second).resolve(pdt).doubleValue()
+                + second.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            new Complementary(third).resolve(pdt).doubleValue()
-            + third.resolve(pdt).doubleValue(),
+            new Complementary<Double>(third).resolve(pdt).doubleValue()
+                + third.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
     }

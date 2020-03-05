@@ -35,68 +35,74 @@ import lombok.ToString;
 
 /**
  * A Matrix represented as the sum of a set of matrices.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Sum implements Matrix {
+public final class Sum<T> implements Matrix<T> {
 
     /**
      * Sum operands.
      */
-    private final Multiset<Matrix> operands;
+    private final Multiset<Matrix<T>> operands;
 
     /**
      * Constructor.
      * @param operands Sum operands
      */
+    @SuppressWarnings("unchecked")
     @DimensionsEqual
-    public Sum(final Matrix... operands) {
+    public Sum(final Matrix<T>... operands) {
         this.operands = HashMultiset.create(Arrays.asList(operands));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Scalar[] coords() {
-        final Vect[] results = new Vect[this.operands.size()];
+    public Scalar<T>[] coords() {
+        final Vect<T>[] results = new Vect[this.operands.size()];
         int idx = 0;
-        for (final Matrix oper : this.operands) {
+        for (final Matrix<T> oper : this.operands) {
             results[idx] = Sum.vector(oper.coords());
             ++idx;
         }
-        return new com.aljebra.vector.Sum(results).coords();
+        return new com.aljebra.vector.Sum<T>(results).coords();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Scalar[] column(final int index) {
-        final Vect[] cols = new Vect[this.operands.size()];
+    public Scalar<T>[] column(final int index) {
+        final Vect<T>[] cols = new Vect[this.operands.size()];
         int idx = 0;
-        for (final Matrix oper : this.operands) {
+        for (final Matrix<T> oper : this.operands) {
             cols[idx] = Sum.vector(oper.column(index));
             ++idx;
         }
-        return new com.aljebra.vector.Sum(cols).coords();
+        return new com.aljebra.vector.Sum<T>(cols).coords();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Scalar[] line(final int index) {
-        final Vect[] lines = new Vect[this.operands.size()];
+    public Scalar<T>[] line(final int index) {
+        final Vect<T>[] lines = new Vect[this.operands.size()];
         int idx = 0;
-        for (final Matrix oper : this.operands) {
+        for (final Matrix<T> oper : this.operands) {
             lines[idx] = Sum.vector(oper.line(index));
             ++idx;
         }
-        return new com.aljebra.vector.Sum(lines).coords();
+        return new com.aljebra.vector.Sum<T>(lines).coords();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Vect apply(final Vect input) {
-        final Vect[] results = new Vect[this.operands.size()];
+    public Vect<T> apply(final Vect<T> input) {
+        final Vect<T>[] results = new Vect[this.operands.size()];
         int idx = 0;
-        for (final Matrix oper : this.operands) {
+        for (final Matrix<T> oper : this.operands) {
             results[idx] = oper.apply(input);
             ++idx;
         }
-        return new com.aljebra.vector.Sum(results);
+        return new com.aljebra.vector.Sum<T>(results);
     }
 
     @Override
@@ -112,9 +118,11 @@ public final class Sum implements Matrix {
     /**
      * Builds a vector given its coordinates.
      * @param coords Vector coordinates
+     * @param <T> scalar types
      * @return A {@link FixedVector} instance
      */
-    private static FixedVector vector(final Scalar... coords) {
-        return new FixedVector(coords);
+    @SuppressWarnings("unchecked")
+    private static <T> FixedVector<T> vector(final Scalar<T>... coords) {
+        return new FixedVector<T>(coords);
     }
 }

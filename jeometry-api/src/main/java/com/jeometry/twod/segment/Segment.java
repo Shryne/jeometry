@@ -28,20 +28,21 @@ import com.jeometry.twod.Renderable;
 
 /**
  * Segment interface describing a segment by its two extremities.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Segment extends Renderable {
+public interface Segment<T> extends Renderable {
 
     /**
      * Gives the first extremity of the segment.
      * @return A point representing the segment start
      */
-    Vect start();
+    Vect<T> start();
 
     /**
      * Gives the end extremity of the segment.
      * @return A point representing the segment end
      */
-    Vect end();
+    Vect<T> end();
 
 }

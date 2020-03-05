@@ -34,19 +34,20 @@ import lombok.ToString;
 
 /**
  * A vector defined as the rotation image of a vector by an angle.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode(callSuper = true)
-public final class RotateVect extends FixedVector {
+public final class RotateVect<T> extends FixedVector<T> {
 
     /**
      * Constructor.
      * @param vector Vector to rotate
      * @param angle Rotation angle
      */
-    public RotateVect(final Vect vector, final Number angle) {
-        this(vector, new Degrees.Default(angle));
+    public RotateVect(final Vect<T> vector, final Number angle) {
+        this(vector, new Degrees.Default<T>(angle));
     }
 
     /**
@@ -54,7 +55,7 @@ public final class RotateVect extends FixedVector {
      * @param vector Vector to rotate
      * @param angle Rotation angle
      */
-    public RotateVect(final Vect vector, final Degrees angle) {
+    public RotateVect(final Vect<T> vector, final Degrees<T> angle) {
         super(RotateVect.coords(vector, angle));
     }
 
@@ -62,10 +63,12 @@ public final class RotateVect extends FixedVector {
      * Calculates coordinates of the rotated vector.
      * @param vector Vector to rotate
      * @param angle Rotation angle
+     * @param <T> scalar types
      * @return Scalar array of the rotated vector coordinates
      */
-    private static Scalar[] coords(final Vect vector, final Degrees angle) {
-        final Scalar[] result = new Scalar[vector.coords().length];
+    @SuppressWarnings("unchecked")
+    private static <T> Scalar<T>[] coords(final Vect<T> vector, final Degrees<T> angle) {
+        final Scalar<T>[] result = new Scalar[vector.coords().length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = RotateVect.coord(vector, angle, idx);
         }
@@ -78,13 +81,14 @@ public final class RotateVect extends FixedVector {
      * @param vector Vector to rotate
      * @param angle Rotation angle
      * @param dim Coordinate index
+     * @param <T> scalar types
      * @return A scalar corresponding to a coordinate of the rotated vector
      */
-    private static Scalar coord(final Vect vector, final Degrees angle,
+    private static <T> Scalar<T> coord(final Vect<T> vector, final Degrees<T> angle,
         final int dim) {
-        return new MetricScalar() {
+        return new MetricScalar<T>() {
             @Override
-            public <T> T value(final MetricSpaceField<T> field) {
+            public T value(final MetricSpaceField<T> field) {
                 return field.actual(
                     field.product().rot(vector, angle).coords()[dim]
                 );

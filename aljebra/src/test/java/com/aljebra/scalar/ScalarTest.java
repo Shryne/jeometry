@@ -23,11 +23,9 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Scalar}.
@@ -49,17 +47,6 @@ public final class ScalarTest {
             new Scalar.Default<String>(test),
             Matchers.equalTo(new Scalar.Default<String>(test))
         );
-    }
-
-    /**
-     * {@link Scalar.Default} relies on field to calculate actual value.
-     */
-    @Test
-    public void delegatesToField() {
-        final Scalar first = new Scalar.Default<Double>(1.);
-        final Field<?> field = Mockito.mock(Field.class);
-        first.value(field);
-        Mockito.verify(field).actual(first);
     }
 
     /**

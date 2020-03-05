@@ -30,27 +30,28 @@ import lombok.ToString;
 
 /**
  * A scalar represented as the difference between two scalars.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString
-public final class Diff implements Scalar {
+public final class Diff<T> implements Scalar<T> {
     /**
      * First operand.
      */
-    private final Scalar foperand;
+    private final Scalar<T> foperand;
 
     /**
      * Second operand.
      */
-    private final Scalar soperand;
+    private final Scalar<T> soperand;
 
     /**
      * Constructor.
      * @param first First operand (minuend)
      * @param second Second operand (subtrahend)
      */
-    public Diff(final Scalar first, final Scalar second) {
+    public Diff(final Scalar<T> first, final Scalar<T> second) {
         this.foperand = first;
         this.soperand = second;
     }
@@ -59,7 +60,7 @@ public final class Diff implements Scalar {
      * Gives first operand (minuend).
      * @return The first operand of the difference.
      */
-    public Scalar first() {
+    public Scalar<T> first() {
         return this.foperand;
     }
 
@@ -67,12 +68,12 @@ public final class Diff implements Scalar {
      * Gives second operand (subtrahend).
      * @return The second operand of the difference.
      */
-    public Scalar second() {
+    public Scalar<T> second() {
         return this.soperand;
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         final FieldAddition<T> add = field.addition();
         final T inverse = add.inverse(field.actual(this.soperand));
         return add.add(field.actual(this.foperand), inverse);

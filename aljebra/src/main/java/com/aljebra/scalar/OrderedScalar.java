@@ -28,20 +28,20 @@ import com.aljebra.field.OrderedField;
 
 /**
  * Ordered Scalar interface.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface OrderedScalar extends Scalar {
+public interface OrderedScalar<T> extends Scalar<T> {
 
     /**
      * Return the actual value of the scalar.
      * @param field Scalar field
-     * @param <T> Scalar object type
      * @return An object representing the scalar
      */
-    <T> T value(OrderedField<T> field);
+    T value(OrderedField<T> field);
 
     @Override
-    default <T> T value(Field<T> field) {
+    default T value(Field<T> field) {
         if (field instanceof OrderedField<?>) {
             return this.value((OrderedField<T>) field);
         } else {

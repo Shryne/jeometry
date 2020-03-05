@@ -27,14 +27,15 @@ import com.aljebra.scalar.Scalar;
 
 /**
  * Vector interface. Represents an n-dimension vector.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Vect {
+public interface Vect<T> {
 
     /**
      * Vector coordinates.
      * @return Coordinate
      */
-    Scalar[] coords();
+    Scalar<T>[] coords();
 
 }

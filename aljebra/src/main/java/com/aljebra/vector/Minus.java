@@ -31,20 +31,21 @@ import lombok.ToString;
 
 /**
  * A vector represented as the difference between two vectors.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
 @EqualsAndHashCode
-public final class Minus implements Vect {
+public final class Minus<T> implements Vect<T> {
     /**
      * First operand.
      */
-    private final Vect first;
+    private final Vect<T> first;
 
     /**
      * Second operand.
      */
-    private final Vect second;
+    private final Vect<T> second;
 
     /**
      * Constructor.
@@ -52,15 +53,16 @@ public final class Minus implements Vect {
      * @param second Second operand (subtrahend)
      */
     @DimensionsEqual
-    public Minus(final Vect first, final Vect second) {
+    public Minus(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Scalar[] coords() {
+    public Scalar<T>[] coords() {
         final int dim = this.first.coords().length;
-        final Scalar[] result = new Scalar[dim];
+        final Scalar<T>[] result = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {
             result[axis] = this.dimension(axis);
         }
@@ -72,7 +74,7 @@ public final class Minus implements Vect {
      * @param dim Given dimension
      * @return A {@link Diff} object representing the difference
      */
-    private Diff dimension(final int dim) {
-        return new Diff(this.first.coords()[dim], this.second.coords()[dim]);
+    private Diff<T> dimension(final int dim) {
+        return new Diff<T>(this.first.coords()[dim], this.second.coords()[dim]);
     }
 }

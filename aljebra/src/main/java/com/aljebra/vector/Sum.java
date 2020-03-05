@@ -34,30 +34,33 @@ import lombok.ToString;
 
 /**
  * A vector represented as the sum of a set of vectors.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Sum implements Vect {
+public final class Sum<T> implements Vect<T> {
 
     /**
      * Sum operands.
      */
-    private final Multiset<Vect> operands;
+    private final Multiset<Vect<T>> operands;
 
     /**
      * Constructor.
      * @param operands Sum operands
      */
+    @SuppressWarnings("unchecked")
     @DimensionsEqual
-    public Sum(final Vect... operands) {
+    public Sum(final Vect<T>... operands) {
         this.operands = HashMultiset.create(Arrays.asList(operands));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Scalar[] coords() {
+    public Scalar<T>[] coords() {
         final int dim = this.operands.iterator().next().coords().length;
-        final Scalar[] result = new Scalar[dim];
+        final Scalar<T>[] result = new Scalar[dim];
         for (int axis = 0; axis < dim; ++axis) {
             result[axis] = this.dimension(axis);
         }
@@ -69,13 +72,14 @@ public final class Sum implements Vect {
      * @param dim Given dimension
      * @return An {@link Add} object representing the sum
      */
-    private Add dimension(final int dim) {
-        final Scalar[] coor = new Scalar[this.operands.size()];
+    @SuppressWarnings("unchecked")
+    private Add<T> dimension(final int dim) {
+        final Scalar<T>[] coor = new Scalar[this.operands.size()];
         int idx = 0;
-        for (final Vect oper : this.operands) {
+        for (final Vect<T> oper : this.operands) {
             coor[idx] = oper.coords()[dim];
             ++idx;
         }
-        return new Add(coor);
+        return new Add<T>(coor);
     }
 }

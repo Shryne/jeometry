@@ -28,15 +28,16 @@ import lombok.ToString;
 
 /**
  * Represents a random vector or a point.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public class RandomPoint extends XyPoint {
+public class RandomPoint<T> extends XyPoint<T> {
     /**
      * Constructor.
      */
     public RandomPoint() {
-        super(new Random(), new Random());
+        super(new Random<T>(), new Random<T>());
     }
 
 }

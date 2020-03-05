@@ -55,7 +55,7 @@ public final class InterceptTest {
      */
     @Test
     public void calculatesIntercept() {
-        final Line line = new PtDirLine(
+        final Line<Double> line = new PtDirLine(
             new VertPoint(), new DifferentPoint(new VertPoint())
         );
         final double error = 1.e-6;
@@ -65,7 +65,7 @@ public final class InterceptTest {
         final Double dirx = line.direction().coords()[0].value(dec);
         final Double diry = line.direction().coords()[1].value(dec);
         MatcherAssert.assertThat(
-            new Intercept(line).value(dec),
+            new Intercept<Double>(line).value(dec),
             Matchers.closeTo(starty - startx * diry / dirx, error)
         );
     }
@@ -75,7 +75,7 @@ public final class InterceptTest {
      */
     @Test
     public void calculatesRayIntercept() {
-        final Ray ray = new PtDirRay(
+        final Ray<Double> ray = new PtDirRay(
             new VertPoint(), new DifferentPoint(new VertPoint())
         );
         final double error = 1.e-6;
@@ -85,7 +85,7 @@ public final class InterceptTest {
         final Double dirx = ray.direction().coords()[0].value(dec);
         final Double diry = ray.direction().coords()[1].value(dec);
         MatcherAssert.assertThat(
-            new Intercept(ray).value(dec),
+            new Intercept<Double>(ray).value(dec),
             Matchers.closeTo(starty - startx * diry / dirx, error)
         );
     }
@@ -95,7 +95,7 @@ public final class InterceptTest {
      */
     @Test
     public void calculatesSegmentIntercept() {
-        final Segment seg = new PtVectSegment(
+        final Segment<Double> seg = new PtVectSegment(
             new VertPoint(), new DifferentPoint(new VertPoint())
         );
         final double error = 1.e-6;
@@ -105,7 +105,7 @@ public final class InterceptTest {
         final Double endx = seg.end().coords()[0].value(dec);
         final Double endy = seg.end().coords()[1].value(dec);
         MatcherAssert.assertThat(
-            new Intercept(seg).value(dec),
+            new Intercept<Double>(seg).value(dec),
             Matchers.closeTo(
                 starty - startx * (endy - starty) / (endx - startx), error
             )

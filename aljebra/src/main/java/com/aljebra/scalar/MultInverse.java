@@ -29,28 +29,29 @@ import lombok.ToString;
 
 /**
  * A scalar representing the multiplication inverse of another scalar.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class MultInverse implements Scalar {
+public final class MultInverse<T> implements Scalar<T> {
 
     /**
      * Scalar to inverse.
      */
-    private final Scalar inverse;
+    private final Scalar<T> inverse;
 
     /**
      * Constructor.
      * @param inv Scalar to inverse
      */
-    public MultInverse(final Scalar inv) {
+    public MultInverse(final Scalar<T> inv) {
         this.inverse = inv;
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
-        if (field.equals(this.inverse, new AddIdentity())) {
+    public T value(final Field<T> field) {
+        if (field.equals(this.inverse, new AddIdentity<T>())) {
             throw new IllegalArgumentException(
                 String.format(
                     "Impossible to inverse addition neutral element: %s",

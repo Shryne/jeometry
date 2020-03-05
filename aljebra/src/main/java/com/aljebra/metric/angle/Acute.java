@@ -28,10 +28,11 @@ import lombok.ToString;
 
 /**
  * Acute angle degrees.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Acute implements Degrees {
+public final class Acute<T> implements Degrees<T> {
 
     /**
      * Random generated double.
@@ -46,7 +47,7 @@ public final class Acute implements Degrees {
     }
 
     @Override
-    public Number resolve(final InnerProduct product) {
+    public Number resolve(final InnerProduct<T> product) {
         return this.random * Math.PI / 2;
     }
 

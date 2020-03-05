@@ -30,16 +30,17 @@ import com.aljebra.scalar.Throwing;
 /**
  * Predicate interface. A predicate could be resolved to true or false given
  * the field.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Predicate {
+public interface Predicate<T> {
 
     /**
      * Evaluates this predicate on the given field.
      * @param field Scalars field
      * @return A boolean evaluation of the predicate
      */
-    boolean resolve(Field<?> field);
+    boolean resolve(Field<T> field);
 
     /**
      * Returns a scalar that evaluates to the first passed scalar if this
@@ -49,8 +50,8 @@ public interface Predicate {
      * @param lies Scalar if this predicate is false
      * @return A scalar whose evaluation depends on this predicate
      */
-    default Scalar ifElse(Scalar truth, Scalar lies) {
-        return new Ternary(this, truth, lies);
+    default Scalar<T> ifElse(Scalar<T> truth, Scalar<T> lies) {
+        return new Ternary<T>(this, truth, lies);
     }
 
     /**
@@ -61,7 +62,7 @@ public interface Predicate {
      * @param err Exception to throw if this predicate is false
      * @return A scalar whose evaluation depends on this predicate
      */
-    default Scalar ifElse(Scalar truth, RuntimeException err) {
-        return this.ifElse(truth, new Throwing(err));
+    default Scalar<T> ifElse(Scalar<T> truth, RuntimeException err) {
+        return this.ifElse(truth, new Throwing<T>(err));
     }
 }
