@@ -48,7 +48,7 @@ public final class MidSegPointTest {
         final Segment any = new RandomSegment();
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
-        final Scalar[] coords = new MidSegPoint(any).coords();
+        final Scalar<Double>[] coords = new MidSegPoint(any).coords();
         MatcherAssert.assertThat(
             coords[0].value(dec),
             Matchers.closeTo(MidSegPointTest.mid(any)[0], error)
@@ -78,7 +78,7 @@ public final class MidSegPointTest {
      * @param any Segment
      * @return True if the point belongs to the segment
      */
-    private static Double[] mid(final Segment any) {
+    private static Double[] mid(final Segment<Double> any) {
         final Field<Double> dec = new Decimal();
         final Double startx = any.start().coords()[0].value(dec);
         final Double starty = any.start().coords()[1].value(dec);

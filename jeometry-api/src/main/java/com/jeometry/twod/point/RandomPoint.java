@@ -33,12 +33,12 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public class RandomPoint extends XyPoint {
+public class RandomPoint<T> extends XyPoint<T> {
     /**
      * Constructor.
      */
     public RandomPoint() {
-        super(new Random(), new Random());
+        super(new Random<T>(), new Random<T>());
     }
 
 }

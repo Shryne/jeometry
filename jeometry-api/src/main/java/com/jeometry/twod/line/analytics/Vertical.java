@@ -40,7 +40,7 @@ import lombok.EqualsAndHashCode;
  * @since 0.1
  */
 @EqualsAndHashCode
-public final class Vertical implements Predicate {
+public final class Vertical<T> implements Predicate<T> {
 
     /**
      * Line.
@@ -72,7 +72,7 @@ public final class Vertical implements Predicate {
     }
 
     @Override
-    public boolean resolve(final Field<?> field) {
+    public boolean resolve(final Field<T> field) {
         return field.equals(
             this.line.direction().coords()[0], new AddIdentity()
         );

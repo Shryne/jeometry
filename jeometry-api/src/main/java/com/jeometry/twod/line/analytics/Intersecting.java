@@ -33,7 +33,7 @@ import com.jeometry.twod.line.Line;
  * @version $Id$
  * @since 0.1
  */
-public final class Intersecting implements Predicate {
+public final class Intersecting<T> implements Predicate<T> {
 
     /**
      * First line.
@@ -56,7 +56,7 @@ public final class Intersecting implements Predicate {
     }
 
     @Override
-    public boolean resolve(final Field<?> field) {
+    public boolean resolve(final Field<T> field) {
         return !new Parallel(this.first, this.second).resolve(field);
     }
 

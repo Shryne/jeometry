@@ -33,18 +33,18 @@ import com.jeometry.twod.Renderable;
  * @version $Id$
  * @since 0.1
  */
-public interface Circle extends Renderable {
+public interface Circle<T> extends Renderable {
 
     /**
      * Gives the center of the circle.
      * @return Circle center
      */
-    Vect center();
+    Vect<T> center();
 
     /**
      * Gives the circle radius.
      * @return Circle radius
      */
-    Scalar radius();
+    Scalar<T> radius();
 
 }

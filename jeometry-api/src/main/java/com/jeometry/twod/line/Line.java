@@ -33,18 +33,18 @@ import com.jeometry.twod.Renderable;
  * @version $Id$
  * @since 0.1
  */
-public interface Line extends Renderable {
+public interface Line<T> extends Renderable {
 
     /**
      * Gives the direction of the Line.
      * @return Direction.
      */
-    Vect direction();
+    Vect<T> direction();
 
     /**
      * Gives a Point belonging to the Line.
      * @return A point by which the line passes
      */
-    Vect point();
+    Vect<T> point();
 
 }

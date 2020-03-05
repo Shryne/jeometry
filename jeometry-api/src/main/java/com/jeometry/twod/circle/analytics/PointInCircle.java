@@ -36,7 +36,7 @@ import com.jeometry.twod.circle.Circle;
  * @version $Id$
  * @since 0.1
  */
-public final class PointInCircle implements Predicate {
+public final class PointInCircle<T> implements Predicate<T> {
 
     /**
      * Point.
@@ -59,7 +59,7 @@ public final class PointInCircle implements Predicate {
     }
 
     @Override
-    public boolean resolve(final Field<?> field) {
+    public boolean resolve(final Field<T> field) {
         return field.equals(
             this.circle.radius(),
             new Norm(new Minus(this.point, this.circle.center()))

@@ -23,6 +23,7 @@
  */
 package com.jeometry.model.decimal;
 
+import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.point.XyPoint;
 
@@ -32,7 +33,7 @@ import com.jeometry.twod.point.XyPoint;
  * @version $Id$
  * @since 0.1
  */
-public final class DblPoint extends XyPoint {
+public final class DblPoint extends XyPoint<Double> {
 
     /**
      * Constructor.
@@ -64,8 +65,7 @@ public final class DblPoint extends XyPoint {
      * @param scalar Scalar
      * @return Double value
      */
-    @SuppressWarnings("unchecked")
-    private static Double value(final Scalar scalar) {
-        return ((Scalar.Default<Double>) scalar).value();
+    private static Double value(final Scalar<Double> scalar) {
+        return scalar.value(new Decimal());
     }
 }

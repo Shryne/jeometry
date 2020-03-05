@@ -39,7 +39,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class LinePointOrdinate implements Scalar {
+public final class LinePointOrdinate<T> implements Scalar<T> {
 
     /**
      * Line for which to calculate ordinate.
@@ -49,7 +49,7 @@ public final class LinePointOrdinate implements Scalar {
     /**
      * Point abscissa.
      */
-    private final Scalar abscissa;
+    private final Scalar<T> abscissa;
 
     /**
      * Constructor.
@@ -62,7 +62,7 @@ public final class LinePointOrdinate implements Scalar {
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         final boolean inline = field.equals(
             this.line.point().coords()[0], this.abscissa
         );
@@ -74,11 +74,11 @@ public final class LinePointOrdinate implements Scalar {
         }
         final T result;
         if (vertical && inline) {
-            result = field.actual(new Random());
+            result = field.actual(new Random<T>());
         } else {
             result = field.actual(
-                new Slope(this.line).mult(this.abscissa).add(
-                    new Intercept(this.line)
+                new Slope<T>(this.line).mult(this.abscissa).add(
+                    new Intercept<T>(this.line)
                 )
             );
         }

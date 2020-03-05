@@ -35,7 +35,7 @@ import com.jeometry.twod.line.Line;
  * @version $Id$
  * @since 0.1
  */
-public final class Equal implements Predicate {
+public final class Equal<T> implements Predicate<T> {
 
     /**
      * First line.
@@ -58,7 +58,7 @@ public final class Equal implements Predicate {
     }
 
     @Override
-    public boolean resolve(final Field<?> field) {
+    public boolean resolve(final Field<T> field) {
         return new And(
             new Parallel(this.first, this.second),
             new PointInLine(this.first.point(), this.second)

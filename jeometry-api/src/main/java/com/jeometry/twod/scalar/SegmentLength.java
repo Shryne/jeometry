@@ -39,7 +39,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class SegmentLength implements Scalar {
+public final class SegmentLength<T> implements Scalar<T> {
 
     /**
      * Segment.
@@ -54,8 +54,8 @@ public final class SegmentLength implements Scalar {
         this.seg = seg;
     }
     @Override
-    public <T> T value(final Field<T> field) {
-        return new Norm(new SegVect(this.seg)).value(field);
+    public T value(final Field<T> field) {
+        return new Norm<T>(new SegVect(this.seg)).value(field);
     }
 
 }

@@ -43,7 +43,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Intercept implements Scalar {
+public final class Intercept<T> implements Scalar<T> {
 
     /**
      * Line for which to calculate y-intercept.
@@ -75,12 +75,12 @@ public final class Intercept implements Scalar {
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         if (!new Vertical(this.line).resolve(field)) {
             final Scalar[] coords = this.line.point().coords();
             final Scalar slope = new Slope(this.line);
             return field.actual(
-                new Diff(coords[1], new Multiplication(slope, coords[0]))
+                new Diff<T>(coords[1], new Multiplication(slope, coords[0]))
             );
         }
         throw new IllegalStateException(

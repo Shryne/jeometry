@@ -51,7 +51,7 @@ public final class RandomSegmentTest {
         MatcherAssert.assertThat(start, Matchers.not(Matchers.equalTo(end)));
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Norm(new Minus(end, start)).value(new Decimal()),
+            new Norm<Double>(new Minus(end, start)).value(new Decimal()),
             Matchers.not(Matchers.closeTo(0., error))
         );
     }

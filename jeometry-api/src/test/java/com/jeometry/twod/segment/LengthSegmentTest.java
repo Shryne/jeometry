@@ -55,8 +55,8 @@ public final class LengthSegmentTest {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new SegmentLength(ref).value(dec),
-            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
+            new SegmentLength<Double>(ref).value(dec),
+            Matchers.closeTo(new SegmentLength<Double>(seg).value(dec), error)
         );
     }
 
@@ -74,8 +74,8 @@ public final class LengthSegmentTest {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new SegmentLength(ref).value(dec),
-            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
+            new SegmentLength<Double>(ref).value(dec),
+            Matchers.closeTo(new SegmentLength<Double>(seg).value(dec), error)
         );
         MatcherAssert.assertThat(seg.start(), Matchers.equalTo(start));
     }
@@ -85,13 +85,13 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsLengthSegment() {
-        final Scalar length = new Random();
+        final Scalar<Double> length = new Random();
         final Segment seg = new LengthSegment(length);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             Math.abs(length.value(dec)),
-            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
+            Matchers.closeTo(new SegmentLength<Double>(seg).value(dec), error)
         );
     }
 
@@ -101,14 +101,14 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsLengthSegmentWithStartPoint() {
-        final Scalar length = new Random();
+        final Scalar<Double> length = new Random();
         final Vect start = new RandomPoint();
         final Segment seg = new LengthSegment(start, length);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             Math.abs(length.value(dec)),
-            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
+            Matchers.closeTo(new SegmentLength<Double>(seg).value(dec), error)
         );
         MatcherAssert.assertThat(seg.start(), Matchers.equalTo(start));
     }
@@ -119,7 +119,7 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsLengthSegmentWithStartPointAndDirection() {
-        final Scalar length = new Random();
+        final Scalar<Double> length = new Random();
         final Vect start = new RandomPoint();
         final Vect dir = new RandomPoint();
         final Segment seg = new LengthSegment(start, dir, length);
@@ -127,7 +127,7 @@ public final class LengthSegmentTest {
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             Math.abs(length.value(dec)),
-            Matchers.closeTo(new SegmentLength(seg).value(dec), error)
+            Matchers.closeTo(new SegmentLength<Double>(seg).value(dec), error)
         );
         MatcherAssert.assertThat(seg.start(), Matchers.equalTo(start));
         MatcherAssert.assertThat(

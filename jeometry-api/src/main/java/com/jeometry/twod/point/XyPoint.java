@@ -36,14 +36,14 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(callSuper = true)
-public class XyPoint extends FixedVector implements Renderable {
+public class XyPoint<T> extends FixedVector<T> implements Renderable {
 
     /**
      * Constructor.
      * @param xcoor X coordinate
      * @param ycoor Y coordinate
      */
-    public XyPoint(final Scalar xcoor, final Scalar ycoor) {
+    public XyPoint(final Scalar<T> xcoor, final Scalar<T> ycoor) {
         super(xcoor, ycoor);
     }
 
@@ -51,7 +51,7 @@ public class XyPoint extends FixedVector implements Renderable {
      * Constructor. Projects the given vector on X and Y axis.
      * @param vector Input vector
      */
-    public XyPoint(final Vect vector) {
+    public XyPoint(final Vect<T> vector) {
         super(vector.coords()[0], vector.coords()[1]);
     }
 
@@ -59,7 +59,7 @@ public class XyPoint extends FixedVector implements Renderable {
      * Gives the X coordinate.
      * @return X coordinate of the point
      */
-    public final Scalar xcoor() {
+    public final Scalar<T> xcoor() {
         return this.coords()[0];
     }
 
@@ -67,7 +67,7 @@ public class XyPoint extends FixedVector implements Renderable {
      * Gives the Y coordinate.
      * @return Y coordinate of the point
      */
-    public final Scalar ycoor() {
+    public final Scalar<T> ycoor() {
         return this.coords()[1];
     }
 
