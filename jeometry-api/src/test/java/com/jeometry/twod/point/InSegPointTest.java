@@ -73,7 +73,7 @@ public final class InSegPointTest {
      * @param any Segment
      * @return True if the point belongs to the segment
      */
-    private static boolean belongs(final Vect pnt, final Segment any) {
+    private static boolean belongs(final Vect<Double> pnt, final Segment<Double> any) {
         final Field<Double> dec = new Decimal();
         final double xcoor = pnt.coords()[0].value(dec);
         final Double ycoor = pnt.coords()[1].value(dec);
@@ -87,8 +87,8 @@ public final class InSegPointTest {
         } else {
             final double error = 1.e-6;
             result = Math.abs(
-                ycoor - (xcoor * new Slope(any).value(dec)
-                    + new Intercept(any).value(dec))
+                ycoor - (xcoor * new Slope<Double>(any).value(dec)
+                    + new Intercept<Double>(any).value(dec))
             ) < error;
         }
         final boolean between = xcoor >= Math.min(startx, endx)

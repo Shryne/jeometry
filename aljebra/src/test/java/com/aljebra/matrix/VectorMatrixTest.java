@@ -48,9 +48,9 @@ public final class VectorMatrixTest {
     @Test
     public void calculatesCoordinates() {
         final int dim = new Random().nextInt(VectorMatrixTest.INT_RANDOM);
-        final Scalar[] coorsa = VectorMatrixTest.scalars(dim);
-        final Matrix scalarmat = new VectorMatrix(coorsa);
-        final Matrix vectmat = new VectorMatrix(new FixedVector(coorsa));
+        final Scalar<Object>[] coorsa = VectorMatrixTest.scalars(dim);
+        final Matrix<Object> scalarmat = new VectorMatrix<>(coorsa);
+        final Matrix<Object> vectmat = new VectorMatrix<>(new FixedVector<Object>(coorsa));
         MatcherAssert.assertThat(scalarmat.lines(), Matchers.equalTo(1));
         MatcherAssert.assertThat(scalarmat.columns(), Matchers.equalTo(dim));
         MatcherAssert.assertThat(
@@ -69,11 +69,11 @@ public final class VectorMatrixTest {
      */
     @Test
     public void considersEqualsIfSameCoordinates() {
-        final Scalar[] coords = VectorMatrixTest.scalars(
+        final Scalar<Object>[] coords = VectorMatrixTest.scalars(
             new Random().nextInt(VectorMatrixTest.INT_RANDOM)
         );
         MatcherAssert.assertThat(
-            new VectorMatrix(coords), Matchers.equalTo(new VectorMatrix(coords))
+            new VectorMatrix<Object>(coords), Matchers.equalTo(new VectorMatrix<Object>(coords))
         );
     }
 
@@ -83,12 +83,12 @@ public final class VectorMatrixTest {
      */
     @Test
     public void sameHashCodeIfSameCoordinates() {
-        final Scalar[] coords = VectorMatrixTest.scalars(
+        final Scalar<Object>[] coords = VectorMatrixTest.scalars(
             new Random().nextInt(VectorMatrixTest.INT_RANDOM)
         );
         MatcherAssert.assertThat(
-            new VectorMatrix(coords).hashCode(),
-            Matchers.equalTo(new VectorMatrix(coords).hashCode())
+            new VectorMatrix<Object>(coords).hashCode(),
+            Matchers.equalTo(new VectorMatrix<Object>(coords).hashCode())
         );
     }
 
@@ -97,8 +97,9 @@ public final class VectorMatrixTest {
      * @param length Array length
      * @return An array of scalars
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object>[] scalars(final int length) {
+        final Scalar<Object>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);
         }

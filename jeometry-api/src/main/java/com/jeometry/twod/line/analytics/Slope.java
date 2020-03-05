@@ -36,11 +36,12 @@ import lombok.ToString;
 
 /**
  * A scalar representing a line slope.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Slope implements Scalar {
+public final class Slope<T> implements Scalar<T> {
 
     /**
      * Line for which to calculate slope.
@@ -72,10 +73,10 @@ public final class Slope implements Scalar {
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         if (!new Vertical(this.line).resolve(field)) {
             final Scalar[] coords = this.line.direction().coords();
-            return field.actual(new Division(coords[1], coords[0]));
+            return field.actual(new Division<T>(coords[1], coords[0]));
         }
         throw new IllegalStateException("Line has infinite slope.");
     }

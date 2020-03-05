@@ -39,33 +39,35 @@ import com.aljebra.vector.Vect;
  * and rely on {@link Decimal} field implementation.
  * @since 0.1
  */
-public final class Dot implements InnerProduct {
+public final class Dot implements InnerProduct<Double> {
 
+    @SuppressWarnings("unchecked")
     @Override
     @DimensionsEqual
-    public Scalar product(final Vect foperand, final Vect soperand) {
-        final Scalar[] first = foperand.coords();
-        final Scalar[] second = soperand.coords();
-        final Multiplication[] multis = new Multiplication[first.length];
+    public Scalar<Double> product(final Vect<Double> foperand, final Vect<Double> soperand) {
+        final Scalar<Double>[] first = foperand.coords();
+        final Scalar<Double>[] second = soperand.coords();
+        final Multiplication<Double>[] multis = new Multiplication[first.length];
         for (int idx = 0; idx < first.length; ++idx) {
             multis[idx] = Dot.mult(first[idx], second[idx]);
         }
-        return new Add(multis);
+        return new Add<Double>(multis);
     }
 
     @Override
-    public Scalar norm(final Vect vect) {
+    public Scalar<Double> norm(final Vect<Double> vect) {
         return Dot.wrap(Math.sqrt(Dot.val(this.product(vect, vect))));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @DimensionsEqual
-    public Degrees angle(final Vect first, final Vect second) {
+    public Degrees<Double> angle(final Vect<Double> first, final Vect<Double> second) {
         final Double cross =
             Dot.val(first.coords()[0]) * Dot.val(second.coords()[1])
-            - Dot.val(second.coords()[0]) * Dot.val(first.coords()[1]);
+                - Dot.val(second.coords()[0]) * Dot.val(first.coords()[1]);
         final Double norms = Dot.val(
-            new Multiplication(this.norm(first), this.norm(second))
+            new Multiplication<Double>(this.norm(first), this.norm(second))
         );
         final Double result;
         if (norms == 0) {
@@ -81,13 +83,14 @@ public final class Dot implements InnerProduct {
                 result = -arcos;
             }
         }
-        return new Degrees.Default(result);
+        return new Degrees.Default<Double>(result);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Vect rot(final Vect vect, final Degrees ang) {
+    public Vect<Double> rot(final Vect<Double> vect, final Degrees<Double> ang) {
         final Number angle = this.resolve(ang);
-        final FixedMatrix rot = new FixedMatrix(
+        final FixedMatrix<Double> rot = new FixedMatrix<>(
             2, 2,
             Dot.wrap(Math.cos(angle.doubleValue())),
             Dot.wrap(Math.sin(angle.doubleValue())),
@@ -103,8 +106,10 @@ public final class Dot implements InnerProduct {
      * @param sec Second operand
      * @return A scalar representing scalar multiplication
      */
-    private static Multiplication mult(final Scalar first, final Scalar sec) {
-        return new Multiplication(first, sec);
+    @SuppressWarnings("unchecked")
+    private static Multiplication<Double> mult(final Scalar<Double> first,
+        final Scalar<Double> sec) {
+        return new Multiplication<Double>(first, sec);
     }
 
     /**
@@ -112,7 +117,7 @@ public final class Dot implements InnerProduct {
      * @param input Scalar
      * @return A double
      */
-    private static Double val(final Scalar input) {
+    private static Double val(final Scalar<Double> input) {
         return new Decimal().actual(input);
     }
 
@@ -121,7 +126,7 @@ public final class Dot implements InnerProduct {
      * @param input A double
      * @return A scalar
      */
-    private static Scalar wrap(final double input) {
+    private static Scalar<Double> wrap(final double input) {
         return new Scalar.Default<Double>(input);
     }
 }

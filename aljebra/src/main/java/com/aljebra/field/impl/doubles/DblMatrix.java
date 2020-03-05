@@ -30,7 +30,7 @@ import com.aljebra.scalar.Scalar;
  * A convenient class for double matrices.
  * @since 0.1
  */
-public final class DblMatrix extends FixedMatrix {
+public final class DblMatrix extends FixedMatrix<Double> {
 
     /**
      * Constructor.
@@ -47,8 +47,9 @@ public final class DblMatrix extends FixedMatrix {
      * @param coords Double array
      * @return A scalar array wrapping the doubles
      */
-    private static Scalar[] wrap(final Double... coords) {
-        final Scalar[] result = new Scalar[coords.length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Double>[] wrap(final Double... coords) {
+        final Scalar<Double>[] result = new Scalar[coords.length];
         for (int idx = 0; idx < coords.length; ++idx) {
             result[idx] = DblMatrix.wrap(coords[idx]);
         }
@@ -60,7 +61,7 @@ public final class DblMatrix extends FixedMatrix {
      * @param num A double
      * @return A scalar wrapping the double
      */
-    private static Scalar wrap(final Double num) {
+    private static Scalar<Double> wrap(final Double num) {
         return new Scalar.Default<Double>(num);
     }
 

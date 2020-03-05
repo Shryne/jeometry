@@ -46,7 +46,7 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesTrueWhenInLine() {
-        final Line line = new PtDirLine(
+        final Line<Double> line = new PtDirLine(
             new RandomPoint(), new DifferentPoint(PointInLineTest.point(0., 1.))
         );
         final Decimal dec = new Decimal();
@@ -54,7 +54,7 @@ public final class PointInLineTest {
         final Double starty = line.point().coords()[1].value(dec);
         final Double dirx = line.direction().coords()[0].value(dec);
         final Double diry = line.direction().coords()[1].value(dec);
-        final Double abscissa = new RandomPoint().xcoor().value(dec);
+        final Double abscissa = new RandomPoint<Double>().xcoor().value(dec);
         final Double ordinate = abscissa * diry / dirx
             + starty - startx * diry / dirx;
         MatcherAssert.assertThat(
@@ -70,7 +70,7 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesFalseWhenOutLine() {
-        final Line line = new PtDirLine(
+        final Line<Double> line = new PtDirLine(
             new RandomPoint(), new DifferentPoint(PointInLineTest.point(0., 1.))
         );
         final Decimal dec = new Decimal();
@@ -78,7 +78,7 @@ public final class PointInLineTest {
         final Double starty = line.point().coords()[1].value(dec);
         final Double dirx = line.direction().coords()[0].value(dec);
         final Double diry = line.direction().coords()[1].value(dec);
-        final Double abscissa = new RandomPoint().xcoor().value(dec);
+        final Double abscissa = new RandomPoint<Double>().xcoor().value(dec);
         final Double ordinate = abscissa * diry / dirx
             + starty - startx * diry / dirx;
         MatcherAssert.assertThat(

@@ -29,28 +29,29 @@ import lombok.ToString;
 
 /**
  * Scalar interface.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Scalar {
+public interface Scalar<T> {
 
     /**
      * Return the actual value of the scalar.
      * @param field Scalar field
-     * @param <T> Scalar object type
      * @return An object representing the scalar
      */
-    <T> T value(Field<T> field);
+    T value(Field<T> field);
 
     /**
      * Adds the given scalars to this scalar.
      * @param operands Scalars to add
      * @return A scalar defining the addition
      */
-    default Scalar add(Scalar... operands) {
-        final Scalar[] ops = new Scalar[operands.length + 1];
+    @SuppressWarnings("unchecked")
+    default Scalar<T> add(Scalar<T>... operands) {
+        final Scalar<T>[] ops = new Scalar[operands.length + 1];
         System.arraycopy(operands, 0, ops, 0, operands.length);
         ops[operands.length] = this;
-        return new Add(ops);
+        return new Add<T>(ops);
     }
 
     /**
@@ -58,45 +59,38 @@ public interface Scalar {
      * @param operands Scalars to multiply
      * @return A scalar defining the multiplication
      */
-    default Scalar mult(Scalar... operands) {
-        final Scalar[] ops = new Scalar[operands.length + 1];
+    @SuppressWarnings("unchecked")
+    default Scalar<T> mult(Scalar<T>... operands) {
+        final Scalar<T>[] ops = new Scalar[operands.length + 1];
         System.arraycopy(operands, 0, ops, 0, operands.length);
         ops[operands.length] = this;
-        return new Multiplication(ops);
+        return new Multiplication<T>(ops);
     }
 
     /**
      * Minimal representation of a scalar holding a reference to an object.
-     * @param <T> Holded object type.
+     * @param <R> Holded object type.
      * @since 0.1
      */
     @EqualsAndHashCode
     @ToString(includeFieldNames = false)
-    class Default<T> implements Scalar {
+    class Default<R> implements Scalar<R> {
         /**
          * Wrapped object.
          */
-        private final T origin;
+        private final R origin;
 
         /**
          * Constructor.
          * @param num Wrapped object.
          */
-        public Default(final T num) {
+        public Default(final R num) {
             this.origin = num;
         }
 
-        /**
-         * Gives the object representing the scalar.
-         * @return The wrapped object
-         */
-        public T value() {
-            return this.origin;
-        }
-
         @Override
-        public <R> R value(final Field<R> field) {
-            return field.actual(this);
+        public R value(final Field<R> field) {
+            return this.origin;
         }
     }
 }

@@ -42,14 +42,14 @@ public interface Field<T> {
      * Generates a random scalar.
      * @return A random scalar
      */
-    Scalar random();
+    Scalar<T> random();
 
     /**
      * Generates a random scalar other than a given scalar.
      * @param scalar The scalar to be different to.
      * @return A random scalar different from given one.
      */
-    Scalar other(Scalar scalar);
+    Scalar<T> other(Scalar<T> scalar);
 
     /**
      * Operates equality on scalars.
@@ -57,14 +57,14 @@ public interface Field<T> {
      * @param other Second scalar
      * @return True if the two scalars are considered equal
      */
-    boolean equals(Scalar scalar, Scalar other);
+    boolean equals(Scalar<T> scalar, Scalar<T> other);
 
     /**
      * Returns the actual object represented by the given scalar.
      * @param scalar Scalar
      * @return The actual object
      */
-    T actual(Scalar scalar);
+    T actual(Scalar<T> scalar);
 
     /**
      * Returns the field addition operation.

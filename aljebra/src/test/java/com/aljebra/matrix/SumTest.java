@@ -49,17 +49,18 @@ public final class SumTest {
     /**
      * {@link Sum} calculates coordinates as the addition of scalars.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void calculatesSumCoordinates() {
         final int lines = 3;
         final int cols = 4;
-        final Scalar[] coorsa = SumTest.scalars(lines * cols);
-        final Scalar[] coorsb = SumTest.scalars(lines * cols);
-        final FixedMatrix first = new FixedMatrix(lines, cols, coorsa);
-        final FixedMatrix second = new FixedMatrix(lines, cols, coorsb);
-        final Matrix sum = new Sum(first, second);
-        final Scalar[] expected = new com.aljebra.vector.Sum(
-            new FixedVector(coorsa), new FixedVector(coorsb)
+        final Scalar<Object>[] coorsa = SumTest.scalars(lines * cols);
+        final Scalar<Object>[] coorsb = SumTest.scalars(lines * cols);
+        final FixedMatrix<Object> first = new FixedMatrix<>(lines, cols, coorsa);
+        final FixedMatrix<Object> second = new FixedMatrix<>(lines, cols, coorsb);
+        final Matrix<Object> sum = new Sum<>(first, second);
+        final Scalar<Object>[] expected = new com.aljebra.vector.Sum<Object>(
+            new FixedVector<Object>(coorsa), new FixedVector<Object>(coorsb)
         ).coords();
         MatcherAssert.assertThat(sum.lines(), Matchers.equalTo(lines));
         MatcherAssert.assertThat(sum.columns(), Matchers.equalTo(cols));
@@ -70,22 +71,23 @@ public final class SumTest {
      * {@link Sum} transforms a vector as the sum
      * of the transformations (linear).
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void appliesSumTransformation() {
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix first = new FixedMatrix(
+        final FixedMatrix<Object> first = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
-        final FixedMatrix second = new FixedMatrix(
+        final FixedMatrix<Object> second = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
-        final Vect input = Mockito.mock(Vect.class);
+        final Vect<Object> input = Mockito.mock(Vect.class);
         Mockito.when(input.coords()).thenReturn(SumTest.scalars(cols));
         MatcherAssert.assertThat(
-            new Sum(first, second).apply(input),
+            new Sum<Object>(first, second).apply(input),
             Matchers.equalTo(
-                new com.aljebra.vector.Sum(
+                new com.aljebra.vector.Sum<Object>(
                     first.apply(input), second.apply(input)
                 )
             )
@@ -95,53 +97,54 @@ public final class SumTest {
     /**
      * {@link Sum} can return lines and columns.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void returnsLinesAndColumns() {
-        final Scalar scalara = Mockito.mock(Scalar.class);
-        final Scalar scalarb = Mockito.mock(Scalar.class);
-        final Scalar scalarc = Mockito.mock(Scalar.class);
-        final Scalar scalard = Mockito.mock(Scalar.class);
-        final Scalar scalare = Mockito.mock(Scalar.class);
-        final Scalar scalarf = Mockito.mock(Scalar.class);
-        final Scalar scalarg = Mockito.mock(Scalar.class);
-        final Scalar scalarh = Mockito.mock(Scalar.class);
-        final Matrix matrix = new Sum(
-            new FixedMatrix(
+        final Scalar<Object> scalara = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalarb = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalarc = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalard = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalare = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalarf = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalarg = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalarh = Mockito.mock(Scalar.class);
+        final Matrix<Object> matrix = new Sum<>(
+            new FixedMatrix<Object>(
                 2, 2, scalara, scalarb, scalarc, scalard
             ),
-            new FixedMatrix(
+            new FixedMatrix<Object>(
                 2, 2, scalare, scalarf, scalarg, scalarh
             )
         );
         MatcherAssert.assertThat(
             matrix.line(1),
             Matchers.equalTo(
-                new Scalar[]{
-                    new Add(scalara, scalare), new Add(scalarc, scalarg),
+                new Scalar[] {
+                    new Add<Object>(scalara, scalare), new Add<Object>(scalarc, scalarg),
                 }
             )
         );
         MatcherAssert.assertThat(
             matrix.line(2),
             Matchers.equalTo(
-                new Scalar[]{
-                    new Add(scalarb, scalarf), new Add(scalard, scalarh),
+                new Scalar[] {
+                    new Add<Object>(scalarb, scalarf), new Add<Object>(scalard, scalarh),
                 }
             )
         );
         MatcherAssert.assertThat(
             matrix.column(1),
             Matchers.equalTo(
-                new Scalar[]{
-                    new Add(scalara, scalare), new Add(scalarb, scalarf),
+                new Scalar[] {
+                    new Add<Object>(scalara, scalare), new Add<Object>(scalarb, scalarf),
                 }
             )
         );
         MatcherAssert.assertThat(
             matrix.column(2),
             Matchers.equalTo(
-                new Scalar[]{
-                    new Add(scalarc, scalarg), new Add(scalard, scalarh),
+                new Scalar[] {
+                    new Add<Object>(scalarc, scalarg), new Add<Object>(scalard, scalarh),
                 }
             )
         );
@@ -151,43 +154,45 @@ public final class SumTest {
      * {@link Sum} throws exception if the two matrices don't have
      * the same size.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenNotSameSize() {
         this.thrown.expect(IllegalArgumentException.class);
-        final Matrix mata = Mockito.mock(Matrix.class);
-        final Matrix matb = Mockito.mock(Matrix.class);
+        final Matrix<Object> mata = Mockito.mock(Matrix.class);
+        final Matrix<Object> matb = Mockito.mock(Matrix.class);
         Mockito.when(mata.lines()).thenReturn(1);
         Mockito.when(mata.columns()).thenReturn(1);
         Mockito.when(matb.lines()).thenReturn(1);
         Mockito.when(matb.columns()).thenReturn(2);
-        new Sum(mata, matb);
+        new Sum<Object>(mata, matb);
     }
 
     /**
      * {@link Sum} respects equals with disregard to operands order
      * (commutative).
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void equalsWhenOperandOrderChanges() {
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix first = new FixedMatrix(
+        final FixedMatrix<Object> first = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
-        final FixedMatrix second = new FixedMatrix(
+        final FixedMatrix<Object> second = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
-        final FixedMatrix third = new FixedMatrix(
+        final FixedMatrix<Object> third = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
         MatcherAssert.assertThat(
-            new Sum(first, second, third),
+            new Sum<Object>(first, second, third),
             Matchers.allOf(
-                Matchers.equalTo(new Sum(first, third, second)),
-                Matchers.equalTo(new Sum(second, third, first)),
-                Matchers.equalTo(new Sum(second, first, third)),
-                Matchers.equalTo(new Sum(third, second, first)),
-                Matchers.equalTo(new Sum(third, first, second))
+                Matchers.equalTo(new Sum<Object>(first, third, second)),
+                Matchers.equalTo(new Sum<Object>(second, third, first)),
+                Matchers.equalTo(new Sum<Object>(second, first, third)),
+                Matchers.equalTo(new Sum<Object>(third, second, first)),
+                Matchers.equalTo(new Sum<Object>(third, first, second))
             )
         );
     }
@@ -197,8 +202,9 @@ public final class SumTest {
      * @param length Array length
      * @return An array of scalars
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object>[] scalars(final int length) {
+        final Scalar<Object>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);
         }

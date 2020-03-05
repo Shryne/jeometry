@@ -29,15 +29,16 @@ import lombok.ToString;
 
 /**
  * A random scalar.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Random implements Scalar {
+public final class Random<T> implements Scalar<T> {
 
     /**
      * Random generated scalar.
      */
-    private Optional<Scalar> generated;
+    private Optional<Scalar<T>> generated;
 
     /**
      * Constructor.
@@ -47,7 +48,7 @@ public final class Random implements Scalar {
     }
 
     @Override
-    public <T> T value(final Field<T> field) {
+    public T value(final Field<T> field) {
         if (!this.generated.isPresent()) {
             this.generated = Optional.of(field.random());
         }

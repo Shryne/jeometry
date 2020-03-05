@@ -45,20 +45,20 @@ public interface OrderedField<T> extends Field<T> {
      * @param upper Upper bound scalar
      * @return A random scalar between two scalars
      */
-    Scalar between(Scalar lower, Scalar upper);
+    Scalar<T> between(Scalar<T> lower, Scalar<T> upper);
 
     /**
      * Generates a random scalar greater than the given scalar.
      * @param lower Lower bound scalar
      * @return A random scalar
      */
-    Scalar greater(Scalar lower);
+    Scalar<T> greater(Scalar<T> lower);
 
     /**
      * Generates a random scalar smaller than the given scalar.
      * @param upper Upper bound scalar
      * @return A random scalar
      */
-    Scalar lower(Scalar upper);
+    Scalar<T> lower(Scalar<T> upper);
 
 }

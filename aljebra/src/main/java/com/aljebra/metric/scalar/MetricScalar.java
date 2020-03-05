@@ -29,20 +29,20 @@ import com.aljebra.scalar.Scalar;
 
 /**
  * Metric Scalar interface.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface MetricScalar extends Scalar {
+public interface MetricScalar<T> extends Scalar<T> {
 
     /**
      * Return the actual value of the scalar.
      * @param field Scalar field
-     * @param <T> Scalar object type
      * @return An object representing the scalar
      */
-    <T> T value(MetricSpaceField<T> field);
+    T value(MetricSpaceField<T> field);
 
     @Override
-    default <T> T value(Field<T> field) {
+    default T value(Field<T> field) {
         if (field instanceof MetricSpaceField<?>) {
             return this.value((MetricSpaceField<T>) field);
         } else {

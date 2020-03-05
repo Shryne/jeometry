@@ -52,19 +52,19 @@ public abstract class AbstractOrderedField<T> extends
     }
 
     @Override
-    public final Scalar between(final Scalar lower, final Scalar upper) {
+    public final Scalar<T> between(final Scalar<T> lower, final Scalar<T> upper) {
         final T min = this.actual(lower);
         final T max = this.actual(upper);
         return new Scalar.Default<T>(this.random.between(min, max));
     }
 
     @Override
-    public final Scalar greater(final Scalar lower) {
+    public final Scalar<T> greater(final Scalar<T> lower) {
         return new Scalar.Default<T>(this.random.greater(this.actual(lower)));
     }
 
     @Override
-    public final Scalar lower(final Scalar upper) {
+    public final Scalar<T> lower(final Scalar<T> upper) {
         return new Scalar.Default<T>(this.random.lower(this.actual(upper)));
     }
 

@@ -43,14 +43,14 @@ public final class TransposeMatrixTest {
     public void calculatesTransposedCoordinates() {
         final int lines = 3;
         final int cols = 2;
-        final Scalar scala = Mockito.mock(Scalar.class);
-        final Scalar scalb = Mockito.mock(Scalar.class);
-        final Scalar scalc = Mockito.mock(Scalar.class);
-        final Scalar scald = Mockito.mock(Scalar.class);
-        final Scalar scale = Mockito.mock(Scalar.class);
-        final Scalar scalf = Mockito.mock(Scalar.class);
-        final Matrix matrix = new TransposeMatrix(
-            new FixedMatrix(
+        final Scalar<Object> scala = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalb = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalc = Mockito.mock(Scalar.class);
+        final Scalar<Object> scald = Mockito.mock(Scalar.class);
+        final Scalar<Object> scale = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalf = Mockito.mock(Scalar.class);
+        final Matrix<Object> matrix = new TransposeMatrix<>(
+            new FixedMatrix<Object>(
                 lines, cols, scala, scalb, scalc, scald, scale, scalf
             )
         );
@@ -71,8 +71,8 @@ public final class TransposeMatrixTest {
     public void returnsLinesAndColumns() {
         final int lines = 3;
         final int cols = 4;
-        final Matrix matrix = new TransposeMatrix(
-            new FixedMatrix(
+        final Matrix<Object> matrix = new TransposeMatrix<>(
+            new FixedMatrix<Object>(
                 lines, cols, TransposeMatrixTest.scalars(lines * cols)
             )
         );
@@ -85,8 +85,9 @@ public final class TransposeMatrixTest {
      * @param length Array length
      * @return An array of scalars
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object>[] scalars(final int length) {
+        final Scalar<Object>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);
         }

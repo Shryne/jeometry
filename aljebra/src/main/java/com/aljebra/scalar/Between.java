@@ -29,39 +29,40 @@ import lombok.ToString;
 
 /**
  * A random scalar that is between two other scalars.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Between implements OrderedScalar {
+public final class Between<T> implements OrderedScalar<T> {
 
     /**
      * Random generated scalar.
      */
-    private Optional<Scalar> generated;
+    private Optional<Scalar<T>> generated;
 
     /**
      * Scalar to be lower to.
      */
-    private final Scalar greater;
+    private final Scalar<T> greater;
 
     /**
      * Scalar to be greater to.
      */
-    private final Scalar lower;
+    private final Scalar<T> lower;
 
     /**
      * Constructor.
      * @param lower Scalar to be greater to
      * @param greater Scalar to be lower to
      */
-    public Between(final Scalar lower, final Scalar greater) {
+    public Between(final Scalar<T> lower, final Scalar<T> greater) {
         this.lower = lower;
         this.greater = greater;
         this.generated = Optional.empty();
     }
 
     @Override
-    public <T> T value(final OrderedField<T> field) {
+    public T value(final OrderedField<T> field) {
         if (!this.generated.isPresent()) {
             this.generated = Optional.of(
                 field.between(this.lower, this.greater)

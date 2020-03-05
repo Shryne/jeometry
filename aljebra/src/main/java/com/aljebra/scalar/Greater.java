@@ -29,32 +29,33 @@ import lombok.ToString;
 
 /**
  * A random scalar that is greater than another one.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Greater implements OrderedScalar {
+public final class Greater<T> implements OrderedScalar<T> {
 
     /**
      * Random generated scalar.
      */
-    private Optional<Scalar> generated;
+    private Optional<Scalar<T>> generated;
 
     /**
      * Scalar to be greater to.
      */
-    private final Scalar lower;
+    private final Scalar<T> lower;
 
     /**
      * Constructor.
      * @param lower Scalar to be greater to
      */
-    public Greater(final Scalar lower) {
+    public Greater(final Scalar<T> lower) {
         this.lower = lower;
         this.generated = Optional.empty();
     }
 
     @Override
-    public <T> T value(final OrderedField<T> field) {
+    public T value(final OrderedField<T> field) {
         if (!this.generated.isPresent()) {
             this.generated = Optional.of(field.greater(this.lower));
         }

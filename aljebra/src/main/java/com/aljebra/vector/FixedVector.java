@@ -30,27 +30,29 @@ import lombok.ToString;
 
 /**
  * Represents a vector defined by fixed coordinates.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public class FixedVector implements Vect {
+public class FixedVector<T> implements Vect<T> {
 
     /**
      * Coordinates.
      */
-    private final Scalar[] coors;
+    private final Scalar<T>[] coors;
 
     /**
      * Constructor.
      * @param coor Vector coordinates
      */
-    public FixedVector(final Scalar... coor) {
+    @SuppressWarnings("unchecked")
+    public FixedVector(final Scalar<T>... coor) {
         this.coors = Arrays.copyOf(coor, coor.length);
     }
 
     @Override
-    public final Scalar[] coords() {
+    public final Scalar<T>[] coords() {
         return Arrays.copyOf(this.coors, this.coors.length);
     }
 

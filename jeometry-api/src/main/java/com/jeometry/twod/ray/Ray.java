@@ -28,20 +28,21 @@ import com.jeometry.twod.Renderable;
 
 /**
  * Ray interface describing a ray by an origin (vertex) and a direction.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Ray extends Renderable {
+public interface Ray<T> extends Renderable {
 
     /**
      * Gives the direction of the Ray.
      * @return Ray direction
      */
-    Vect direction();
+    Vect<T> direction();
 
     /**
      * Gives The originating Point of the ray (its vertex).
      * @return A point representing the ray origin
      */
-    Vect origin();
+    Vect<T> origin();
 
 }

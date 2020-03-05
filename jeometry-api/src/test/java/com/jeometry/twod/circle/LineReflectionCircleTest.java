@@ -47,8 +47,8 @@ public final class LineReflectionCircleTest {
     public void buildsReflectedCircle() {
         final RandomPoint center = new RandomPoint();
         final Line line = new RandomLine();
-        final Circle input = new PtsCircle(center, new RandomPoint());
-        final Circle result = new LineReflectionCircle(line, input);
+        final Circle<Double> input = new PtsCircle(center, new RandomPoint());
+        final Circle<Double> result = new LineReflectionCircle(line, input);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(

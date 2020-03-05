@@ -53,18 +53,18 @@ public final class LinePointOrdinateTest {
      */
     @Test
     public void calculatesOrdinate() {
-        final Line line = new PtDirLine(
+        final Line<Double> line = new PtDirLine(
             new RandomPoint(), new DifferentPoint(new VertPoint())
         );
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
-        final Scalar abscissa = new RandomPoint().xcoor();
+        final Scalar<Double> abscissa = new RandomPoint().xcoor();
         final Double startx = line.point().coords()[0].value(dec);
         final Double starty = line.point().coords()[1].value(dec);
         final Double dirx = line.direction().coords()[0].value(dec);
         final Double diry = line.direction().coords()[1].value(dec);
         MatcherAssert.assertThat(
-            new LinePointOrdinate(line, abscissa).value(dec),
+            new LinePointOrdinate<Double>(line, abscissa).value(dec),
             Matchers.closeTo(
                 diry / dirx * abscissa.value(dec)
                 + starty - startx * diry / dirx,

@@ -45,10 +45,10 @@ public final class PtReflectionCircleTest {
      */
     @Test
     public void buildsReflection() {
-        final Random radius = new Random();
+        final Random<Double> radius = new Random<>();
         final RandomPoint center = new RandomPoint();
         final RandomPoint across = new RandomPoint();
-        final Circle result = new PtReflectionCircle(
+        final Circle<Double> result = new PtReflectionCircle(
             across, new PtRadCircle(center, radius)
         );
         final Field<Double> dec = new Decimal();
@@ -71,9 +71,9 @@ public final class PtReflectionCircleTest {
      */
     @Test
     public void buildsReflectionAcrossOrigin() {
-        final Random radius = new Random();
+        final Random<Double> radius = new Random<>();
         final RandomPoint center = new RandomPoint();
-        final Circle result = new PtReflectionCircle(
+        final Circle<Double> result = new PtReflectionCircle(
             new PtRadCircle(center, radius)
         );
         final Field<Double> dec = new Decimal();

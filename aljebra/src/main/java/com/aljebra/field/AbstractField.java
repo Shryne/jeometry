@@ -55,24 +55,17 @@ public abstract class AbstractField<T> implements Field<T> {
     }
 
     @Override
-    public final Scalar other(final Scalar scalar) {
-        Scalar result = this.random();
+    public final Scalar<T> other(final Scalar<T> scalar) {
+        Scalar<T> result = this.random();
         while (this.equals(result, scalar)) {
             result = this.random();
         }
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public final T actual(final Scalar scalar) {
-        T result = null;
-        if (scalar instanceof Scalar.Default<?>) {
-            result = ((Scalar.Default<T>) scalar).value();
-        } else {
-            result = scalar.value(this);
-        }
-        return result;
+    public final T actual(final Scalar<T> scalar) {
+        return scalar.value(this);
     }
 
     @Override

@@ -31,29 +31,30 @@ import lombok.ToString;
 
 /**
  * A vector represented as the opposite of a vector.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Opposite implements Vect {
+public final class Opposite<T> implements Vect<T> {
 
     /**
      * Vector.
      */
-    private final transient Vect vector;
+    private final transient Vect<T> vector;
 
     /**
      * Constructor.
      * @param vector Vector to oppose
      */
-    public Opposite(final Vect vector) {
+    public Opposite(final Vect<T> vector) {
         this.vector = vector;
     }
 
     @Override
-    public Scalar[] coords() {
-        return new Times(
-            this.vector, new AddInverse(new MultIdentity())
+    public Scalar<T>[] coords() {
+        return new Times<T>(
+            this.vector, new AddInverse<T>(new MultIdentity<T>())
         ).coords();
     }
 

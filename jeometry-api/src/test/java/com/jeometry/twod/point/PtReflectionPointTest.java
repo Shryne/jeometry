@@ -45,8 +45,8 @@ public final class PtReflectionPointTest {
     public void buildsReflection() {
         final XyPoint center = new RandomPoint();
         final XyPoint input = new RandomPoint();
-        final XyPoint result = new PtReflectionPoint(center, input);
-        final XyPoint expected = PtReflectionPointTest.expected(center, input);
+        final XyPoint<Double> result = new PtReflectionPoint(center, input);
+        final XyPoint<Double> expected = PtReflectionPointTest.expected(center, input);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
@@ -66,8 +66,8 @@ public final class PtReflectionPointTest {
     @Test
     public void buildsReflectionAcrossOrigin() {
         final XyPoint input = new RandomPoint();
-        final XyPoint result = new PtReflectionPoint(input);
-        final XyPoint expected = PtReflectionPointTest.expected(
+        final XyPoint<Double> result = new PtReflectionPoint(input);
+        final XyPoint<Double> expected = PtReflectionPointTest.expected(
             new XyPoint(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             ), input

@@ -62,10 +62,10 @@ public final class PerpBisectorTest {
     @Test
     public void intersectsInMidpoint() {
         final Decimal dec = new Decimal();
-        final RandomPoint start = new RandomPoint();
-        final RandomPoint end = new RandomPoint();
+        final RandomPoint<Double> start = new RandomPoint();
+        final RandomPoint<Double> end = new RandomPoint();
         final Segment seg = new PtsSegment(start, end);
-        final Scalar[] intersect = new LineIntersectPoint(
+        final Scalar<Double>[] intersect = new LineIntersectPoint(
             new SgtLine(seg), new PerpBisector(seg)
         ).coords();
         final double intersectx = intersect[0].value(dec);

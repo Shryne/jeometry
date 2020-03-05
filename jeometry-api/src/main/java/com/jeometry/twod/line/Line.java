@@ -29,20 +29,21 @@ import com.jeometry.twod.Renderable;
 /**
  * Line interface describing a line by a direction and a point belonging to the
  * line.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Line extends Renderable {
+public interface Line<T> extends Renderable {
 
     /**
      * Gives the direction of the Line.
      * @return Direction.
      */
-    Vect direction();
+    Vect<T> direction();
 
     /**
      * Gives a Point belonging to the Line.
      * @return A point by which the line passes
      */
-    Vect point();
+    Vect<T> point();
 
 }

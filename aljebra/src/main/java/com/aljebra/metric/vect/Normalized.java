@@ -32,17 +32,18 @@ import lombok.ToString;
 
 /**
  * A vector defined as the normalized form of another vector.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Normalized extends FixedVector {
+public final class Normalized<T> extends FixedVector<T> {
 
     /**
      * Constructor.
      * @param vector Vector to normalize
      */
-    public Normalized(final Vect vector) {
-        super(new Times(vector, new MultInverse(new Norm(vector))).coords());
+    public Normalized(final Vect<T> vector) {
+        super(new Times<T>(vector, new MultInverse<T>(new Norm<T>(vector))).coords());
     }
 
 }

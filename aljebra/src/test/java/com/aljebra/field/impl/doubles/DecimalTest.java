@@ -28,7 +28,6 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -54,7 +53,7 @@ public final class DecimalTest {
         final OrderedRandom<Double> rand = DecimalTest.randomizer();
         final Decimal field = new Decimal(rand);
         final double first = new Random().nextDouble();
-        final Scalar scalar = new Scalar.Default<Double>(first);
+        final Scalar<Double> scalar = new Scalar.Default<>(first);
         Mockito.when(
             rand.between(Mockito.any(), Mockito.any())
         ).thenReturn(first).thenReturn(Math.random());
@@ -65,25 +64,14 @@ public final class DecimalTest {
     }
 
     /**
-     * Decimal calculates actual value for default scalar implementation.
-     */
-    @Test
-    public void calculatesActualValueForDefault() {
-        final Scalar.Default<?> scalar = Mockito.mock(Scalar.Default.class);
-        MatcherAssert.assertThat(
-            new Decimal().actual(scalar), Matchers.equalTo(scalar.value())
-        );
-        Mockito.verify(scalar, Mockito.never()).value(Mockito.any());
-    }
-
-    /**
      * Decimal delegates actual value calculations
      * for other scalar implementation.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void delegatesActualValueForScalars() {
         final Decimal field = new Decimal();
-        final Scalar scalar = Mockito.mock(Scalar.class);
+        final Scalar<Double> scalar = Mockito.mock(Scalar.class);
         field.actual(scalar);
         Mockito.verify(scalar).value(Mockito.eq(field));
     }
