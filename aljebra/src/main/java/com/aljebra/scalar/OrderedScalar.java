@@ -28,6 +28,7 @@ import com.aljebra.field.OrderedField;
 
 /**
  * Ordered Scalar interface.
+ * @param <T> scalar types
  * @since 0.1
  */
 public interface OrderedScalar<T> extends Scalar<T> {
@@ -35,7 +36,6 @@ public interface OrderedScalar<T> extends Scalar<T> {
     /**
      * Return the actual value of the scalar.
      * @param field Scalar field
-     * @param <T> Scalar object type
      * @return An object representing the scalar
      */
     T value(OrderedField<T> field);

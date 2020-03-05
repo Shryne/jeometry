@@ -29,6 +29,7 @@ import lombok.ToString;
 
 /**
  * Degrees interface. Abstract representation of angles.
+ * @param <T> scalar types
  * @since 0.1
  */
 public interface Degrees<T> {
@@ -62,6 +63,7 @@ public interface Degrees<T> {
 
     /**
      * Minimal representation of a degrees holding a reference to a number.
+     * @param <T> scalar types
      * @since 0.1
      */
     @EqualsAndHashCode

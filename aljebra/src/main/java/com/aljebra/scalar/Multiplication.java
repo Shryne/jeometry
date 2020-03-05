@@ -33,6 +33,7 @@ import lombok.ToString;
 
 /**
  * A scalar represented as the multiplication of a set of scalars.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode

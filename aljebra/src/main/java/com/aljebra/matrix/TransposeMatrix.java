@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,7 @@ import lombok.ToString;
 
 /**
  * Represents a matrix as the transpose of another matrix.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
@@ -48,6 +47,7 @@ public class TransposeMatrix<T> extends FixedMatrix<T> {
     /**
      * Transposes a matrix.
      * @param mat Matrix to transpose
+     * @param <T> scalar types
      * @return Scalar coordinates of the transposed matrix
      */
     @SuppressWarnings("unchecked")

@@ -50,7 +50,7 @@ public final class TimesTest {
         final int cols = 4;
         final Scalar<Object>[] coorsa = TimesTest.scalars(lines * cols);
         final Scalar<Object> factor = Mockito.mock(Scalar.class);
-        final Matrix<Object> times = new Times<Object>(
+        final Matrix<Object> times = new Times<>(
             new FixedMatrix<Object>(lines, cols, coorsa), factor
         );
         final Scalar<Object>[] expected = new com.aljebra.vector.Times<Object>(
@@ -72,7 +72,7 @@ public final class TimesTest {
         final Scalar<Object> scalarc = Mockito.mock(Scalar.class);
         final Scalar<Object> scalard = Mockito.mock(Scalar.class);
         final Scalar<Object> scalare = Mockito.mock(Scalar.class);
-        final Matrix<Object> matrix = new Times<Object>(
+        final Matrix<Object> matrix = new Times<>(
             new FixedMatrix<Object>(
                 2, 2, scalara, scalarb, scalarc, scalard
             ),
@@ -125,7 +125,7 @@ public final class TimesTest {
     public void appliesTimesTransformation() {
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix<Object> first = new FixedMatrix<Object>(
+        final FixedMatrix<Object> first = new FixedMatrix<>(
             lines, cols, TimesTest.scalars(lines * cols)
         );
         final Vect<Object> input = Mockito.mock(Vect.class);

@@ -30,6 +30,7 @@ import com.aljebra.scalar.Throwing;
 /**
  * Predicate interface. A predicate could be resolved to true or false given
  * the field.
+ * @param <T> scalar types
  * @since 0.1
  */
 public interface Predicate<T> {

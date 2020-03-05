@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,8 +33,7 @@ import lombok.ToString;
 /**
  * A scalar representing the ordinate of a line belonging point,
  * given its abscissa. If the line is vertical, this scalar will be random.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode

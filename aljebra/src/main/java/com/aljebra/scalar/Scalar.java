@@ -29,6 +29,7 @@ import lombok.ToString;
 
 /**
  * Scalar interface.
+ * @param <T> scalar types
  * @since 0.1
  */
 public interface Scalar<T> {
@@ -36,7 +37,6 @@ public interface Scalar<T> {
     /**
      * Return the actual value of the scalar.
      * @param field Scalar field
-     * @param <T> Scalar object type
      * @return An object representing the scalar
      */
     T value(Field<T> field);
@@ -69,8 +69,7 @@ public interface Scalar<T> {
 
     /**
      * Minimal representation of a scalar holding a reference to an object.
-     * @param <R>
-     * @param <T> Holded object type.
+     * @param <R> Holded object type.
      * @since 0.1
      */
     @EqualsAndHashCode

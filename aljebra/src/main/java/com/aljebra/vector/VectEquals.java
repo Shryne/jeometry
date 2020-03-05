@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,7 @@ import com.aljebra.scalar.condition.Predicate;
 
 /**
  * A predicate to determine if two vectors are equals.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 public final class VectEquals<T> implements Predicate<T> {
@@ -69,6 +68,7 @@ public final class VectEquals<T> implements Predicate<T> {
      * @param first First scalars array
      * @param second Second scalars array
      * @param field Scalars field
+     * @param <T> scalar types
      * @return True if the two arrays are equals
      */
     private static <T> boolean arraysEqual(final Scalar<T>[] first,
@@ -88,6 +88,7 @@ public final class VectEquals<T> implements Predicate<T> {
      * @param first First scalar
      * @param second Second scalar
      * @param field Scalars field
+     * @param <T> scalar types
      * @return True if the two scalars are equals
      */
     private static <T> boolean scalarEqual(final Scalar<T> first, final Scalar<T> second,

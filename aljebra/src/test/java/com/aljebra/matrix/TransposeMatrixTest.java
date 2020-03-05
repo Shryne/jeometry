@@ -51,7 +51,7 @@ public final class TransposeMatrixTest {
         final Scalar<Object> scald = Mockito.mock(Scalar.class);
         final Scalar<Object> scale = Mockito.mock(Scalar.class);
         final Scalar<Object> scalf = Mockito.mock(Scalar.class);
-        final Matrix<Object> matrix = new TransposeMatrix<Object>(
+        final Matrix<Object> matrix = new TransposeMatrix<>(
             new FixedMatrix<Object>(
                 lines, cols, scala, scalb, scalc, scald, scale, scalf
             )
@@ -73,7 +73,7 @@ public final class TransposeMatrixTest {
     public void returnsLinesAndColumns() {
         final int lines = 3;
         final int cols = 4;
-        final Matrix<Object> matrix = new TransposeMatrix<Object>(
+        final Matrix<Object> matrix = new TransposeMatrix<>(
             new FixedMatrix<Object>(
                 lines, cols, TransposeMatrixTest.scalars(lines * cols)
             )

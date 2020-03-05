@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -32,8 +32,7 @@ import lombok.ToString;
 /**
  * Class representing dot operation (scalar product) or inner product
  * of 2 vectors.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)

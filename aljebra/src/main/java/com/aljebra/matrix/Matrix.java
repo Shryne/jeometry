@@ -30,6 +30,7 @@ import com.aljebra.vector.Vect;
  * Matrix interface. Represents an m*n dimension matrix that can be assimilated
  * to a linear transformation from n-dimension vector space to a m-dimension
  * vector space. The two vector spaces are supposed to be over the same field.
+ * @param <T> scalar types
  * @since 0.1
  */
 public interface Matrix<T> {

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,8 +33,7 @@ import com.jeometry.twod.line.Line;
 /**
  * A predicate to determine if two vectors or lines are perpendicular,
  * according to euclidean geometry.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 public final class Perpendicular<T> implements Predicate<T> {

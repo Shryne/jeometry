@@ -55,7 +55,7 @@ public final class FixedMatrixTest {
         final int lines = 3;
         final int cols = 4;
         final Scalar<Double>[] scalars = FixedMatrixTest.scalars(lines * cols);
-        final FixedMatrix<Double> matrix = new FixedMatrix<Double>(lines, cols, scalars);
+        final FixedMatrix<Double> matrix = new FixedMatrix<>(lines, cols, scalars);
         MatcherAssert.assertThat(
             matrix.coords(), Matchers.equalTo(scalars)
         );
@@ -71,7 +71,7 @@ public final class FixedMatrixTest {
         final Default<String> scalarb = new Scalar.Default<>("b");
         final Default<String> scalarc = new Scalar.Default<>("c");
         final Default<String> scalard = new Scalar.Default<>("d");
-        final FixedMatrix<String> matrix = new FixedMatrix<String>(
+        final FixedMatrix<String> matrix = new FixedMatrix<>(
             2, 2, scalara, scalarb, scalarc, scalard
         );
         MatcherAssert.assertThat(
@@ -96,11 +96,11 @@ public final class FixedMatrixTest {
     public void appliesTransformation() {
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix<Double> matrix = new FixedMatrix<Double>(
+        final FixedMatrix<Double> matrix = new FixedMatrix<>(
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
         final Scalar<Double>[] expected = new Scalar[lines];
-        final Vect<Double> input = new FixedVector<Double>(FixedMatrixTest.scalars(cols));
+        final Vect<Double> input = new FixedVector<>(FixedMatrixTest.scalars(cols));
         for (int idx = 0; idx < lines; ++idx) {
             expected[idx] = FixedMatrixTest.pdt(input, matrix.line(idx + 1));
         }
@@ -118,10 +118,10 @@ public final class FixedMatrixTest {
         this.thrown.expect(IllegalArgumentException.class);
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix<Double> matrix = new FixedMatrix<Double>(
+        final FixedMatrix<Double> matrix = new FixedMatrix<>(
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
-        final Vect<Double> input = new FixedVector<Double>(FixedMatrixTest.scalars(cols + 1));
+        final Vect<Double> input = new FixedVector<>(FixedMatrixTest.scalars(cols + 1));
         matrix.apply(input);
     }
 

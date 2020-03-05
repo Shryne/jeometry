@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -32,8 +32,7 @@ import lombok.ToString;
 
 /**
  * A {@link Degrees} implementation defined as the sum of a {@link Degrees} set.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)

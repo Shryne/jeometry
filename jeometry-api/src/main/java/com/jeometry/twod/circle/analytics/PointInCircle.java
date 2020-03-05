@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -32,8 +32,7 @@ import com.jeometry.twod.circle.Circle;
 
 /**
  * A predicate to determine if a point belongs to a circle.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 public final class PointInCircle<T> implements Predicate<T> {

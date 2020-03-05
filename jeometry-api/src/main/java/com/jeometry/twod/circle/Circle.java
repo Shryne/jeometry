@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,7 @@ import com.jeometry.twod.Renderable;
 
 /**
  * Circle interface describing a circle by a center and a radius.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 public interface Circle<T> extends Renderable {

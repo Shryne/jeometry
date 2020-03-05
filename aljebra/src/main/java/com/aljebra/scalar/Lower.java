@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,7 @@ import lombok.ToString;
 
 /**
  * A random scalar that is lower than another one.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
@@ -54,6 +53,7 @@ public final class Lower<T> implements OrderedScalar<T> {
         this.greater = greater;
         this.generated = Optional.empty();
     }
+
     @Override
     public T value(final OrderedField<T> field) {
         if (!this.generated.isPresent()) {

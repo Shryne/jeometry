@@ -43,9 +43,9 @@ public final class ComplementaryTest {
     @SuppressWarnings("unchecked")
     @Test
     public void resolvesComplementaryAngle() {
-        final Degrees<Double> first = new Degrees.Default<Double>(Math.random());
-        final Degrees<Double> second = new Degrees.Default<Double>(Math.random());
-        final Degrees<Double> third = new Degrees.Default<Double>(Math.random());
+        final Degrees<Double> first = new Degrees.Default<>(Math.random());
+        final Degrees<Double> second = new Degrees.Default<>(Math.random());
+        final Degrees<Double> third = new Degrees.Default<>(Math.random());
         final InnerProduct<Double> pdt = Mockito.mock(InnerProduct.class);
         final double error = 1.e-6;
         MatcherAssert.assertThat(

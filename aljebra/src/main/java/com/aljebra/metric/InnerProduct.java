@@ -30,6 +30,7 @@ import com.aljebra.vector.Vect;
 /**
  * Inner product interface. Represents an inner product operation and its
  * induced properties.
+ * @param <T> scalar types
  * @since 0.1
  */
 public interface InnerProduct<T> {

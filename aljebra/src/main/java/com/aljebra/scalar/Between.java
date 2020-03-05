@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,7 @@ import lombok.ToString;
 
 /**
  * A random scalar that is between two other scalars.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
@@ -53,8 +52,8 @@ public final class Between<T> implements OrderedScalar<T> {
 
     /**
      * Constructor.
-     * @param greater Scalar to be lower to
      * @param lower Scalar to be greater to
+     * @param greater Scalar to be lower to
      */
     public Between(final Scalar<T> lower, final Scalar<T> greater) {
         this.lower = lower;

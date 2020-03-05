@@ -58,9 +58,9 @@ public final class SumTest {
         final int cols = 4;
         final Scalar<Object>[] coorsa = SumTest.scalars(lines * cols);
         final Scalar<Object>[] coorsb = SumTest.scalars(lines * cols);
-        final FixedMatrix<Object> first = new FixedMatrix<Object>(lines, cols, coorsa);
-        final FixedMatrix<Object> second = new FixedMatrix<Object>(lines, cols, coorsb);
-        final Matrix<Object> sum = new Sum<Object>(first, second);
+        final FixedMatrix<Object> first = new FixedMatrix<>(lines, cols, coorsa);
+        final FixedMatrix<Object> second = new FixedMatrix<>(lines, cols, coorsb);
+        final Matrix<Object> sum = new Sum<>(first, second);
         final Scalar<Object>[] expected = new com.aljebra.vector.Sum<Object>(
             new FixedVector<Object>(coorsa), new FixedVector<Object>(coorsb)
         ).coords();
@@ -78,10 +78,10 @@ public final class SumTest {
     public void appliesSumTransformation() {
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix<Object> first = new FixedMatrix<Object>(
+        final FixedMatrix<Object> first = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
-        final FixedMatrix<Object> second = new FixedMatrix<Object>(
+        final FixedMatrix<Object> second = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
         final Vect<Object> input = Mockito.mock(Vect.class);
@@ -110,7 +110,7 @@ public final class SumTest {
         final Scalar<Object> scalarf = Mockito.mock(Scalar.class);
         final Scalar<Object> scalarg = Mockito.mock(Scalar.class);
         final Scalar<Object> scalarh = Mockito.mock(Scalar.class);
-        final Matrix<Object> matrix = new Sum<Object>(
+        final Matrix<Object> matrix = new Sum<>(
             new FixedMatrix<Object>(
                 2, 2, scalara, scalarb, scalarc, scalard
             ),
@@ -178,13 +178,13 @@ public final class SumTest {
     public void equalsWhenOperandOrderChanges() {
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix<Object> first = new FixedMatrix<Object>(
+        final FixedMatrix<Object> first = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
-        final FixedMatrix<Object> second = new FixedMatrix<Object>(
+        final FixedMatrix<Object> second = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
-        final FixedMatrix<Object> third = new FixedMatrix<Object>(
+        final FixedMatrix<Object> third = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
         MatcherAssert.assertThat(

@@ -125,7 +125,7 @@ public final class DotTest {
     @Test
     public void calculatesRotation() {
         final Vect<Double> vecta = new DblVect(1., 0.);
-        final Degrees<Double> pifourth = new Degrees.Default<Double>(Math.PI / 4);
+        final Degrees<Double> pifourth = new Degrees.Default<>(Math.PI / 4);
         final Dot dot = new Dot();
         final Decimal field = new Decimal();
         final double error = 1.e-6;

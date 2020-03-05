@@ -30,6 +30,7 @@ import lombok.ToString;
 
 /**
  * Represents a vector defined by fixed coordinates.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode

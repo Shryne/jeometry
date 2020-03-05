@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -34,8 +34,7 @@ import lombok.ToString;
 
 /**
  * A vector defined as the rotation image of a vector by an angle.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
@@ -64,6 +63,7 @@ public final class RotateVect<T> extends FixedVector<T> {
      * Calculates coordinates of the rotated vector.
      * @param vector Vector to rotate
      * @param angle Rotation angle
+     * @param <T> scalar types
      * @return Scalar array of the rotated vector coordinates
      */
     @SuppressWarnings("unchecked")
@@ -81,6 +81,7 @@ public final class RotateVect<T> extends FixedVector<T> {
      * @param vector Vector to rotate
      * @param angle Rotation angle
      * @param dim Coordinate index
+     * @param <T> scalar types
      * @return A scalar corresponding to a coordinate of the rotated vector
      */
     private static <T> Scalar<T> coord(final Vect<T> vector, final Degrees<T> angle,

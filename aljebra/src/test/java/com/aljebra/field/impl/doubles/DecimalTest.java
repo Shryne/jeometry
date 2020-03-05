@@ -55,7 +55,7 @@ public final class DecimalTest {
         final OrderedRandom<Double> rand = DecimalTest.randomizer();
         final Decimal field = new Decimal(rand);
         final double first = new Random().nextDouble();
-        final Scalar<Double> scalar = new Scalar.Default<Double>(first);
+        final Scalar<Double> scalar = new Scalar.Default<>(first);
         Mockito.when(
             rand.between(Mockito.any(), Mockito.any())
         ).thenReturn(first).thenReturn(Math.random());

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -33,8 +33,7 @@ import lombok.ToString;
 
 /**
  * A scalar representing the length of a segment (in a metric system).
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
@@ -53,6 +52,7 @@ public final class SegmentLength<T> implements Scalar<T> {
     public SegmentLength(final Segment seg) {
         this.seg = seg;
     }
+
     @Override
     public T value(final Field<T> field) {
         return new Norm<T>(new SegVect(this.seg)).value(field);

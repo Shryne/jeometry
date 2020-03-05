@@ -29,6 +29,7 @@ import com.aljebra.scalar.Scalar;
 
 /**
  * Metric Scalar interface.
+ * @param <T> scalar types
  * @since 0.1
  */
 public interface MetricScalar<T> extends Scalar<T> {
@@ -36,7 +37,6 @@ public interface MetricScalar<T> extends Scalar<T> {
     /**
      * Return the actual value of the scalar.
      * @param field Scalar field
-     * @param <T> Scalar object type
      * @return An object representing the scalar
      */
     T value(MetricSpaceField<T> field);

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,7 @@ import lombok.ToString;
 
 /**
  * A random scalar.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
@@ -47,6 +46,7 @@ public final class Random<T> implements Scalar<T> {
     public Random() {
         this.generated = Optional.empty();
     }
+
     @Override
     public T value(final Field<T> field) {
         if (!this.generated.isPresent()) {
