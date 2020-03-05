@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -28,8 +28,6 @@ import lombok.ToString;
 
 /**
  * A ray defined by its origin and its direction.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString
@@ -47,8 +45,8 @@ public class PtDirRay implements Ray {
 
     /**
      * Constructor.
-     * @param direction Ray direction
      * @param point Ray origin
+     * @param direction Ray direction
      */
     public PtDirRay(final Vect point, final Vect direction) {
         this.dir = direction;

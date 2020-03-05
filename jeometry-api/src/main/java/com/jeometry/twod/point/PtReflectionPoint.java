@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -31,8 +31,6 @@ import lombok.ToString;
 
 /**
  * A point defined as the reflection of a point, across another given point.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString

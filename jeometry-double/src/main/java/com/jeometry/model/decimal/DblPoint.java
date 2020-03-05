@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import com.jeometry.twod.point.XyPoint;
 
 /**
  * Represents a 2D vector defined by (x,y) double coordinates.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class DblPoint extends XyPoint<Double> {

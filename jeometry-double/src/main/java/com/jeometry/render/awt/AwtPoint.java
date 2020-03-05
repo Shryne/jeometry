@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -32,8 +32,6 @@ import java.awt.Point;
 
 /**
  * Awt Point painter that draws a point on an AWT graphics.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class AwtPoint extends AbstractAwtPaint {

@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -29,8 +29,6 @@ import com.jeometry.twod.circle.PtRadCircle;
 
 /**
  * Convenience class representing a 2D circle defined by a double radius.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public class DblCircle extends PtRadCircle {

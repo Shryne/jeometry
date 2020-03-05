@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -31,8 +31,6 @@ import lombok.ToString;
  * A 2D vector defined by the extremities of a segment. That means
  * that it represents the difference vector between the extremities
  * of the segment.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString(callSuper = true)

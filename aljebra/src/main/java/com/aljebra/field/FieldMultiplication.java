@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -25,8 +25,6 @@ package com.aljebra.field;
 
 /**
  * Interface describing a field multiplication operation.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */
@@ -38,7 +36,7 @@ public interface FieldMultiplication<T> {
      * @param second Second multiplication operand
      * @return Multiplication result
      */
-    T multiply(final T operand, final T second);
+    T multiply(T operand, T second);
 
     /**
      * Gives the neutral element of multiplication.
@@ -52,5 +50,5 @@ public interface FieldMultiplication<T> {
      * @param elt Element to inverse
      * @return Inverse of the passed element
      */
-    T inverse(final T elt);
+    T inverse(T elt);
 }

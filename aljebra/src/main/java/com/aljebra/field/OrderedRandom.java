@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -27,8 +27,6 @@ package com.aljebra.field;
  * Interface describing an scalar generator. Scalars are elements of an
  * ordered field and implementations of this interface are capable of generating
  * scalars in an ordered manner.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */
@@ -42,20 +40,20 @@ public interface OrderedRandom<T> {
      * @param upper Upper bound scalar
      * @return A random scalar between two scalars
      */
-    T between(final T lower, final T upper);
+    T between(T lower, T upper);
 
     /**
      * Generates a random scalar greater than the given scalar.
      * @param lower Lower bound scalar
      * @return A random scalar
      */
-    T greater(final T lower);
+    T greater(T lower);
 
     /**
      * Generates a random scalar smaller than the given scalar.
      * @param upper Upper bound scalar
      * @return A random scalar
      */
-    T lower(final T upper);
+    T lower(T upper);
 
 }

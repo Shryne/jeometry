@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -37,8 +37,6 @@ import com.aljebra.vector.Vect;
  * of 2 vectors in Real numbers field. Current implementation suppose
  * a two dimension vector space in `rot` and `angle` methods implementation,
  * and rely on {@link Decimal} field implementation.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 public final class Dot implements InnerProduct<Double> {

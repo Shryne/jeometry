@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -30,8 +30,6 @@ import lombok.ToString;
 /**
  * A segment defined by one extremity and a vector. The resulting segment
  * is necessarily congruent to the given vector and has the same direction.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString(includeFieldNames = false)

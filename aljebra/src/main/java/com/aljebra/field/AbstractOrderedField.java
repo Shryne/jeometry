@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -28,8 +28,6 @@ import com.aljebra.scalar.Scalar;
 /**
  * Abstract Ordered Field implementation based on {@link OrderedRandom}
  * for scalar randomization.
- * @author Hamdi Douss (douss.hamdi@gmail.com)
- * @version $Id$
  * @param <T> The actual objects constituting the field.
  * @since 0.1
  */

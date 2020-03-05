@@ -1,4 +1,4 @@
-/**
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2016-2020, Hamdi Douss
@@ -24,4 +24,4 @@
 /**
  * Tests for double field implementation.
  */
-package com.jeometry.model.algebra.scalar;
+package com.aljebra.field.impl.doubles;
