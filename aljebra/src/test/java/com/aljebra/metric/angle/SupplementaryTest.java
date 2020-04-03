@@ -40,24 +40,24 @@ public final class SupplementaryTest {
      */
     @Test
     public void resolvesSupplementaryAngle() {
-        final Degrees<Object> first = new Degrees.Default<>(Math.random());
-        final Degrees<Object> second = new Degrees.Default<>(Math.random());
-        final Degrees<Object> third = new Degrees.Default<>(Math.random());
+        final Degrees first = new Degrees.Default(Math.random());
+        final Degrees second = new Degrees.Default(Math.random());
+        final Degrees third = new Degrees.Default(Math.random());
         @SuppressWarnings("unchecked")
         final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Supplementary<>(first).resolve(pdt).doubleValue()
+            new Supplementary(first).resolve(pdt).doubleValue()
                 + first.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
         MatcherAssert.assertThat(
-            new Supplementary<>(second).resolve(pdt).doubleValue()
+            new Supplementary(second).resolve(pdt).doubleValue()
                 + second.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
         MatcherAssert.assertThat(
-            new Supplementary<>(third).resolve(pdt).doubleValue()
+            new Supplementary(third).resolve(pdt).doubleValue()
                 + third.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );

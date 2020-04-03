@@ -41,13 +41,13 @@ public final class SumTest {
     @SuppressWarnings("unchecked")
     @Test
     public void resolvesAngleSum() {
-        final Degrees<Object> first = new Degrees.Default<>(Math.random());
-        final Degrees<Object> second = new Degrees.Default<>(Math.random());
-        final Degrees<Object> third = new Degrees.Default<>(Math.random());
+        final Degrees first = new Degrees.Default(Math.random());
+        final Degrees second = new Degrees.Default(Math.random());
+        final Degrees third = new Degrees.Default(Math.random());
         final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Sum<>(first, second, third).resolve(pdt).doubleValue(),
+            new Sum(first, second, third).resolve(pdt).doubleValue(),
             Matchers.closeTo(
                 first.resolve(pdt).doubleValue()
                     + second.resolve(pdt).doubleValue()
@@ -61,20 +61,19 @@ public final class SumTest {
      * {@link Sum} respects equals with disregard to operands order
      * (commutative).
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void equalsWhenOperandOrderChanges() {
-        final Degrees<Object> first = Mockito.mock(Degrees.class);
-        final Degrees<Object> second = Mockito.mock(Degrees.class);
-        final Degrees<Object> third = Mockito.mock(Degrees.class);
+        final Degrees first = Mockito.mock(Degrees.class);
+        final Degrees second = Mockito.mock(Degrees.class);
+        final Degrees third = Mockito.mock(Degrees.class);
         MatcherAssert.assertThat(
-            new Sum<>(first, second, third),
+            new Sum(first, second, third),
             Matchers.allOf(
-                Matchers.equalTo(new Sum<>(first, third, second)),
-                Matchers.equalTo(new Sum<>(second, third, first)),
-                Matchers.equalTo(new Sum<>(second, first, third)),
-                Matchers.equalTo(new Sum<>(third, second, first)),
-                Matchers.equalTo(new Sum<>(third, first, second))
+                Matchers.equalTo(new Sum(first, third, second)),
+                Matchers.equalTo(new Sum(second, third, first)),
+                Matchers.equalTo(new Sum(second, first, third)),
+                Matchers.equalTo(new Sum(third, second, first)),
+                Matchers.equalTo(new Sum(third, first, second))
             )
         );
     }

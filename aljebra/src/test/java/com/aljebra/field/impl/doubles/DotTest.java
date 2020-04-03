@@ -123,7 +123,7 @@ public final class DotTest {
     @Test
     public void calculatesRotation() {
         final Vect<Double> vecta = new DblVect(1., 0.);
-        final Degrees<Double> pifourth = new Degrees.Default<>(Math.PI / 4);
+        final Degrees pifourth = new Degrees.Default(Math.PI / 4);
         final Dot dot = new Dot();
         final Decimal field = new Decimal();
         final double error = 1.e-6;
@@ -134,21 +134,21 @@ public final class DotTest {
         MatcherAssert.assertThat(
             field.actual(image[1]), Matchers.closeTo(Math.sqrt(2) / 2, error)
         );
-        image = dot.rot(vecta, new Degrees.Default<Double>(0)).coords();
+        image = dot.rot(vecta, new Degrees.Default(0)).coords();
         MatcherAssert.assertThat(
             field.actual(image[0]), Matchers.closeTo(1., error)
         );
         MatcherAssert.assertThat(
             field.actual(image[1]), Matchers.closeTo(0., error)
         );
-        image = dot.rot(vecta, new Degrees.Default<Double>(Math.PI / 2)).coords();
+        image = dot.rot(vecta, new Degrees.Default(Math.PI / 2)).coords();
         MatcherAssert.assertThat(
             field.actual(image[0]), Matchers.closeTo(0., error)
         );
         MatcherAssert.assertThat(
             field.actual(image[1]), Matchers.closeTo(1., error)
         );
-        image = dot.rot(vecta, new Degrees.Default<Double>(Math.PI)).coords();
+        image = dot.rot(vecta, new Degrees.Default(Math.PI)).coords();
         MatcherAssert.assertThat(
             field.actual(image[0]), Matchers.closeTo(-1., error)
         );

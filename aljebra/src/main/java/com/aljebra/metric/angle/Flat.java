@@ -29,15 +29,14 @@ import lombok.ToString;
 
 /**
  * Flat (straight) angle degrees.
- * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Flat<T> implements Degrees<T> {
+public final class Flat implements Degrees {
 
     @Override
-    public Number resolve(final InnerProduct<T> product) {
+    public <T> Number resolve(final InnerProduct<T> product) {
         return Math.PI;
     }
 
