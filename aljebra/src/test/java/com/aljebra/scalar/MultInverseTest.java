@@ -57,8 +57,8 @@ public final class MultInverseTest {
             FieldMultiplication.class
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
-        final Scalar scalar = Mockito.mock(Scalar.class);
-        new MultInverse(scalar).value(field);
+        final Scalar<Object> scalar = Mockito.mock(Scalar.class);
+        new MultInverse<>(scalar).value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).inverse(Mockito.any());
     }
@@ -70,29 +70,30 @@ public final class MultInverseTest {
     @Test
     public void throwsExceptionWhenInvertingAddIdentity() {
         this.thrown.expect(IllegalArgumentException.class);
-        new MultInverse(new AddIdentity()).value(new Decimal());
+        new MultInverse<Double>(new AddIdentity<>()).value(new Decimal());
     }
 
     /**
      * {@link MultInverse} respects equals and hashcode
      * regarding the scalar to inverse.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqualAndHashcode() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new MultInverse(first),
-            Matchers.equalTo(new MultInverse(first))
+            new MultInverse<>(first),
+            Matchers.equalTo(new MultInverse<>(first))
         );
         MatcherAssert.assertThat(
-            new MultInverse(first),
-            Matchers.not(Matchers.equalTo(new MultInverse(second)))
+            new MultInverse<>(first),
+            Matchers.not(Matchers.equalTo(new MultInverse<>(second)))
         );
         MatcherAssert.assertThat(
-            new MultInverse(first).hashCode(),
+            new MultInverse<>(first).hashCode(),
             Matchers.equalTo(
-                new MultInverse(first).hashCode()
+                new MultInverse<>(first).hashCode()
             )
         );
     }

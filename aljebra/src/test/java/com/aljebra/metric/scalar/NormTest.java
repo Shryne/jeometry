@@ -47,23 +47,25 @@ public final class NormTest {
     /**
      * {@link Norm} rely on InnerProduct for resolution of actual value.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToInnerProduct() {
-        final Vect first = Mockito.mock(Vect.class);
-        final MetricSpaceField<?> field = Mockito.mock(MetricSpaceField.class);
-        final InnerProduct pdt = Mockito.mock(InnerProduct.class);
+        final Vect<Object> first = Mockito.mock(Vect.class);
+        final MetricSpaceField<Object> field = Mockito.mock(MetricSpaceField.class);
+        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         Mockito.when(field.product()).thenReturn(pdt);
-        new Norm(first).value(field);
+        new Norm<>(first).value(field);
         Mockito.verify(pdt).norm(first);
     }
 
     /**
      * {@link Norm} throws exception when not operating on a metric space.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenNoMetricSpace() {
         this.thrown.expect(UnsupportedOperationException.class);
-        final Field<?> field = Mockito.mock(Field.class);
-        new Norm(Mockito.mock(Vect.class)).value(field);
+        final Field<Object> field = Mockito.mock(Field.class);
+        new Norm<>(Mockito.mock(Vect.class)).value(field);
     }
 }

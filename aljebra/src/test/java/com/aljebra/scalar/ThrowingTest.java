@@ -49,6 +49,6 @@ public final class ThrowingTest {
     public void throwsExceptionWhenValue() {
         final RuntimeException rex = Mockito.mock(RuntimeException.class);
         this.thrown.expect(rex.getClass());
-        new Throwing(rex).value(Mockito.mock(Field.class));
+        new Throwing<>(rex).value(Mockito.mock(Field.class));
     }
 }

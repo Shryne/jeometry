@@ -45,14 +45,15 @@ public final class LowerTest {
     /**
      * {@link Lower} relies on ordered field to calculate actual value.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToOrderedFieldRandomizer() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final OrderedField<?> field = Mockito.mock(OrderedField.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final OrderedField<Object> field = Mockito.mock(OrderedField.class);
         Mockito.when(
             field.lower(Mockito.any())
         ).thenReturn(Mockito.mock(Scalar.class));
-        new Lower(first).value(field);
+        new Lower<>(first).value(field);
         Mockito.verify(field).lower(first);
     }
 
@@ -63,7 +64,7 @@ public final class LowerTest {
     @Test
     public void throwsExceptionWhenUnorderedField() {
         this.thrown.expect(UnsupportedOperationException.class);
-        new Lower(
+        new Lower<>(
             Mockito.mock(Scalar.class)
         ).value(Mockito.mock(Field.class));
     }

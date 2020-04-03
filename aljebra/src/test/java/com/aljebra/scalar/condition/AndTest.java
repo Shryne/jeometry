@@ -38,11 +38,12 @@ public final class AndTest {
     /**
      * {@link And} returns true if all predicates are true.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenAllPredicatesTrue() {
         MatcherAssert.assertThat(
-            new And(
-                new True(), new True(), new True()
+            new And<>(
+                new True<>(), new True<>(), new True<>()
             ).resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
@@ -51,11 +52,12 @@ public final class AndTest {
     /**
      * {@link And} resolves to false if at least one predicate is false.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenOnePredicateFalse() {
         MatcherAssert.assertThat(
-            new And(
-                new True(), new True(), new False()
+            new And<>(
+                new True<>(), new True<>(), new False<>()
             ).resolve(Mockito.mock(Field.class)),
             Matchers.is(false)
         );

@@ -40,37 +40,39 @@ public final class VectsDegreesTest {
      * {@link VectsDegrees} rely on InnerProduct to calculate
      * angle between vectors.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToInnerProduct() {
-        final Vect first = Mockito.mock(Vect.class);
-        final Vect second = Mockito.mock(Vect.class);
-        final InnerProduct pdt = Mockito.mock(InnerProduct.class);
+        final Vect<Object> first = Mockito.mock(Vect.class);
+        final Vect<Object> second = Mockito.mock(Vect.class);
+        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         Mockito.when(
             pdt.angle(Mockito.any(), Mockito.any())
         ).thenReturn(Mockito.mock(Degrees.class));
-        new VectsDegrees(first, second).resolve(pdt);
+        new VectsDegrees<>(first, second).resolve(pdt);
         Mockito.verify(pdt).angle(first, second);
     }
 
     /**
      * {@link VectsDegrees} respects equals and hashcode on vectors.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqual() {
-        final Vect first = Mockito.mock(Vect.class);
-        final Vect second = Mockito.mock(Vect.class);
+        final Vect<Object> first = Mockito.mock(Vect.class);
+        final Vect<Object> second = Mockito.mock(Vect.class);
         MatcherAssert.assertThat(
-            new VectsDegrees(first, second),
-            Matchers.equalTo(new VectsDegrees(first, second))
+            new VectsDegrees<>(first, second),
+            Matchers.equalTo(new VectsDegrees<>(first, second))
         );
         MatcherAssert.assertThat(
-            new VectsDegrees(first, second).hashCode(),
-            Matchers.equalTo(new VectsDegrees(first, second).hashCode())
+            new VectsDegrees<>(first, second).hashCode(),
+            Matchers.equalTo(new VectsDegrees<>(first, second).hashCode())
         );
         MatcherAssert.assertThat(
-            new VectsDegrees(first, second),
+            new VectsDegrees<>(first, second),
             Matchers.not(
-                Matchers.equalTo(new VectsDegrees(second, first))
+                Matchers.equalTo(new VectsDegrees<>(second, first))
             )
         );
     }

@@ -36,14 +36,15 @@ public final class FixedVectorTest {
     /**
      * {@link FixedVector} respects equals on coordinates.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
             ),
             Matchers.equalTo(
-                new FixedVector(
+                new FixedVector<>(
                     new Scalar.Default<Double>(0.),
                     new Scalar.Default<Double>(1.)
                 )
@@ -53,13 +54,13 @@ public final class FixedVectorTest {
         final String second = "test2";
         final String third = "test3";
         MatcherAssert.assertThat(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<String>(first),
                 new Scalar.Default<String>(second),
                 new Scalar.Default<String>(third)
             ),
             Matchers.equalTo(
-                new FixedVector(
+                new FixedVector<>(
                     new Scalar.Default<String>(first),
                     new Scalar.Default<String>(second),
                     new Scalar.Default<String>(third)

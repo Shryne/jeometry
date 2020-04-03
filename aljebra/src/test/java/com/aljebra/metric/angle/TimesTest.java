@@ -40,22 +40,23 @@ public final class TimesTest {
      */
     @Test
     public void resolvesAngleTimes() {
-        final Degrees first = new Degrees.Default(Math.random());
-        final Degrees second = new Degrees.Default(Math.random());
-        final Degrees third = new Degrees.Default(Math.random());
-        final InnerProduct pdt = Mockito.mock(InnerProduct.class);
+        final Degrees<Object> first = new Degrees.Default<>(Math.random());
+        final Degrees<Object> second = new Degrees.Default<>(Math.random());
+        final Degrees<Object> third = new Degrees.Default<>(Math.random());
+        @SuppressWarnings("unchecked")
+        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         final double factor = Math.random();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Times(first, factor).resolve(pdt).doubleValue(),
+            new Times<>(first, factor).resolve(pdt).doubleValue(),
             Matchers.closeTo(first.resolve(pdt).doubleValue() * factor, error)
         );
         MatcherAssert.assertThat(
-            new Times(second, factor).resolve(pdt).doubleValue(),
+            new Times<>(second, factor).resolve(pdt).doubleValue(),
             Matchers.closeTo(second.resolve(pdt).doubleValue() * factor, error)
         );
         MatcherAssert.assertThat(
-            new Times(third, factor).resolve(pdt).doubleValue(),
+            new Times<>(third, factor).resolve(pdt).doubleValue(),
             Matchers.closeTo(third.resolve(pdt).doubleValue() * factor, error)
         );
     }

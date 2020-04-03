@@ -46,18 +46,19 @@ public final class TimesTest {
      * {@link Times} coordinates equals to the field multiplication
      * of vector coordinates by the scalar.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void coordsEqualCoordsMult() {
-        final Vect vecta = Mockito.mock(Vect.class);
-        final Scalar factor = TimesTest.scalars(1)[0];
-        final Scalar[] acoords = TimesTest.scalars();
+        final Vect<Object> vecta = Mockito.mock(Vect.class);
+        final Scalar<Object> factor = TimesTest.scalars(1)[0];
+        final Scalar<Object>[] acoords = TimesTest.scalars();
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Scalar[] expected = new Scalar[acoords.length];
+        final Scalar<Object>[] expected = new Scalar[acoords.length];
         for (int idx = 0; idx < expected.length; ++idx) {
             expected[idx] = TimesTest.mult(acoords[idx], factor);
         }
         MatcherAssert.assertThat(
-            new Times(vecta, factor).coords(), Matchers.equalTo(expected)
+            new Times<>(vecta, factor).coords(), Matchers.equalTo(expected)
         );
     }
 
@@ -67,15 +68,16 @@ public final class TimesTest {
      * @param another Second scalar
      * @return A scalar representing the multiplication of two scalars
      */
-    private static Scalar mult(final Scalar scalar, final Scalar another) {
-        return new Multiplication(scalar, another);
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object> mult(final Scalar<Object> scalar, final Scalar<Object> another) {
+        return new Multiplication<>(scalar, another);
     }
 
     /**
      * Mocks an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
-    private static Scalar[] scalars() {
+    private static Scalar<Object>[] scalars() {
         return TimesTest.scalars(new Random().nextInt(TimesTest.COORDS_LENGTH));
     }
 
@@ -84,8 +86,9 @@ public final class TimesTest {
      * @param length Array length to generate
      * @return An array of scalars.
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object>[] scalars(final int length) {
+        final Scalar<Object>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);
         }

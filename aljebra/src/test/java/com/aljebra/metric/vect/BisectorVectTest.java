@@ -41,15 +41,16 @@ public final class BisectorVectTest {
     /**
      * {@link BisectorVect} calculates bisector vector.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void calculatesBisector() {
         final int dim = 2;
-        final Vect first = Mockito.mock(Vect.class);
-        final Vect second = Mockito.mock(Vect.class);
+        final Vect<Double> first = Mockito.mock(Vect.class);
+        final Vect<Double> second = Mockito.mock(Vect.class);
         Mockito.when(first.coords()).thenReturn(BisectorVectTest.scalars(dim));
         Mockito.when(second.coords()).thenReturn(BisectorVectTest.scalars(dim));
-        final InnerProduct pdt = new Dot();
-        final Vect result = new BisectorVect(first, second);
+        final InnerProduct<Double> pdt = new Dot();
+        final Vect<Double> result = new BisectorVect<>(first, second);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             pdt.angle(first, result).resolve(pdt).doubleValue(),
@@ -64,8 +65,9 @@ public final class BisectorVectTest {
      * @param length Array length
      * @return An array of scalars
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    private static Scalar<Double>[] scalars(final int length) {
+        @SuppressWarnings("unchecked")
+        final Scalar<Double>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = BisectorVectTest.scalar(Math.random());
         }
@@ -77,7 +79,7 @@ public final class BisectorVectTest {
      * @param num A double
      * @return A scalar
      */
-    private static Scalar scalar(final double num) {
+    private static Scalar<Double> scalar(final double num) {
         return new Scalar.Default<Double>(num);
     }
 }

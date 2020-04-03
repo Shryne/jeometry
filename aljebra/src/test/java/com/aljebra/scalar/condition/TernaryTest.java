@@ -38,12 +38,13 @@ public final class TernaryTest {
      * {@link Ternary} evaluates to the first scalar
      * returns true if all predicates are true.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void valueToFirstScalarWhenTrue() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final Field<?> field = Mockito.mock(Field.class);
-        new Ternary(new True(), first, second).value(field);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Field<Object> field = Mockito.mock(Field.class);
+        new Ternary<>(new True<>(), first, second).value(field);
         Mockito.verify(field).actual(first);
         Mockito.verify(field, Mockito.never()).actual(second);
     }
@@ -52,12 +53,13 @@ public final class TernaryTest {
      * {@link Ternary} evaluates to the second scalar
      * if the predicate resolves to false.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void valueToSecondScalarWhenFalse() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final Field<?> field = Mockito.mock(Field.class);
-        new Ternary(new False(), first, second).value(field);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Field<Object> field = Mockito.mock(Field.class);
+        new Ternary<>(new False<>(), first, second).value(field);
         Mockito.verify(field).actual(second);
         Mockito.verify(field, Mockito.never()).actual(first);
     }

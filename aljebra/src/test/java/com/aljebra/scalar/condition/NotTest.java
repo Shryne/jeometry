@@ -48,10 +48,11 @@ public final class NotTest {
     /**
      * {@link Not} resolves to false if predicate resolves to true.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenPredicateIsFalse() {
         MatcherAssert.assertThat(
-            new Not(new True()).resolve(Mockito.mock(Field.class)),
+            new Not<>(new True<>()).resolve(Mockito.mock(Field.class)),
             Matchers.is(false)
         );
     }
@@ -59,10 +60,11 @@ public final class NotTest {
     /**
      * {@link Not} resolves to true if predicate resolves to false.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenPredicateIsTrue() {
         MatcherAssert.assertThat(
-            new Not(new False()).resolve(Mockito.mock(Field.class)),
+            new Not<>(new False<>()).resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
     }
@@ -70,12 +72,13 @@ public final class NotTest {
     /**
      * {@link Not} can build a ternary.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void buildsTernary() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final Field<?> field = Mockito.mock(Field.class);
-        new Not(new False()).ifElse(first, second).value(field);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Field<Object> field = Mockito.mock(Field.class);
+        new Not<>(new False<>()).ifElse(first, second).value(field);
         Mockito.verify(field).actual(first);
         Mockito.verify(field, Mockito.never()).actual(second);
     }
@@ -83,12 +86,13 @@ public final class NotTest {
     /**
      * {@link Not} can build a throwing ternary.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void buildsThrowing() {
         final RuntimeException err = new RuntimeException();
         this.thrown.expect(err.getClass());
-        final Field<?> field = Mockito.mock(AbstractField.class);
-        new Not(new True()).ifElse(
+        final Field<Object> field = Mockito.mock(AbstractField.class);
+        new Not<>(new True<>()).ifElse(
             Mockito.mock(Scalar.class), err
         ).value(field);
     }

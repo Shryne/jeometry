@@ -47,10 +47,11 @@ public final class OppositeTest {
      */
     @Test
     public void coordsEqualCoordsMult() {
-        final Vect vecta = new FixedVector(OppositeTest.scalars());
-        final Scalar[] sum = new Sum(new Opposite(vecta), vecta).coords();
+        final Vect<Double> vecta = new FixedVector<>(OppositeTest.scalars());
+        @SuppressWarnings("unchecked")
+        final Scalar<Double>[] sum = new Sum<>(new Opposite<>(vecta), vecta).coords();
         final Decimal field = new Decimal();
-        for (final Scalar scalar : sum) {
+        for (final Scalar<Double> scalar : sum) {
             MatcherAssert.assertThat(field.actual(scalar), Matchers.is(0.));
         }
     }
@@ -59,8 +60,9 @@ public final class OppositeTest {
      * Builds an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
-    private static Scalar[] scalars() {
-        final Scalar[] result = new Scalar[new Random()
+    private static Scalar<Double>[] scalars() {
+        @SuppressWarnings("unchecked")
+        final Scalar<Double>[] result = new Scalar[new Random()
             .nextInt(OppositeTest.COORDS_LENGTH)];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = OppositeTest.scalar();
@@ -72,8 +74,8 @@ public final class OppositeTest {
      * Builds a random scalar.
      * @return A random scalar
      */
-    private static Scalar scalar() {
-        return new com.aljebra.scalar.Random();
+    private static Scalar<Double> scalar() {
+        return new com.aljebra.scalar.Random<>();
     }
 
 }
