@@ -29,17 +29,16 @@ import lombok.ToString;
 
 /**
  * A {@link Degrees} defined as a multiple of another {@link Degrees}.
- * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Times<T> implements Degrees<T> {
+public final class Times implements Degrees {
 
     /**
      * Angle.
      */
-    private final transient Degrees<T> angle;
+    private final transient Degrees angle;
 
     /**
      * Multiple.
@@ -51,13 +50,13 @@ public final class Times<T> implements Degrees<T> {
      * @param angle Angle to multiply
      * @param multiple Number by which to multiply
      */
-    public Times(final Degrees<T> angle, final Number multiple) {
+    public Times(final Degrees angle, final Number multiple) {
         this.angle = angle;
         this.multiple = multiple;
     }
 
     @Override
-    public Number resolve(final InnerProduct<T> product) {
+    public <T> Number resolve(final InnerProduct<T> product) {
         return this.angle.resolve(product).doubleValue()
             * this.multiple.doubleValue();
     }

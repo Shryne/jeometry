@@ -49,7 +49,7 @@ public final class VectsDegreesTest {
         Mockito.when(
             pdt.angle(Mockito.any(), Mockito.any())
         ).thenReturn(Mockito.mock(Degrees.class));
-        new VectsDegrees<>(first, second).resolve(pdt);
+        new VectsDegrees(first, second).resolve(pdt);
         Mockito.verify(pdt).angle(first, second);
     }
 
@@ -62,17 +62,17 @@ public final class VectsDegreesTest {
         final Vect<Object> first = Mockito.mock(Vect.class);
         final Vect<Object> second = Mockito.mock(Vect.class);
         MatcherAssert.assertThat(
-            new VectsDegrees<>(first, second),
-            Matchers.equalTo(new VectsDegrees<>(first, second))
+            new VectsDegrees(first, second),
+            Matchers.equalTo(new VectsDegrees(first, second))
         );
         MatcherAssert.assertThat(
-            new VectsDegrees<>(first, second).hashCode(),
-            Matchers.equalTo(new VectsDegrees<>(first, second).hashCode())
+            new VectsDegrees(first, second).hashCode(),
+            Matchers.equalTo(new VectsDegrees(first, second).hashCode())
         );
         MatcherAssert.assertThat(
-            new VectsDegrees<>(first, second),
+            new VectsDegrees(first, second),
             Matchers.not(
-                Matchers.equalTo(new VectsDegrees<>(second, first))
+                Matchers.equalTo(new VectsDegrees(second, first))
             )
         );
     }

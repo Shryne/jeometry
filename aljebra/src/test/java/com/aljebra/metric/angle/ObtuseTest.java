@@ -41,7 +41,7 @@ public final class ObtuseTest {
     @Test
     public void resolvesObtuseAngle() {
         @SuppressWarnings("unchecked")
-        final double angle = new Obtuse<Object>().resolve(
+        final double angle = new Obtuse().resolve(
             Mockito.mock(InnerProduct.class)
         ).doubleValue();
         MatcherAssert.assertThat(

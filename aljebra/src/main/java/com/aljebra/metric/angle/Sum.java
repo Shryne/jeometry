@@ -32,31 +32,29 @@ import lombok.ToString;
 
 /**
  * A {@link Degrees} implementation defined as the sum of a {@link Degrees} set.
- * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Sum<T> implements Degrees<T> {
+public final class Sum implements Degrees {
 
     /**
      * Sum operands.
      */
-    private final Multiset<Degrees<T>> operands;
+    private final Multiset<Degrees> operands;
 
     /**
      * Constructor.
      * @param operands Sum operands
      */
-    @SuppressWarnings("unchecked")
-    public Sum(final Degrees<T>... operands) {
+    public Sum(final Degrees... operands) {
         this.operands = HashMultiset.create(Arrays.asList(operands));
     }
 
     @Override
-    public Number resolve(final InnerProduct<T> product) {
+    public <T> Number resolve(final InnerProduct<T> product) {
         Double sum = 0.;
-        for (final Degrees<T> angle : this.operands) {
+        for (final Degrees angle : this.operands) {
             sum += angle.resolve(product).doubleValue();
         }
         return sum;
