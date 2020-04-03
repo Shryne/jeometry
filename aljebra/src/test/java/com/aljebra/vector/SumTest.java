@@ -54,36 +54,38 @@ public final class SumTest {
      * {@link Sum} throws exception if the two vectors don't have
      * the same dimension.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenNotSameSize() {
         this.thrown.expect(IllegalArgumentException.class);
-        final Vect vecta = Mockito.mock(Vect.class);
-        final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = SumTest.scalars();
-        final Scalar[] bcoords = SumTest.scalars(acoords.length + 1);
+        final Vect<Object> vecta = Mockito.mock(Vect.class);
+        final Vect<Object> vectb = Mockito.mock(Vect.class);
+        final Scalar<Object>[] acoords = SumTest.scalars();
+        final Scalar<Object>[] bcoords = SumTest.scalars(acoords.length + 1);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        new Sum(vecta, vectb);
+        new Sum<>(vecta, vectb);
     }
 
     /**
      * {@link Sum} coordinates equals to the field additions
      * of vectors coordinates.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void coordsEqualCoordsSum() {
-        final Vect vecta = Mockito.mock(Vect.class);
-        final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = SumTest.scalars();
-        final Scalar[] bcoords = SumTest.scalars(acoords.length);
+        final Vect<Object> vecta = Mockito.mock(Vect.class);
+        final Vect<Object> vectb = Mockito.mock(Vect.class);
+        final Scalar<Object>[] acoords = SumTest.scalars();
+        final Scalar<Object>[] bcoords = SumTest.scalars(acoords.length);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Scalar[] expected = new Scalar[acoords.length];
+        final Scalar<Object>[] expected = new Scalar[acoords.length];
         for (int idx = 0; idx < expected.length; ++idx) {
             expected[idx] = SumTest.sum(acoords[idx], bcoords[idx]);
         }
         MatcherAssert.assertThat(
-            new Sum(vecta, vectb).coords(), Matchers.equalTo(expected)
+            new Sum<>(vecta, vectb).coords(), Matchers.equalTo(expected)
         );
     }
 
@@ -93,15 +95,16 @@ public final class SumTest {
      * @param another Second scalar
      * @return A scalar representing the sum if the two passed scalars
      */
-    private static Scalar sum(final Scalar scalar, final Scalar another) {
-        return new Add(scalar, another);
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object> sum(final Scalar<Object> scalar, final Scalar<Object> another) {
+        return new Add<>(scalar, another);
     }
 
     /**
      * Mocks an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
-    private static Scalar[] scalars() {
+    private static Scalar<Object>[] scalars() {
         return SumTest.scalars(new Random().nextInt(SumTest.COORDS_LENGTH) + 1);
     }
 
@@ -110,8 +113,9 @@ public final class SumTest {
      * @param length Array length to generate
      * @return An array of scalars.
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object>[] scalars(final int length) {
+        final Scalar<Object>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);
         }

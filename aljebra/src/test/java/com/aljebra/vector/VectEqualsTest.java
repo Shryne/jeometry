@@ -47,10 +47,10 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToTrueWhenEqual() {
-        final Scalar[] coords = VectEqualsTest.scalars();
+        final Scalar<Double>[] coords = VectEqualsTest.scalars();
         MatcherAssert.assertThat(
-            new VectEquals(
-                new FixedVector(coords), new FixedVector(coords)
+            new VectEquals<>(
+                new FixedVector<>(coords), new FixedVector<>(coords)
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
@@ -61,13 +61,14 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToFalseWhenNotEqual() {
-        final Scalar[] coords = VectEqualsTest.scalars();
-        final Scalar[] second = new Scalar[coords.length];
+        final Scalar<Double>[] coords = VectEqualsTest.scalars();
+        @SuppressWarnings("unchecked")
+        final Scalar<Double>[] second = new Scalar[coords.length];
         System.arraycopy(coords, 0, second, 0, coords.length);
-        second[0] = new Different(coords[0]);
+        second[0] = new Different<>(coords[0]);
         MatcherAssert.assertThat(
-            new VectEquals(
-                new FixedVector(coords), new FixedVector(second)
+            new VectEquals<>(
+                new FixedVector<>(coords), new FixedVector<>(second)
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
@@ -79,12 +80,13 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToFalseWhenNotSameDimension() {
-        final Scalar[] coords = VectEqualsTest.scalars();
-        final Scalar[] second = new Scalar[coords.length - 1];
+        final Scalar<Double>[] coords = VectEqualsTest.scalars();
+        @SuppressWarnings("unchecked")
+        final Scalar<Double>[] second = new Scalar[coords.length - 1];
         System.arraycopy(coords, 0, second, 0, coords.length - 1);
         MatcherAssert.assertThat(
-            new VectEquals(
-                new FixedVector(coords), new FixedVector(second)
+            new VectEquals<>(
+                new FixedVector<>(coords), new FixedVector<>(second)
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
@@ -94,9 +96,10 @@ public final class VectEqualsTest {
      * Mocks an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
-    private static Scalar[] scalars() {
+    private static Scalar<Double>[] scalars() {
         final int lgth = 1 + new Random().nextInt(VectEqualsTest.COORDS_LENGTH);
-        final Scalar[] result = new Scalar[lgth];
+        @SuppressWarnings("unchecked")
+        final Scalar<Double>[] result = new Scalar[lgth];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = VectEqualsTest.random();
         }
@@ -107,7 +110,7 @@ public final class VectEqualsTest {
      * Builds a random scalar.
      * @return A random scalar.
      */
-    private static Scalar random() {
-        return new com.aljebra.scalar.Random();
+    private static Scalar<Double> random() {
+        return new com.aljebra.scalar.Random<>();
     }
 }

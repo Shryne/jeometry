@@ -45,7 +45,7 @@ public final class AddIdentityTest {
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
         Mockito.when(field.addition()).thenReturn(add);
-        new AddIdentity().value(field);
+        new AddIdentity<>().value(field);
         Mockito.verify(field).addition();
         Mockito.verify(add).neutral();
     }
@@ -56,8 +56,8 @@ public final class AddIdentityTest {
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
-            new AddIdentity(),
-            Matchers.equalTo(new AddIdentity())
+            new AddIdentity<>(),
+            Matchers.equalTo(new AddIdentity<>())
         );
     }
 }

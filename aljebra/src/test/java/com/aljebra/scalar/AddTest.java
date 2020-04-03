@@ -40,48 +40,51 @@ public final class AddTest {
      * {@link Add} respects equals and hashcode with disregard
      * to order of operands.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void additionIsCommutative() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new Add(first, second),
-            Matchers.equalTo(new Add(second, first))
+            new Add<>(first, second),
+            Matchers.equalTo(new Add<>(second, first))
         );
         MatcherAssert.assertThat(
-            new Add(first, second),
+            new Add<>(first, second),
             Matchers.not(
-                Matchers.equalTo(new Add(first, first))
+                Matchers.equalTo(new Add<>(first, first))
             )
         );
         MatcherAssert.assertThat(
-            new Add(first, second).hashCode(),
-            Matchers.equalTo(new Add(second, first).hashCode())
+            new Add<>(first, second).hashCode(),
+            Matchers.equalTo(new Add<>(second, first).hashCode())
         );
     }
 
     /**
      * {@link Add} operands are bag-like collection: duplicates counts.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void additionOperandsAreNotASet() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new Add(first, second, first),
-            Matchers.not(Matchers.equalTo(new Add(second, first)))
+            new Add<>(first, second, first),
+            Matchers.not(Matchers.equalTo(new Add<>(second, first)))
         );
     }
 
     /**
      * {@link Add} give operands access.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void exposesOperands() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            Arrays.asList(new Add(first, second).operands()),
+            Arrays.asList(new Add<>(first, second).operands()),
             Matchers.containsInAnyOrder(first, second)
         );
     }
@@ -92,12 +95,12 @@ public final class AddTest {
     @SuppressWarnings("unchecked")
     @Test
     public void addDelegatesToFieldAddition() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
         Mockito.when(field.addition()).thenReturn(add);
-        new Add(first, second, first).value(field);
+        new Add<>(first, second, first).value(field);
         Mockito.verify(field).addition();
         Mockito.verify(add).neutral();
         final int invocations = 3;

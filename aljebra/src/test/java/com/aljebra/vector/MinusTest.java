@@ -54,36 +54,38 @@ public final class MinusTest {
      * {@link Minus} throws exception if the two vectors don't have
      * the same dimension.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenNotSameSize() {
         this.thrown.expect(IllegalArgumentException.class);
-        final Vect vecta = Mockito.mock(Vect.class);
-        final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = MinusTest.scalars();
-        final Scalar[] bcoords = MinusTest.scalars(acoords.length + 1);
+        final Vect<Object> vecta = Mockito.mock(Vect.class);
+        final Vect<Object> vectb = Mockito.mock(Vect.class);
+        final Scalar<Object>[] acoords = MinusTest.scalars();
+        final Scalar<Object>[] bcoords = MinusTest.scalars(acoords.length + 1);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        new Minus(vecta, vectb);
+        new Minus<>(vecta, vectb);
     }
 
     /**
      * {@link Minus} coordinates equals to the field substraction
      * of vectors coordinates.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void coordsEqualCoordsDiff() {
-        final Vect vecta = Mockito.mock(Vect.class);
-        final Vect vectb = Mockito.mock(Vect.class);
-        final Scalar[] acoords = MinusTest.scalars();
-        final Scalar[] bcoords = MinusTest.scalars(acoords.length);
+        final Vect<Object> vecta = Mockito.mock(Vect.class);
+        final Vect<Object> vectb = Mockito.mock(Vect.class);
+        final Scalar<Object>[] acoords = MinusTest.scalars();
+        final Scalar<Object>[] bcoords = MinusTest.scalars(acoords.length);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Scalar[] expected = new Scalar[acoords.length];
+        final Scalar<Object>[] expected = new Scalar[acoords.length];
         for (int idx = 0; idx < expected.length; ++idx) {
             expected[idx] = MinusTest.minus(acoords[idx], bcoords[idx]);
         }
         MatcherAssert.assertThat(
-            new Minus(vecta, vectb).coords(), Matchers.equalTo(expected)
+            new Minus<>(vecta, vectb).coords(), Matchers.equalTo(expected)
         );
     }
 
@@ -93,15 +95,15 @@ public final class MinusTest {
      * @param another Second scalar
      * @return A scalar representing the difference between two scalars
      */
-    private static Scalar minus(final Scalar scalar, final Scalar another) {
-        return new Diff(scalar, another);
+    private static Scalar<Object> minus(final Scalar<Object> scalar, final Scalar<Object> another) {
+        return new Diff<>(scalar, another);
     }
 
     /**
      * Mocks an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
-    private static Scalar[] scalars() {
+    private static Scalar<Object>[] scalars() {
         return MinusTest.scalars(new Random().nextInt(MinusTest.COORDS_LENGTH));
     }
 
@@ -110,8 +112,9 @@ public final class MinusTest {
      * @param length Array length to generate
      * @return An array of scalars.
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object>[] scalars(final int length) {
+        final Scalar<Object>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);
         }

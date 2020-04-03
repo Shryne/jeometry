@@ -45,15 +45,16 @@ public final class BetweenTest {
     /**
      * {@link Between} relies on ordered field to calculate actual value.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void betweenDelegatesToOrderedFieldRandomizer() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final OrderedField<?> field = Mockito.mock(OrderedField.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final OrderedField<Object> field = Mockito.mock(OrderedField.class);
         Mockito.when(
             field.between(Mockito.any(), Mockito.any())
         ).thenReturn(Mockito.mock(Scalar.class));
-        new Between(first, second).value(field);
+        new Between<>(first, second).value(field);
         Mockito.verify(field).between(first, second);
     }
 
@@ -64,7 +65,7 @@ public final class BetweenTest {
     @Test
     public void betweenThrowsExceptionWhenUnorderedField() {
         this.thrown.expect(UnsupportedOperationException.class);
-        new Between(
+        new Between<>(
             Mockito.mock(Scalar.class), Mockito.mock(Scalar.class)
         ).value(Mockito.mock(Field.class));
     }

@@ -48,48 +48,51 @@ public final class ProductTest {
     /**
      * {@link Product} rely on InnerProduct for resolution of actual value.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToInnerProduct() {
         final int dim = 6;
-        final Vect first = Mockito.mock(Vect.class);
-        final Vect second = Mockito.mock(Vect.class);
+        final Vect<Object> first = Mockito.mock(Vect.class);
+        final Vect<Object> second = Mockito.mock(Vect.class);
         Mockito.when(first.coords()).thenReturn(ProductTest.scalars(dim));
         Mockito.when(second.coords()).thenReturn(ProductTest.scalars(dim));
-        final MetricSpaceField<?> field = Mockito.mock(MetricSpaceField.class);
-        final InnerProduct pdt = Mockito.mock(InnerProduct.class);
+        final MetricSpaceField<Object> field = Mockito.mock(MetricSpaceField.class);
+        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         Mockito.when(field.product()).thenReturn(pdt);
-        new Product(first, second).value(field);
+        new Product<>(first, second).value(field);
         Mockito.verify(pdt).product(first, second);
     }
 
     /**
      * {@link Product} throws exception when vectors don't have the same size.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenNotSameSize() {
         this.thrown.expect(IllegalArgumentException.class);
         final int dim = 6;
-        final Vect first = Mockito.mock(Vect.class);
-        final Vect second = Mockito.mock(Vect.class);
+        final Vect<Object> first = Mockito.mock(Vect.class);
+        final Vect<Object> second = Mockito.mock(Vect.class);
         Mockito.when(first.coords()).thenReturn(ProductTest.scalars(dim));
         Mockito.when(second.coords()).thenReturn(ProductTest.scalars(dim + 1));
-        final MetricSpaceField<?> field = Mockito.mock(MetricSpaceField.class);
-        new Product(first, second).value(field);
+        final MetricSpaceField<Object> field = Mockito.mock(MetricSpaceField.class);
+        new Product<>(first, second).value(field);
     }
 
     /**
      * {@link Product} throws exception when not operating on a metric space.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenNoMetricSpace() {
         this.thrown.expect(UnsupportedOperationException.class);
         final int dim = 6;
-        final Vect first = Mockito.mock(Vect.class);
-        final Vect second = Mockito.mock(Vect.class);
+        final Vect<Object> first = Mockito.mock(Vect.class);
+        final Vect<Object> second = Mockito.mock(Vect.class);
         Mockito.when(first.coords()).thenReturn(ProductTest.scalars(dim));
         Mockito.when(second.coords()).thenReturn(ProductTest.scalars(dim));
-        final Field<?> field = Mockito.mock(Field.class);
-        new Product(first, second).value(field);
+        final Field<Object> field = Mockito.mock(Field.class);
+        new Product<>(first, second).value(field);
     }
 
     /**
@@ -97,8 +100,9 @@ public final class ProductTest {
      * @param length Array length
      * @return An array of scalars
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    @SuppressWarnings("unchecked")
+    private static Scalar<Object>[] scalars(final int length) {
+        final Scalar<Object>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = Mockito.mock(Scalar.class);
         }

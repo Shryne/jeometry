@@ -39,13 +39,14 @@ public final class MultiplicationTest {
      * {@link Multiplication} respects equals with disregard
      * to order of operands.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void multiplicationIsCommutative() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new Multiplication(first, second),
-            Matchers.equalTo(new Multiplication(second, first))
+            new Multiplication<>(first, second),
+            Matchers.equalTo(new Multiplication<>(second, first))
         );
     }
 
@@ -56,14 +57,14 @@ public final class MultiplicationTest {
     @SuppressWarnings("unchecked")
     @Test
     public void multiplicationDelegatesToFieldMultiplication() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldMultiplication<Object> mult = Mockito.mock(
             FieldMultiplication.class
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
-        new Multiplication(first, second).value(field);
+        new Multiplication<>(first, second).value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).neutral();
         Mockito.verify(mult, Mockito.times(2)).multiply(
