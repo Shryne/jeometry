@@ -36,14 +36,15 @@ public final class DifferentTest {
     /**
      * {@link Different} relies on field to calculate actual value.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToField() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Field<?> field = Mockito.mock(Field.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(
             field.other(Mockito.any())
         ).thenReturn(Mockito.mock(Scalar.class));
-        new Different(first).value(field);
+        new Different<>(first).value(field);
         Mockito.verify(field).other(first);
     }
 

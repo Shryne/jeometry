@@ -52,26 +52,28 @@ public final class ScalarTest {
     /**
      * Scalar can build addition.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void buildsAddition() {
-        final Scalar scalar = new Scalar.Default<Object>(null);
-        final Scalar other = new Scalar.Default<Object>(null);
+        final Scalar<Object> scalar = new Scalar.Default<>(null);
+        final Scalar<Object> other = new Scalar.Default<>(null);
         MatcherAssert.assertThat(
             scalar.add(other),
-            Matchers.equalTo(new Add(scalar, other))
+            Matchers.equalTo(new Add<>(scalar, other))
         );
     }
 
     /**
      * Scalar can build multiplication.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void buildsMultiplication() {
-        final Scalar scalar = new Scalar.Default<Object>(null);
-        final Scalar other = new Scalar.Default<Object>(null);
+        final Scalar<Object> scalar = new Scalar.Default<>(null);
+        final Scalar<Object> other = new Scalar.Default<>(null);
         MatcherAssert.assertThat(
             scalar.mult(other),
-            Matchers.equalTo(new Multiplication(scalar, other))
+            Matchers.equalTo(new Multiplication<>(scalar, other))
         );
     }
 }

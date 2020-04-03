@@ -41,11 +41,11 @@ public final class DiffTest {
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
-            new Diff(
+            new Diff<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
             ),
             Matchers.equalTo(
-                new Diff(
+                new Diff<>(
                     new Scalar.Default<Double>(0.),
                     new Scalar.Default<Double>(1.)
                 )
@@ -54,25 +54,25 @@ public final class DiffTest {
         final String minuend = "test";
         final String subtrahend = "test2";
         MatcherAssert.assertThat(
-            new Diff(
+            new Diff<>(
                 new Scalar.Default<String>(minuend),
                 new Scalar.Default<String>(subtrahend)
             ),
             Matchers.equalTo(
-                new Diff(
+                new Diff<>(
                     new Scalar.Default<String>(minuend),
                     new Scalar.Default<String>(subtrahend)
                 )
             )
         );
         MatcherAssert.assertThat(
-            new Diff(
+            new Diff<>(
                 new Scalar.Default<String>(minuend),
                 new Scalar.Default<String>(subtrahend)
             ),
             Matchers.not(
                 Matchers.equalTo(
-                    new Diff(
+                    new Diff<>(
                         new Scalar.Default<String>(minuend),
                         new Scalar.Default<String>(minuend)
                     )
@@ -80,12 +80,12 @@ public final class DiffTest {
             )
         );
         MatcherAssert.assertThat(
-            new Diff(
+            new Diff<>(
                 new Scalar.Default<String>(minuend),
                 new Scalar.Default<String>(subtrahend)
             ).hashCode(),
             Matchers.equalTo(
-                new Diff(
+                new Diff<>(
                     new Scalar.Default<String>(minuend),
                     new Scalar.Default<String>(subtrahend)
                 ).hashCode()
@@ -99,12 +99,12 @@ public final class DiffTest {
     @SuppressWarnings("unchecked")
     @Test
     public void diffDelegatesToFieldAddition() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
         Mockito.when(field.addition()).thenReturn(add);
-        new Diff(first, second).value(field);
+        new Diff<>(first, second).value(field);
         Mockito.verify(field).addition();
         Mockito.verify(add).inverse(Mockito.any());
         Mockito.verify(add).add(Mockito.any(), Mockito.any());
@@ -113,11 +113,12 @@ public final class DiffTest {
     /**
      * {@link Diff} returns minuend and subtrahend.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void givesAccessToMinuendAndSubtrahend() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final Diff difference = new Diff(first, second);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Diff<Object> difference = new Diff<>(first, second);
         MatcherAssert.assertThat(
             difference.first(), Matchers.equalTo(first)
         );

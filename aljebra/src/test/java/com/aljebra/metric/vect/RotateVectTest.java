@@ -51,26 +51,27 @@ public final class RotateVectTest {
     /**
      * {@link RotateVect} rotates vector.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rotatesVector() {
         final int dim = 2;
-        final Vect first = Mockito.mock(Vect.class);
-        final Vect second = Mockito.mock(Vect.class);
+        final Vect<Double> first = Mockito.mock(Vect.class);
+        final Vect<Double> second = Mockito.mock(Vect.class);
         Mockito.when(first.coords()).thenReturn(RotateVectTest.scalars(dim));
         Mockito.when(second.coords()).thenReturn(RotateVectTest.scalars(dim));
-        final InnerProduct pdt = new Dot();
+        final InnerProduct<Double> pdt = new Dot();
         final double error = 1.e-6;
-        Degrees angle = new Degrees.Default(Math.random());
+        Degrees<Double> angle = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
             pdt.angle(
-                first, new RotateVect(first, angle)
+                first, new RotateVect<>(first, angle)
             ).resolve(pdt).doubleValue(),
             Matchers.closeTo(angle.resolve(pdt).doubleValue(), error)
         );
-        angle = new Degrees.Default(Math.random());
+        angle = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
             pdt.angle(
-                second, new RotateVect(second, angle)
+                second, new RotateVect<>(second, angle)
             ).resolve(pdt).doubleValue(),
             Matchers.closeTo(angle.resolve(pdt).doubleValue(), error)
         );
@@ -84,9 +85,9 @@ public final class RotateVectTest {
     @Test
     public void errorsWhenEvaluatingCoordinates() {
         this.thrown.expect(UnsupportedOperationException.class);
-        final Vect first = Mockito.mock(Vect.class);
+        final Vect<Double> first = Mockito.mock(Vect.class);
         Mockito.when(first.coords()).thenReturn(RotateVectTest.scalars(2));
-        new RotateVect(
+        new RotateVect<>(
             first, Math.random()
         ).coords()[0].value(Mockito.mock(Field.class));
     }
@@ -96,8 +97,9 @@ public final class RotateVectTest {
      * @param length Array length
      * @return An array of scalars
      */
-    private static Scalar[] scalars(final int length) {
-        final Scalar[] result = new Scalar[length];
+    private static Scalar<Double>[] scalars(final int length) {
+        @SuppressWarnings("unchecked")
+        final Scalar<Double>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
             result[idx] = RotateVectTest.scalar(Math.random());
         }
@@ -109,7 +111,7 @@ public final class RotateVectTest {
      * @param num A double
      * @return A scalar
      */
-    private static Scalar scalar(final double num) {
+    private static Scalar<Double> scalar(final double num) {
         return new Scalar.Default<Double>(num);
     }
 }

@@ -39,14 +39,15 @@ public final class EqualsTest {
     /**
      * {@link Equals} resolves to true if scalars are equal.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenEqual() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final Field<?> field = Mockito.mock(Field.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(field.equals(first, second)).thenReturn(true);
         MatcherAssert.assertThat(
-            new Equals(first, second).resolve(field),
+            new Equals<>(first, second).resolve(field),
             Matchers.is(true)
         );
     }
@@ -54,14 +55,15 @@ public final class EqualsTest {
     /**
      * {@link Equals} resolves to false if scalars are not equal.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenNotEqual() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final Field<?> field = Mockito.mock(Field.class);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(field.equals(first, second)).thenReturn(false);
         MatcherAssert.assertThat(
-            new Equals(first, second).resolve(field),
+            new Equals<>(first, second).resolve(field),
             Matchers.is(false)
         );
     }

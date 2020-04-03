@@ -42,15 +42,16 @@ public final class NormalizedTest {
     /**
      * {@link Normalized} gives a normalized vector.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void normalizesVector() {
-        final InnerProduct pdt = new Dot();
+        final InnerProduct<Double> pdt = new Dot();
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             dec.actual(
                 pdt.norm(
-                    new Normalized(new FixedVector(new Random(), new Random()))
+                    new Normalized<Double>(new FixedVector<>(new Random<>(), new Random<>()))
                 )
             ),
             Matchers.closeTo(1., error)
@@ -58,7 +59,7 @@ public final class NormalizedTest {
         MatcherAssert.assertThat(
             dec.actual(
                 pdt.norm(
-                    new Normalized(new FixedVector(new Random(), new Random()))
+                    new Normalized<Double>(new FixedVector<>(new Random<>(), new Random<>()))
                 )
             ),
             Matchers.closeTo(1., error)

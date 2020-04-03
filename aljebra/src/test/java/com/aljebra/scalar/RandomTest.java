@@ -38,11 +38,12 @@ public final class RandomTest {
     /**
      * {@link Random} relies on field to calculate actual value.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToField() {
-        final Field<?> field = Mockito.mock(Field.class);
+        final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(field.random()).thenReturn(Mockito.mock(Scalar.class));
-        new Random().value(field);
+        new Random<>().value(field);
         Mockito.verify(field).random();
     }
 
@@ -53,7 +54,7 @@ public final class RandomTest {
     @Test
     public void equalsAsObject() {
         MatcherAssert.assertThat(
-            new Random(), Matchers.not(Matchers.equalTo(new Random()))
+            new Random<>(), Matchers.not(Matchers.equalTo(new Random<>()))
         );
     }
 }

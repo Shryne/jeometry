@@ -41,11 +41,11 @@ public final class DivisionTest {
     @Test
     public void respectsEqualAndHashcode() {
         MatcherAssert.assertThat(
-            new Division(
+            new Division<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
             ),
             Matchers.equalTo(
-                new Division(
+                new Division<>(
                     new Scalar.Default<Double>(0.),
                     new Scalar.Default<Double>(1.)
                 )
@@ -54,13 +54,13 @@ public final class DivisionTest {
         final String divisor = "test";
         final String dividend = "test2";
         MatcherAssert.assertThat(
-            new Division(
+            new Division<>(
                 new Scalar.Default<String>(divisor),
                 new Scalar.Default<String>(dividend)
             ),
             Matchers.not(
                 Matchers.equalTo(
-                    new Division(
+                    new Division<>(
                         new Scalar.Default<String>(dividend),
                         new Scalar.Default<String>(dividend)
                     )
@@ -68,12 +68,12 @@ public final class DivisionTest {
             )
         );
         MatcherAssert.assertThat(
-            new Division(
+            new Division<>(
                 new Scalar.Default<String>(divisor),
                 new Scalar.Default<String>(dividend)
             ).hashCode(),
             Matchers.equalTo(
-                new Division(
+                new Division<>(
                     new Scalar.Default<String>(divisor),
                     new Scalar.Default<String>(dividend)
                 ).hashCode()
@@ -93,7 +93,7 @@ public final class DivisionTest {
             FieldMultiplication.class
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
-        new Division(
+        new Division<>(
             Mockito.mock(Scalar.class), Mockito.mock(Scalar.class)
         ).value(field);
         Mockito.verify(field).multiplication();
@@ -104,11 +104,12 @@ public final class DivisionTest {
     /**
      * {@link Division} returns dividend and divisor.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void givesAccessToDividendAndDivisor() {
-        final Scalar first = Mockito.mock(Scalar.class);
-        final Scalar second = Mockito.mock(Scalar.class);
-        final Division division = new Division(first, second);
+        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Division<Object> division = new Division<>(first, second);
         MatcherAssert.assertThat(
             division.first(), Matchers.equalTo(first)
         );

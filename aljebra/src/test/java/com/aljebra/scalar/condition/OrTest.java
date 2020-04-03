@@ -38,11 +38,12 @@ public final class OrTest {
     /**
      * {@link Or} returns true if at least one predicate resolves to true.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenOnePredicateTrue() {
         MatcherAssert.assertThat(
-            new Or(
-                new True(), new False(), new False()
+            new Or<>(
+                new True<>(), new False<>(), new False<>()
             ).resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
@@ -51,11 +52,12 @@ public final class OrTest {
     /**
      * {@link Or} resolves to false if all predicates resolve to false.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenAllPredicatesFalse() {
         MatcherAssert.assertThat(
-            new Or(
-                new False(), new False(), new False()
+            new Or<>(
+                new False<>(), new False<>(), new False<>()
             ).resolve(Mockito.mock(Field.class)),
             Matchers.is(false)
         );

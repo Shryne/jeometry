@@ -38,10 +38,11 @@ public final class FalseTest {
     /**
      * {@link False} can always resolve to false.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalse() {
         MatcherAssert.assertThat(
-            new False().resolve(Mockito.mock(Field.class)),
+            new False<>().resolve(Mockito.mock(Field.class)),
             Matchers.is(false)
         );
     }

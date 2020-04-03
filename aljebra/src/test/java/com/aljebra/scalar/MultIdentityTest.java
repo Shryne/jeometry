@@ -48,7 +48,7 @@ public final class MultIdentityTest {
             FieldMultiplication.class
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
-        new MultIdentity().value(field);
+        new MultIdentity<>().value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).neutral();
     }
@@ -59,8 +59,8 @@ public final class MultIdentityTest {
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
-            new MultIdentity(),
-            Matchers.equalTo(new MultIdentity())
+            new MultIdentity<>(),
+            Matchers.equalTo(new MultIdentity<>())
         );
     }
 }
