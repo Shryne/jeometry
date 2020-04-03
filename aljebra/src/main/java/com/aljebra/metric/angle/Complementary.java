@@ -30,28 +30,27 @@ import lombok.ToString;
 /**
  * A {@link Degrees} defined as the complementary angle
  * of another {@link Degrees}.
- * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Complementary<T> implements Degrees<T> {
+public final class Complementary implements Degrees {
 
     /**
      * Angle.
      */
-    private final transient Degrees<T> angle;
+    private final transient Degrees angle;
 
     /**
      * Constructor.
      * @param angle Angle to complement
      */
-    public Complementary(final Degrees<T> angle) {
+    public Complementary(final Degrees angle) {
         this.angle = angle;
     }
 
     @Override
-    public Number resolve(final InnerProduct<T> product) {
+    public <T> Number resolve(final InnerProduct<T> product) {
         return Math.PI / 2 - this.angle.resolve(product).doubleValue();
     }
 

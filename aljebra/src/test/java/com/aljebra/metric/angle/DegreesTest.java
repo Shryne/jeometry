@@ -40,17 +40,17 @@ public final class DegreesTest {
     public void respectsEqual() {
         final double num = Math.random();
         MatcherAssert.assertThat(
-            new Degrees.Default<Double>(num),
-            Matchers.equalTo(new Degrees.Default<Double>(num))
+            new Degrees.Default(num),
+            Matchers.equalTo(new Degrees.Default(num))
         );
         MatcherAssert.assertThat(
-            new Degrees.Default<Double>(num).hashCode(),
-            Matchers.equalTo(new Degrees.Default<Double>(num).hashCode())
+            new Degrees.Default(num).hashCode(),
+            Matchers.equalTo(new Degrees.Default(num).hashCode())
         );
         MatcherAssert.assertThat(
-            new Degrees.Default<Double>(num),
+            new Degrees.Default(num),
             Matchers.not(
-                Matchers.equalTo(new Degrees.Default<Double>(2))
+                Matchers.equalTo(new Degrees.Default(2))
             )
         );
     }

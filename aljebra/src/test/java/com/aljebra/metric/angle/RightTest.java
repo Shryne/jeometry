@@ -45,35 +45,34 @@ public final class RightTest {
         @SuppressWarnings("unchecked")
         final InnerProduct<Object> product = Mockito.mock(InnerProduct.class);
         MatcherAssert.assertThat(
-            new Right<>().resolve(product).doubleValue(),
+            new Right().resolve(product).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            new Right<>().right(product), Matchers.is(true)
+            new Right().right(product), Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new Right<>().flat(product), Matchers.is(false)
+            new Right().flat(product), Matchers.is(false)
         );
     }
 
     /**
      * {@link Right} respects equal.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
-            new Right<>(), Matchers.equalTo(new Right<>())
+            new Right(), Matchers.equalTo(new Right())
         );
         MatcherAssert.assertThat(
-            new Right<>().hashCode(),
-            Matchers.equalTo(new Right<>().hashCode())
+            new Right().hashCode(),
+            Matchers.equalTo(new Right().hashCode())
         );
         MatcherAssert.assertThat(
-            new Right<>(),
+            new Right(),
             Matchers.not(
                 Matchers.equalTo(
-                    new VectsDegrees<>(
+                    new VectsDegrees(
                         Mockito.mock(Vect.class), Mockito.mock(Vect.class)
                     )
                 )
