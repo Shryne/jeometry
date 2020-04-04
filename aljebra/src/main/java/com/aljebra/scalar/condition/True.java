@@ -27,13 +27,12 @@ import com.aljebra.field.Field;
 
 /**
  * A predicate that is always true, essentially for testing purposes.
- * @param <T> scalar types
  * @since 0.1
  */
-public final class True<T> implements Predicate<T> {
+public final class True implements Predicate {
 
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         return true;
     }
 

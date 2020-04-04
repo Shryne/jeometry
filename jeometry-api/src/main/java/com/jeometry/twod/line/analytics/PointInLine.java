@@ -34,10 +34,9 @@ import com.jeometry.twod.line.Line;
 
 /**
  * A predicate to determine if a point belongs to a line.
- * @param <T> scalar types
  * @since 0.1
  */
-public final class PointInLine<T> implements Predicate<T> {
+public final class PointInLine implements Predicate {
 
     /**
      * Point.
@@ -60,7 +59,7 @@ public final class PointInLine<T> implements Predicate<T> {
     }
 
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         final Scalar xcoor = this.point.coords()[0];
         final Predicate result;
         if (new Vertical(this.line).resolve(field)) {

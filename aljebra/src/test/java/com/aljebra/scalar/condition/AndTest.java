@@ -42,8 +42,8 @@ public final class AndTest {
     @Test
     public void resolvesToTrueWhenAllPredicatesTrue() {
         MatcherAssert.assertThat(
-            new And<>(
-                new True<>(), new True<>(), new True<>()
+            new And(
+                new True(), new True(), new True()
             ).resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
@@ -56,8 +56,8 @@ public final class AndTest {
     @Test
     public void resolvesToFalseWhenOnePredicateFalse() {
         MatcherAssert.assertThat(
-            new And<>(
-                new True<>(), new True<>(), new False<>()
+            new And(
+                new True(), new True(), new False()
             ).resolve(Mockito.mock(Field.class)),
             Matchers.is(false)
         );

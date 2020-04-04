@@ -36,10 +36,9 @@ import com.jeometry.twod.segment.Segment;
 
 /**
  * A predicate to determine if two lines have the same direction.
- * @param <T> scalar types
  * @since 0.1
  */
-public final class Parallel<T> implements Predicate<T> {
+public final class Parallel implements Predicate {
 
     /**
      * First line.
@@ -80,15 +79,15 @@ public final class Parallel<T> implements Predicate<T> {
     }
 
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         return new And(
             new Vertical(this.first), new Vertical(this.second)
-            ).resolve(field) || new And(
-                new Not(new Vertical(this.first)),
-                new Not(new Vertical(this.second))
-            ).resolve(field) && new Equals(
-                new Slope(this.first), new Slope(this.second)
-            ).resolve(field);
+        ).resolve(field) || new And(
+            new Not(new Vertical(this.first)),
+            new Not(new Vertical(this.second))
+        ).resolve(field) && new Equals(
+            new Slope(this.first), new Slope(this.second)
+        ).resolve(field);
     }
 
 }
