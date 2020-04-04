@@ -35,11 +35,10 @@ import lombok.EqualsAndHashCode;
 
 /**
  * A predicate to determine if a line is vertical.
- * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
-public final class Vertical<T> implements Predicate<T> {
+public final class Vertical implements Predicate {
 
     /**
      * Line.
@@ -71,7 +70,7 @@ public final class Vertical<T> implements Predicate<T> {
     }
 
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         return field.equals(
             this.line.direction().coords()[0], new AddIdentity()
         );

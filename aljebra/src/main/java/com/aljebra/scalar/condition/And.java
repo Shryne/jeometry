@@ -30,29 +30,27 @@ import java.util.Arrays;
 
 /**
  * A predicate that is true if all of the given predicates are true.
- * @param <T> scalar types
  * @since 0.1
  */
-public final class And<T> implements Predicate<T> {
+public final class And implements Predicate {
 
     /**
      * Predicates.
      */
-    private final Multiset<Predicate<T>> opers;
+    private final Multiset<Predicate> opers;
 
     /**
      * Constructor.
      * @param operands Predicates
      */
-    @SuppressWarnings("unchecked")
-    public And(final Predicate<T>... operands) {
+    public And(final Predicate... operands) {
         this.opers = HashMultiset.create(Arrays.asList(operands));
     }
 
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         boolean result = true;
-        for (final Predicate<T> predicate : this.opers) {
+        for (final Predicate predicate : this.opers) {
             if (!predicate.resolve(field)) {
                 result = false;
                 break;

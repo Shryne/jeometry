@@ -27,26 +27,25 @@ import com.aljebra.field.Field;
 
 /**
  * A predicate that is true if the given predicates is false.
- * @param <T> scalar types
  * @since 0.1
  */
-public final class Not<T> implements Predicate<T> {
+public final class Not implements Predicate {
 
     /**
      * Predicate.
      */
-    private final Predicate<T> origin;
+    private final Predicate origin;
 
     /**
      * Constructor.
      * @param origin Predicate
      */
-    public Not(final Predicate<T> origin) {
+    public Not(final Predicate origin) {
         this.origin = origin;
     }
 
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         return !this.origin.resolve(field);
     }
 

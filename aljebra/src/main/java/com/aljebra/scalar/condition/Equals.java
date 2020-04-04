@@ -28,33 +28,36 @@ import com.aljebra.scalar.Scalar;
 
 /**
  * A predicate to determine if two scalars are equals.
- * @param <T> scalar types
  * @since 0.1
  */
-public final class Equals<T> implements Predicate<T> {
+public final class Equals implements Predicate {
 
     /**
      * First Scalar.
      */
-    private final Scalar<T> first;
+    @SuppressWarnings("rawtypes")
+    private final Scalar first;
 
     /**
      * Second Scalar.
      */
-    private final Scalar<T> second;
+    @SuppressWarnings("rawtypes")
+    private final Scalar second;
 
     /**
      * Constructor.
      * @param first First scalar
      * @param second Second scalar
+     * @param <T> scalar types
      */
-    public Equals(final Scalar<T> first, final Scalar<T> second) {
+    public <T> Equals(final Scalar<T> first, final Scalar<T> second) {
         this.first = first;
         this.second = second;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         return field.equals(this.first, this.second);
     }
 

@@ -49,7 +49,7 @@ public final class VectEqualsTest {
     public void resolvesToTrueWhenEqual() {
         final Scalar<Double>[] coords = VectEqualsTest.scalars();
         MatcherAssert.assertThat(
-            new VectEquals<>(
+            new VectEquals(
                 new FixedVector<>(coords), new FixedVector<>(coords)
             ).resolve(new Decimal()),
             Matchers.is(true)
@@ -67,7 +67,7 @@ public final class VectEqualsTest {
         System.arraycopy(coords, 0, second, 0, coords.length);
         second[0] = new Different<>(coords[0]);
         MatcherAssert.assertThat(
-            new VectEquals<>(
+            new VectEquals(
                 new FixedVector<>(coords), new FixedVector<>(second)
             ).resolve(new Decimal()),
             Matchers.is(false)
@@ -85,7 +85,7 @@ public final class VectEqualsTest {
         final Scalar<Double>[] second = new Scalar[coords.length - 1];
         System.arraycopy(coords, 0, second, 0, coords.length - 1);
         MatcherAssert.assertThat(
-            new VectEquals<>(
+            new VectEquals(
                 new FixedVector<>(coords), new FixedVector<>(second)
             ).resolve(new Decimal()),
             Matchers.is(false)

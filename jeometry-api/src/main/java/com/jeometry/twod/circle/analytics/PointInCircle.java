@@ -32,10 +32,9 @@ import com.jeometry.twod.circle.Circle;
 
 /**
  * A predicate to determine if a point belongs to a circle.
- * @param <T> scalar types
  * @since 0.1
  */
-public final class PointInCircle<T> implements Predicate<T> {
+public final class PointInCircle implements Predicate {
 
     /**
      * Point.
@@ -58,7 +57,7 @@ public final class PointInCircle<T> implements Predicate<T> {
     }
 
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         return field.equals(
             this.circle.radius(),
             new Norm(new Minus(this.point, this.circle.center()))

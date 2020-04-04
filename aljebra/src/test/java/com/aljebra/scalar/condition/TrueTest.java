@@ -42,7 +42,7 @@ public final class TrueTest {
     @Test
     public void resolvesToTrue() {
         MatcherAssert.assertThat(
-            new True<>().resolve(Mockito.mock(Field.class)),
+            new True().resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
     }
