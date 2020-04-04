@@ -47,7 +47,7 @@ public final class EqualsTest {
         final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(field.equals(first, second)).thenReturn(true);
         MatcherAssert.assertThat(
-            new Equals<>(first, second).resolve(field),
+            new Equals(first, second).resolve(field),
             Matchers.is(true)
         );
     }
@@ -63,7 +63,7 @@ public final class EqualsTest {
         final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(field.equals(first, second)).thenReturn(false);
         MatcherAssert.assertThat(
-            new Equals<>(first, second).resolve(field),
+            new Equals(first, second).resolve(field),
             Matchers.is(false)
         );
     }

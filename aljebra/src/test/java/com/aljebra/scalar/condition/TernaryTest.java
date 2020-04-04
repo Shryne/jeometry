@@ -44,7 +44,7 @@ public final class TernaryTest {
         final Scalar<Object> first = Mockito.mock(Scalar.class);
         final Scalar<Object> second = Mockito.mock(Scalar.class);
         final Field<Object> field = Mockito.mock(Field.class);
-        new Ternary<>(new True<>(), first, second).value(field);
+        new Ternary<>(new True(), first, second).value(field);
         Mockito.verify(field).actual(first);
         Mockito.verify(field, Mockito.never()).actual(second);
     }
@@ -59,7 +59,7 @@ public final class TernaryTest {
         final Scalar<Object> first = Mockito.mock(Scalar.class);
         final Scalar<Object> second = Mockito.mock(Scalar.class);
         final Field<Object> field = Mockito.mock(Field.class);
-        new Ternary<>(new False<>(), first, second).value(field);
+        new Ternary<>(new False(), first, second).value(field);
         Mockito.verify(field).actual(second);
         Mockito.verify(field, Mockito.never()).actual(first);
     }

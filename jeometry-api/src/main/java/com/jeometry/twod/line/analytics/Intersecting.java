@@ -29,10 +29,9 @@ import com.jeometry.twod.line.Line;
 
 /**
  * A predicate to determine if two lines intersect.
- * @param <T> scalar types
  * @since 0.1
  */
-public final class Intersecting<T> implements Predicate<T> {
+public final class Intersecting implements Predicate {
 
     /**
      * First line.
@@ -55,7 +54,7 @@ public final class Intersecting<T> implements Predicate<T> {
     }
 
     @Override
-    public boolean resolve(final Field<T> field) {
+    public <T> boolean resolve(final Field<T> field) {
         return !new Parallel(this.first, this.second).resolve(field);
     }
 

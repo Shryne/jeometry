@@ -52,7 +52,7 @@ public final class NotTest {
     @Test
     public void resolvesToTrueWhenPredicateIsFalse() {
         MatcherAssert.assertThat(
-            new Not<>(new True<>()).resolve(Mockito.mock(Field.class)),
+            new Not(new True()).resolve(Mockito.mock(Field.class)),
             Matchers.is(false)
         );
     }
@@ -64,7 +64,7 @@ public final class NotTest {
     @Test
     public void resolvesToFalseWhenPredicateIsTrue() {
         MatcherAssert.assertThat(
-            new Not<>(new False<>()).resolve(Mockito.mock(Field.class)),
+            new Not(new False()).resolve(Mockito.mock(Field.class)),
             Matchers.is(true)
         );
     }
@@ -78,7 +78,7 @@ public final class NotTest {
         final Scalar<Object> first = Mockito.mock(Scalar.class);
         final Scalar<Object> second = Mockito.mock(Scalar.class);
         final Field<Object> field = Mockito.mock(Field.class);
-        new Not<>(new False<>()).ifElse(first, second).value(field);
+        new Not(new False()).ifElse(first, second).value(field);
         Mockito.verify(field).actual(first);
         Mockito.verify(field, Mockito.never()).actual(second);
     }
@@ -92,7 +92,7 @@ public final class NotTest {
         final RuntimeException err = new RuntimeException();
         this.thrown.expect(err.getClass());
         final Field<Object> field = Mockito.mock(AbstractField.class);
-        new Not<>(new True<>()).ifElse(
+        new Not(new True()).ifElse(
             Mockito.mock(Scalar.class), err
         ).value(field);
     }

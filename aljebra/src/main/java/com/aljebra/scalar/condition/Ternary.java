@@ -41,7 +41,7 @@ public final class Ternary<T> implements Scalar<T> {
     /**
      * Predicate to evaluate.
      */
-    private final Predicate<T> pred;
+    private final Predicate pred;
 
     /**
      * Scalar to evaluate to if predicate is verified.
@@ -59,7 +59,7 @@ public final class Ternary<T> implements Scalar<T> {
      * @param oks Scalar to evaluate to if predicate is true
      * @param kos Scalar to evaluate to if predicate is false
      */
-    public Ternary(final Predicate<T> pred, final Scalar<T> oks, final Scalar<T> kos) {
+    public Ternary(final Predicate pred, final Scalar<T> oks, final Scalar<T> kos) {
         this.pred = pred;
         this.right = oks;
         this.wrong = kos;
