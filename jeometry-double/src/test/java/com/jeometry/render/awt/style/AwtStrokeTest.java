@@ -27,6 +27,7 @@ import com.jeometry.twod.style.Dash;
 import com.jeometry.twod.style.impl.FixedStroke;
 import java.awt.Color;
 import java.util.Random;
+import java.util.stream.IntStream;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -59,7 +60,10 @@ public final class AwtStrokeTest {
         final AwtStroke solid = new AwtStroke(
             new FixedStroke(Color.BLACK, Dash.SOLID, 1)
         );
-        MatcherAssert.assertThat(solid.getDashArray(), Matchers.nullValue());
+        MatcherAssert.assertThat(
+            AwtStrokeTest.objectify(solid.getDashArray()),
+            Matchers.arrayContaining(1f, 0f)
+        );
     }
 
     /**
@@ -86,5 +90,16 @@ public final class AwtStrokeTest {
         MatcherAssert.assertThat(pattern.length, Matchers.equalTo(2));
         MatcherAssert.assertThat(pattern[0], Matchers.equalTo(1f));
         MatcherAssert.assertThat(pattern[1], Matchers.greaterThan(2f));
+    }
+
+    /**
+     * Transforms a primitive float array and returns an Object Float array.
+     * @param array Input
+     * @return Float array
+     */
+    private static Float[] objectify(final float... array) {
+        return IntStream.range(0, array.length).mapToObj(
+            i -> new Float(array[i])
+        ).toArray(Float[]::new);
     }
 }

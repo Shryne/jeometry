@@ -104,7 +104,7 @@ public final class AwtDrawableSurface extends JPanel {
         graphics.clearRect(0, 0, width, height);
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, width, height);
-        if (this.figure != null && graphics instanceof Graphics2D) {
+        if (graphics instanceof Graphics2D) {
             final Graphics2D surface = (Graphics2D) graphics;
             surface.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,

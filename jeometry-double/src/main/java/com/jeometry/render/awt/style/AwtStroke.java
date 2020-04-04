@@ -49,7 +49,7 @@ public final class AwtStroke extends BasicStroke {
      * Float array constant representing solid line in Awt {@link BasicStroke}
      * format.
      */
-    private static final float[] SOLID = null;
+    private static final float[] SOLID = {1, 0};
 
     /**
      * Ctor. Builds a {@link BasicStroke} with the passed {@link Stroke}.
