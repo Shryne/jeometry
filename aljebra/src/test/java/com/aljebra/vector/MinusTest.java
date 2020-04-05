@@ -28,9 +28,7 @@ import com.aljebra.scalar.Scalar;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
@@ -43,29 +41,6 @@ public final class MinusTest {
      * Max scalar array length to generate(mock).
      */
     private static final int COORDS_LENGTH = 10;
-
-    /**
-     * Junit rule for expected exceptions.
-     */
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    /**
-     * {@link Minus} throws exception if the two vectors don't have
-     * the same dimension.
-     */
-    @SuppressWarnings("unchecked")
-    @Test
-    public void errorsWhenNotSameSize() {
-        this.thrown.expect(IllegalArgumentException.class);
-        final Vect<Object> vecta = Mockito.mock(Vect.class);
-        final Vect<Object> vectb = Mockito.mock(Vect.class);
-        final Scalar<Object>[] acoords = MinusTest.scalars();
-        final Scalar<Object>[] bcoords = MinusTest.scalars(acoords.length + 1);
-        Mockito.when(vectb.coords()).thenReturn(bcoords);
-        Mockito.when(vecta.coords()).thenReturn(acoords);
-        new Minus<>(vecta, vectb);
-    }
 
     /**
      * {@link Minus} coordinates equals to the field substraction

@@ -30,9 +30,7 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
@@ -45,12 +43,6 @@ public final class DotTest {
      * Max scalar array length to generate(mock).
      */
     private static final int COORDS_LENGTH = 10;
-
-    /**
-     * Junit rule for expected exceptions.
-     */
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     /**
      * {@link Dot} can calculate vector product.
@@ -71,23 +63,6 @@ public final class DotTest {
             new Dot().product(vecta, vectb),
             Matchers.equalTo(new Add<Double>(multis))
         );
-    }
-
-    /**
-     * {@link Dot} throws exception if the two vectors don't have
-     * the same dimension when calculating product.
-     */
-    @SuppressWarnings("unchecked")
-    @Test
-    public void errorsProductWhenNotSameSize() {
-        this.thrown.expect(IllegalArgumentException.class);
-        final Vect<Double> vecta = Mockito.mock(Vect.class);
-        final Vect<Double> vectb = Mockito.mock(Vect.class);
-        final Scalar<Double>[] acoords = DotTest.scalars(DotTest.COORDS_LENGTH);
-        final Scalar<Double>[] bcoords = DotTest.scalars(acoords.length + 1);
-        Mockito.when(vectb.coords()).thenReturn(bcoords);
-        Mockito.when(vecta.coords()).thenReturn(acoords);
-        new Dot().product(vecta, vectb);
     }
 
     /**
@@ -182,23 +157,6 @@ public final class DotTest {
             field.actual(dot.norm(new DblVect(mintwo, mintwo))),
             Matchers.equalTo(expected)
         );
-    }
-
-    /**
-     * {@link Dot} throws exception if the two vectors don't have
-     * the same dimension when calculating angle.
-     */
-    @SuppressWarnings("unchecked")
-    @Test
-    public void errorsAngleWhenNotSameSize() {
-        this.thrown.expect(IllegalArgumentException.class);
-        final Vect<Double> vecta = Mockito.mock(Vect.class);
-        final Vect<Double> vectb = Mockito.mock(Vect.class);
-        final Scalar<Double>[] acoords = DotTest.scalars(DotTest.COORDS_LENGTH);
-        final Scalar<Double>[] bcoords = DotTest.scalars(acoords.length + 1);
-        Mockito.when(vectb.coords()).thenReturn(bcoords);
-        Mockito.when(vecta.coords()).thenReturn(acoords);
-        new Dot().angle(vecta, vectb);
     }
 
     /**

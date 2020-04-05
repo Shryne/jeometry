@@ -29,9 +29,7 @@ import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
@@ -39,12 +37,6 @@ import org.mockito.Mockito;
  * @since 0.1
  */
 public final class SumTest {
-
-    /**
-     * Junit rule for expected exceptions.
-     */
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     /**
      * {@link Sum} calculates coordinates as the addition of scalars.
@@ -148,23 +140,6 @@ public final class SumTest {
                 }
             )
         );
-    }
-
-    /**
-     * {@link Sum} throws exception if the two matrices don't have
-     * the same size.
-     */
-    @SuppressWarnings("unchecked")
-    @Test
-    public void errorsWhenNotSameSize() {
-        this.thrown.expect(IllegalArgumentException.class);
-        final Matrix<Object> mata = Mockito.mock(Matrix.class);
-        final Matrix<Object> matb = Mockito.mock(Matrix.class);
-        Mockito.when(mata.lines()).thenReturn(1);
-        Mockito.when(mata.columns()).thenReturn(1);
-        Mockito.when(matb.lines()).thenReturn(1);
-        Mockito.when(matb.columns()).thenReturn(2);
-        new Sum<Object>(mata, matb);
     }
 
     /**
