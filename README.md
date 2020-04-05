@@ -29,13 +29,13 @@ This is a simple figure that have no purpose other than showing some of jeometry
 Below you find the way to build this figure using jeometry:
 
 ```java
-final XyPoint ppoint = new RandomPoint();
-final Line lline = new PtsLine(new RandomPoint(), new RandomPoint());
-final Line mline = new ParallelLine(lline, ppoint);
-final XyPoint qpoint = new InLinePoint(mline);
-final Line nline = new PerpLine(lline, qpoint);
-final XyPoint rpoint = new LineIntersectPoint(lline, nline);
-final Circle circle = new DblCircle(rpoint, 2.);
+final XyPoint<Double> ppoint = new RandomPoint<>();
+final Line<Double> lline = new PtsLine<>(new RandomPoint<>(), new RandomPoint<>());
+final Line<Double> mline = new ParallelLine<>(lline, ppoint);
+final XyPoint<Double> qpoint = new InLinePoint<>(mline);
+final Line<Double> nline = new PerpLine<>(lline, qpoint);
+final XyPoint<Double> rpoint = new LineIntersectPoint<>(lline, nline);
+final Circle<Double> circle = new DblCircle(rpoint, 2.);
 final Figure figure = new Figure().add(ppoint)
     .add(lline).add(mline)
     .add(qpoint).add(
