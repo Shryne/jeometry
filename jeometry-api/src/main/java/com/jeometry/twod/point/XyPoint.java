@@ -42,6 +42,7 @@ public class XyPoint<T> extends FixedVector<T> implements Renderable {
      * @param xcoor X coordinate
      * @param ycoor Y coordinate
      */
+    @SuppressWarnings("unchecked")
     public XyPoint(final Scalar<T> xcoor, final Scalar<T> ycoor) {
         super(xcoor, ycoor);
     }
@@ -50,6 +51,7 @@ public class XyPoint<T> extends FixedVector<T> implements Renderable {
      * Constructor. Projects the given vector on X and Y axis.
      * @param vector Input vector
      */
+    @SuppressWarnings("unchecked")
     public XyPoint(final Vect<T> vector) {
         super(vector.coords()[0], vector.coords()[1]);
     }

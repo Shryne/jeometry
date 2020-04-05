@@ -29,15 +29,16 @@ import lombok.ToString;
 /**
  * Represents a 2D horizontal vector. An horizontal vector have
  * zero (addition neutral element) coordinate on Y-axis.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public class HorPoint extends YPoint {
+public class HorPoint<T> extends YPoint<T> {
     /**
      * Constructor.
      */
     public HorPoint() {
-        super(new AddIdentity());
+        super(new AddIdentity<T>());
     }
 
 }

@@ -31,17 +31,18 @@ import lombok.ToString;
  * A 2D vector defined by the extremities of a segment. That means
  * that it represents the difference vector between the extremities
  * of the segment.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class SegVect extends XyPoint {
+public final class SegVect<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param seg Segment defining the vector
      */
-    public SegVect(final Segment seg) {
-        super(new Minus(seg.end(), seg.start()));
+    public SegVect(final Segment<T> seg) {
+        super(new Minus<>(seg.end(), seg.start()));
     }
 
 }

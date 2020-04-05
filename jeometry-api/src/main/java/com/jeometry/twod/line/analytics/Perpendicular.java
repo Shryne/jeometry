@@ -33,26 +33,27 @@ import com.jeometry.twod.line.Line;
 /**
  * A predicate to determine if two vectors or lines are perpendicular,
  * according to euclidean geometry.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class Perpendicular implements Predicate {
+public final class Perpendicular<T> implements Predicate {
 
     /**
      * First vector.
      */
-    private final Vect first;
+    private final Vect<T> first;
 
     /**
      * Second vector.
      */
-    private final Vect second;
+    private final Vect<T> second;
 
     /**
      * Constructor.
      * @param first First line
      * @param second Second line
      */
-    public Perpendicular(final Line first, final Line second) {
+    public Perpendicular(final Line<T> first, final Line<T> second) {
         this(first.direction(), second.direction());
     }
 
@@ -61,13 +62,13 @@ public final class Perpendicular implements Predicate {
      * @param first First vector
      * @param second Second vector
      */
-    public Perpendicular(final Vect first, final Vect second) {
+    public Perpendicular(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public <T> boolean resolve(final Field<T> field) {
+    public <R> boolean resolve(final Field<R> field) {
         if (field instanceof MetricSpaceField<?>) {
             final Double degrees = new VectsDegrees(
                 this.first, this.second

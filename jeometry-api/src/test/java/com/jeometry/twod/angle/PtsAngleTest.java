@@ -46,27 +46,27 @@ public final class PtsAngleTest {
      */
     @Test
     public void buildsPointsAngle() {
-        final Vect origin = new RandomPoint();
-        final Vect startpt = new RandomPoint();
-        final Vect endpt = new RandomPoint();
-        final Angle angle = new PtsAngle(origin, startpt, endpt);
+        final Vect<Object> origin = new RandomPoint<>();
+        final Vect<Object> startpt = new RandomPoint<>();
+        final Vect<Object> endpt = new RandomPoint<>();
+        final Angle<Object> angle = new PtsAngle<>(origin, startpt, endpt);
         MatcherAssert.assertThat(angle.origin(), Matchers.equalTo(origin));
         MatcherAssert.assertThat(
-            angle.start(), Matchers.equalTo(new Minus(startpt, origin))
+            angle.start(), Matchers.equalTo(new Minus<>(startpt, origin))
         );
         MatcherAssert.assertThat(
-            angle.end(), Matchers.equalTo(new Minus(endpt, origin))
+            angle.end(), Matchers.equalTo(new Minus<>(endpt, origin))
         );
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new PointInLine(
-                startpt, new RayLine(new PtsRay(origin, startpt))
+            new PointInLine<>(
+                startpt, new RayLine<>(new PtsRay<>(origin, startpt))
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(
-                endpt, new RayLine(new PtsRay(origin, endpt))
+            new PointInLine<>(
+                endpt, new RayLine<>(new PtsRay<>(origin, endpt))
             ).resolve(dec),
             Matchers.is(true)
         );

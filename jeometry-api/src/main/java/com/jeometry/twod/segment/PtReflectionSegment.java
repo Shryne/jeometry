@@ -31,20 +31,21 @@ import lombok.ToString;
 
 /**
  * A segment defined as the reflection of a segment, across a given point.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class PtReflectionSegment extends PtsSegment {
+public final class PtReflectionSegment<T> extends PtsSegment<T> {
 
     /**
      * Constructor.
      * @param center Reflection center
      * @param seg The segment to reflect
      */
-    public PtReflectionSegment(final Vect center, final Segment seg) {
+    public PtReflectionSegment(final Vect<T> center, final Segment<T> seg) {
         super(
-            new PtReflectionPoint(center, seg.start()),
-            new PtReflectionPoint(center, seg.end())
+            new PtReflectionPoint<>(center, seg.start()),
+            new PtReflectionPoint<>(center, seg.end())
         );
     }
 
@@ -52,8 +53,8 @@ public final class PtReflectionSegment extends PtsSegment {
      * Constructor. Builds the reflection segment across the origin.
      * @param seg The segment to reflect
      */
-    public PtReflectionSegment(final Segment seg) {
-        this(new XyPoint(new AddIdentity(), new AddIdentity()), seg);
+    public PtReflectionSegment(final Segment<T> seg) {
+        this(new XyPoint<>(new AddIdentity<>(), new AddIdentity<>()), seg);
     }
 
 }

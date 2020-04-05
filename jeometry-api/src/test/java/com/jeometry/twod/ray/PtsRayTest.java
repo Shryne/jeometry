@@ -45,16 +45,16 @@ public final class PtsRayTest {
      */
     @Test
     public void buildsPointsRay() {
-        final Vect origin = new RandomPoint();
-        final Vect belongs = new RandomPoint();
-        final Ray ray = new PtsRay(origin, belongs);
+        final Vect<Double> origin = new RandomPoint<>();
+        final Vect<Double> belongs = new RandomPoint<>();
+        final Ray<Double> ray = new PtsRay<>(origin, belongs);
         MatcherAssert.assertThat(ray.origin(), Matchers.equalTo(origin));
         MatcherAssert.assertThat(
-            ray.direction(), Matchers.equalTo(new Minus(belongs, origin))
+            ray.direction(), Matchers.equalTo(new Minus<>(belongs, origin))
         );
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new PointInLine(belongs, new RayLine(ray)).resolve(dec),
+            new PointInLine<>(belongs, new RayLine<>(ray)).resolve(dec),
             Matchers.is(true)
         );
     }

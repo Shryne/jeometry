@@ -42,9 +42,9 @@ public final class InLinePointTest {
      */
     @Test
     public void buildsAPointInLine() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new PointInLine(new InLinePoint(any), any).resolve(new Decimal()),
+            new PointInLine<>(new InLinePoint<>(any), any).resolve(new Decimal()),
             Matchers.is(true)
         );
     }

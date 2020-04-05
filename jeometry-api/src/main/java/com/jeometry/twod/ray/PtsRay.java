@@ -28,17 +28,18 @@ import com.aljebra.vector.Vect;
 
 /**
  * A ray defined by its origin and one point belonging to the ray.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class PtsRay extends PtDirRay {
+public final class PtsRay<T> extends PtDirRay<T> {
 
     /**
      * Constructor.
      * @param origin Ray origin
      * @param point Point belonging to the ray
      */
-    public PtsRay(final Vect origin, final Vect point) {
-        super(origin, new Minus(point, origin));
+    public PtsRay(final Vect<T> origin, final Vect<T> point) {
+        super(origin, new Minus<>(point, origin));
     }
 
 }

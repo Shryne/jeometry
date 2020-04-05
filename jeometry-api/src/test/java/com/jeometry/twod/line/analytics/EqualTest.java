@@ -45,9 +45,9 @@ public final class EqualTest {
      */
     @Test
     public void resolvesTrueIfSameLine() {
-        final Line line = new RandomLine();
+        final Line<Double> line = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Equal(line, line).resolve(new Decimal()),
+            new Equal<>(line, line).resolve(new Decimal()),
             Matchers.is(true)
         );
     }
@@ -57,10 +57,10 @@ public final class EqualTest {
      */
     @Test
     public void resolvesTrueIfEqualLines() {
-        final Line line = new RandomLine();
+        final Line<Double> line = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Equal(
-                line, new PtsLine(new InLinePoint(line), new InLinePoint(line))
+            new Equal<>(
+                line, new PtsLine<>(new InLinePoint<>(line), new InLinePoint<>(line))
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
@@ -71,11 +71,11 @@ public final class EqualTest {
      */
     @Test
     public void resolvesFalseIfOnlyParallel() {
-        final Line line = new RandomLine();
+        final Line<Double> line = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Equal(
+            new Equal<>(
                 line,
-                new PtDirLine(new OutsideLinePoint(line), line.direction())
+                new PtDirLine<>(new OutsideLinePoint<>(line), line.direction())
             ).resolve(new Decimal()),
             Matchers.is(false)
         );

@@ -30,31 +30,32 @@ import lombok.ToString;
 /**
  * A line defined by "porting" a ray. The line has the same direction as the ray
  * and the origin of the ray belongs to the line.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class RayLine implements Line {
+public final class RayLine<T> implements Line<T> {
 
     /**
      * Ray.
      */
-    private final Ray ray;
+    private final Ray<T> ray;
 
     /**
      * Constructor.
      * @param ray Ported ray
      */
-    public RayLine(final Ray ray) {
+    public RayLine(final Ray<T> ray) {
         this.ray = ray;
     }
 
     @Override
-    public Vect direction() {
+    public Vect<T> direction() {
         return this.ray.direction();
     }
 
     @Override
-    public Vect point() {
+    public Vect<T> point() {
         return this.ray.origin();
     }
 

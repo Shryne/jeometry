@@ -31,26 +31,27 @@ import lombok.ToString;
 
 /**
  * A circle defined as the reflection of a circle, across a given point.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class PtReflectionCircle extends PtRadCircle {
+public final class PtReflectionCircle<T> extends PtRadCircle<T> {
 
     /**
      * Constructor.
      * @param center Reflection center
      * @param circle The circle to reflect
      */
-    public PtReflectionCircle(final Vect center, final Circle circle) {
-        super(new PtReflectionPoint(center, circle.center()), circle.radius());
+    public PtReflectionCircle(final Vect<T> center, final Circle<T> circle) {
+        super(new PtReflectionPoint<T>(center, circle.center()), circle.radius());
     }
 
     /**
      * Constructor. Builds the reflection circle across the origin.
      * @param input The circle to reflect
      */
-    public PtReflectionCircle(final Circle input) {
-        this(new XyPoint(new AddIdentity(), new AddIdentity()), input);
+    public PtReflectionCircle(final Circle<T> input) {
+        this(new XyPoint<T>(new AddIdentity<>(), new AddIdentity<>()), input);
     }
 
 }

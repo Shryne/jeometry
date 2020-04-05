@@ -39,7 +39,7 @@ public final class RandomPointTest {
      */
     @Test
     public void buildsARandomVector() {
-        final XyPoint vector = new RandomPoint();
+        final XyPoint<Object> vector = new RandomPoint<>();
         MatcherAssert.assertThat(
             vector.xcoor(), Matchers.instanceOf(Random.class)
         );

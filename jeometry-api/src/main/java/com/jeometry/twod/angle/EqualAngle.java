@@ -31,25 +31,26 @@ import lombok.ToString;
 
 /**
  * An angle defined by being equal to another angle.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class EqualAngle implements Angle {
+public final class EqualAngle<T> implements Angle<T> {
 
     /**
      * Angle origin.
      */
-    private final Vect org;
+    private final Vect<T> org;
 
     /**
      * Starting angle vector.
      */
-    private final Vect frst;
+    private final Vect<T> frst;
 
     /**
      * Ending angle vector.
      */
-    private final Vect scnd;
+    private final Vect<T> scnd;
 
     /**
      * Constructor.
@@ -57,10 +58,10 @@ public final class EqualAngle implements Angle {
      * @param start Starting angle vector
      * @param angle Angle measure
      */
-    public EqualAngle(final Vect origin, final Vect start, final Angle angle) {
+    public EqualAngle(final Vect<T> origin, final Vect<T> start, final Angle<T> angle) {
         this.org = origin;
         this.frst = start;
-        this.scnd = new RotateVect(
+        this.scnd = new RotateVect<T>(
             start, new VectsDegrees(angle.start(), angle.end())
         );
     }
@@ -69,22 +70,22 @@ public final class EqualAngle implements Angle {
      * Constructor.
      * @param angle Angle measure
      */
-    public EqualAngle(final Angle angle) {
-        this(new RandomPoint(), new RandomPoint(), angle);
+    public EqualAngle(final Angle<T> angle) {
+        this(new RandomPoint<T>(), new RandomPoint<T>(), angle);
     }
 
     @Override
-    public Vect origin() {
+    public Vect<T> origin() {
         return this.org;
     }
 
     @Override
-    public Vect start() {
+    public Vect<T> start() {
         return this.frst;
     }
 
     @Override
-    public Vect end() {
+    public Vect<T> end() {
         return this.scnd;
     }
 

@@ -32,17 +32,18 @@ import lombok.ToString;
 
 /**
  * A polyline defined as the reflection of a polyline, across a given point.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class PtReflectionPolyLine extends PtsPolyline {
+public final class PtReflectionPolyLine<T> extends PtsPolyline<T> {
 
     /**
      * Constructor.
      * @param center Reflection center
      * @param input The polyline to reflect
      */
-    public PtReflectionPolyLine(final Vect center, final Polyline input) {
+    public PtReflectionPolyLine(final Vect<T> center, final Polyline<T> input) {
         super(PtReflectionPolyLine.reflected(center, input.points()));
     }
 
@@ -50,19 +51,21 @@ public final class PtReflectionPolyLine extends PtsPolyline {
      * Constructor. Builds the reflection polyline across the origin.
      * @param input The line to reflect
      */
-    public PtReflectionPolyLine(final Polyline input) {
-        this(new XyPoint(new AddIdentity(), new AddIdentity()), input);
+    public PtReflectionPolyLine(final Polyline<T> input) {
+        this(new XyPoint<>(new AddIdentity<>(), new AddIdentity<>()), input);
     }
 
     /**
      * Builds a list of point-reflected points across a center.
      * @param center Reflection center
      * @param pts The points to reflect
+     * @param <T> scalar types
      * @return An array of reflected points
      */
-    private static Vect[] reflected(final Vect center, final List<Vect> pts) {
+    private static <T> Vect<T>[] reflected(final Vect<T> center, final List<Vect<T>> pts) {
         final int size = pts.size();
-        final Vect[] result = new Vect[size];
+        @SuppressWarnings("unchecked")
+        final Vect<T>[] result = new Vect[size];
         for (int idx = 0; idx < size; ++idx) {
             result[idx] = PtReflectionPolyLine.reflected(center, pts.get(idx));
         }
@@ -73,9 +76,10 @@ public final class PtReflectionPolyLine extends PtsPolyline {
      * Builds a point-reflected point across a center.
      * @param center Reflection center
      * @param point The point to reflect
+     * @param <T> scalar types
      * @return The reflected point
      */
-    private static Vect reflected(final Vect center, final Vect point) {
-        return new PtReflectionPoint(center, point);
+    private static <T> Vect<T> reflected(final Vect<T> center, final Vect<T> point) {
+        return new PtReflectionPoint<T>(center, point);
     }
 }

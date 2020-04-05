@@ -30,26 +30,27 @@ import lombok.ToString;
 
 /**
  * A polyline defined by its points sequence.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public class PtsPolyline implements Polyline {
+public class PtsPolyline<T> implements Polyline<T> {
 
     /**
      * Points sequence forming the polyline.
      */
-    private final List<Vect> pts;
+    private final List<Vect<T>> pts;
 
     /**
      * Constructor.
      * @param points Points sequence forming the polyline.
      */
-    public PtsPolyline(final Vect... points) {
+    public PtsPolyline(@SuppressWarnings("unchecked") final Vect<T>... points) {
         this.pts = Arrays.asList(points);
     }
 
     @Override
-    public final List<Vect> points() {
+    public final List<Vect<T>> points() {
         return this.pts;
     }
 

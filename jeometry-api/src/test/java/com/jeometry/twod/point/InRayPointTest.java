@@ -46,9 +46,9 @@ public final class InRayPointTest {
      */
     @Test
     public void buildsAPointInRay() {
-        final Ray any = new PtsRay(new RandomPoint(), new RandomPoint());
+        final Ray<Double> any = new PtsRay<>(new RandomPoint<>(), new RandomPoint<>());
         MatcherAssert.assertThat(
-            InRayPointTest.belongs(new InRayPoint(any), any),
+            InRayPointTest.belongs(new InRayPoint<>(any), any),
             Matchers.is(true)
         );
     }
@@ -58,8 +58,8 @@ public final class InRayPointTest {
      */
     @Test
     public void toStringPrintsCoordinates() {
-        final InRayPoint point = new InRayPoint(
-            new PtsRay(new RandomPoint(), new RandomPoint())
+        final InRayPoint<Double> point = new InRayPoint<>(
+            new PtsRay<>(new RandomPoint<>(), new RandomPoint<>())
         );
         MatcherAssert.assertThat(
             point.toString(), Matchers.allOf(

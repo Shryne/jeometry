@@ -41,9 +41,9 @@ public final class PtRadCircleTest {
      */
     @Test
     public void buildsCircle() {
-        final RandomPoint point = new RandomPoint();
-        final Scalar rdx = new Random();
-        final Circle circle = new PtRadCircle(point, rdx);
+        final RandomPoint<Object> point = new RandomPoint<>();
+        final Scalar<Object> rdx = new Random<>();
+        final Circle<Object> circle = new PtRadCircle<>(point, rdx);
         MatcherAssert.assertThat(
             circle.center(), Matchers.equalTo(point)
         );

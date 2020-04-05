@@ -39,7 +39,7 @@ public final class RandomLineTest {
      */
     @Test
     public void buildsARandomLine() {
-        final Line line = new RandomLine();
+        final Line<Object> line = new RandomLine<>();
         MatcherAssert.assertThat(
             line.point(), Matchers.instanceOf(RandomPoint.class)
         );

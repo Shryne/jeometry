@@ -47,13 +47,13 @@ public final class Intercept<T> implements Scalar<T> {
     /**
      * Line for which to calculate y-intercept.
      */
-    private final Line line;
+    private final Line<T> line;
 
     /**
      * Constructor.
      * @param line Line for which to calculate intercept
      */
-    public Intercept(final Line line) {
+    public Intercept(final Line<T> line) {
         this.line = line;
     }
 
@@ -61,25 +61,26 @@ public final class Intercept<T> implements Scalar<T> {
      * Constructor.
      * @param ray Ray for which to calculate intercept
      */
-    public Intercept(final Ray ray) {
-        this(new RayLine(ray));
+    public Intercept(final Ray<T> ray) {
+        this(new RayLine<>(ray));
     }
 
     /**
      * Constructor.
      * @param seg Segment for which to calculate intercept
      */
-    public Intercept(final Segment seg) {
-        this(new SgtLine(seg));
+    public Intercept(final Segment<T> seg) {
+        this(new SgtLine<>(seg));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T value(final Field<T> field) {
         if (!new Vertical(this.line).resolve(field)) {
-            final Scalar[] coords = this.line.point().coords();
-            final Scalar slope = new Slope(this.line);
+            final Scalar<T>[] coords = this.line.point().coords();
+            final Scalar<T> slope = new Slope<>(this.line);
             return field.actual(
-                new Diff<T>(coords[1], new Multiplication(slope, coords[0]))
+                new Diff<T>(coords[1], new Multiplication<>(slope, coords[0]))
             );
         }
         throw new IllegalStateException(

@@ -53,12 +53,12 @@ public final class LinePointOrdinateTest {
      */
     @Test
     public void calculatesOrdinate() {
-        final Line<Double> line = new PtDirLine(
-            new RandomPoint(), new DifferentPoint(new VertPoint())
+        final Line<Double> line = new PtDirLine<>(
+            new RandomPoint<>(), new DifferentPoint<>(new VertPoint<>())
         );
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
-        final Scalar<Double> abscissa = new RandomPoint().xcoor();
+        final Scalar<Double> abscissa = new RandomPoint<Double>().xcoor();
         final Double startx = line.point().coords()[0].value(dec);
         final Double starty = line.point().coords()[1].value(dec);
         final Double dirx = line.direction().coords()[0].value(dec);
@@ -67,7 +67,7 @@ public final class LinePointOrdinateTest {
             new LinePointOrdinate<Double>(line, abscissa).value(dec),
             Matchers.closeTo(
                 diry / dirx * abscissa.value(dec)
-                + starty - startx * diry / dirx,
+                    + starty - startx * diry / dirx,
                 error
             )
         );
@@ -80,10 +80,10 @@ public final class LinePointOrdinateTest {
     @Test
     public void errorsWhenVerticalLineAndOutsideAbscissa() {
         this.thrown.expect(IllegalStateException.class);
-        final RandomPoint point = new RandomPoint();
-        final Line line = new PtDirLine(point, new VertPoint());
-        new LinePointOrdinate(
-            line, new DifferentPoint(point).xcoor()
+        final RandomPoint<Double> point = new RandomPoint<>();
+        final Line<Double> line = new PtDirLine<>(point, new VertPoint<>());
+        new LinePointOrdinate<>(
+            line, new DifferentPoint<>(point).xcoor()
         ).value(new Decimal());
     }
 
@@ -93,8 +93,8 @@ public final class LinePointOrdinateTest {
      */
     @Test
     public void evaluatesWhenVerticalLineAndInsideAbscissa() {
-        final RandomPoint point = new RandomPoint();
-        final Line line = new PtDirLine(point, new VertPoint());
-        new LinePointOrdinate(line, point.xcoor()).value(new Decimal());
+        final RandomPoint<Double> point = new RandomPoint<>();
+        final Line<Double> line = new PtDirLine<>(point, new VertPoint<>());
+        new LinePointOrdinate<>(line, point.xcoor()).value(new Decimal());
     }
 }

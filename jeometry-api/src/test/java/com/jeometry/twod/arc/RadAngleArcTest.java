@@ -42,12 +42,12 @@ public final class RadAngleArcTest {
      */
     @Test
     public void buildsArc() {
-        final RandomPoint pnt = new RandomPoint();
-        final Scalar rdx = new Random();
+        final RandomPoint<Double> pnt = new RandomPoint<>();
+        final Scalar<Double> rdx = new Random<>();
         final double start = Math.random();
         final double end = Math.random();
         final double error = 1.e-6;
-        final Arc arc = new RadAngleArc(new PtRadCircle(pnt, rdx), start, end);
+        final Arc<Double> arc = new RadAngleArc<>(new PtRadCircle<>(pnt, rdx), start, end);
         MatcherAssert.assertThat(
             arc.center(), Matchers.equalTo(pnt)
         );

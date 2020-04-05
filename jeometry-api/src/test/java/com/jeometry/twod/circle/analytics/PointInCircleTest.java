@@ -47,8 +47,8 @@ public final class PointInCircleTest {
      */
     @Test
     public void resolvesTrueWhenInCircle() {
-        final RandomPoint point = new RandomPoint();
-        final Circle any = new PtsCircle(new RandomPoint(), point);
+        final RandomPoint<Double> point = new RandomPoint<>();
+        final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), point);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
             new PointInCircle(point, any).resolve(field),
@@ -56,7 +56,7 @@ public final class PointInCircleTest {
         );
         MatcherAssert.assertThat(
             new PointInCircle(
-                new InCirclePoint(any), any
+                new InCirclePoint<>(any), any
             ).resolve(field),
             Matchers.is(true)
         );
@@ -67,9 +67,9 @@ public final class PointInCircleTest {
      */
     @Test
     public void resolvesFalseWhenOutsideCircle() {
-        final Circle any = new PtsCircle(new RandomPoint(), new RandomPoint());
+        final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), new RandomPoint<>());
         final Decimal field = new Decimal();
-        RandomPoint point = new RandomPoint();
+        RandomPoint<Double> point = new RandomPoint<>();
         while (PointInCircleTest.pointInCircle(any, point, field)) {
             point = PointInCircleTest.point();
         }
@@ -83,8 +83,8 @@ public final class PointInCircleTest {
      * Generates a point.
      * @return A generated point
      */
-    private static RandomPoint point() {
-        return new RandomPoint();
+    private static RandomPoint<Double> point() {
+        return new RandomPoint<Double>();
     }
 
     /**
@@ -94,10 +94,10 @@ public final class PointInCircleTest {
      * @param field Field to resolve to
      * @return True if the point belongs to the circle
      */
-    private static boolean pointInCircle(final Circle circle, final Vect point,
-        final Field<?> field) {
+    private static boolean pointInCircle(final Circle<Double> circle, final Vect<Double> point,
+        final Field<Double> field) {
         return field.equals(
-            new Norm(new Minus(circle.center(), point)), circle.radius()
+            new Norm<>(new Minus<>(circle.center(), point)), circle.radius()
         );
     }
 }

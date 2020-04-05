@@ -41,11 +41,11 @@ public final class PtDirLineTest {
      */
     @Test
     public void buildsWithGivenArgs() {
-        final RandomPoint point = new RandomPoint();
-        final RandomPoint dir = new RandomPoint();
-        final Line line = new PtDirLine(point, dir);
+        final RandomPoint<Double> point = new RandomPoint<>();
+        final RandomPoint<Double> dir = new RandomPoint<>();
+        final Line<Double> line = new PtDirLine<>(point, dir);
         MatcherAssert.assertThat(
-            new PointInLine(point, line).resolve(new Decimal()),
+            new PointInLine<>(point, line).resolve(new Decimal()),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(line.direction(), Matchers.is(dir));

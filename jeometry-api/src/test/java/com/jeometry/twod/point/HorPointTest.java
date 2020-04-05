@@ -40,8 +40,8 @@ public final class HorPointTest {
     @Test
     public void buildsHorizontalVector() {
         MatcherAssert.assertThat(
-            new HorPoint().ycoor(),
-            Matchers.equalTo(new AddIdentity())
+            new HorPoint<>().ycoor(),
+            Matchers.equalTo(new AddIdentity<>())
         );
     }
 
@@ -51,8 +51,8 @@ public final class HorPointTest {
     @Test
     public void toStringPrintsCoordinates() {
         MatcherAssert.assertThat(
-            new HorPoint().toString(),
-            Matchers.containsString(new AddIdentity().toString())
+            new HorPoint<>().toString(),
+            Matchers.containsString(new AddIdentity<>().toString())
         );
     }
 }

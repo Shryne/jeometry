@@ -46,13 +46,13 @@ public final class Slope<T> implements Scalar<T> {
     /**
      * Line for which to calculate slope.
      */
-    private final Line line;
+    private final Line<T> line;
 
     /**
      * Constructor.
      * @param line Line for which to calculate slope
      */
-    public Slope(final Line line) {
+    public Slope(final Line<T> line) {
         this.line = line;
     }
 
@@ -60,22 +60,22 @@ public final class Slope<T> implements Scalar<T> {
      * Constructor.
      * @param ray Ray for which to calculate slope
      */
-    public Slope(final Ray ray) {
-        this(new RayLine(ray));
+    public Slope(final Ray<T> ray) {
+        this(new RayLine<T>(ray));
     }
 
     /**
      * Constructor.
      * @param seg Segment for which to calculate slope
      */
-    public Slope(final Segment seg) {
-        this(new SgtLine(seg));
+    public Slope(final Segment<T> seg) {
+        this(new SgtLine<T>(seg));
     }
 
     @Override
     public T value(final Field<T> field) {
         if (!new Vertical(this.line).resolve(field)) {
-            final Scalar[] coords = this.line.direction().coords();
+            final Scalar<T>[] coords = this.line.direction().coords();
             return field.actual(new Division<T>(coords[1], coords[0]));
         }
         throw new IllegalStateException("Line has infinite slope.");

@@ -28,38 +28,39 @@ import lombok.ToString;
 
 /**
  * A line defined by a point to pass by and a direction.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public class PtDirLine implements Line {
+public class PtDirLine<T> implements Line<T> {
 
     /**
      * Direction.
      */
-    private final Vect dir;
+    private final Vect<T> dir;
 
     /**
      * Point belonging to the line.
      */
-    private final Vect pnt;
+    private final Vect<T> pnt;
 
     /**
      * Constructor.
      * @param point Point belonging to the line
      * @param direction Direction of the line
      */
-    public PtDirLine(final Vect point, final Vect direction) {
+    public PtDirLine(final Vect<T> point, final Vect<T> direction) {
         this.dir = direction;
         this.pnt = point;
     }
 
     @Override
-    public final Vect direction() {
+    public final Vect<T> direction() {
         return this.dir;
     }
 
     @Override
-    public final Vect point() {
+    public final Vect<T> point() {
         return this.pnt;
     }
 

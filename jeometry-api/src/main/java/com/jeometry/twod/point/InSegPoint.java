@@ -34,21 +34,23 @@ import lombok.ToString;
 
 /**
  * A point defined by belonging to a segment.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InSegPoint extends XyPoint {
+public final class InSegPoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param seg The segment to belong to
      */
-    public InSegPoint(final Segment seg) {
+    @SuppressWarnings("unchecked")
+    public InSegPoint(final Segment<T> seg) {
         super(
-            new Sum(
-                new Times(
-                    new Minus(seg.end(), seg.start()),
-                    new Between(new AddIdentity(), new MultIdentity())
+            new Sum<>(
+                new Times<>(
+                    new Minus<>(seg.end(), seg.start()),
+                    new Between<>(new AddIdentity<>(), new MultIdentity<>())
                 ),
                 seg.start()
             )

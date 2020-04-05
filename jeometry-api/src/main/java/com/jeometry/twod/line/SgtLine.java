@@ -30,31 +30,32 @@ import lombok.ToString;
 
 /**
  * A line defined by "porting" a segment. The line holds all the segment points.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class SgtLine implements Line {
+public final class SgtLine<T> implements Line<T> {
 
     /**
      * Ported segment.
      */
-    private final Segment segment;
+    private final Segment<T> segment;
 
     /**
      * Constructor.
      * @param segment Ported segment
      */
-    public SgtLine(final Segment segment) {
+    public SgtLine(final Segment<T> segment) {
         this.segment = segment;
     }
 
     @Override
-    public Vect direction() {
-        return new Minus(this.segment.start(), this.segment.end());
+    public Vect<T> direction() {
+        return new Minus<T>(this.segment.start(), this.segment.end());
     }
 
     @Override
-    public Vect point() {
+    public Vect<T> point() {
         return this.segment.start();
     }
 

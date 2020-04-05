@@ -29,25 +29,26 @@ import lombok.ToString;
 /**
  * An angle defined by a point, a vector porting the starting ray,
  * and a vector porting the ending ray.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public class VectsAngle implements Angle {
+public class VectsAngle<T> implements Angle<T> {
 
     /**
      * Angle origin.
      */
-    private final Vect org;
+    private final Vect<T> org;
 
     /**
      * Vector porting the starting ray.
      */
-    private final Vect frst;
+    private final Vect<T> frst;
 
     /**
      * Vector porting the ending ray.
      */
-    private final Vect scnd;
+    private final Vect<T> scnd;
 
     /**
      * Constructor.
@@ -55,24 +56,24 @@ public class VectsAngle implements Angle {
      * @param start Vector porting the starting ray
      * @param end Vector porting the ending ray
      */
-    public VectsAngle(final Vect origin, final Vect start, final Vect end) {
+    public VectsAngle(final Vect<T> origin, final Vect<T> start, final Vect<T> end) {
         this.org = origin;
         this.frst = start;
         this.scnd = end;
     }
 
     @Override
-    public final Vect origin() {
+    public final Vect<T> origin() {
         return this.org;
     }
 
     @Override
-    public final Vect start() {
+    public final Vect<T> start() {
         return this.frst;
     }
 
     @Override
-    public final Vect end() {
+    public final Vect<T> end() {
         return this.scnd;
     }
 }

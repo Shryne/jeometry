@@ -39,12 +39,13 @@ public final class XPointTest {
      */
     @Test
     public void buildsAVector() {
-        final Scalar xcoor = Mockito.mock(Scalar.class);
+        @SuppressWarnings("unchecked")
+        final Scalar<Object> xcoor = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new XPoint(xcoor).xcoor(), Matchers.equalTo(xcoor)
+            new XPoint<>(xcoor).xcoor(), Matchers.equalTo(xcoor)
         );
         MatcherAssert.assertThat(
-            new XPoint(xcoor).coords()[0], Matchers.equalTo(xcoor)
+            new XPoint<>(xcoor).coords()[0], Matchers.equalTo(xcoor)
         );
     }
 }

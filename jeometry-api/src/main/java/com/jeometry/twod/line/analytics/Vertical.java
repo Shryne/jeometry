@@ -43,36 +43,41 @@ public final class Vertical implements Predicate {
     /**
      * Line.
      */
+    @SuppressWarnings("rawtypes")
     private final Line line;
 
     /**
      * Constructor.
      * @param line Line to check
+     * @param <T> scalar types
      */
-    public Vertical(final Line line) {
+    public <T> Vertical(final Line<T> line) {
         this.line = line;
     }
 
     /**
      * Constructor.
      * @param ray Ray to check
+     * @param <T> scalar types
      */
-    public Vertical(final Ray ray) {
-        this(new RayLine(ray));
+    public <T> Vertical(final Ray<T> ray) {
+        this(new RayLine<>(ray));
     }
 
     /**
      * Constructor.
      * @param seg Segment to check
+     * @param <T> scalar types
      */
-    public Vertical(final Segment seg) {
-        this(new SgtLine(seg));
+    public <T> Vertical(final Segment<T> seg) {
+        this(new SgtLine<>(seg));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public <T> boolean resolve(final Field<T> field) {
+    public <R> boolean resolve(final Field<R> field) {
         return field.equals(
-            this.line.direction().coords()[0], new AddIdentity()
+            this.line.direction().coords()[0], new AddIdentity<>()
         );
     }
 

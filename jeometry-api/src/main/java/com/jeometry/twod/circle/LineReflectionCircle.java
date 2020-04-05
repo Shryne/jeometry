@@ -29,18 +29,19 @@ import lombok.ToString;
 
 /**
  * A circle defined as the reflection of a circle, across a given line.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class LineReflectionCircle extends PtRadCircle {
+public final class LineReflectionCircle<T> extends PtRadCircle<T> {
 
     /**
      * Constructor.
      * @param axis Reflection axis
      * @param circle The circle to reflect
      */
-    public LineReflectionCircle(final Line axis, final Circle circle) {
-        super(new LineReflectionPoint(axis, circle.center()), circle.radius());
+    public LineReflectionCircle(final Line<T> axis, final Circle<T> circle) {
+        super(new LineReflectionPoint<T>(axis, circle.center()), circle.radius());
     }
 
 }

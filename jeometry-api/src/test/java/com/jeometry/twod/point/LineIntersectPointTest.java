@@ -53,16 +53,16 @@ public final class LineIntersectPointTest {
      */
     @Test
     public void buildsAPointInLines() {
-        final Line any = new RandomLine();
-        final Line other = new IntersectingLine(any);
-        final LineIntersectPoint pnt = new LineIntersectPoint(any, other);
+        final Line<Double> any = new RandomLine<>();
+        final Line<Double> other = new IntersectingLine<>(any);
+        final LineIntersectPoint<Double> pnt = new LineIntersectPoint<>(any, other);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new PointInLine(pnt, any).resolve(field),
+            new PointInLine<>(pnt, any).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(pnt, other).resolve(field),
+            new PointInLine<>(pnt, other).resolve(field),
             Matchers.is(true)
         );
     }
@@ -73,25 +73,25 @@ public final class LineIntersectPointTest {
      */
     @Test
     public void buildsAPointInLinesWhenVertical() {
-        final Line vertical = new VerticalLine();
-        final Line any = new IntersectingLine(vertical);
-        final LineIntersectPoint pnt = new LineIntersectPoint(any, vertical);
-        final LineIntersectPoint other = new LineIntersectPoint(vertical, any);
+        final Line<Double> vertical = new VerticalLine<>();
+        final Line<Double> any = new IntersectingLine<>(vertical);
+        final LineIntersectPoint<Double> pnt = new LineIntersectPoint<>(any, vertical);
+        final LineIntersectPoint<Double> other = new LineIntersectPoint<>(vertical, any);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new PointInLine(pnt, any).resolve(field),
+            new PointInLine<>(pnt, any).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(pnt, vertical).resolve(field),
+            new PointInLine<>(pnt, vertical).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(other, any).resolve(field),
+            new PointInLine<>(other, any).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(other, vertical).resolve(field),
+            new PointInLine<>(other, vertical).resolve(field),
             Matchers.is(true)
         );
     }
@@ -103,11 +103,11 @@ public final class LineIntersectPointTest {
     @Test
     public void errorsIfparallel() {
         this.thrown.expect(IllegalStateException.class);
-        final Line any = new RandomLine();
-        final LineIntersectPoint pnt = new LineIntersectPoint(
-            any, new ParallelLine(any)
+        final Line<Double> any = new RandomLine<>();
+        final LineIntersectPoint<Double> pnt = new LineIntersectPoint<>(
+            any, new ParallelLine<>(any)
         );
-        new PointInLine(pnt, any).resolve(new Decimal());
+        new PointInLine<>(pnt, any).resolve(new Decimal());
     }
 
 }

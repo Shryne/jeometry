@@ -40,13 +40,13 @@ public final class LineAnalyticsTest {
      */
     @Test
     public void resolvesGivesAnalyticsAccess() {
-        final Line line = new RandomLine();
-        final LineAnalytics analytics = new LineAnalytics(line);
+        final Line<Object> line = new RandomLine<>();
+        final LineAnalytics<Object> analytics = new LineAnalytics<>(line);
         MatcherAssert.assertThat(
-            analytics.slope(), Matchers.equalTo(new Slope(line))
+            analytics.slope(), Matchers.equalTo(new Slope<>(line))
         );
         MatcherAssert.assertThat(
-            analytics.intercept(), Matchers.equalTo(new Intercept(line))
+            analytics.intercept(), Matchers.equalTo(new Intercept<>(line))
         );
         MatcherAssert.assertThat(
             analytics.vertical(), Matchers.equalTo(new Vertical(line))

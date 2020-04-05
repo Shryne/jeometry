@@ -45,11 +45,11 @@ public final class SegmentLengthTest {
      */
     @Test
     public void resolvesToSegmentLength() {
-        final Scalar length = new Greater(new AddIdentity());
+        final Scalar<Double> length = new Greater<>(new AddIdentity<>());
         final Decimal field = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            field.actual(new SegmentLength(new LengthSegment(length))),
+            field.actual(new SegmentLength<>(new LengthSegment<>(length))),
             Matchers.closeTo(field.actual(length), error)
         );
     }
@@ -59,9 +59,9 @@ public final class SegmentLengthTest {
      */
     @Test
     public void toStringContainsSegment() {
-        final Segment seg = new RandomSegment();
+        final Segment<Object> seg = new RandomSegment<>();
         MatcherAssert.assertThat(
-            new SegmentLength(seg).toString(),
+            new SegmentLength<>(seg).toString(),
             Matchers.containsString(seg.toString())
         );
     }
@@ -72,9 +72,9 @@ public final class SegmentLengthTest {
      */
     @Test
     public void respectsEqualsForSameSegment() {
-        final Segment seg = new RandomSegment();
+        final Segment<Object> seg = new RandomSegment<>();
         MatcherAssert.assertThat(
-            new SegmentLength(seg), Matchers.equalTo(new SegmentLength(seg))
+            new SegmentLength<>(seg), Matchers.equalTo(new SegmentLength<>(seg))
         );
     }
 
@@ -84,10 +84,10 @@ public final class SegmentLengthTest {
      */
     @Test
     public void respectsHashCodeForSameSegment() {
-        final Segment seg = new RandomSegment();
+        final Segment<Object> seg = new RandomSegment<>();
         MatcherAssert.assertThat(
-            new SegmentLength(seg).hashCode(),
-            Matchers.equalTo(new SegmentLength(seg).hashCode())
+            new SegmentLength<>(seg).hashCode(),
+            Matchers.equalTo(new SegmentLength<>(seg).hashCode())
         );
     }
 }

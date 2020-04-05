@@ -43,16 +43,16 @@ public final class SgtLineTest {
      */
     @Test
     public void wrapsSegment() {
-        final Segment sgt = new PtsSegment(
-            new RandomPoint(), new RandomPoint()
+        final Segment<Double> sgt = new PtsSegment<>(
+            new RandomPoint<>(), new RandomPoint<>()
         );
-        final Line line = new SgtLine(sgt);
+        final Line<Double> line = new SgtLine<>(sgt);
         MatcherAssert.assertThat(
-            new PointInLine(sgt.start(), line).resolve(new Decimal()),
+            new PointInLine<>(sgt.start(), line).resolve(new Decimal()),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(sgt.end(), line).resolve(new Decimal()),
+            new PointInLine<>(sgt.end(), line).resolve(new Decimal()),
             Matchers.is(true)
         );
     }

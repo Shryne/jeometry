@@ -33,17 +33,18 @@ import lombok.ToString;
 
 /**
  * A segment defined by being a circle chord.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public class CircleChord extends PtsSegment {
+public class CircleChord<T> extends PtsSegment<T> {
 
     /**
      * Constructor.
      * @param circle Circle
      */
-    public CircleChord(final Circle circle) {
-        this(circle, new InCirclePoint(circle));
+    public CircleChord(final Circle<T> circle) {
+        this(circle, new InCirclePoint<>(circle));
     }
 
     /**
@@ -53,8 +54,8 @@ public class CircleChord extends PtsSegment {
      * @param circle Circle
      * @param point Point belonging to the circle
      */
-    public CircleChord(final Circle circle, final Vect point) {
-        super(CircleChord.extremity(point, circle), new InCirclePoint(circle));
+    public CircleChord(final Circle<T> circle, final Vect<T> point) {
+        super(CircleChord.extremity(point, circle), new InCirclePoint<>(circle));
     }
 
     /**
@@ -62,9 +63,11 @@ public class CircleChord extends PtsSegment {
      * otherwise it returns a {@link Throwing} coordinates vector.
      * @param point Point to be checked
      * @param circle Circle
+     * @param <T> scalar types
      * @return The passed point if it belongs to the circle
      */
-    private static Vect extremity(final Vect point, final Circle circle) {
+    @SuppressWarnings("unchecked")
+    private static <T> Vect<T> extremity(final Vect<T> point, final Circle<T> circle) {
         final PointInCircle predicate = new PointInCircle(point, circle);
         final IllegalArgumentException err = new IllegalArgumentException(
             String.format(
@@ -72,7 +75,7 @@ public class CircleChord extends PtsSegment {
                 circle, point
             )
         );
-        return new FixedVector(
+        return new FixedVector<>(
             predicate.ifElse(point.coords()[0], err),
             predicate.ifElse(point.coords()[1], err)
         );

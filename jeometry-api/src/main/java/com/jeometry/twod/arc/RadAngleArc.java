@@ -31,20 +31,21 @@ import lombok.ToString;
 /**
  * Arc implementation class describing an arc by a circle a starting
  * and an ending angle.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public class RadAngleArc implements Arc {
+public class RadAngleArc<T> implements Arc<T> {
 
     /**
      * Arc radius.
      */
-    private final Scalar rdx;
+    private final Scalar<T> rdx;
 
     /**
      * Arc center.
      */
-    private final Vect cntr;
+    private final Vect<T> cntr;
 
     /**
      * Arc starting angle.
@@ -62,7 +63,7 @@ public class RadAngleArc implements Arc {
      * @param start Arc starting angle
      * @param end Arc ending angle
      */
-    public RadAngleArc(final Circle circle, final Number start,
+    public RadAngleArc(final Circle<T> circle, final Number start,
         final Number end) {
         this.rdx = circle.radius();
         this.cntr = circle.center();
@@ -71,12 +72,12 @@ public class RadAngleArc implements Arc {
     }
 
     @Override
-    public final Vect center() {
+    public final Vect<T> center() {
         return this.cntr;
     }
 
     @Override
-    public final Scalar radius() {
+    public final Scalar<T> radius() {
         return this.rdx;
     }
 

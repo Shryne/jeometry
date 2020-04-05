@@ -43,9 +43,9 @@ public final class ParallelLineTest {
      */
     @Test
     public void buildsParallelLine() {
-        final Line line = new RandomLine();
+        final Line<Double> line = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Parallel(line, new ParallelLine(line)).resolve(new Decimal()),
+            new Parallel<>(line, new ParallelLine<>(line)).resolve(new Decimal()),
             Matchers.equalTo(true)
         );
     }
@@ -55,9 +55,9 @@ public final class ParallelLineTest {
      */
     @Test
     public void buildsParallelToVerticalLine() {
-        final Line line = new VerticalLine();
+        final Line<Double> line = new VerticalLine<>();
         MatcherAssert.assertThat(
-            new Parallel(line, new ParallelLine(line)).resolve(new Decimal()),
+            new Parallel<>(line, new ParallelLine<>(line)).resolve(new Decimal()),
             Matchers.equalTo(true)
         );
     }
@@ -67,15 +67,15 @@ public final class ParallelLineTest {
      */
     @Test
     public void buildsParallelPassingBy() {
-        final Line line = new RandomLine();
-        final Vect pnt = new RandomPoint();
-        final ParallelLine parallel = new ParallelLine(line, pnt);
+        final Line<Double> line = new RandomLine<>();
+        final Vect<Double> pnt = new RandomPoint<>();
+        final ParallelLine<Double> parallel = new ParallelLine<>(line, pnt);
         final Decimal dec = new Decimal();
         MatcherAssert.assertThat(
-            new Parallel(line, parallel).resolve(dec), Matchers.equalTo(true)
+            new Parallel<>(line, parallel).resolve(dec), Matchers.equalTo(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(pnt, parallel).resolve(dec), Matchers.equalTo(true)
+            new PointInLine<>(pnt, parallel).resolve(dec), Matchers.equalTo(true)
         );
     }
 }

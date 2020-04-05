@@ -32,26 +32,27 @@ import lombok.ToString;
 /**
  * Circle implementation class describing a circle by a center and a point
  * belonging to the circle.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public class PtsCircle extends PtRadCircle {
+public class PtsCircle<T> extends PtRadCircle<T> {
 
     /**
      * Ctor.
      * @param center Circle center
      * @param point Point belonging to the circle
      */
-    public PtsCircle(final Vect center, final Vect point) {
-        super(center, new Norm(new Minus(point, center)));
+    public PtsCircle(final Vect<T> center, final Vect<T> point) {
+        super(center, new Norm<T>(new Minus<>(point, center)));
     }
 
     /**
      * Ctor. Builds a random circle defined by its center.
      * @param center Circle center
      */
-    public PtsCircle(final Vect center) {
-        this(center, new DifferentPoint(center));
+    public PtsCircle(final Vect<T> center) {
+        this(center, new DifferentPoint<T>(center));
     }
 
 }

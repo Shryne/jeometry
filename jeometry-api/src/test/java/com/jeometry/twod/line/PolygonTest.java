@@ -37,13 +37,14 @@ public final class PolygonTest {
     /**
      * {@link Polygon} builds a polygon with the passed points.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void buildPolygonWithPoints() {
-        final RandomPoint pointa = new RandomPoint();
-        final RandomPoint pointb = new RandomPoint();
-        final RandomPoint pointc = new RandomPoint();
-        final RandomPoint pointd = new RandomPoint();
-        final Polyline poly = new Polygon(pointa, pointb, pointc, pointd);
+        final RandomPoint<Object> pointa = new RandomPoint<>();
+        final RandomPoint<Object> pointb = new RandomPoint<>();
+        final RandomPoint<Object> pointc = new RandomPoint<>();
+        final RandomPoint<Object> pointd = new RandomPoint<>();
+        final Polyline<Object> poly = new Polygon<>(pointa, pointb, pointc, pointd);
         MatcherAssert.assertThat(
             poly.points(),
             Matchers.contains(pointa, pointb, pointc, pointd, pointa)

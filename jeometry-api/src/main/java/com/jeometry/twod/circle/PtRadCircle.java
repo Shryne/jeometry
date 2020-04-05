@@ -29,38 +29,39 @@ import lombok.ToString;
 
 /**
  * Circle implementation class describing a circle by a center and a radius.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public class PtRadCircle implements Circle {
+public class PtRadCircle<T> implements Circle<T> {
 
     /**
      * Circle radius.
      */
-    private final Scalar rdx;
+    private final Scalar<T> rdx;
 
     /**
      * Circle center.
      */
-    private final Vect cntr;
+    private final Vect<T> cntr;
 
     /**
      * Ctor.
      * @param center Circle center
      * @param radius Circle radius
      */
-    public PtRadCircle(final Vect center, final Scalar radius) {
+    public PtRadCircle(final Vect<T> center, final Scalar<T> radius) {
         this.rdx = radius;
         this.cntr = center;
     }
 
     @Override
-    public final Vect center() {
+    public final Vect<T> center() {
         return this.cntr;
     }
 
     @Override
-    public final Scalar radius() {
+    public final Scalar<T> radius() {
         return this.rdx;
     }
 
