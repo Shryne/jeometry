@@ -64,22 +64,6 @@ public final class ProductTest {
     }
 
     /**
-     * {@link Product} throws exception when vectors don't have the same size.
-     */
-    @SuppressWarnings("unchecked")
-    @Test
-    public void errorsWhenNotSameSize() {
-        this.thrown.expect(IllegalArgumentException.class);
-        final int dim = 6;
-        final Vect<Object> first = Mockito.mock(Vect.class);
-        final Vect<Object> second = Mockito.mock(Vect.class);
-        Mockito.when(first.coords()).thenReturn(ProductTest.scalars(dim));
-        Mockito.when(second.coords()).thenReturn(ProductTest.scalars(dim + 1));
-        final MetricSpaceField<Object> field = Mockito.mock(MetricSpaceField.class);
-        new Product<>(first, second).value(field);
-    }
-
-    /**
      * {@link Product} throws exception when not operating on a metric space.
      */
     @SuppressWarnings("unchecked")
