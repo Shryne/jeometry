@@ -60,7 +60,6 @@ public final class LinePointOrdinate<T> implements Scalar<T> {
         this.abscissa = abscissa;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public T value(final Field<T> field) {
         final boolean inline = field.equals(

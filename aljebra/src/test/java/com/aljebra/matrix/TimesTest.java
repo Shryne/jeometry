@@ -27,6 +27,7 @@ import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -80,8 +81,8 @@ public final class TimesTest {
             matrix.line(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(scalara, scalare),
-                    new Multiplication<Object>(scalarc, scalare),
+                    new Multiplication<Object>(Arrays.asList(scalara, scalare)),
+                    new Multiplication<Object>(Arrays.asList(scalarc, scalare)),
                 }
             )
         );
@@ -89,8 +90,8 @@ public final class TimesTest {
             matrix.line(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(scalarb, scalare),
-                    new Multiplication<Object>(scalard, scalare),
+                    new Multiplication<Object>(Arrays.asList(scalarb, scalare)),
+                    new Multiplication<Object>(Arrays.asList(scalard, scalare)),
                 }
             )
         );
@@ -98,8 +99,8 @@ public final class TimesTest {
             matrix.column(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(scalara, scalare),
-                    new Multiplication<Object>(scalarb, scalare),
+                    new Multiplication<Object>(Arrays.asList(scalara, scalare)),
+                    new Multiplication<Object>(Arrays.asList(scalarb, scalare)),
                 }
             )
         );
@@ -107,8 +108,8 @@ public final class TimesTest {
             matrix.column(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(scalarc, scalare),
-                    new Multiplication<Object>(scalard, scalare),
+                    new Multiplication<Object>(Arrays.asList(scalarc, scalare)),
+                    new Multiplication<Object>(Arrays.asList(scalard, scalare)),
                 }
             )
         );

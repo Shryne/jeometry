@@ -31,6 +31,7 @@ import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,14 +59,13 @@ public final class Dot implements InnerProduct<Double> {
         return Dot.wrap(Math.sqrt(Dot.val(this.product(vect, vect))));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Degrees angle(final Vect<Double> first, final Vect<Double> second) {
         final Double cross =
             Dot.val(first.coords()[0]) * Dot.val(second.coords()[1])
                 - Dot.val(second.coords()[0]) * Dot.val(first.coords()[1]);
         final Double norms = Dot.val(
-            new Multiplication<Double>(this.norm(first), this.norm(second))
+            new Multiplication<Double>(Arrays.asList(this.norm(first), this.norm(second)))
         );
         final Double result;
         if (norms == 0) {
@@ -104,10 +104,9 @@ public final class Dot implements InnerProduct<Double> {
      * @param sec Second operand
      * @return A scalar representing scalar multiplication
      */
-    @SuppressWarnings("unchecked")
     private static Multiplication<Double> mult(final Scalar<Double> first,
         final Scalar<Double> sec) {
-        return new Multiplication<Double>(first, sec);
+        return new Multiplication<Double>(Arrays.asList(first, sec));
     }
 
     /**

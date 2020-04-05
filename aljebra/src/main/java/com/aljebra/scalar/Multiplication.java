@@ -27,7 +27,6 @@ import com.aljebra.field.Field;
 import com.aljebra.field.FieldMultiplication;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -49,26 +48,23 @@ public final class Multiplication<T> implements Scalar<T> {
      * Constructor.
      * @param operands Multiplication operands
      */
-    @SuppressWarnings("unchecked")
-    public Multiplication(final Scalar<T>... operands) {
-        this.opers = HashMultiset.create(Arrays.asList(operands));
+    public Multiplication(final Iterable<? extends Scalar<T>> operands) {
+        this.opers = HashMultiset.create(operands);
     }
 
     /**
      * Gives the multiplication operands.
      * @return Operands of the multiplication.
      */
-    @SuppressWarnings("unchecked")
-    public Scalar<T>[] operands() {
-        return this.opers.toArray(new Scalar[this.opers.size()]);
+    public Iterable<Scalar<T>> operands() {
+        return this.opers;
     }
 
     @Override
     public T value(final Field<T> field) {
         final FieldMultiplication<T> mult = field.multiplication();
         T result = mult.neutral();
-        final Scalar<T>[] operands = this.operands();
-        for (final Scalar<T> operand : operands) {
+        for (final Scalar<T> operand : this.operands()) {
             result = mult.multiply(result, operand.value(field));
         }
         return result;
