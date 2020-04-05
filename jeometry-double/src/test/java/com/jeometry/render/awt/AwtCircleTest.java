@@ -45,11 +45,12 @@ public final class AwtCircleTest {
     /**
      * {@link AwtCircle} renders circle.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersCircles() {
-        final Circle circle = Mockito.mock(Circle.class);
+        final Circle<Double> circle = Mockito.mock(Circle.class);
         Mockito.when(circle.center()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
@@ -75,7 +76,8 @@ public final class AwtCircleTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final Line render = Mockito.mock(Line.class);
+        @SuppressWarnings("unchecked")
+        final Line<Double> render = Mockito.mock(Line.class);
         final AwtCircle painter = new AwtCircle(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));

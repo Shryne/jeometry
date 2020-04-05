@@ -42,16 +42,17 @@ public final class AwtSegmentTest {
     /**
      * {@link AwtSegment} renders segments.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersSegments() {
-        final Segment segment = Mockito.mock(Segment.class);
+        final Segment<Double> segment = Mockito.mock(Segment.class);
         Mockito.when(segment.start()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(segment.end()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
             )
         );
@@ -68,7 +69,8 @@ public final class AwtSegmentTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final Line render = Mockito.mock(Line.class);
+        @SuppressWarnings("unchecked")
+        final Line<Double> render = Mockito.mock(Line.class);
         final AwtSegment painter = new AwtSegment(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));

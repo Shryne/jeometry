@@ -72,14 +72,10 @@ public final class AwtTransform {
     public Point transform(final DblPoint point) {
         final double scale = this.ctx.scale();
         return new Point(
-            (int) (
-                this.ctx.width() / 2d
-                + scale * point.dblx() - this.ctx.center().dblx() * scale
-            ),
-            (int) (
-                this.ctx.height() / 2d
-                - scale * point.dbly() + this.ctx.center().dbly() * scale
-            )
+            (int) (this.ctx.width() / 2d
+                + scale * point.dblx() - this.ctx.center().dblx() * scale),
+            (int) (this.ctx.height() / 2d
+                - scale * point.dbly() + this.ctx.center().dbly() * scale)
         );
     }
 
@@ -88,7 +84,7 @@ public final class AwtTransform {
      * @param point DblPoint input
      * @return AWT Point
      */
-    public Point transform(final XyPoint point) {
+    public Point transform(final XyPoint<Double> point) {
         return this.transform(
             new DblPoint(
                 this.field.actual(point.xcoor()),
@@ -102,7 +98,7 @@ public final class AwtTransform {
      * @param point Vector input
      * @return AWT Point
      */
-    public Point transform(final Vect point) {
+    public Point transform(final Vect<Double> point) {
         return this.transform(
             new DblPoint(
                 this.field.actual(point.coords()[0]),

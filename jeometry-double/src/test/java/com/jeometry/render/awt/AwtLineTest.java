@@ -42,16 +42,17 @@ public final class AwtLineTest {
     /**
      * {@link AwtLine} renders lines.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersLines() {
-        final Line line = Mockito.mock(Line.class);
+        final Line<Double> line = Mockito.mock(Line.class);
         Mockito.when(line.point()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(line.direction()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
             )
         );
@@ -66,16 +67,17 @@ public final class AwtLineTest {
     /**
      * {@link AwtLine} renders vertical lines.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersVertical() {
-        final Line line = Mockito.mock(Line.class);
+        final Line<Double> line = Mockito.mock(Line.class);
         Mockito.when(line.point()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(line.direction()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
             )
         );
@@ -92,7 +94,8 @@ public final class AwtLineTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final Angle render = Mockito.mock(Angle.class);
+        @SuppressWarnings("unchecked")
+        final Angle<Double> render = Mockito.mock(Angle.class);
         final AwtLine painter = new AwtLine(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));

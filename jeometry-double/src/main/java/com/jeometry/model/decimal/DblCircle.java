@@ -31,14 +31,14 @@ import com.jeometry.twod.circle.PtRadCircle;
  * Convenience class representing a 2D circle defined by a double radius.
  * @since 0.1
  */
-public class DblCircle extends PtRadCircle {
+public class DblCircle extends PtRadCircle<Double> {
 
     /**
      * Constructor.
      * @param center Circle center
      * @param radius Radius
      */
-    public DblCircle(final Vect center, final Double radius) {
+    public DblCircle(final Vect<Double> center, final Double radius) {
         super(center, new Scalar.Default<>(radius));
     }
 
