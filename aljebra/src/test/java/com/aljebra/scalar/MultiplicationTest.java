@@ -25,6 +25,7 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.FieldMultiplication;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -45,8 +46,8 @@ public final class MultiplicationTest {
         final Scalar<Object> first = Mockito.mock(Scalar.class);
         final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new Multiplication<>(first, second),
-            Matchers.equalTo(new Multiplication<>(second, first))
+            new Multiplication<>(Arrays.asList(first, second)),
+            Matchers.equalTo(new Multiplication<>(Arrays.asList(second, first)))
         );
     }
 
@@ -64,7 +65,7 @@ public final class MultiplicationTest {
             FieldMultiplication.class
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
-        new Multiplication<>(first, second).value(field);
+        new Multiplication<>(Arrays.asList(first, second)).value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).neutral();
         Mockito.verify(mult, Mockito.times(2)).multiply(

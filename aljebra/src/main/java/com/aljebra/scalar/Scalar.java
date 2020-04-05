@@ -69,12 +69,19 @@ public interface Scalar<T> {
      * @param operands Scalars to multiply
      * @return A scalar defining the multiplication
      */
-    @SuppressWarnings("unchecked")
-    default Scalar<T> mult(Scalar<T>... operands) {
-        final Scalar<T>[] ops = new Scalar[operands.length + 1];
-        System.arraycopy(operands, 0, ops, 0, operands.length);
-        ops[operands.length] = this;
+    default Scalar<T> mult(final List<? extends Scalar<T>> operands) {
+        final List<Scalar<T>> ops = new ArrayList<>(operands);
+        ops.add(this);
         return new Multiplication<T>(ops);
+    }
+
+    /**
+     * Multiplies the given scalar to this scalar.
+     * @param operand Scalar to multiply
+     * @return A scalar defining the multiplication
+     */
+    default Scalar<T> mult(final Scalar<T> operand) {
+        return new Multiplication<T>(Arrays.asList(operand, this));
     }
 
     /**

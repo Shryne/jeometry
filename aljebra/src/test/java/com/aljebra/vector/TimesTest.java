@@ -25,6 +25,7 @@ package com.aljebra.vector;
 
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -68,9 +69,8 @@ public final class TimesTest {
      * @param another Second scalar
      * @return A scalar representing the multiplication of two scalars
      */
-    @SuppressWarnings("unchecked")
     private static Scalar<Object> mult(final Scalar<Object> scalar, final Scalar<Object> another) {
-        return new Multiplication<>(scalar, another);
+        return new Multiplication<>(Arrays.asList(scalar, another));
     }
 
     /**
