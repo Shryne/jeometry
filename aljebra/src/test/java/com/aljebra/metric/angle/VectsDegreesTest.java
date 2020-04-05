@@ -76,4 +76,21 @@ public final class VectsDegreesTest {
             )
         );
     }
+
+    /**
+     * {@link VectsDegrees} toString prints underlying vectors.
+     */
+    @SuppressWarnings("unchecked")
+    @Test
+    public void toStringPrintsDegrees() {
+        final Vect<Object> first = Mockito.mock(Vect.class);
+        final Vect<Object> second = Mockito.mock(Vect.class);
+        MatcherAssert.assertThat(
+            new VectsDegrees(first, second).toString(),
+            Matchers.allOf(
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString())
+            )
+        );
+    }
 }

@@ -36,7 +36,7 @@ import org.mockito.Mockito;
 public final class TimesTest {
 
     /**
-     * {@link Sum} resolves to angle times a number.
+     * {@link Times} resolves to angle times a number.
      */
     @Test
     public void resolvesAngleTimes() {
@@ -58,6 +58,48 @@ public final class TimesTest {
         MatcherAssert.assertThat(
             new Times(third, factor).resolve(pdt).doubleValue(),
             Matchers.closeTo(third.resolve(pdt).doubleValue() * factor, error)
+        );
+    }
+
+    /**
+     * {@link Times} toString prints underlying degrees and multiple.
+     */
+    @Test
+    public void toStringPrintsDegrees() {
+        final Degrees deg = new Degrees.Default(Math.random());
+        final Number multiple = Math.random();
+        MatcherAssert.assertThat(
+            new Times(deg, multiple).toString(),
+            Matchers.allOf(
+                Matchers.containsString(deg.toString()),
+                Matchers.containsString(multiple.toString())
+            )
+        );
+    }
+
+    /**
+     * {@link Times} respects equality with the same underlying degrees.
+     */
+    @Test
+    public void equalsRespectsDegrees() {
+        final Degrees deg = new Degrees.Default(Math.random());
+        final Number multiple = Math.random();
+        MatcherAssert.assertThat(
+            new Times(deg, multiple),
+            Matchers.equalTo(new Times(deg, multiple))
+        );
+    }
+
+    /**
+     * {@link Times} respects hashcode with the same underlying degrees.
+     */
+    @Test
+    public void hashCodeRespectsDegrees() {
+        final Degrees deg = new Degrees.Default(Math.random());
+        final Number multiple = Math.random();
+        MatcherAssert.assertThat(
+            new Times(deg, multiple).hashCode(),
+            Matchers.equalTo(new Times(deg, multiple).hashCode())
         );
     }
 }
