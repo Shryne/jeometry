@@ -46,18 +46,18 @@ public final class AddTest {
         final Scalar<Object> first = Mockito.mock(Scalar.class);
         final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new Add<>(first, second),
-            Matchers.equalTo(new Add<>(second, first))
+            new Add<>(Arrays.asList(first, second)),
+            Matchers.equalTo(new Add<>(Arrays.asList(second, first)))
         );
         MatcherAssert.assertThat(
-            new Add<>(first, second),
+            new Add<>(Arrays.asList(first, second)),
             Matchers.not(
-                Matchers.equalTo(new Add<>(first, first))
+                Matchers.equalTo(new Add<>(Arrays.asList(first, first)))
             )
         );
         MatcherAssert.assertThat(
-            new Add<>(first, second).hashCode(),
-            Matchers.equalTo(new Add<>(second, first).hashCode())
+            new Add<>(Arrays.asList(first, second)).hashCode(),
+            Matchers.equalTo(new Add<>(Arrays.asList(second, first)).hashCode())
         );
     }
 
@@ -70,8 +70,8 @@ public final class AddTest {
         final Scalar<Object> first = Mockito.mock(Scalar.class);
         final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new Add<>(first, second, first),
-            Matchers.not(Matchers.equalTo(new Add<>(second, first)))
+            new Add<>(Arrays.asList(first, second, first)),
+            Matchers.not(Matchers.equalTo(new Add<>(Arrays.asList(second, first))))
         );
     }
 
@@ -84,7 +84,7 @@ public final class AddTest {
         final Scalar<Object> first = Mockito.mock(Scalar.class);
         final Scalar<Object> second = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            Arrays.asList(new Add<>(first, second).operands()),
+            new Add<>(Arrays.asList(first, second)).operands(),
             Matchers.containsInAnyOrder(first, second)
         );
     }
@@ -100,7 +100,7 @@ public final class AddTest {
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
         Mockito.when(field.addition()).thenReturn(add);
-        new Add<>(first, second, first).value(field);
+        new Add<>(Arrays.asList(first, second, first)).value(field);
         Mockito.verify(field).addition();
         Mockito.verify(add).neutral();
         final int invocations = 3;

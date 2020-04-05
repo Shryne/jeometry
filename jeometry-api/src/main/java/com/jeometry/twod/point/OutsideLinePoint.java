@@ -28,6 +28,7 @@ import com.aljebra.vector.Sum;
 import com.jeometry.twod.Renderable;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PerpLine;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -42,10 +43,9 @@ public final class OutsideLinePoint<T> extends FixedVector<T> implements Rendera
      * Constructor.
      * @param line The line to avoid belonging to
      */
-    @SuppressWarnings("unchecked")
     public OutsideLinePoint(final Line<T> line) {
         super(
-            new Sum<T>(line.point(), new PerpLine<>(line).direction()).coords()
+            new Sum<T>(Arrays.asList(line.point(), new PerpLine<>(line).direction())).coords()
         );
     }
 }

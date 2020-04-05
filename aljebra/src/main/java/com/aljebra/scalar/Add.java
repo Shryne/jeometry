@@ -27,7 +27,6 @@ import com.aljebra.field.Field;
 import com.aljebra.field.FieldAddition;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -49,26 +48,23 @@ public final class Add<T> implements Scalar<T> {
      * Constructor.
      * @param operands Addition operands
      */
-    @SuppressWarnings("unchecked")
-    public Add(final Scalar<T>... operands) {
-        this.opers = HashMultiset.create(Arrays.asList(operands));
+    public Add(final Iterable<? extends Scalar<T>> operands) {
+        this.opers = HashMultiset.create(operands);
     }
 
     /**
      * Gives the addition operands.
      * @return Operands of the sum.
      */
-    @SuppressWarnings("unchecked")
-    public Scalar<T>[] operands() {
-        return this.opers.toArray(new Scalar[this.opers.size()]);
+    public Iterable<Scalar<T>> operands() {
+        return this.opers;
     }
 
     @Override
     public T value(final Field<T> field) {
         final FieldAddition<T> addition = field.addition();
         T result = addition.neutral();
-        final Scalar<T>[] operands = this.operands();
-        for (final Scalar<T> operand : operands) {
+        for (final Scalar<T> operand : this.operands()) {
             result = addition.add(result, operand.value(field));
         }
         return result;

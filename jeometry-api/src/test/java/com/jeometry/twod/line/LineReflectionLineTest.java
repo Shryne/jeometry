@@ -28,6 +28,7 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.VectEquals;
 import com.jeometry.twod.point.LineReflectionPoint;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -42,7 +43,6 @@ public final class LineReflectionLineTest {
      * {@link LineReflectionLine} can build the reflection line given
      * the reflection axis.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void buildsReflection() {
         final Line<Double> origin = new RandomLine<>();
@@ -57,9 +57,9 @@ public final class LineReflectionLineTest {
         );
         MatcherAssert.assertThat(
             new VectEquals(
-                new Sum<>(result.point(), result.direction()),
+                new Sum<>(Arrays.asList(result.point(), result.direction())),
                 new LineReflectionPoint<>(
-                    axis, new Sum<>(origin.point(), origin.direction())
+                    axis, new Sum<>(Arrays.asList(origin.point(), origin.direction()))
                 )
             ).resolve(dec),
             Matchers.is(true)

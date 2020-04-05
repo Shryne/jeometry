@@ -24,6 +24,7 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -47,7 +48,7 @@ public final class SumTest {
         final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Sum(first, second, third).resolve(pdt).doubleValue(),
+            new Sum(Arrays.asList(first, second, third)).resolve(pdt).doubleValue(),
             Matchers.closeTo(
                 first.resolve(pdt).doubleValue()
                     + second.resolve(pdt).doubleValue()
@@ -67,13 +68,13 @@ public final class SumTest {
         final Degrees second = Mockito.mock(Degrees.class);
         final Degrees third = Mockito.mock(Degrees.class);
         MatcherAssert.assertThat(
-            new Sum(first, second, third),
+            new Sum(Arrays.asList(first, second, third)),
             Matchers.allOf(
-                Matchers.equalTo(new Sum(first, third, second)),
-                Matchers.equalTo(new Sum(second, third, first)),
-                Matchers.equalTo(new Sum(second, first, third)),
-                Matchers.equalTo(new Sum(third, second, first)),
-                Matchers.equalTo(new Sum(third, first, second))
+                Matchers.equalTo(new Sum(Arrays.asList(first, third, second))),
+                Matchers.equalTo(new Sum(Arrays.asList(second, third, first))),
+                Matchers.equalTo(new Sum(Arrays.asList(second, first, third))),
+                Matchers.equalTo(new Sum(Arrays.asList(third, second, first))),
+                Matchers.equalTo(new Sum(Arrays.asList(third, first, second)))
             )
         );
     }
@@ -86,7 +87,7 @@ public final class SumTest {
         final Degrees first = new Degrees.Default(Math.random());
         final Degrees second = new Degrees.Default(Math.random());
         MatcherAssert.assertThat(
-            new Sum(first, second).toString(),
+            new Sum(Arrays.asList(first, second)).toString(),
             Matchers.allOf(
                 Matchers.containsString(first.toString()),
                 Matchers.containsString(second.toString())

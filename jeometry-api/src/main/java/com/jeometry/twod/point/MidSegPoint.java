@@ -32,6 +32,7 @@ import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.segment.Segment;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -56,13 +57,14 @@ public final class MidSegPoint<T> extends XyPoint<T> {
      * @param <T> scalar types
      * @return A point belonging to the segment
      */
-    @SuppressWarnings("unchecked")
     private static <T> Vect<T> vector(final Segment<T> seg) {
         final Scalar<T> half = new MultInverse<>(
-            new Add<T>(new MultIdentity<>(), new MultIdentity<>())
+            new Add<T>(Arrays.asList(new MultIdentity<>(), new MultIdentity<>()))
         );
         return new Sum<>(
-            new Times<>(new Minus<>(seg.end(), seg.start()), half), seg.start()
+            Arrays.asList(
+                new Times<>(new Minus<>(seg.end(), seg.start()), half), seg.start()
+            )
         );
     }
 

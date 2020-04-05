@@ -29,6 +29,7 @@ import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.point.RandomPoint;
 import com.jeometry.twod.ray.PtsRay;
 import com.jeometry.twod.ray.Ray;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -42,7 +43,6 @@ public final class RayLineTest {
     /**
      * {@link RayLine} builds a line wrapping the ray.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void wrapsRay() {
         final Ray<Double> ray = new PtsRay<>(new RandomPoint<>(), new RandomPoint<>());
@@ -53,7 +53,7 @@ public final class RayLineTest {
         );
         MatcherAssert.assertThat(
             new PointInLine<>(
-                new Sum<>(ray.origin(), ray.direction()), line
+                new Sum<>(Arrays.asList(ray.origin(), ray.direction())), line
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
