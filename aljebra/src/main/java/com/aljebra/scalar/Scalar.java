@@ -24,6 +24,9 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -46,12 +49,19 @@ public interface Scalar<T> {
      * @param operands Scalars to add
      * @return A scalar defining the addition
      */
-    @SuppressWarnings("unchecked")
-    default Scalar<T> add(Scalar<T>... operands) {
-        final Scalar<T>[] ops = new Scalar[operands.length + 1];
-        System.arraycopy(operands, 0, ops, 0, operands.length);
-        ops[operands.length] = this;
+    default Scalar<T> add(final List<? extends Scalar<T>> operands) {
+        final List<Scalar<T>> ops = new ArrayList<>(operands);
+        ops.add(this);
         return new Add<T>(ops);
+    }
+
+    /**
+     * Adds the given scalar to this scalar.
+     * @param operand Scalar to add
+     * @return A scalar defining the addition
+     */
+    default Scalar<T> add(final Scalar<T> operand) {
+        return new Add<T>(Arrays.asList(operand, this));
     }
 
     /**

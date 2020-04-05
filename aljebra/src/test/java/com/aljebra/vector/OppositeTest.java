@@ -25,6 +25,7 @@ package com.aljebra.vector;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -48,8 +49,9 @@ public final class OppositeTest {
     @Test
     public void coordsEqualCoordsMult() {
         final Vect<Double> vecta = new FixedVector<>(OppositeTest.scalars());
-        @SuppressWarnings("unchecked")
-        final Scalar<Double>[] sum = new Sum<>(new Opposite<>(vecta), vecta).coords();
+        final Scalar<Double>[] sum = new Sum<>(
+            Arrays.asList(new Opposite<>(vecta), vecta)
+        ).coords();
         final Decimal field = new Decimal();
         for (final Scalar<Double> scalar : sum) {
             MatcherAssert.assertThat(field.actual(scalar), Matchers.is(0.));

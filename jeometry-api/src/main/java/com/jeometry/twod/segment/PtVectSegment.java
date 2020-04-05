@@ -25,6 +25,7 @@ package com.jeometry.twod.segment;
 
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -41,9 +42,8 @@ public class PtVectSegment<T> extends PtsSegment<T> {
      * @param extremity First segment extremity
      * @param vect Vector defining the segment
      */
-    @SuppressWarnings("unchecked")
     public PtVectSegment(final Vect<T> extremity, final Vect<T> vect) {
-        super(extremity, new Sum<>(extremity, vect));
+        super(extremity, new Sum<>(Arrays.asList(extremity, vect)));
     }
 
 }

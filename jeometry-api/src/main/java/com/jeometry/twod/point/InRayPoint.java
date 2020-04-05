@@ -28,6 +28,7 @@ import com.aljebra.scalar.Greater;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
 import com.jeometry.twod.ray.Ray;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -42,12 +43,13 @@ public final class InRayPoint<T> extends XyPoint<T> {
      * Constructor.
      * @param ray The ray to belong to
      */
-    @SuppressWarnings("unchecked")
     public InRayPoint(final Ray<T> ray) {
         super(
             new Sum<>(
-                new Times<>(ray.direction(), new Greater<>(new AddIdentity<>())),
-                ray.origin()
+                Arrays.asList(
+                    new Times<>(ray.direction(), new Greater<>(new AddIdentity<>())),
+                    ray.origin()
+                )
             )
         );
     }

@@ -27,7 +27,8 @@ import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Scalar;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -49,9 +50,8 @@ public final class Sum<T> implements Vect<T> {
      * Constructor.
      * @param operands Sum operands
      */
-    @SuppressWarnings("unchecked")
-    public Sum(final Vect<T>... operands) {
-        this.operands = HashMultiset.create(Arrays.asList(operands));
+    public Sum(final Iterable<Vect<T>> operands) {
+        this.operands = HashMultiset.create(operands);
     }
 
     @SuppressWarnings("unchecked")
@@ -70,13 +70,10 @@ public final class Sum<T> implements Vect<T> {
      * @param dim Given dimension
      * @return An {@link Add} object representing the sum
      */
-    @SuppressWarnings("unchecked")
     private Add<T> dimension(final int dim) {
-        final Scalar<T>[] coor = new Scalar[this.operands.size()];
-        int idx = 0;
+        final List<Scalar<T>> coor = new ArrayList<>(this.operands.size());
         for (final Vect<T> oper : this.operands) {
-            coor[idx] = oper.coords()[dim];
-            ++idx;
+            coor.add(oper.coords()[dim]);
         }
         return new Add<T>(coor);
     }

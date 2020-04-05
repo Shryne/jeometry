@@ -77,9 +77,7 @@ public final class LinePointOrdinate<T> implements Scalar<T> {
             result = field.actual(new Random<T>());
         } else {
             result = field.actual(
-                new Slope<T>(this.line).mult(this.abscissa).add(
-                    new Intercept<T>(this.line)
-                )
+                new Slope<T>(this.line).mult(this.abscissa).add(new Intercept<T>(this.line))
             );
         }
         return result;

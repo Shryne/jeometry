@@ -26,6 +26,7 @@ package com.jeometry.twod.point;
 import com.aljebra.vector.Sum;
 import com.jeometry.twod.circle.Circle;
 import com.jeometry.twod.segment.LengthSegment;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -40,11 +41,12 @@ public final class InCirclePoint<T> extends XyPoint<T> {
      * Constructor.
      * @param circle The circle to belong to
      */
-    @SuppressWarnings("unchecked")
     public InCirclePoint(final Circle<T> circle) {
         super(
             new Sum<>(
-                new SegVect<>(new LengthSegment<>(circle.radius())), circle.center()
+                Arrays.asList(
+                    new SegVect<>(new LengthSegment<>(circle.radius())), circle.center()
+                )
             )
         );
     }

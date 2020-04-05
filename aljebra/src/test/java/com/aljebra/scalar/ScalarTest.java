@@ -23,6 +23,7 @@
  */
 package com.aljebra.scalar;
 
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -52,14 +53,13 @@ public final class ScalarTest {
     /**
      * Scalar can build addition.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void buildsAddition() {
         final Scalar<Object> scalar = new Scalar.Default<>(new Object());
         final Scalar<Object> other = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.add(other),
-            Matchers.equalTo(new Add<>(scalar, other))
+            Matchers.equalTo(new Add<>(Arrays.asList(scalar, other)))
         );
     }
 
