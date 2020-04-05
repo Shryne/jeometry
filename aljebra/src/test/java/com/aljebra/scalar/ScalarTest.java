@@ -55,8 +55,8 @@ public final class ScalarTest {
     @SuppressWarnings("unchecked")
     @Test
     public void buildsAddition() {
-        final Scalar<Object> scalar = new Scalar.Default<>(null);
-        final Scalar<Object> other = new Scalar.Default<>(null);
+        final Scalar<Object> scalar = new Scalar.Default<>(new Object());
+        final Scalar<Object> other = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.add(other),
             Matchers.equalTo(new Add<>(scalar, other))
@@ -69,8 +69,8 @@ public final class ScalarTest {
     @SuppressWarnings("unchecked")
     @Test
     public void buildsMultiplication() {
-        final Scalar<Object> scalar = new Scalar.Default<>(null);
-        final Scalar<Object> other = new Scalar.Default<>(null);
+        final Scalar<Object> scalar = new Scalar.Default<>(new Object());
+        final Scalar<Object> other = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.mult(other),
             Matchers.equalTo(new Multiplication<>(scalar, other))

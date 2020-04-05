@@ -29,7 +29,6 @@ import com.aljebra.vector.FixedVector;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
-import java.awt.Component;
 import java.awt.Graphics2D;
 import java.util.concurrent.CountDownLatch;
 import org.hamcrest.MatcherAssert;
@@ -71,7 +70,7 @@ public final class AwtTest {
         final int height = 2011;
         awt.render(new Figure());
         awt.withSize(width, height);
-        final AwtDrawableSurface surface = AwtTest.drawable(awt);
+        final AwtDrawableSurface surface = awt.surface();
         final double scale = surface.context().scale();
         MatcherAssert.assertThat(
             surface.getWidth(), Matchers.equalTo((int) scale * width)
@@ -117,20 +116,4 @@ public final class AwtTest {
         Mockito.verify(line, Mockito.atLeastOnce()).direction();
     }
 
-    /**
-     * Gets the drawable surface from Awt.
-     * @param awt Awt
-     * @return Drawable surface
-     */
-    private static AwtDrawableSurface drawable(final Awt awt) {
-        final Component[] comps = awt.getContentPane().getComponents();
-        AwtDrawableSurface result = null;
-        for (final Component comp : comps) {
-            if (comp instanceof AwtDrawableSurface) {
-                result = (AwtDrawableSurface) comp;
-                break;
-            }
-        }
-        return result;
-    }
 }

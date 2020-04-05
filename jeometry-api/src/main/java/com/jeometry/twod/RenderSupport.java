@@ -57,8 +57,7 @@ public final class RenderSupport implements Renderer {
 
     @Override
     public void render(final Shape renderable) {
-        if (renderable != null
-            && this.supports(renderable)) {
+        if (this.supports(renderable)) {
             this.origin.render(renderable);
         }
     }

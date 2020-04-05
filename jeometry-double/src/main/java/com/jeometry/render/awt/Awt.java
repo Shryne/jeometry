@@ -97,6 +97,14 @@ public final class Awt extends JFrame implements Output {
     }
 
     /**
+     * Accessor for the drawable surface.
+     * @return The drawable surface
+     */
+    public AwtDrawableSurface surface() {
+        return this.drawable;
+    }
+
+    /**
      * Builds the component and returns the drawable surface.
      */
     private void init() {
