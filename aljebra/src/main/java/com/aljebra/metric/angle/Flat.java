@@ -25,13 +25,11 @@ package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Flat (straight) angle degrees.
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
 @EqualsAndHashCode
 public final class Flat implements Degrees {
 

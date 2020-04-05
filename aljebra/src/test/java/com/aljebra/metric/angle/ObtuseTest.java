@@ -50,4 +50,22 @@ public final class ObtuseTest {
         MatcherAssert.assertThat(angle, Matchers.lessThanOrEqualTo(Math.PI));
     }
 
+    /**
+     * {@link Obtuse} to string prints the generated angle.
+     */
+    @Test
+    public void toStringPrintsAngle() {
+        final Obtuse obtuse = new Obtuse();
+        @SuppressWarnings("unchecked")
+        final Double angle = obtuse.resolve(
+            Mockito.mock(InnerProduct.class)
+        ).doubleValue();
+        final int precision = 6;
+        MatcherAssert.assertThat(
+            obtuse.toString(),
+            Matchers.containsString(
+                Double.toString(angle * 2 / Math.PI - 1).substring(0, precision)
+            )
+        );
+    }
 }

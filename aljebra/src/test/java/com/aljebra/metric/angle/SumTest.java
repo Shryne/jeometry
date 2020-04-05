@@ -77,4 +77,20 @@ public final class SumTest {
             )
         );
     }
+
+    /**
+     * {@link Sum} toString prints underlying angles.
+     */
+    @Test
+    public void toStringPrintsDegrees() {
+        final Degrees first = new Degrees.Default(Math.random());
+        final Degrees second = new Degrees.Default(Math.random());
+        MatcherAssert.assertThat(
+            new Sum(first, second).toString(),
+            Matchers.allOf(
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString())
+            )
+        );
+    }
 }
