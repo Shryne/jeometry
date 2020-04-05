@@ -30,10 +30,11 @@ import lombok.ToString;
 /**
  * An angle defined by three points: a summit, a point belonging
  * to the starting ray and a point belonging to the ending ray.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class PtsAngle extends VectsAngle {
+public final class PtsAngle<T> extends VectsAngle<T> {
 
     /**
      * Constructor.
@@ -41,7 +42,7 @@ public final class PtsAngle extends VectsAngle {
      * @param first A point belonging to the start angle side
      * @param second A point belonging to the end angle side
      */
-    public PtsAngle(final Vect origin, final Vect first, final Vect second) {
-        super(origin, new Minus(first, origin), new Minus(second, origin));
+    public PtsAngle(final Vect<T> origin, final Vect<T> first, final Vect<T> second) {
+        super(origin, new Minus<T>(first, origin), new Minus<T>(second, origin));
     }
 }

@@ -45,11 +45,11 @@ public final class IntersectingTest {
      */
     @Test
     public void resolvesTrueWhenDifferentDirs() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Intersecting(
-                any, new PtDirLine(
-                    new RandomPoint(), new DifferentPoint(any.direction())
+            new Intersecting<>(
+                any, new PtDirLine<>(
+                    new RandomPoint<>(), new DifferentPoint<>(any.direction())
                 )
             ).resolve(new Decimal()),
             Matchers.is(true)
@@ -61,10 +61,10 @@ public final class IntersectingTest {
      */
     @Test
     public void resolvesFalseWhenSameDirs() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Intersecting(
-                any, new PtDirLine(new RandomPoint(), any.direction())
+            new Intersecting<>(
+                any, new PtDirLine<>(new RandomPoint<>(), any.direction())
             ).resolve(new Decimal()),
             Matchers.is(false)
         );

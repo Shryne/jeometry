@@ -40,12 +40,13 @@ public final class YPointTest {
      */
     @Test
     public void buildsAVector() {
-        final Scalar ycoor = Mockito.mock(Scalar.class);
+        @SuppressWarnings("unchecked")
+        final Scalar<Object> ycoor = Mockito.mock(Scalar.class);
         MatcherAssert.assertThat(
-            new YPoint(ycoor).ycoor(), Matchers.equalTo(ycoor)
+            new YPoint<>(ycoor).ycoor(), Matchers.equalTo(ycoor)
         );
         MatcherAssert.assertThat(
-            new YPoint(ycoor).coords()[1], Matchers.equalTo(ycoor)
+            new YPoint<>(ycoor).coords()[1], Matchers.equalTo(ycoor)
         );
     }
 
@@ -54,9 +55,9 @@ public final class YPointTest {
      */
     @Test
     public void toStringPrintsCoordinates() {
-        final Random scalar = new Random();
+        final Random<Object> scalar = new Random<>();
         MatcherAssert.assertThat(
-            new YPoint(scalar).toString(),
+            new YPoint<>(scalar).toString(),
             Matchers.containsString(scalar.toString())
         );
     }

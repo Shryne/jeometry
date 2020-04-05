@@ -45,14 +45,14 @@ public final class AngleBisectorTest {
      */
     @Test
     public void buildsBisectorRay() {
-        final Vect origin = new RandomPoint();
-        final Vect start = new RandomPoint();
-        final Vect end = new RandomPoint();
-        final Ray bisector = new AngleBisector(
-            new VectsAngle(origin, start, end)
+        final Vect<Double> origin = new RandomPoint<>();
+        final Vect<Double> start = new RandomPoint<>();
+        final Vect<Double> end = new RandomPoint<>();
+        final Ray<Double> bisector = new AngleBisector<>(
+            new VectsAngle<>(origin, start, end)
         );
-        final Vect dir = bisector.direction();
-        final InnerProduct dot = new Dot();
+        final Vect<Double> dir = bisector.direction();
+        final InnerProduct<Double> dot = new Dot();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             dot.angle(start, dir).resolve(dot).doubleValue(),
@@ -68,9 +68,10 @@ public final class AngleBisectorTest {
      */
     @Test
     public void toStringContainsAngle() {
-        final Angle angle = Mockito.mock(Angle.class);
+        @SuppressWarnings("unchecked")
+        final Angle<Object> angle = Mockito.mock(Angle.class);
         MatcherAssert.assertThat(
-            new AngleBisector(angle).toString(),
+            new AngleBisector<>(angle).toString(),
             Matchers.containsString(angle.toString())
         );
     }

@@ -44,12 +44,13 @@ public final class PtReflectionPolyLineTest {
      */
     @Test
     public void buildsReflection() {
-        final Polyline input = new PtsPolyline(
-            new RandomPoint(), new RandomPoint(), new RandomPoint(),
-            new RandomPoint()
+        @SuppressWarnings("unchecked")
+        final Polyline<Object> input = new PtsPolyline<>(
+            new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>(),
+            new RandomPoint<>()
         );
-        final RandomPoint across = new RandomPoint();
-        final Polyline result = new PtReflectionPolyLine(across, input);
+        final RandomPoint<Object> across = new RandomPoint<>();
+        final Polyline<Object> result = new PtReflectionPolyLine<>(across, input);
         for (int idx = 0; idx < result.points().size(); ++idx) {
             PtReflectionPolyLineTest.equal(
                 result.points().get(idx),
@@ -66,11 +67,12 @@ public final class PtReflectionPolyLineTest {
      */
     @Test
     public void buildsReflectionAcrossOrigin() {
-        final Polyline input = new PtsPolyline(
-            new RandomPoint(), new RandomPoint(), new RandomPoint(),
-            new RandomPoint()
+        @SuppressWarnings("unchecked")
+        final Polyline<Object> input = new PtsPolyline<>(
+            new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>(),
+            new RandomPoint<>()
         );
-        final Polyline result = new PtReflectionPolyLine(input);
+        final Polyline<Object> result = new PtReflectionPolyLine<>(input);
         for (int idx = 0; idx < result.points().size(); ++idx) {
             PtReflectionPolyLineTest.equal(
                 result.points().get(idx),
@@ -83,8 +85,9 @@ public final class PtReflectionPolyLineTest {
      * Asserts equality of two points.
      * @param first First point
      * @param second Second point
+     * @param <T> scalar types
      */
-    private static void equal(final Vect first, final Vect second) {
+    private static <T> void equal(final Vect<T> first, final Vect<T> second) {
         MatcherAssert.assertThat(
             new VectEquals(first, second).resolve(new Decimal()),
             Matchers.is(true)
@@ -95,18 +98,20 @@ public final class PtReflectionPolyLineTest {
      * Builds a point-reflected point across a center.
      * @param center Reflection center
      * @param point The point to reflect
+     * @param <T> scalar types
      * @return The reflected point
      */
-    private static Vect reflected(final Vect center, final Vect point) {
-        return new PtReflectionPoint(center, point);
+    private static <T> Vect<T> reflected(final Vect<T> center, final Vect<T> point) {
+        return new PtReflectionPoint<>(center, point);
     }
 
     /**
      * Builds a point-reflected point across the origin.
      * @param point The point to reflect
+     * @param <T> scalar types
      * @return The reflected point
      */
-    private static Vect reflected(final Vect point) {
-        return new PtReflectionPoint(point);
+    private static <T> Vect<T> reflected(final Vect<T> point) {
+        return new PtReflectionPoint<>(point);
     }
 }

@@ -31,24 +31,26 @@ import lombok.ToString;
 /**
  * A line defined as the reflection of a line, across a line (axial symmetry
  * line image).
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class LineReflectionLine extends PtDirLine {
+public final class LineReflectionLine<T> extends PtDirLine<T> {
 
     /**
      * Constructor.
      * @param axis Reflection axis
      * @param line The line to reflect
      */
-    public LineReflectionLine(final Line axis, final Line line) {
+    @SuppressWarnings("unchecked")
+    public LineReflectionLine(final Line<T> axis, final Line<T> line) {
         super(
-            new LineReflectionPoint(axis, line.point()),
-            new Minus(
-                new LineReflectionPoint(
-                    axis, new Sum(line.point(), line.direction())
+            new LineReflectionPoint<>(axis, line.point()),
+            new Minus<>(
+                new LineReflectionPoint<>(
+                    axis, new Sum<>(line.point(), line.direction())
                 ),
-                new LineReflectionPoint(axis, line.point())
+                new LineReflectionPoint<>(axis, line.point())
             )
         );
     }

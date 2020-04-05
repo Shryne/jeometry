@@ -34,17 +34,18 @@ import lombok.ToString;
 
 /**
  * A segment defined by being a circle diameter.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public class CircleDiameter extends PtsSegment {
+public class CircleDiameter<T> extends PtsSegment<T> {
 
     /**
      * Constructor.
      * @param circle Circle
      */
-    public CircleDiameter(final Circle circle) {
-        this(circle, new InCirclePoint(circle));
+    public CircleDiameter(final Circle<T> circle) {
+        this(circle, new InCirclePoint<>(circle));
     }
 
     /**
@@ -54,10 +55,10 @@ public class CircleDiameter extends PtsSegment {
      * @param circle Circle
      * @param point Point belonging to the circle
      */
-    public CircleDiameter(final Circle circle, final Vect point) {
+    public CircleDiameter(final Circle<T> circle, final Vect<T> point) {
         super(
             CircleDiameter.extremity(point, circle),
-            new PtReflectionPoint(circle.center(), point)
+            new PtReflectionPoint<>(circle.center(), point)
         );
     }
 
@@ -66,9 +67,11 @@ public class CircleDiameter extends PtsSegment {
      * otherwise it returns a {@link Throwing} coordinates vector.
      * @param point Point to be checked
      * @param circle Circle
+     * @param <T> scalar types
      * @return The passed point if it belongs to the circle
      */
-    private static Vect extremity(final Vect point, final Circle circle) {
+    @SuppressWarnings("unchecked")
+    private static <T> Vect<T> extremity(final Vect<T> point, final Circle<T> circle) {
         final PointInCircle predicate = new PointInCircle(point, circle);
         final IllegalArgumentException err = new IllegalArgumentException(
             String.format(
@@ -76,7 +79,7 @@ public class CircleDiameter extends PtsSegment {
                 circle, point
             )
         );
-        return new FixedVector(
+        return new FixedVector<>(
             predicate.ifElse(point.coords()[0], err),
             predicate.ifElse(point.coords()[1], err)
         );

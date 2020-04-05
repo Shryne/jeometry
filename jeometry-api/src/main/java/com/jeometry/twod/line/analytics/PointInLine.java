@@ -34,42 +34,44 @@ import com.jeometry.twod.line.Line;
 
 /**
  * A predicate to determine if a point belongs to a line.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class PointInLine implements Predicate {
+public final class PointInLine<T> implements Predicate {
 
     /**
      * Point.
      */
-    private final Vect point;
+    private final Vect<T> point;
 
     /**
      * Line.
      */
-    private final Line line;
+    private final Line<T> line;
 
     /**
      * Constructor.
      * @param point Point
      * @param line Line
      */
-    public PointInLine(final Vect point, final Line line) {
+    public PointInLine(final Vect<T> point, final Line<T> line) {
         this.point = point;
         this.line = line;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public <T> boolean resolve(final Field<T> field) {
-        final Scalar xcoor = this.point.coords()[0];
+    public <R> boolean resolve(final Field<R> field) {
+        final Scalar<T> xcoor = this.point.coords()[0];
         final Predicate result;
         if (new Vertical(this.line).resolve(field)) {
             result = new Equals(xcoor, this.line.point().coords()[0]);
         } else {
-            final LineAnalytics analytics = new LineAnalytics(this.line);
+            final LineAnalytics<T> analytics = new LineAnalytics<>(this.line);
             result = new Equals(
                 this.point.coords()[1],
-                new Add(
-                    new Multiplication(xcoor, analytics.slope()),
+                new Add<T>(
+                    new Multiplication<>(xcoor, analytics.slope()),
                     analytics.intercept()
                 )
             );

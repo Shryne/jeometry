@@ -43,9 +43,9 @@ public final class PerpendicularTest {
      */
     @Test
     public void resolvesTrueIfPerp() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Perpendicular(any, new PerpLine(any)).resolve(new Decimal()),
+            new Perpendicular<>(any, new PerpLine<>(any)).resolve(new Decimal()),
             Matchers.is(true)
         );
     }
@@ -55,10 +55,10 @@ public final class PerpendicularTest {
      */
     @Test
     public void resolvesfalseIfParallel() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Perpendicular(
-                any, new ParallelLine(any)
+            new Perpendicular<>(
+                any, new ParallelLine<>(any)
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
@@ -69,10 +69,10 @@ public final class PerpendicularTest {
      */
     @Test
     public void acceptsLinesOrVects() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Perpendicular(
-                any.direction(), new PerpLine(any).direction()
+            new Perpendicular<>(
+                any.direction(), new PerpLine<>(any).direction()
             ).resolve(new Decimal()),
             Matchers.is(true)
         );

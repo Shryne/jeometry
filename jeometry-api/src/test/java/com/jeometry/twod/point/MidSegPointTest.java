@@ -43,10 +43,10 @@ public final class MidSegPointTest {
      */
     @Test
     public void buildsMidPointSeg() {
-        final Segment any = new RandomSegment();
+        final Segment<Double> any = new RandomSegment<>();
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
-        final Scalar<Double>[] coords = new MidSegPoint(any).coords();
+        final Scalar<Double>[] coords = new MidSegPoint<>(any).coords();
         MatcherAssert.assertThat(
             coords[0].value(dec),
             Matchers.closeTo(MidSegPointTest.mid(any)[0], error)
@@ -62,7 +62,7 @@ public final class MidSegPointTest {
      */
     @Test
     public void toStringPrintsCoordinates() {
-        final MidSegPoint point = new MidSegPoint(new RandomSegment());
+        final MidSegPoint<Object> point = new MidSegPoint<>(new RandomSegment<>());
         MatcherAssert.assertThat(
             point.toString(), Matchers.allOf(
                 Matchers.containsString(point.xcoor().toString()),

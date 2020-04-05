@@ -40,14 +40,14 @@ public final class DifferentPointTest {
      */
     @Test
     public void buildsDifferentPoint() {
-        final Vect point = new RandomPoint();
+        final Vect<Double> point = new RandomPoint<>();
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new DifferentPoint(point).xcoor().value(field),
+            new DifferentPoint<>(point).xcoor().value(field),
             Matchers.not(Matchers.equalTo(point.coords()[0].value(field)))
         );
         MatcherAssert.assertThat(
-            new DifferentPoint(point).ycoor().value(field),
+            new DifferentPoint<>(point).ycoor().value(field),
             Matchers.not(Matchers.equalTo(point.coords()[1].value(field)))
         );
     }

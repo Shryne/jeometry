@@ -40,9 +40,9 @@ public final class StartSegmentTest {
      */
     @Test
     public void buildsStartingSegment() {
-        final Vect start = new RandomPoint();
+        final Vect<Object> start = new RandomPoint<>();
         MatcherAssert.assertThat(
-            new StartSegment(start).start(), Matchers.equalTo(start)
+            new StartSegment<>(start).start(), Matchers.equalTo(start)
         );
     }
 

@@ -29,18 +29,19 @@ import lombok.ToString;
 
 /**
  * A line passing by two points (vectors).
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class PtsLine extends PtDirLine {
+public final class PtsLine<T> extends PtDirLine<T> {
 
     /**
      * Constructor.
      * @param pnta First point by which this line passes
      * @param pntb Second point by which this line passes
      */
-    public PtsLine(final Vect pnta, final Vect pntb) {
-        super(pnta, new Minus(pnta, pntb));
+    public PtsLine(final Vect<T> pnta, final Vect<T> pntb) {
+        super(pnta, new Minus<>(pnta, pntb));
     }
 
 }

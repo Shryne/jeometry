@@ -30,16 +30,17 @@ import lombok.ToString;
 /**
  * Represents a 2D vector defined by its Y coordinate, and a random X
  * coordinate.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public class YPoint extends XyPoint {
+public class YPoint<T> extends XyPoint<T> {
     /**
      * Constructor.
      * @param ycoor Y coordinate
      */
-    public YPoint(final Scalar ycoor) {
-        super(new Random(), ycoor);
+    public YPoint(final Scalar<T> ycoor) {
+        super(new Random<>(), ycoor);
     }
 
 }

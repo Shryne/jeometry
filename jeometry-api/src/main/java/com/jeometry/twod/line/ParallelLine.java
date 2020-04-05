@@ -29,26 +29,27 @@ import lombok.ToString;
 
 /**
  * A line defined by being parallel to another line.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class ParallelLine implements Line {
+public final class ParallelLine<T> implements Line<T> {
     /**
      * The line to be parallel to.
      */
-    private final Line parallel;
+    private final Line<T> parallel;
 
     /**
      * A point by which this line passes.
      */
-    private final Vect pnt;
+    private final Vect<T> pnt;
 
     /**
      * Constructor. Builds a random parallel line.
      * @param parallel The line to be parallel to
      */
-    public ParallelLine(final Line parallel) {
-        this(parallel, new OutsideLinePoint(parallel));
+    public ParallelLine(final Line<T> parallel) {
+        this(parallel, new OutsideLinePoint<>(parallel));
     }
 
     /**
@@ -56,18 +57,18 @@ public final class ParallelLine implements Line {
      * @param parallel The line to be parallel to
      * @param point The point to pass by
      */
-    public ParallelLine(final Line parallel, final Vect point) {
+    public ParallelLine(final Line<T> parallel, final Vect<T> point) {
         this.pnt = point;
         this.parallel = parallel;
     }
 
     @Override
-    public Vect direction() {
+    public Vect<T> direction() {
         return this.parallel.direction();
     }
 
     @Override
-    public Vect point() {
+    public Vect<T> point() {
         return this.pnt;
     }
 

@@ -40,8 +40,8 @@ public final class VertPointTest {
     @Test
     public void buildsHorizontalVector() {
         MatcherAssert.assertThat(
-            new VertPoint().xcoor(),
-            Matchers.equalTo(new AddIdentity())
+            new VertPoint<>().xcoor(),
+            Matchers.equalTo(new AddIdentity<>())
         );
     }
 }

@@ -31,17 +31,18 @@ import lombok.ToString;
  * Represents a random vector or a point, different than a given point. It is
  * guaranteed that all coordinates are different from
  * the given point coordinates.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public class DifferentPoint extends XyPoint {
+public class DifferentPoint<T> extends XyPoint<T> {
     /**
      * Constructor.
      * @param point Point to be different from
      */
-    public DifferentPoint(final Vect point) {
+    public DifferentPoint(final Vect<T> point) {
         super(
-            new Different(point.coords()[0]), new Different(point.coords()[1])
+            new Different<T>(point.coords()[0]), new Different<T>(point.coords()[1])
         );
     }
 

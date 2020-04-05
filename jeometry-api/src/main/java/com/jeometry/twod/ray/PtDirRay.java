@@ -28,38 +28,39 @@ import lombok.ToString;
 
 /**
  * A ray defined by its origin and its direction.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public class PtDirRay implements Ray {
+public class PtDirRay<T> implements Ray<T> {
 
     /**
      * Direction.
      */
-    private final Vect dir;
+    private final Vect<T> dir;
 
     /**
      * Point belonging to the line.
      */
-    private final Vect org;
+    private final Vect<T> org;
 
     /**
      * Constructor.
      * @param point Ray origin
      * @param direction Ray direction
      */
-    public PtDirRay(final Vect point, final Vect direction) {
+    public PtDirRay(final Vect<T> point, final Vect<T> direction) {
         this.dir = direction;
         this.org = point;
     }
 
     @Override
-    public final Vect direction() {
+    public final Vect<T> direction() {
         return this.dir;
     }
 
     @Override
-    public final Vect origin() {
+    public final Vect<T> origin() {
         return this.org;
     }
 }

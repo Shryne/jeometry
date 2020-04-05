@@ -40,10 +40,10 @@ public final class VectsAngleTest {
      */
     @Test
     public void buildsVectorsAngle() {
-        final Vect origin = new RandomPoint();
-        final Vect start = new RandomPoint();
-        final Vect end = new RandomPoint();
-        final Angle angle = new VectsAngle(origin, start, end);
+        final Vect<Object> origin = new RandomPoint<>();
+        final Vect<Object> start = new RandomPoint<>();
+        final Vect<Object> end = new RandomPoint<>();
+        final Angle<Object> angle = new VectsAngle<>(origin, start, end);
         MatcherAssert.assertThat(angle.origin(), Matchers.equalTo(origin));
         MatcherAssert.assertThat(angle.start(), Matchers.equalTo(start));
         MatcherAssert.assertThat(angle.end(), Matchers.equalTo(end));

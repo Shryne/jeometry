@@ -43,7 +43,7 @@ public final class LinePointOrdinate<T> implements Scalar<T> {
     /**
      * Line for which to calculate ordinate.
      */
-    private final Line line;
+    private final Line<T> line;
 
     /**
      * Point abscissa.
@@ -55,11 +55,12 @@ public final class LinePointOrdinate<T> implements Scalar<T> {
      * @param line Line for which to calculate ordinate
      * @param abscissa Point abscissa
      */
-    public LinePointOrdinate(final Line line, final Scalar abscissa) {
+    public LinePointOrdinate(final Line<T> line, final Scalar<T> abscissa) {
         this.line = line;
         this.abscissa = abscissa;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T value(final Field<T> field) {
         final boolean inline = field.equals(

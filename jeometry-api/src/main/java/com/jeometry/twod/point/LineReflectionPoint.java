@@ -28,17 +28,18 @@ import com.jeometry.twod.line.Line;
 
 /**
  * A point defined as the reflection of a point, across a given line.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class LineReflectionPoint extends XyPoint {
+public final class LineReflectionPoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param axis Reflection line
      * @param input The point to reflect
      */
-    public LineReflectionPoint(final Line axis, final Vect input) {
-        super(new PtReflectionPoint(new ProjectionPoint(axis, input), input));
+    public LineReflectionPoint(final Line<T> axis, final Vect<T> input) {
+        super(new PtReflectionPoint<T>(new ProjectionPoint<T>(axis, input), input));
     }
 
 }

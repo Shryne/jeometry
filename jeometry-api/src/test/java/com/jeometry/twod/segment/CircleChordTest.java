@@ -54,8 +54,8 @@ public final class CircleChordTest {
      */
     @Test
     public void buildsARandomCircleChord() {
-        final Circle any = new PtsCircle(new RandomPoint(), new RandomPoint());
-        final Segment chord = new CircleChord(any);
+        final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), new RandomPoint<>());
+        final Segment<Double> chord = new CircleChord<>(any);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
             new PointInCircle(chord.start(), any).resolve(field),
@@ -73,9 +73,9 @@ public final class CircleChordTest {
      */
     @Test
     public void buildsAChordPassingByPoint() {
-        final Circle any = new PtsCircle(new RandomPoint(), new RandomPoint());
-        final InCirclePoint point = new InCirclePoint(any);
-        final Segment chord = new CircleChord(any, point);
+        final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), new RandomPoint<>());
+        final InCirclePoint<Double> point = new InCirclePoint<>(any);
+        final Segment<Double> chord = new CircleChord<>(any, point);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
             new PointInCircle(chord.start(), any).resolve(field),
@@ -94,13 +94,13 @@ public final class CircleChordTest {
     @Test
     public void errorsIfOutsideCircle() {
         this.thrown.expect(IllegalArgumentException.class);
-        final Circle any = new PtsCircle(new RandomPoint(), new RandomPoint());
-        RandomPoint out = new RandomPoint();
+        final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), new RandomPoint<>());
+        RandomPoint<Double> out = new RandomPoint<>();
         final Decimal field = new Decimal();
         while (CircleChordTest.pointInCircle(any, out, field)) {
             out = CircleChordTest.point();
         }
-        final Segment chord = new CircleChord(any, out);
+        final Segment<Double> chord = new CircleChord<>(any, out);
         chord.start().coords()[0].value(field);
         chord.end().coords()[0].value(field);
     }
@@ -109,8 +109,8 @@ public final class CircleChordTest {
      * Generates a point.
      * @return A generated point
      */
-    private static RandomPoint point() {
-        return new RandomPoint();
+    private static RandomPoint<Double> point() {
+        return new RandomPoint<Double>();
     }
 
     /**
@@ -120,8 +120,8 @@ public final class CircleChordTest {
      * @param field Field to resolve to
      * @return True if the point belongs to the circle
      */
-    private static boolean pointInCircle(final Circle circle, final Vect point,
-        final Field<?> field) {
+    private static boolean pointInCircle(final Circle<Double> circle, final Vect<Double> point,
+        final Field<Double> field) {
         return new PointInCircle(point, circle).resolve(field);
     }
 

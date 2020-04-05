@@ -40,9 +40,9 @@ public final class PtDirRayTest {
      */
     @Test
     public void buildsPointDirRay() {
-        final Vect origin = new RandomPoint();
-        final Vect dir = new RandomPoint();
-        final Ray ray = new PtDirRay(origin, dir);
+        final Vect<Object> origin = new RandomPoint<>();
+        final Vect<Object> dir = new RandomPoint<>();
+        final Ray<Object> ray = new PtDirRay<>(origin, dir);
         MatcherAssert.assertThat(ray.origin(), Matchers.equalTo(origin));
         MatcherAssert.assertThat(ray.direction(), Matchers.equalTo(dir));
     }
@@ -52,10 +52,10 @@ public final class PtDirRayTest {
      */
     @Test
     public void toStringContainsOriginAndDirection() {
-        final Vect origin = new RandomPoint();
-        final Vect dir = new RandomPoint();
+        final Vect<Object> origin = new RandomPoint<>();
+        final Vect<Object> dir = new RandomPoint<>();
         MatcherAssert.assertThat(
-            new PtDirRay(origin, dir).toString(),
+            new PtDirRay<>(origin, dir).toString(),
             Matchers.allOf(
                 Matchers.containsString(origin.toString()),
                 Matchers.containsString(dir.toString())

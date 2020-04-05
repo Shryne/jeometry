@@ -31,26 +31,28 @@ import lombok.ToString;
 
 /**
  * A point defined as the reflection of a point, across another given point.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class PtReflectionPoint extends XyPoint {
+public final class PtReflectionPoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param center Reflection center
      * @param input The point to reflect
      */
-    public PtReflectionPoint(final Vect center, final Vect input) {
-        super(new Sum(center, new Minus(center, input)));
+    @SuppressWarnings("unchecked")
+    public PtReflectionPoint(final Vect<T> center, final Vect<T> input) {
+        super(new Sum<T>(center, new Minus<T>(center, input)));
     }
 
     /**
      * Constructor. Builds the reflection point across the origin.
      * @param input The point to reflect
      */
-    public PtReflectionPoint(final Vect input) {
-        this(new XyPoint(new AddIdentity(), new AddIdentity()), input);
+    public PtReflectionPoint(final Vect<T> input) {
+        this(new XyPoint<T>(new AddIdentity<>(), new AddIdentity<>()), input);
     }
 
 }

@@ -31,21 +31,22 @@ import lombok.EqualsAndHashCode;
 /**
  * Convenience class to regroup line analytics predicates and scalars like
  * vertical, slope and y-intercept.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
-public final class LineAnalytics {
+public final class LineAnalytics<T> {
 
     /**
      * Line to analyze.
      */
-    private final Line line;
+    private final Line<T> line;
 
     /**
      * Constructor.
      * @param line Line for which to calculate analytics
      */
-    public LineAnalytics(final Line line) {
+    public LineAnalytics(final Line<T> line) {
         this.line = line;
     }
 
@@ -53,16 +54,16 @@ public final class LineAnalytics {
      * Calculates the line slope.
      * @return A scalar representing the line slope
      */
-    public Scalar slope() {
-        return new Slope(this.line);
+    public Scalar<T> slope() {
+        return new Slope<T>(this.line);
     }
 
     /**
      * Calculates the line y-intercept.
      * @return A scalar representing the line y-intercept
      */
-    public Scalar intercept() {
-        return new Intercept(this.line);
+    public Scalar<T> intercept() {
+        return new Intercept<T>(this.line);
     }
 
     /**

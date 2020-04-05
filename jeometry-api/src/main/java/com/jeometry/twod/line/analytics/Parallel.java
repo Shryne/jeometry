@@ -36,26 +36,27 @@ import com.jeometry.twod.segment.Segment;
 
 /**
  * A predicate to determine if two lines have the same direction.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class Parallel implements Predicate {
+public final class Parallel<T> implements Predicate {
 
     /**
      * First line.
      */
-    private final Line first;
+    private final Line<T> first;
 
     /**
      * Second line.
      */
-    private final Line second;
+    private final Line<T> second;
 
     /**
      * Constructor.
      * @param first First line
      * @param second Second line
      */
-    public Parallel(final Line first, final Line second) {
+    public Parallel(final Line<T> first, final Line<T> second) {
         this.first = first;
         this.second = second;
     }
@@ -65,8 +66,8 @@ public final class Parallel implements Predicate {
      * @param first First ray
      * @param second Second ray
      */
-    public Parallel(final Ray first, final Ray second) {
-        this(new RayLine(first), new RayLine(second));
+    public Parallel(final Ray<T> first, final Ray<T> second) {
+        this(new RayLine<>(first), new RayLine<>(second));
     }
 
     /**
@@ -74,19 +75,19 @@ public final class Parallel implements Predicate {
      * @param first First segment
      * @param second Second segment
      */
-    public Parallel(final Segment first, final Segment second) {
-        this(new SgtLine(first), new SgtLine(second));
+    public Parallel(final Segment<T> first, final Segment<T> second) {
+        this(new SgtLine<>(first), new SgtLine<>(second));
     }
 
     @Override
-    public <T> boolean resolve(final Field<T> field) {
+    public <R> boolean resolve(final Field<R> field) {
         return new And(
             new Vertical(this.first), new Vertical(this.second)
         ).resolve(field) || new And(
             new Not(new Vertical(this.first)),
             new Not(new Vertical(this.second))
         ).resolve(field) && new Equals(
-            new Slope(this.first), new Slope(this.second)
+            new Slope<>(this.first), new Slope<>(this.second)
         ).resolve(field);
     }
 

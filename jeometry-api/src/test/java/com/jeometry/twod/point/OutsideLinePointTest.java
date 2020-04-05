@@ -42,10 +42,10 @@ public final class OutsideLinePointTest {
      */
     @Test
     public void buildsAPointOutsideLine() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new PointInLine(
-                new OutsideLinePoint(any), any
+            new PointInLine<>(
+                new OutsideLinePoint<>(any), any
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
@@ -56,7 +56,7 @@ public final class OutsideLinePointTest {
      */
     @Test
     public void toStringPrintsCoordinates() {
-        final OutsideLinePoint point = new OutsideLinePoint(new RandomLine());
+        final OutsideLinePoint<Object> point = new OutsideLinePoint<>(new RandomLine<>());
         MatcherAssert.assertThat(
             point.toString(), Matchers.allOf(
                 Matchers.containsString(point.coords()[0].toString()),

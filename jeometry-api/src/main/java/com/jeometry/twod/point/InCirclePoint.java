@@ -30,19 +30,21 @@ import lombok.ToString;
 
 /**
  * A point defined by belonging to a circle.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InCirclePoint extends XyPoint {
+public final class InCirclePoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param circle The circle to belong to
      */
-    public InCirclePoint(final Circle circle) {
+    @SuppressWarnings("unchecked")
+    public InCirclePoint(final Circle<T> circle) {
         super(
-            new Sum(
-                new SegVect(new LengthSegment(circle.radius())), circle.center()
+            new Sum<>(
+                new SegVect<>(new LengthSegment<>(circle.radius())), circle.center()
             )
         );
     }

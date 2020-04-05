@@ -55,8 +55,8 @@ public final class CircleDiameterTest {
      */
     @Test
     public void buildsARandomCircleDiameter() {
-        final Circle any = new PtsCircle(new RandomPoint(), new RandomPoint());
-        final Segment diameter = new CircleDiameter(any);
+        final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), new RandomPoint<>());
+        final Segment<Double> diameter = new CircleDiameter<>(any);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
             new PointInCircle(diameter.start(), any).resolve(field),
@@ -68,7 +68,7 @@ public final class CircleDiameterTest {
         );
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            field.actual(new SegmentLength(diameter)),
+            field.actual(new SegmentLength<>(diameter)),
             Matchers.closeTo(
                 field.actual(any.radius()) * 2.,
                 error
@@ -82,9 +82,9 @@ public final class CircleDiameterTest {
      */
     @Test
     public void buildsADiameterPassingByPoint() {
-        final Circle any = new PtsCircle(new RandomPoint(), new RandomPoint());
-        final InCirclePoint point = new InCirclePoint(any);
-        final Segment diameter = new CircleDiameter(any, point);
+        final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), new RandomPoint<>());
+        final InCirclePoint<Double> point = new InCirclePoint<>(any);
+        final Segment<Double> diameter = new CircleDiameter<>(any, point);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
             new PointInCircle(diameter.start(), any).resolve(field),
@@ -96,7 +96,7 @@ public final class CircleDiameterTest {
         );
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            field.actual(new SegmentLength(diameter)),
+            field.actual(new SegmentLength<>(diameter)),
             Matchers.closeTo(
                 field.actual(any.radius()) * 2.,
                 error
@@ -111,13 +111,13 @@ public final class CircleDiameterTest {
     @Test
     public void errorsIfOutsideCircle() {
         this.thrown.expect(IllegalArgumentException.class);
-        final Circle any = new PtsCircle(new RandomPoint(), new RandomPoint());
-        RandomPoint out = new RandomPoint();
+        final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), new RandomPoint<>());
+        RandomPoint<Double> out = new RandomPoint<>();
         final Decimal field = new Decimal();
         while (CircleDiameterTest.pointInCircle(any, out, field)) {
             out = CircleDiameterTest.point();
         }
-        final Segment chord = new CircleDiameter(any, out);
+        final Segment<Double> chord = new CircleDiameter<>(any, out);
         chord.start().coords()[0].value(field);
         chord.end().coords()[0].value(field);
     }
@@ -126,8 +126,8 @@ public final class CircleDiameterTest {
      * Generates a point.
      * @return A generated point
      */
-    private static RandomPoint point() {
-        return new RandomPoint();
+    private static RandomPoint<Double> point() {
+        return new RandomPoint<Double>();
     }
 
     /**
@@ -137,8 +137,8 @@ public final class CircleDiameterTest {
      * @param field Field to resolve to
      * @return True if the point belongs to the circle
      */
-    private static boolean pointInCircle(final Circle circle, final Vect point,
-        final Field<?> field) {
+    private static boolean pointInCircle(final Circle<Double> circle, final Vect<Double> point,
+        final Field<Double> field) {
         return new PointInCircle(point, circle).resolve(field);
     }
 

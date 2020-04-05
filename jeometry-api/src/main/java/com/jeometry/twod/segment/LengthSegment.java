@@ -36,22 +36,23 @@ import lombok.ToString;
  * A random segment defined by its length. The length is defined by a scalar, or
  * by a segment, in which case this segment will be congruent
  * to the given segment.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class LengthSegment implements Segment {
+public final class LengthSegment<T> implements Segment<T> {
 
     /**
      * Generated segment.
      */
-    private final Segment seg;
+    private final Segment<T> seg;
 
     /**
      * Constructor. Builds a segment congruent to the given segment.
      * @param seg Segment to be congruent to
      */
-    public LengthSegment(final Segment seg) {
-        this(new RandomPoint(), seg);
+    public LengthSegment(final Segment<T> seg) {
+        this(new RandomPoint<>(), seg);
     }
 
     /**
@@ -60,16 +61,16 @@ public final class LengthSegment implements Segment {
      * @param start Segment extremity
      * @param seg Segment to be congruent to
      */
-    public LengthSegment(final Vect start, final Segment seg) {
-        this(start, new Norm(new SegVect(seg)));
+    public LengthSegment(final Vect<T> start, final Segment<T> seg) {
+        this(start, new Norm<>(new SegVect<>(seg)));
     }
 
     /**
      * Constructor. Builds a segment with the given length.
      * @param length Segment length
      */
-    public LengthSegment(final Scalar length) {
-        this(new RandomPoint(), length);
+    public LengthSegment(final Scalar<T> length) {
+        this(new RandomPoint<>(), length);
     }
 
     /**
@@ -78,8 +79,8 @@ public final class LengthSegment implements Segment {
      * @param start Segment extremity
      * @param length Segment length
      */
-    public LengthSegment(final Vect start, final Scalar length) {
-        this(start, new RandomPoint(), length);
+    public LengthSegment(final Vect<T> start, final Scalar<T> length) {
+        this(start, new RandomPoint<>(), length);
     }
 
     /**
@@ -89,19 +90,19 @@ public final class LengthSegment implements Segment {
      * @param dir Segment direction
      * @param length Segment length
      */
-    public LengthSegment(final Vect strt, final Vect dir, final Scalar length) {
-        this.seg = new PtVectSegment(
-            strt, new Times(new Normalized(dir), length)
+    public LengthSegment(final Vect<T> strt, final Vect<T> dir, final Scalar<T> length) {
+        this.seg = new PtVectSegment<>(
+            strt, new Times<>(new Normalized<>(dir), length)
         );
     }
 
     @Override
-    public Vect start() {
+    public Vect<T> start() {
         return this.seg.start();
     }
 
     @Override
-    public Vect end() {
+    public Vect<T> end() {
         return this.seg.end();
     }
 

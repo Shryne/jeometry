@@ -40,9 +40,9 @@ public final class EndSegmentTest {
      */
     @Test
     public void buildsEndingSegment() {
-        final Vect end = new RandomPoint();
+        final Vect<Object> end = new RandomPoint<>();
         MatcherAssert.assertThat(
-            new EndSegment(end).end(), Matchers.equalTo(end)
+            new EndSegment<>(end).end(), Matchers.equalTo(end)
         );
     }
 

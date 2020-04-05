@@ -36,30 +36,33 @@ import lombok.ToString;
 
 /**
  * A point defined by being a segment midpoint.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class MidSegPoint extends XyPoint {
+public final class MidSegPoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param seg The segment to belong to
      */
-    public MidSegPoint(final Segment seg) {
+    public MidSegPoint(final Segment<T> seg) {
         super(MidSegPoint.vector(seg));
     }
 
     /**
      * Builds a vector belonging to the segment.
      * @param seg The segment to belong to
+     * @param <T> scalar types
      * @return A point belonging to the segment
      */
-    private static Vect vector(final Segment seg) {
-        final Scalar half = new MultInverse(
-            new Add(new MultIdentity(), new MultIdentity())
+    @SuppressWarnings("unchecked")
+    private static <T> Vect<T> vector(final Segment<T> seg) {
+        final Scalar<T> half = new MultInverse<>(
+            new Add<T>(new MultIdentity<>(), new MultIdentity<>())
         );
-        return new Sum(
-            new Times(new Minus(seg.end(), seg.start()), half), seg.start()
+        return new Sum<>(
+            new Times<>(new Minus<>(seg.end(), seg.start()), half), seg.start()
         );
     }
 

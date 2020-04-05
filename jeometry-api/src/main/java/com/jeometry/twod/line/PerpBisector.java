@@ -30,32 +30,33 @@ import lombok.ToString;
 
 /**
  * A line defined by being the perpendicular bisector of a segment.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class PerpBisector implements Line {
+public final class PerpBisector<T> implements Line<T> {
 
     /**
      * The segment.
      */
-    private final Segment seg;
+    private final Segment<T> seg;
 
     /**
      * Constructor.
      * @param seg The segment to bisect
      */
-    public PerpBisector(final Segment seg) {
+    public PerpBisector(final Segment<T> seg) {
         this.seg = seg;
     }
 
     @Override
-    public Vect direction() {
-        return new PerpLine(new SgtLine(this.seg)).direction();
+    public Vect<T> direction() {
+        return new PerpLine<>(new SgtLine<>(this.seg)).direction();
     }
 
     @Override
-    public Vect point() {
-        return new MidSegPoint(this.seg);
+    public Vect<T> point() {
+        return new MidSegPoint<>(this.seg);
     }
 
 }

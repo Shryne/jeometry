@@ -46,9 +46,9 @@ public final class InSegPointTest {
      */
     @Test
     public void buildsAPointInSeg() {
-        final Segment any = new RandomSegment();
+        final Segment<Double> any = new RandomSegment<>();
         MatcherAssert.assertThat(
-            InSegPointTest.belongs(new InSegPoint(any), any),
+            InSegPointTest.belongs(new InSegPoint<>(any), any),
             Matchers.is(true)
         );
     }
@@ -58,7 +58,7 @@ public final class InSegPointTest {
      */
     @Test
     public void toStringPrintsCoordinates() {
-        final InSegPoint point = new InSegPoint(new RandomSegment());
+        final InSegPoint<Double> point = new InSegPoint<>(new RandomSegment<>());
         MatcherAssert.assertThat(
             point.toString(), Matchers.allOf(
                 Matchers.containsString(point.xcoor().toString()),

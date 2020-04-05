@@ -30,36 +30,37 @@ import lombok.ToString;
 
 /**
  * A random segment.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class RandomSegment implements Segment {
+public final class RandomSegment<T> implements Segment<T> {
 
     /**
      * First segment extremity.
      */
-    private final Vect first;
+    private final Vect<T> first;
 
     /**
      * Second segment extremity.
      */
-    private final Vect second;
+    private final Vect<T> second;
 
     /**
      * Constructor.
      */
     public RandomSegment() {
-        this.first = new RandomPoint();
-        this.second = new DifferentPoint(this.first);
+        this.first = new RandomPoint<>();
+        this.second = new DifferentPoint<>(this.first);
     }
 
     @Override
-    public Vect start() {
+    public Vect<T> start() {
         return this.first;
     }
 
     @Override
-    public Vect end() {
+    public Vect<T> end() {
         return this.second;
     }
 

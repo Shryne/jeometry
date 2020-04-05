@@ -32,18 +32,20 @@ import lombok.ToString;
 
 /**
  * A point defined by not belonging to a line.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class OutsideLinePoint extends FixedVector implements Renderable {
+public final class OutsideLinePoint<T> extends FixedVector<T> implements Renderable {
 
     /**
      * Constructor.
      * @param line The line to avoid belonging to
      */
-    public OutsideLinePoint(final Line line) {
+    @SuppressWarnings("unchecked")
+    public OutsideLinePoint(final Line<T> line) {
         super(
-            new Sum(line.point(), new PerpLine(line).direction()).coords()
+            new Sum<T>(line.point(), new PerpLine<>(line).direction()).coords()
         );
     }
 }
