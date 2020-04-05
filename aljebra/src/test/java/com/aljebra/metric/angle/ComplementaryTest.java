@@ -62,4 +62,40 @@ public final class ComplementaryTest {
             Matchers.closeTo(Math.PI / 2, error)
         );
     }
+
+    /**
+     * {@link Complementary} toString prints underlying degrees.
+     */
+    @Test
+    public void toStringPrintsDegrees() {
+        final Degrees deg = new Degrees.Default(Math.random());
+        MatcherAssert.assertThat(
+            new Complementary(deg).toString(),
+            Matchers.containsString(deg.toString())
+        );
+    }
+
+    /**
+     * {@link Complementary} respects equality with the same underlying degrees.
+     */
+    @Test
+    public void equalsRespectsDegrees() {
+        final Degrees deg = new Degrees.Default(Math.random());
+        MatcherAssert.assertThat(
+            new Complementary(deg),
+            Matchers.equalTo(new Complementary(deg))
+        );
+    }
+
+    /**
+     * {@link Complementary} respects hashcode with the same underlying degrees.
+     */
+    @Test
+    public void hashCodeRespectsDegrees() {
+        final Degrees deg = new Degrees.Default(Math.random());
+        MatcherAssert.assertThat(
+            new Complementary(deg).hashCode(),
+            Matchers.equalTo(new Complementary(deg).hashCode())
+        );
+    }
 }

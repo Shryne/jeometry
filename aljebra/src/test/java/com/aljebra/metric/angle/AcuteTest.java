@@ -49,4 +49,23 @@ public final class AcuteTest {
             angle, Matchers.lessThanOrEqualTo(Math.PI / 2)
         );
     }
+
+    /**
+     * {@link Acute} to string prints the generated angle.
+     */
+    @Test
+    public void toStringPrintsAngle() {
+        final Acute acute = new Acute();
+        @SuppressWarnings("unchecked")
+        final Double angle = acute.resolve(
+            Mockito.mock(InnerProduct.class)
+        ).doubleValue();
+        final int precision = 6;
+        MatcherAssert.assertThat(
+            acute.toString(),
+            Matchers.containsString(
+                Double.toString(angle * 2 / Math.PI).substring(0, precision)
+            )
+        );
+    }
 }

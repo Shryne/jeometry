@@ -54,4 +54,14 @@ public final class DegreesTest {
             )
         );
     }
+
+    /**
+     * {@link Degrees.Default} to string prints the generated angle.
+     */
+    @Test
+    public void toStringPrintsAngle() {
+        final Double angle = Math.random();
+        final Degrees deg = new Degrees.Default(angle);
+        MatcherAssert.assertThat(deg.toString(), Matchers.containsString(angle.toString()));
+    }
 }
