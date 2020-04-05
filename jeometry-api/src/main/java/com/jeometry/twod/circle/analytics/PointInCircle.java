@@ -39,28 +39,32 @@ public final class PointInCircle implements Predicate {
     /**
      * Point.
      */
+    @SuppressWarnings("rawtypes")
     private final Vect point;
 
     /**
      * Circle.
      */
+    @SuppressWarnings("rawtypes")
     private final Circle circle;
 
     /**
      * Constructor.
      * @param point Point
      * @param circle Circle
+     * @param <T> scalar types
      */
-    public PointInCircle(final Vect point, final Circle circle) {
+    public <T> PointInCircle(final Vect<T> point, final Circle<T> circle) {
         this.point = point;
         this.circle = circle;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> boolean resolve(final Field<T> field) {
         return field.equals(
             this.circle.radius(),
-            new Norm(new Minus(this.point, this.circle.center()))
+            new Norm<T>(new Minus<T>(this.point, this.circle.center()))
         );
     }
 

@@ -39,7 +39,7 @@ public final class VerticalLineTest {
      */
     @Test
     public void buildsAVerticalLine() {
-        final Line line = new VerticalLine();
+        final Line<Object> line = new VerticalLine<>();
         MatcherAssert.assertThat(
             line.direction(), Matchers.instanceOf(VertPoint.class)
         );

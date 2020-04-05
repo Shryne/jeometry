@@ -47,13 +47,13 @@ public final class LineReflectionPointTest {
      */
     @Test
     public void buildsReflectedPoint() {
-        final Vect input = new RandomPoint();
-        final Line line = new RandomLine();
+        final Vect<Double> input = new RandomPoint<>();
+        final Line<Double> line = new RandomLine<>();
         final Field<Double> field = new Decimal();
         MatcherAssert.assertThat(
-            new Equal(
-                new PerpBisector(
-                    new PtsSegment(input, new LineReflectionPoint(line, input))
+            new Equal<>(
+                new PerpBisector<>(
+                    new PtsSegment<>(input, new LineReflectionPoint<>(line, input))
                 ), line
             ).resolve(field),
             Matchers.is(true)

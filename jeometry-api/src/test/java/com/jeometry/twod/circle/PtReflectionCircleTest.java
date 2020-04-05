@@ -46,16 +46,16 @@ public final class PtReflectionCircleTest {
     @Test
     public void buildsReflection() {
         final Random<Double> radius = new Random<>();
-        final RandomPoint center = new RandomPoint();
-        final RandomPoint across = new RandomPoint();
-        final Circle<Double> result = new PtReflectionCircle(
-            across, new PtRadCircle(center, radius)
+        final RandomPoint<Double> center = new RandomPoint<>();
+        final RandomPoint<Double> across = new RandomPoint<>();
+        final Circle<Double> result = new PtReflectionCircle<>(
+            across, new PtRadCircle<>(center, radius)
         );
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectEquals(
-                result.center(), new PtReflectionPoint(across, center)
+                result.center(), new PtReflectionPoint<>(across, center)
             ).resolve(dec),
             Matchers.is(true)
         );
@@ -72,15 +72,15 @@ public final class PtReflectionCircleTest {
     @Test
     public void buildsReflectionAcrossOrigin() {
         final Random<Double> radius = new Random<>();
-        final RandomPoint center = new RandomPoint();
-        final Circle<Double> result = new PtReflectionCircle(
-            new PtRadCircle(center, radius)
+        final RandomPoint<Double> center = new RandomPoint<>();
+        final Circle<Double> result = new PtReflectionCircle<>(
+            new PtRadCircle<>(center, radius)
         );
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectEquals(
-                result.center(), new PtReflectionPoint(center)
+                result.center(), new PtReflectionPoint<>(center)
             ).resolve(dec),
             Matchers.is(true)
         );

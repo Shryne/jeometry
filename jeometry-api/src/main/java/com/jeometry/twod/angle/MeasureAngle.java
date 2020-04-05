@@ -30,25 +30,26 @@ import lombok.ToString;
 
 /**
  * An angle defined by its measure.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class MeasureAngle implements Angle {
+public final class MeasureAngle<T> implements Angle<T> {
 
     /**
      * Angle origin.
      */
-    private final Vect org;
+    private final Vect<T> org;
 
     /**
      * Starting angle vector.
      */
-    private final Vect frst;
+    private final Vect<T> frst;
 
     /**
      * Ending angle vector.
      */
-    private final Vect scnd;
+    private final Vect<T> scnd;
 
     /**
      * Constructor.
@@ -56,11 +57,11 @@ public final class MeasureAngle implements Angle {
      * @param start Starting angle vector
      * @param measure Angle measure
      */
-    public MeasureAngle(final Vect origin, final Vect start,
+    public MeasureAngle(final Vect<T> origin, final Vect<T> start,
         final Number measure) {
         this.org = origin;
         this.frst = start;
-        this.scnd = new RotateVect(start, measure);
+        this.scnd = new RotateVect<T>(start, measure);
     }
 
     /**
@@ -68,21 +69,21 @@ public final class MeasureAngle implements Angle {
      * @param measure Angle measure
      */
     public MeasureAngle(final Number measure) {
-        this(new RandomPoint(), new RandomPoint(), measure);
+        this(new RandomPoint<T>(), new RandomPoint<T>(), measure);
     }
 
     @Override
-    public Vect origin() {
+    public Vect<T> origin() {
         return this.org;
     }
 
     @Override
-    public Vect start() {
+    public Vect<T> start() {
         return this.frst;
     }
 
     @Override
-    public Vect end() {
+    public Vect<T> end() {
         return this.scnd;
     }
 }

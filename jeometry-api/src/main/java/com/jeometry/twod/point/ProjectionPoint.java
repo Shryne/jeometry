@@ -32,10 +32,11 @@ import lombok.ToString;
 /**
  * A point defined as the projection of a point, onto a line.
  * The projection is parallel to the given direction.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class ProjectionPoint extends XyPoint {
+public final class ProjectionPoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
@@ -43,8 +44,8 @@ public final class ProjectionPoint extends XyPoint {
      * @param dir Projection direction
      * @param input The point to project
      */
-    public ProjectionPoint(final Line line, final Vect dir, final Vect input) {
-        super(new LineIntersectPoint(new PtDirLine(input, dir), line));
+    public ProjectionPoint(final Line<T> line, final Vect<T> dir, final Vect<T> input) {
+        super(new LineIntersectPoint<T>(new PtDirLine<T>(input, dir), line));
     }
 
     /**
@@ -53,7 +54,7 @@ public final class ProjectionPoint extends XyPoint {
      * @param dir Projection direction line
      * @param input The point to project
      */
-    public ProjectionPoint(final Line line, final Line dir, final Vect input) {
+    public ProjectionPoint(final Line<T> line, final Line<T> dir, final Vect<T> input) {
         this(line, dir.direction(), input);
     }
 
@@ -62,8 +63,8 @@ public final class ProjectionPoint extends XyPoint {
      * @param line Line to project onto
      * @param input The point to orthogonally project on the line
      */
-    public ProjectionPoint(final Line line, final Vect input) {
-        this(line, new PerpLine(line), input);
+    public ProjectionPoint(final Line<T> line, final Vect<T> input) {
+        this(line, new PerpLine<T>(line), input);
     }
 
 }

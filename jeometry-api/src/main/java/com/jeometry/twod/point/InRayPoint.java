@@ -32,19 +32,21 @@ import lombok.ToString;
 
 /**
  * A point defined by belonging to a ray.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public final class InRayPoint extends XyPoint {
+public final class InRayPoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param ray The ray to belong to
      */
-    public InRayPoint(final Ray ray) {
+    @SuppressWarnings("unchecked")
+    public InRayPoint(final Ray<T> ray) {
         super(
-            new Sum(
-                new Times(ray.direction(), new Greater(new AddIdentity())),
+            new Sum<>(
+                new Times<>(ray.direction(), new Greater<>(new AddIdentity<>())),
                 ray.origin()
             )
         );

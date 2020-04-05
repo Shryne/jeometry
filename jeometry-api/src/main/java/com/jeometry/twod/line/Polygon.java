@@ -29,16 +29,17 @@ import lombok.ToString;
 
 /**
  * Closed polyline implementation.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Polygon extends PtsPolyline {
+public final class Polygon<T> extends PtsPolyline<T> {
 
     /**
      * Constructor.
      * @param points Points sequence forming the polygon.
      */
-    public Polygon(final Vect... points) {
+    public Polygon(@SuppressWarnings("unchecked") final Vect<T>... points) {
         super(Polygon.closed(points));
     }
 
@@ -46,10 +47,11 @@ public final class Polygon extends PtsPolyline {
      * Creates a closed sequence of points by adding the first point
      * to the end of the sequence.
      * @param points Points sequence
+     * @param <T> scalar types
      * @return Closed points sequence
      */
-    private static Vect[] closed(final Vect... points) {
-        final Vect[] result = Arrays.copyOf(points, points.length + 1);
+    private static <T> Vect<T>[] closed(@SuppressWarnings("unchecked") final Vect<T>... points) {
+        final Vect<T>[] result = Arrays.copyOf(points, points.length + 1);
         result[points.length] = points[0];
         return result;
     }

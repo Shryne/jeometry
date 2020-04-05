@@ -29,15 +29,16 @@ import lombok.ToString;
 /**
  * Represents a 2D vertical vector. A vertical vector have
  * zero (addition neutral element) coordinate on X-axis.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(callSuper = true)
-public class VertPoint extends XPoint {
+public class VertPoint<T> extends XPoint<T> {
     /**
      * Constructor.
      */
     public VertPoint() {
-        super(new AddIdentity());
+        super(new AddIdentity<>());
     }
 
 }

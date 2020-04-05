@@ -30,18 +30,20 @@ import lombok.ToString;
 /**
  * A segment defined by one extremity and a vector. The resulting segment
  * is necessarily congruent to the given vector and has the same direction.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public class PtVectSegment extends PtsSegment {
+public class PtVectSegment<T> extends PtsSegment<T> {
 
     /**
      * Constructor.
      * @param extremity First segment extremity
      * @param vect Vector defining the segment
      */
-    public PtVectSegment(final Vect extremity, final Vect vect) {
-        super(extremity, new Sum(extremity, vect));
+    @SuppressWarnings("unchecked")
+    public PtVectSegment(final Vect<T> extremity, final Vect<T> vect) {
+        super(extremity, new Sum<>(extremity, vect));
     }
 
 }

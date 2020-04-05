@@ -42,10 +42,10 @@ public final class EqualAngleTest {
      */
     @Test
     public void buildsEqualAngle() {
-        final Angle ref = new VectsAngle(
-            new RandomPoint(), new RandomPoint(), new RandomPoint()
+        final Angle<Double> ref = new VectsAngle<>(
+            new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>()
         );
-        final Angle angle = new EqualAngle(ref);
+        final Angle<Double> angle = new EqualAngle<>(ref);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectsDegrees(
@@ -66,12 +66,12 @@ public final class EqualAngleTest {
      */
     @Test
     public void buildsEqualAngleWithOriginAndStart() {
-        final Angle ref = new VectsAngle(
-            new RandomPoint(), new RandomPoint(), new RandomPoint()
+        final Angle<Double> ref = new VectsAngle<>(
+            new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>()
         );
-        final Vect origin = new RandomPoint();
-        final Vect start = new RandomPoint();
-        final Angle angle = new EqualAngle(origin, start, ref);
+        final Vect<Double> origin = new RandomPoint<>();
+        final Vect<Double> start = new RandomPoint<>();
+        final Angle<Double> angle = new EqualAngle<>(origin, start, ref);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectsDegrees(

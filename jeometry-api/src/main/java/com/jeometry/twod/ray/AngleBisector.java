@@ -30,31 +30,32 @@ import lombok.ToString;
 
 /**
  * A ray defined by being an angle bisector.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class AngleBisector implements Ray {
+public final class AngleBisector<T> implements Ray<T> {
 
     /**
      * Angle oto bisect.
      */
-    private final Angle angle;
+    private final Angle<T> angle;
 
     /**
      * Constructor.
      * @param angle Angle to bisect
      */
-    public AngleBisector(final Angle angle) {
+    public AngleBisector(final Angle<T> angle) {
         this.angle = angle;
     }
 
     @Override
-    public Vect direction() {
-        return new BisectorVect(this.angle.start(), this.angle.end());
+    public Vect<T> direction() {
+        return new BisectorVect<>(this.angle.start(), this.angle.end());
     }
 
     @Override
-    public Vect origin() {
+    public Vect<T> origin() {
         return this.angle.origin();
     }
 

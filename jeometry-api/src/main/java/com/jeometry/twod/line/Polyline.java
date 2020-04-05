@@ -30,14 +30,15 @@ import java.util.List;
 /**
  * Polyline interface describing a connected sequence of line segments.
  * Polyline is defined by its ordered points sequence.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Polyline extends Renderable {
+public interface Polyline<T> extends Renderable {
 
     /**
      * Gives the polyline points sequence.
      * @return A list of points
      */
-    List<Vect> points();
+    List<Vect<T>> points();
 
 }

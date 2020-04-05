@@ -46,8 +46,8 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesTrueWhenInLine() {
-        final Line<Double> line = new PtDirLine(
-            new RandomPoint(), new DifferentPoint(PointInLineTest.point(0., 1.))
+        final Line<Double> line = new PtDirLine<>(
+            new RandomPoint<>(), new DifferentPoint<>(PointInLineTest.point(0., 1.))
         );
         final Decimal dec = new Decimal();
         final Double startx = line.point().coords()[0].value(dec);
@@ -58,7 +58,7 @@ public final class PointInLineTest {
         final Double ordinate = abscissa * diry / dirx
             + starty - startx * diry / dirx;
         MatcherAssert.assertThat(
-            new PointInLine(
+            new PointInLine<>(
                 PointInLineTest.point(abscissa, ordinate), line
             ).resolve(dec),
             Matchers.is(true)
@@ -70,8 +70,8 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesFalseWhenOutLine() {
-        final Line<Double> line = new PtDirLine(
-            new RandomPoint(), new DifferentPoint(PointInLineTest.point(0., 1.))
+        final Line<Double> line = new PtDirLine<>(
+            new RandomPoint<>(), new DifferentPoint<>(PointInLineTest.point(0., 1.))
         );
         final Decimal dec = new Decimal();
         final Double startx = line.point().coords()[0].value(dec);
@@ -82,8 +82,8 @@ public final class PointInLineTest {
         final Double ordinate = abscissa * diry / dirx
             + starty - startx * diry / dirx;
         MatcherAssert.assertThat(
-            new PointInLine(
-                new DifferentPoint(PointInLineTest.point(abscissa, ordinate)),
+            new PointInLine<>(
+                new DifferentPoint<>(PointInLineTest.point(abscissa, ordinate)),
                 line
             ).resolve(dec),
             Matchers.is(false)
@@ -96,11 +96,11 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesTrueWhenInVerticalLine() {
-        final RandomPoint point = new RandomPoint();
+        final RandomPoint<Double> point = new RandomPoint<>();
         MatcherAssert.assertThat(
-            new PointInLine(
-                new XyPoint(point.xcoor(), point.xcoor()),
-                new PtDirLine(point, PointInLineTest.point(0., 1.))
+            new PointInLine<>(
+                new XyPoint<>(point.xcoor(), point.xcoor()),
+                new PtDirLine<>(point, PointInLineTest.point(0., 1.))
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
@@ -112,11 +112,11 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesFalseWhenOutVerticalLine() {
-        final RandomPoint point = new RandomPoint();
+        final RandomPoint<Double> point = new RandomPoint<>();
         MatcherAssert.assertThat(
-            new PointInLine(
-                new DifferentPoint(point),
-                new PtDirLine(point, PointInLineTest.point(0., 1.))
+            new PointInLine<>(
+                new DifferentPoint<>(point),
+                new PtDirLine<>(point, PointInLineTest.point(0., 1.))
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
@@ -128,8 +128,8 @@ public final class PointInLineTest {
      * @param ordinate Ordinate
      * @return A point with double coordinates
      */
-    private static Vect point(final Double abscissa, final Double ordinate) {
-        return new XyPoint(
+    private static Vect<Double> point(final Double abscissa, final Double ordinate) {
+        return new XyPoint<>(
             new Scalar.Default<Double>(abscissa),
             new Scalar.Default<Double>(ordinate)
         );

@@ -28,26 +28,27 @@ import com.jeometry.twod.Renderable;
 
 /**
  * Angle interface describing an angle by an origin and two directions.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Angle extends Renderable {
+public interface Angle<T> extends Renderable {
 
     /**
      * Gives the starting direction of the Angle.
      * @return Direction.
      */
-    Vect start();
+    Vect<T> start();
 
     /**
      * Gives the ending direction of the Angle.
      * @return Direction.
      */
-    Vect end();
+    Vect<T> end();
 
     /**
      * Gives The originating Point of the angle.
      * @return A point by which the line passes
      */
-    Vect origin();
+    Vect<T> origin();
 
 }

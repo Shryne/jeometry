@@ -41,15 +41,15 @@ public final class PtsLineTest {
      */
     @Test
     public void passesByTwoPoints() {
-        final RandomPoint pointa = new RandomPoint();
-        final RandomPoint pointb = new RandomPoint();
-        final Line line = new PtsLine(pointa, pointb);
+        final RandomPoint<Double> pointa = new RandomPoint<>();
+        final RandomPoint<Double> pointb = new RandomPoint<>();
+        final Line<Double> line = new PtsLine<>(pointa, pointb);
         MatcherAssert.assertThat(
-            new PointInLine(pointa, line).resolve(new Decimal()),
+            new PointInLine<>(pointa, line).resolve(new Decimal()),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(pointb, line).resolve(new Decimal()),
+            new PointInLine<>(pointb, line).resolve(new Decimal()),
             Matchers.is(true)
         );
     }

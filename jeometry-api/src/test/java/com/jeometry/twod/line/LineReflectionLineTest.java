@@ -42,23 +42,24 @@ public final class LineReflectionLineTest {
      * {@link LineReflectionLine} can build the reflection line given
      * the reflection axis.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void buildsReflection() {
-        final Line origin = new RandomLine();
-        final Line axis = new RandomLine();
-        final Line result = new LineReflectionLine(axis, origin);
+        final Line<Double> origin = new RandomLine<>();
+        final Line<Double> axis = new RandomLine<>();
+        final Line<Double> result = new LineReflectionLine<>(axis, origin);
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
             new VectEquals(
-                result.point(), new LineReflectionPoint(axis, origin.point())
+                result.point(), new LineReflectionPoint<>(axis, origin.point())
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
             new VectEquals(
-                new Sum(result.point(), result.direction()),
-                new LineReflectionPoint(
-                    axis, new Sum(origin.point(), origin.direction())
+                new Sum<>(result.point(), result.direction()),
+                new LineReflectionPoint<>(
+                    axis, new Sum<>(origin.point(), origin.direction())
                 )
             ).resolve(dec),
             Matchers.is(true)

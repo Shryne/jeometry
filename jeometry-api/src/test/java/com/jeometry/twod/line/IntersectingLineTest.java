@@ -43,10 +43,10 @@ public final class IntersectingLineTest {
      */
     @Test
     public void buildsIntersectingLine() {
-        final Line line = new RandomLine();
+        final Line<Double> line = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Intersecting(
-                line, new IntersectingLine(line)
+            new Intersecting<>(
+                line, new IntersectingLine<>(line)
             ).resolve(new Decimal()),
             Matchers.equalTo(true)
         );
@@ -58,15 +58,15 @@ public final class IntersectingLineTest {
      */
     @Test
     public void buildsIntersectingLinePassingByPoint() {
-        final Line line = new RandomLine();
-        final Vect point = new RandomPoint();
-        final IntersectingLine intersecting = new IntersectingLine(line, point);
+        final Line<Double> line = new RandomLine<>();
+        final Vect<Double> point = new RandomPoint<>();
+        final IntersectingLine<Double> intersecting = new IntersectingLine<>(line, point);
         MatcherAssert.assertThat(
-            new Intersecting(line, intersecting).resolve(new Decimal()),
+            new Intersecting<>(line, intersecting).resolve(new Decimal()),
             Matchers.equalTo(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(point, intersecting).resolve(new Decimal()),
+            new PointInLine<>(point, intersecting).resolve(new Decimal()),
             Matchers.equalTo(true)
         );
     }

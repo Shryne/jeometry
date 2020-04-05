@@ -31,35 +31,36 @@ import com.jeometry.twod.line.Line;
 /**
  * A predicate to determine if two lines are equal. that means the two lines
  * have the same direction and pass by the same points.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class Equal implements Predicate {
+public final class Equal<T> implements Predicate {
 
     /**
      * First line.
      */
-    private final Line first;
+    private final Line<T> first;
 
     /**
      * Second line.
      */
-    private final Line second;
+    private final Line<T> second;
 
     /**
      * Constructor.
      * @param first First line
      * @param second Second line
      */
-    public Equal(final Line first, final Line second) {
+    public Equal(final Line<T> first, final Line<T> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public <T> boolean resolve(final Field<T> field) {
+    public <R> boolean resolve(final Field<R> field) {
         return new And(
-            new Parallel(this.first, this.second),
-            new PointInLine(this.first.point(), this.second)
+            new Parallel<>(this.first, this.second),
+            new PointInLine<>(this.first.point(), this.second)
         ).resolve(field);
     }
 

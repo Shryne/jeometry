@@ -43,19 +43,19 @@ public final class SegmentLength<T> implements Scalar<T> {
     /**
      * Segment.
      */
-    private final Segment seg;
+    private final Segment<T> seg;
 
     /**
      * Constructor.
      * @param seg Segment for which to calculate the length
      */
-    public SegmentLength(final Segment seg) {
+    public SegmentLength(final Segment<T> seg) {
         this.seg = seg;
     }
 
     @Override
     public T value(final Field<T> field) {
-        return new Norm<T>(new SegVect(this.seg)).value(field);
+        return new Norm<T>(new SegVect<>(this.seg)).value(field);
     }
 
 }

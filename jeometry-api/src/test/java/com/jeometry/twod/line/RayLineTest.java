@@ -42,17 +42,18 @@ public final class RayLineTest {
     /**
      * {@link RayLine} builds a line wrapping the ray.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void wrapsRay() {
-        final Ray ray = new PtsRay(new RandomPoint(), new RandomPoint());
-        final Line line = new RayLine(ray);
+        final Ray<Double> ray = new PtsRay<>(new RandomPoint<>(), new RandomPoint<>());
+        final Line<Double> line = new RayLine<>(ray);
         MatcherAssert.assertThat(
-            new PointInLine(ray.origin(), line).resolve(new Decimal()),
+            new PointInLine<>(ray.origin(), line).resolve(new Decimal()),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(
-                new Sum(ray.origin(), ray.direction()), line
+            new PointInLine<>(
+                new Sum<>(ray.origin(), ray.direction()), line
             ).resolve(new Decimal()),
             Matchers.is(true)
         );

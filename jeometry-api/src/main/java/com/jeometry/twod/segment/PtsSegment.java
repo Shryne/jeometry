@@ -28,38 +28,39 @@ import lombok.ToString;
 
 /**
  * A segment defined by its extremities.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public class PtsSegment implements Segment {
+public class PtsSegment<T> implements Segment<T> {
 
     /**
      * First segment extremity.
      */
-    private final Vect first;
+    private final Vect<T> first;
 
     /**
      * Second segment extremity.
      */
-    private final Vect second;
+    private final Vect<T> second;
 
     /**
      * Constructor.
      * @param first First segment extremity
      * @param second Second segment extremity
      */
-    public PtsSegment(final Vect first, final Vect second) {
+    public PtsSegment(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;
     }
 
     @Override
-    public final Vect start() {
+    public final Vect<T> start() {
         return this.first;
     }
 
     @Override
-    public final Vect end() {
+    public final Vect<T> end() {
         return this.second;
     }
 

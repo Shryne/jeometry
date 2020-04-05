@@ -55,8 +55,8 @@ public final class SlopeTest {
      */
     @Test
     public void calculatesSlope() {
-        final Line<Double> line = new PtDirLine(
-            new VertPoint(), new DifferentPoint(new VertPoint())
+        final Line<Double> line = new PtDirLine<>(
+            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
         );
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
@@ -72,8 +72,8 @@ public final class SlopeTest {
      */
     @Test
     public void calculatesRaySlope() {
-        final Ray<Double> ray = new PtDirRay(
-            new VertPoint(), new DifferentPoint(new VertPoint())
+        final Ray<Double> ray = new PtDirRay<>(
+            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
         );
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
@@ -89,8 +89,8 @@ public final class SlopeTest {
      */
     @Test
     public void calculatesSegmentSlope() {
-        final Segment<Double> seg = new PtVectSegment(
-            new VertPoint(), new DifferentPoint(new VertPoint())
+        final Segment<Double> seg = new PtVectSegment<>(
+            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
         );
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
@@ -110,7 +110,7 @@ public final class SlopeTest {
     @Test
     public void errorsWhenVerticalLine() {
         this.thrown.expect(IllegalStateException.class);
-        final Line line = new PtDirLine(new VertPoint(), new VertPoint());
-        new Slope(line).value(new Decimal());
+        final Line<Double> line = new PtDirLine<>(new VertPoint<>(), new VertPoint<>());
+        new Slope<>(line).value(new Decimal());
     }
 }

@@ -43,13 +43,13 @@ public final class RandomSegmentTest {
      */
     @Test
     public void createsSegmentWithDifferentExtremities() {
-        final Segment seg = new RandomSegment();
-        final Vect start = seg.start();
-        final Vect end = seg.end();
+        final Segment<Double> seg = new RandomSegment<>();
+        final Vect<Double> start = seg.start();
+        final Vect<Double> end = seg.end();
         MatcherAssert.assertThat(start, Matchers.not(Matchers.equalTo(end)));
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Norm<Double>(new Minus(end, start)).value(new Decimal()),
+            new Norm<Double>(new Minus<>(end, start)).value(new Decimal()),
             Matchers.not(Matchers.closeTo(0., error))
         );
     }

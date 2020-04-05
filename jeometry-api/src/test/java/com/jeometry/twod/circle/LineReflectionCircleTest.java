@@ -45,15 +45,15 @@ public final class LineReflectionCircleTest {
      */
     @Test
     public void buildsReflectedCircle() {
-        final RandomPoint center = new RandomPoint();
-        final Line line = new RandomLine();
-        final Circle<Double> input = new PtsCircle(center, new RandomPoint());
-        final Circle<Double> result = new LineReflectionCircle(line, input);
+        final RandomPoint<Double> center = new RandomPoint<>();
+        final Line<Double> line = new RandomLine<>();
+        final Circle<Double> input = new PtsCircle<>(center, new RandomPoint<>());
+        final Circle<Double> result = new LineReflectionCircle<>(line, input);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectEquals(
-                result.center(), new LineReflectionPoint(line, center)
+                result.center(), new LineReflectionPoint<>(line, center)
             ).resolve(dec),
             Matchers.is(true)
         );

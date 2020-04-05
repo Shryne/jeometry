@@ -44,16 +44,16 @@ public final class PtReflectionLineTest {
      */
     @Test
     public void buildsReflection() {
-        final RandomPoint passing = new RandomPoint();
-        final RandomPoint dir = new RandomPoint();
-        final RandomPoint across = new RandomPoint();
-        final Line result = new PtReflectionLine(
-            across, new PtDirLine(passing, dir)
+        final RandomPoint<Double> passing = new RandomPoint<>();
+        final RandomPoint<Double> dir = new RandomPoint<>();
+        final RandomPoint<Double> across = new RandomPoint<>();
+        final Line<Double> result = new PtReflectionLine<>(
+            across, new PtDirLine<>(passing, dir)
         );
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
             new VectEquals(
-                result.point(), new PtReflectionPoint(across, passing)
+                result.point(), new PtReflectionPoint<>(across, passing)
             ).resolve(dec),
             Matchers.is(true)
         );
@@ -69,13 +69,13 @@ public final class PtReflectionLineTest {
      */
     @Test
     public void buildsReflectionAcrossOrigin() {
-        final RandomPoint passing = new RandomPoint();
-        final RandomPoint dir = new RandomPoint();
-        final Line result = new PtReflectionLine(new PtDirLine(passing, dir));
+        final RandomPoint<Double> passing = new RandomPoint<>();
+        final RandomPoint<Double> dir = new RandomPoint<>();
+        final Line<Double> result = new PtReflectionLine<>(new PtDirLine<>(passing, dir));
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
             new VectEquals(
-                result.point(), new PtReflectionPoint(passing)
+                result.point(), new PtReflectionPoint<>(passing)
             ).resolve(dec),
             Matchers.is(true)
         );

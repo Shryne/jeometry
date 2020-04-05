@@ -30,21 +30,22 @@ import com.jeometry.twod.Renderable;
 /**
  * Arc interface describing an arc by a center, a radius, a starting angle
  * and an ending angle.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Arc extends Renderable {
+public interface Arc<T> extends Renderable {
 
     /**
      * Gives the center of the arc.
      * @return Arc center
      */
-    Vect center();
+    Vect<T> center();
 
     /**
      * Gives the arc radius.
      * @return Arc radius
      */
-    Scalar radius();
+    Scalar<T> radius();
 
     /**
      * Gives the arc starting angle measure (as defined according

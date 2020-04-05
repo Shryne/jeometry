@@ -30,27 +30,28 @@ import lombok.ToString;
 
 /**
  * A line defined by being perpendicular to another line.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class PerpLine implements Line {
+public final class PerpLine<T> implements Line<T> {
 
     /**
      * The line to be perpendicular to.
      */
-    private final Line perp;
+    private final Line<T> perp;
 
     /**
      * A point by which this line passes.
      */
-    private final Vect pnt;
+    private final Vect<T> pnt;
 
     /**
      * Constructor. Builds a random perpendicular line.
      * @param perp The line to be perpendicular to
      */
-    public PerpLine(final Line perp) {
-        this(perp, new RandomPoint());
+    public PerpLine(final Line<T> perp) {
+        this(perp, new RandomPoint<T>());
     }
 
     /**
@@ -58,18 +59,18 @@ public final class PerpLine implements Line {
      * @param perp The line to be parallel to
      * @param point Point to pass by
      */
-    public PerpLine(final Line perp, final Vect point) {
+    public PerpLine(final Line<T> perp, final Vect<T> point) {
         this.perp = perp;
         this.pnt = point;
     }
 
     @Override
-    public Vect direction() {
-        return new RotateVect(this.perp.direction(), Math.PI / 2);
+    public Vect<T> direction() {
+        return new RotateVect<T>(this.perp.direction(), Math.PI / 2);
     }
 
     @Override
-    public Vect point() {
+    public Vect<T> point() {
         return this.pnt;
     }
 

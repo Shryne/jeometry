@@ -43,10 +43,10 @@ public final class PtsCircleTest {
      */
     @Test
     public void buildsCircle() {
-        final RandomPoint center = new RandomPoint();
-        final RandomPoint point = new RandomPoint();
+        final RandomPoint<Double> center = new RandomPoint<>();
+        final RandomPoint<Double> point = new RandomPoint<>();
         final Field<Double> dec = new Decimal();
-        final Circle circle = new PtsCircle(center, point);
+        final Circle<Double> circle = new PtsCircle<>(center, point);
         MatcherAssert.assertThat(
             circle.center(), Matchers.equalTo(center)
         );
@@ -54,7 +54,7 @@ public final class PtsCircleTest {
         MatcherAssert.assertThat(
             dec.actual(circle.radius()),
             Matchers.closeTo(
-                dec.actual(new Norm(new Minus(point, center))), error
+                dec.actual(new Norm<>(new Minus<>(point, center))), error
             )
         );
     }
@@ -64,8 +64,8 @@ public final class PtsCircleTest {
      */
     @Test
     public void buildsCircleWithCenter() {
-        final RandomPoint center = new RandomPoint();
-        final Circle circle = new PtsCircle(center);
+        final RandomPoint<Object> center = new RandomPoint<>();
+        final Circle<Object> circle = new PtsCircle<>(center);
         MatcherAssert.assertThat(
             circle.center(), Matchers.equalTo(center)
         );

@@ -30,17 +30,18 @@ import lombok.ToString;
 /**
  * A segment defined by its start extremity. Its end extremity is
  * randomly generated.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public class StartSegment extends PtsSegment {
+public class StartSegment<T> extends PtsSegment<T> {
 
     /**
      * Constructor.
      * @param start First segment extremity
      */
-    public StartSegment(final Vect start) {
-        super(start, new DifferentPoint(start));
+    public StartSegment(final Vect<T> start) {
+        super(start, new DifferentPoint<>(start));
     }
 
 }

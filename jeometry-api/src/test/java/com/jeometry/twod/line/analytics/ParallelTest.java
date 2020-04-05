@@ -46,9 +46,9 @@ public final class ParallelTest {
     @Test
     public void resolvesTrueIfBothVertical() {
         MatcherAssert.assertThat(
-            new Parallel(
-                new PtDirLine(new RandomPoint(), new VertPoint()),
-                new PtDirLine(new RandomPoint(), new VertPoint())
+            new Parallel<>(
+                new PtDirLine<>(new RandomPoint<>(), new VertPoint<>()),
+                new PtDirLine<>(new RandomPoint<>(), new VertPoint<>())
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
@@ -60,10 +60,10 @@ public final class ParallelTest {
     @Test
     public void resolvesFalseIfOneVertical() {
         MatcherAssert.assertThat(
-            new Parallel(
-                new PtDirLine(new RandomPoint(), new VertPoint()),
-                new PtDirLine(
-                    new RandomPoint(), new DifferentPoint(new VertPoint())
+            new Parallel<>(
+                new PtDirLine<>(new RandomPoint<>(), new VertPoint<>()),
+                new PtDirLine<>(
+                    new RandomPoint<>(), new DifferentPoint<>(new VertPoint<>())
                 )
             ).resolve(new Decimal()),
             Matchers.is(false)
@@ -75,12 +75,12 @@ public final class ParallelTest {
      */
     @Test
     public void resolvesFalseIfDifferentDirs() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Parallel(
+            new Parallel<>(
                 any,
-                new PtDirLine(
-                    new RandomPoint(), new DifferentPoint(any.direction())
+                new PtDirLine<>(
+                    new RandomPoint<>(), new DifferentPoint<>(any.direction())
                 )
             ).resolve(new Decimal()),
             Matchers.is(false)
@@ -92,10 +92,10 @@ public final class ParallelTest {
      */
     @Test
     public void resolvesTrueIfSameDirs() {
-        final Line any = new RandomLine();
+        final Line<Double> any = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Parallel(
-                any, new PtDirLine(new RandomPoint(), any.direction())
+            new Parallel<>(
+                any, new PtDirLine<>(new RandomPoint<>(), any.direction())
             ).resolve(new Decimal()),
             Matchers.is(true)
         );

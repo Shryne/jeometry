@@ -40,14 +40,15 @@ public final class PtVectSegmentTest {
      * {@link PtVectSegment} builds a segment with the given start and the
      * given vector.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void createsSegmentWithExtremityAndVector() {
-        final Vect start = new RandomPoint();
-        final Vect vect = new RandomPoint();
-        final Segment segment = new PtVectSegment(start, vect);
+        final Vect<Object> start = new RandomPoint<>();
+        final Vect<Object> vect = new RandomPoint<>();
+        final Segment<Object> segment = new PtVectSegment<>(start, vect);
         MatcherAssert.assertThat(segment.start(), Matchers.equalTo(start));
         MatcherAssert.assertThat(
-            segment.end(), Matchers.equalTo(new Sum(start, vect))
+            segment.end(), Matchers.equalTo(new Sum<>(start, vect))
         );
     }
 

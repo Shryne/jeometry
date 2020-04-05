@@ -46,10 +46,10 @@ public final class ProjectionPointTest {
      */
     @Test
     public void buildsBelongingPoint() {
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
+        final Line<Double> line = new PtsLine<>(new RandomPoint<>(), new RandomPoint<>());
         MatcherAssert.assertThat(
-            new PointInLine(
-                new ProjectionPoint(line, new RandomPoint(), new RandomPoint()),
+            new PointInLine<>(
+                new ProjectionPoint<>(line, new RandomPoint<>(), new RandomPoint<>()),
                 line
             ).resolve(new Decimal()),
             Matchers.is(true)
@@ -62,14 +62,14 @@ public final class ProjectionPointTest {
      */
     @Test
     public void makesParallelLine() {
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
-        final Vect input = new RandomPoint();
+        final Line<Double> line = new PtsLine<>(new RandomPoint<>(), new RandomPoint<>());
+        final Vect<Double> input = new RandomPoint<>();
         MatcherAssert.assertThat(
-            new Parallel(
-                new PtsLine(
+            new Parallel<>(
+                new PtsLine<>(
                     input,
-                    new ProjectionPoint(
-                        new PtsLine(new RandomPoint(), new RandomPoint()),
+                    new ProjectionPoint<>(
+                        new PtsLine<>(new RandomPoint<>(), new RandomPoint<>()),
                         line, input
                     )
                 ), line
@@ -83,12 +83,12 @@ public final class ProjectionPointTest {
      */
     @Test
     public void buildsOrthogonalProjection() {
-        final Line line = new PtsLine(new RandomPoint(), new RandomPoint());
-        final Vect input = new RandomPoint();
+        final Line<Double> line = new PtsLine<>(new RandomPoint<>(), new RandomPoint<>());
+        final Vect<Double> input = new RandomPoint<>();
         MatcherAssert.assertThat(
-            new Perpendicular(
-                new PtsLine(
-                    input, new ProjectionPoint(line, input)
+            new Perpendicular<>(
+                new PtsLine<>(
+                    input, new ProjectionPoint<>(line, input)
                 ), line
             ).resolve(new Decimal()),
             Matchers.is(true)

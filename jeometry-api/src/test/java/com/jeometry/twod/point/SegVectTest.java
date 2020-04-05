@@ -41,16 +41,16 @@ public final class SegVectTest {
      */
     @Test
     public void buildsSegementVector() {
-        final RandomPoint start = new RandomPoint();
-        final RandomPoint end = new RandomPoint();
-        final Segment seg = new PtsSegment(start, end);
+        final RandomPoint<Object> start = new RandomPoint<>();
+        final RandomPoint<Object> end = new RandomPoint<>();
+        final Segment<Object> seg = new PtsSegment<>(start, end);
         MatcherAssert.assertThat(
-            new SegVect(seg).xcoor(),
-            Matchers.equalTo(new Diff(end.xcoor(), start.xcoor()))
+            new SegVect<>(seg).xcoor(),
+            Matchers.equalTo(new Diff<>(end.xcoor(), start.xcoor()))
         );
         MatcherAssert.assertThat(
-            new SegVect(seg).ycoor(),
-            Matchers.equalTo(new Diff(end.ycoor(), start.ycoor()))
+            new SegVect<>(seg).ycoor(),
+            Matchers.equalTo(new Diff<>(end.ycoor(), start.ycoor()))
         );
     }
 }

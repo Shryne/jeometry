@@ -40,9 +40,9 @@ public final class PtsSegmentTest {
      */
     @Test
     public void createsSegmentWithExtremities() {
-        final Vect start = new RandomPoint();
-        final Vect end = new RandomPoint();
-        final Segment segment = new PtsSegment(start, end);
+        final Vect<Object> start = new RandomPoint<>();
+        final Vect<Object> end = new RandomPoint<>();
+        final Segment<Object> segment = new PtsSegment<>(start, end);
         MatcherAssert.assertThat(segment.start(), Matchers.equalTo(start));
         MatcherAssert.assertThat(segment.end(), Matchers.equalTo(end));
     }

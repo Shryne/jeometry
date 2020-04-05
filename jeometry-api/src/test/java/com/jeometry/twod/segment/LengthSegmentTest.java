@@ -46,10 +46,10 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsCongruentSegment() {
-        final Segment ref = new PtVectSegment(
-            new RandomPoint(), new RandomPoint()
+        final Segment<Double> ref = new PtVectSegment<>(
+            new RandomPoint<>(), new RandomPoint<>()
         );
-        final Segment seg = new LengthSegment(ref);
+        final Segment<Double> seg = new LengthSegment<>(ref);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
@@ -64,11 +64,11 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsCongruentSegmentWithStartPoint() {
-        final Segment ref = new PtVectSegment(
-            new RandomPoint(), new RandomPoint()
+        final Segment<Double> ref = new PtVectSegment<>(
+            new RandomPoint<>(), new RandomPoint<>()
         );
-        final Vect start = new RandomPoint();
-        final Segment seg = new LengthSegment(start, ref);
+        final Vect<Double> start = new RandomPoint<>();
+        final Segment<Double> seg = new LengthSegment<>(start, ref);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
@@ -83,8 +83,8 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsLengthSegment() {
-        final Scalar<Double> length = new Random();
-        final Segment seg = new LengthSegment(length);
+        final Scalar<Double> length = new Random<>();
+        final Segment<Double> seg = new LengthSegment<>(length);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
@@ -99,9 +99,9 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsLengthSegmentWithStartPoint() {
-        final Scalar<Double> length = new Random();
-        final Vect start = new RandomPoint();
-        final Segment seg = new LengthSegment(start, length);
+        final Scalar<Double> length = new Random<>();
+        final Vect<Double> start = new RandomPoint<>();
+        final Segment<Double> seg = new LengthSegment<>(start, length);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
@@ -117,10 +117,10 @@ public final class LengthSegmentTest {
      */
     @Test
     public void createsLengthSegmentWithStartPointAndDirection() {
-        final Scalar<Double> length = new Random();
-        final Vect start = new RandomPoint();
-        final Vect dir = new RandomPoint();
-        final Segment seg = new LengthSegment(start, dir, length);
+        final Scalar<Double> length = new Random<>();
+        final Vect<Double> start = new RandomPoint<>();
+        final Vect<Double> dir = new RandomPoint<>();
+        final Segment<Double> seg = new LengthSegment<>(start, dir, length);
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
@@ -129,8 +129,8 @@ public final class LengthSegmentTest {
         );
         MatcherAssert.assertThat(seg.start(), Matchers.equalTo(start));
         MatcherAssert.assertThat(
-            new Parallel(
-                new PtVectSegment(new RandomPoint(), dir), seg
+            new Parallel<>(
+                new PtVectSegment<>(new RandomPoint<>(), dir), seg
             ).resolve(dec),
             Matchers.is(true)
         );

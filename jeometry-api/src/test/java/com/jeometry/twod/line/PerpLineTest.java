@@ -43,9 +43,9 @@ public final class PerpLineTest {
      */
     @Test
     public void buildsPerpendicularLine() {
-        final Line line = new RandomLine();
+        final Line<Double> line = new RandomLine<>();
         MatcherAssert.assertThat(
-            new Perpendicular(line, new PerpLine(line)).resolve(new Decimal()),
+            new Perpendicular<>(line, new PerpLine<>(line)).resolve(new Decimal()),
             Matchers.is(true)
         );
     }
@@ -55,9 +55,9 @@ public final class PerpLineTest {
      */
     @Test
     public void buildsPerpendicularToVerticalLine() {
-        final Line line = new VerticalLine();
+        final Line<Double> line = new VerticalLine<>();
         MatcherAssert.assertThat(
-            new Perpendicular(line, new PerpLine(line)).resolve(new Decimal()),
+            new Perpendicular<>(line, new PerpLine<>(line)).resolve(new Decimal()),
             Matchers.is(true)
         );
     }
@@ -67,16 +67,16 @@ public final class PerpLineTest {
      */
     @Test
     public void buildsPerpendicularPassingBy() {
-        final Line line = new RandomLine();
-        final Vect pnt = new RandomPoint();
-        final Line perp = new PerpLine(line, pnt);
+        final Line<Double> line = new RandomLine<>();
+        final Vect<Double> pnt = new RandomPoint<>();
+        final Line<Double> perp = new PerpLine<>(line, pnt);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new Perpendicular(line, perp).resolve(field),
+            new Perpendicular<>(line, perp).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInLine(pnt, perp).resolve(field),
+            new PointInLine<>(pnt, perp).resolve(field),
             Matchers.equalTo(true)
         );
     }

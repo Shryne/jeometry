@@ -44,22 +44,22 @@ public final class PtReflectionSegmentTest {
      */
     @Test
     public void buildsReflection() {
-        final RandomPoint start = new RandomPoint();
-        final RandomPoint end = new RandomPoint();
-        final RandomPoint across = new RandomPoint();
-        final Segment result = new PtReflectionSegment(
-            across, new PtsSegment(start, end)
+        final RandomPoint<Double> start = new RandomPoint<>();
+        final RandomPoint<Double> end = new RandomPoint<>();
+        final RandomPoint<Double> across = new RandomPoint<>();
+        final Segment<Double> result = new PtReflectionSegment<>(
+            across, new PtsSegment<>(start, end)
         );
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
             new VectEquals(
-                result.start(), new PtReflectionPoint(across, start)
+                result.start(), new PtReflectionPoint<>(across, start)
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
             new VectEquals(
-                result.end(), new PtReflectionPoint(across, end)
+                result.end(), new PtReflectionPoint<>(across, end)
             ).resolve(dec),
             Matchers.is(true)
         );
@@ -71,21 +71,21 @@ public final class PtReflectionSegmentTest {
      */
     @Test
     public void buildsReflectionAcrossOrigin() {
-        final RandomPoint start = new RandomPoint();
-        final RandomPoint end = new RandomPoint();
-        final Segment result = new PtReflectionSegment(
-            new PtsSegment(start, end)
+        final RandomPoint<Double> start = new RandomPoint<>();
+        final RandomPoint<Double> end = new RandomPoint<>();
+        final Segment<Double> result = new PtReflectionSegment<>(
+            new PtsSegment<>(start, end)
         );
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
             new VectEquals(
-                result.start(), new PtReflectionPoint(start)
+                result.start(), new PtReflectionPoint<>(start)
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
             new VectEquals(
-                result.end(), new PtReflectionPoint(end)
+                result.end(), new PtReflectionPoint<>(end)
             ).resolve(dec),
             Matchers.is(true)
         );

@@ -31,26 +31,27 @@ import lombok.ToString;
 
 /**
  * A line defined as the reflection of a line, across a given point.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class PtReflectionLine extends PtDirLine {
+public final class PtReflectionLine<T> extends PtDirLine<T> {
 
     /**
      * Constructor.
      * @param center Reflection center
      * @param line The line to reflect
      */
-    public PtReflectionLine(final Vect center, final Line line) {
-        super(new PtReflectionPoint(center, line.point()), line.direction());
+    public PtReflectionLine(final Vect<T> center, final Line<T> line) {
+        super(new PtReflectionPoint<>(center, line.point()), line.direction());
     }
 
     /**
      * Constructor. Builds the reflection line across the origin.
      * @param input The line to reflect
      */
-    public PtReflectionLine(final Line input) {
-        this(new XyPoint(new AddIdentity(), new AddIdentity()), input);
+    public PtReflectionLine(final Line<T> input) {
+        this(new XyPoint<>(new AddIdentity<>(), new AddIdentity<>()), input);
     }
 
 }

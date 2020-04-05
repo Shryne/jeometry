@@ -44,11 +44,11 @@ public final class InCirclePointTest {
      */
     @Test
     public void buildsAPointInCircle() {
-        final Circle any = new PtsCircle(
-            new RandomPoint(), new RandomPoint()
+        final Circle<Double> any = new PtsCircle<>(
+            new RandomPoint<>(), new RandomPoint<>()
         );
         MatcherAssert.assertThat(
-            InCirclePointTest.belongs(new InCirclePoint(any), any),
+            InCirclePointTest.belongs(new InCirclePoint<>(any), any),
             Matchers.is(true)
         );
     }
@@ -59,9 +59,9 @@ public final class InCirclePointTest {
      * @param any Circle
      * @return True if the point belongs to the circle
      */
-    private static boolean belongs(final Vect pnt, final Circle any) {
+    private static boolean belongs(final Vect<Double> pnt, final Circle<Double> any) {
         return new Decimal().equals(
-            new Norm(new Minus(any.center(), pnt)), any.radius()
+            new Norm<>(new Minus<>(any.center(), pnt)), any.radius()
         );
     }
 }

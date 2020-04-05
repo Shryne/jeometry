@@ -29,16 +29,17 @@ import lombok.ToString;
 
 /**
  * A vertical line.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class VerticalLine extends PtDirLine {
+public final class VerticalLine<T> extends PtDirLine<T> {
 
     /**
      * Constructor.
      */
     public VerticalLine() {
-        super(new RandomPoint(), new VertPoint());
+        super(new RandomPoint<>(), new VertPoint<>());
     }
 
 }

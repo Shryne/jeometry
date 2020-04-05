@@ -43,7 +43,7 @@ public final class MeasureAngleTest {
     @Test
     public void buildsMeasureAngle() {
         final double measure = Math.random();
-        final Angle angle = new MeasureAngle(measure);
+        final Angle<Double> angle = new MeasureAngle<>(measure);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectsDegrees(
@@ -59,10 +59,10 @@ public final class MeasureAngleTest {
      */
     @Test
     public void buildsMeasureAngleWithOriginAndStart() {
-        final Vect origin = new RandomPoint();
-        final Vect start = new RandomPoint();
+        final Vect<Double> origin = new RandomPoint<>();
+        final Vect<Double> start = new RandomPoint<>();
         final double measure = Math.random();
-        final Angle angle = new MeasureAngle(origin, start, measure);
+        final Angle<Double> angle = new MeasureAngle<>(origin, start, measure);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new VectsDegrees(

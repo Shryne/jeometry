@@ -32,16 +32,18 @@ import com.jeometry.twod.line.Line;
  * A point defined by belonging to a line. The point is dynamic regarding to the
  * passed line, which means that it is ensured that this point remains belonging
  * to the line even if modifications occur on the line.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class InLinePoint extends XyPoint {
+public final class InLinePoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param line The line to belong to
      */
-    public InLinePoint(final Line line) {
-        super(new Sum(new Times(line.direction(), new Random()), line.point()));
+    @SuppressWarnings("unchecked")
+    public InLinePoint(final Line<T> line) {
+        super(new Sum<>(new Times<>(line.direction(), new Random<>()), line.point()));
     }
 
 }

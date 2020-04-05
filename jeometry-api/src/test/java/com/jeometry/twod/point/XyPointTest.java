@@ -40,8 +40,8 @@ public final class XyPointTest {
     public void buildsAVector() {
         final Scalar.Default<Double> xcoor = new Scalar.Default<>(2.);
         final Scalar.Default<Double> ycoor = new Scalar.Default<>(1.);
-        final XyPoint vector = new XyPoint(xcoor, ycoor);
-        final Scalar[] coords = vector.coords();
+        final XyPoint<Double> vector = new XyPoint<>(xcoor, ycoor);
+        final Scalar<Double>[] coords = vector.coords();
         MatcherAssert.assertThat(coords[0], Matchers.equalTo(xcoor));
         MatcherAssert.assertThat(coords[1], Matchers.equalTo(ycoor));
         MatcherAssert.assertThat(vector.xcoor(), Matchers.equalTo(xcoor));

@@ -36,17 +36,18 @@ import lombok.ToString;
 
 /**
  * Two lines intersection point.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString
-public final class LineIntersectPoint extends XyPoint {
+public final class LineIntersectPoint<T> extends XyPoint<T> {
 
     /**
      * Constructor.
      * @param first First line
      * @param second Second line
      */
-    public LineIntersectPoint(final Line first, final Line second) {
+    public LineIntersectPoint(final Line<T> first, final Line<T> second) {
         super(LineIntersectPoint.vector(first, second));
     }
 
@@ -54,11 +55,13 @@ public final class LineIntersectPoint extends XyPoint {
      * Builds a vector corresponding to the intersection point.
      * @param first First line
      * @param second Second line
+     * @param <T> scalar types
      * @return The intersection point
      */
-    private static Vect vector(final Line first, final Line second) {
-        final Scalar abscissa = LineIntersectPoint.abscissa(first, second);
-        return new FixedVector(
+    @SuppressWarnings("unchecked")
+    private static <T> Vect<T> vector(final Line<T> first, final Line<T> second) {
+        final Scalar<T> abscissa = LineIntersectPoint.abscissa(first, second);
+        return new FixedVector<T>(
             abscissa, LineIntersectPoint.ordinate(first, second, abscissa)
         );
     }
@@ -68,13 +71,14 @@ public final class LineIntersectPoint extends XyPoint {
      * @param first First line
      * @param second Second line
      * @param abcissa Intersecting point abscissa
+     * @param <T> scalar types
      * @return Scalar representing the ordinate
      */
-    private static Scalar ordinate(final Line first, final Line second,
-        final Scalar abcissa) {
-        return new LineAnalytics(first).vertical().ifElse(
-            new LinePointOrdinate(second, abcissa),
-            new LinePointOrdinate(first, abcissa)
+    private static <T> Scalar<T> ordinate(final Line<T> first, final Line<T> second,
+        final Scalar<T> abcissa) {
+        return new LineAnalytics<>(first).vertical().ifElse(
+            new LinePointOrdinate<>(second, abcissa),
+            new LinePointOrdinate<>(first, abcissa)
         );
     }
 
@@ -82,19 +86,20 @@ public final class LineIntersectPoint extends XyPoint {
      * Calculates abscissa of the intersecting point.
      * @param first First line
      * @param second Second line
+     * @param <T> scalar types
      * @return Scalar representing the abscissa
      */
-    private static Scalar abscissa(final Line first, final Line second) {
-        final LineAnalytics fst = new LineAnalytics(first);
-        final LineAnalytics snd = new LineAnalytics(second);
-        return new Intersecting(first, second).ifElse(
+    private static <T> Scalar<T> abscissa(final Line<T> first, final Line<T> second) {
+        final LineAnalytics<T> fst = new LineAnalytics<>(first);
+        final LineAnalytics<T> snd = new LineAnalytics<>(second);
+        return new Intersecting<>(first, second).ifElse(
             fst.vertical().ifElse(
                 first.point().coords()[0],
                 snd.vertical().ifElse(
                     second.point().coords()[0],
-                    new Division(
-                        new Diff(snd.intercept(), fst.intercept()),
-                        new Diff(fst.slope(), snd.slope())
+                    new Division<T>(
+                        new Diff<>(snd.intercept(), fst.intercept()),
+                        new Diff<>(fst.slope(), snd.slope())
                     )
                 )
             ),

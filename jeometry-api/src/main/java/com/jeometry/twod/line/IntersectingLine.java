@@ -31,27 +31,28 @@ import lombok.ToString;
 /**
  * A line intersecting another line. The line is defined by having a different
  * direction than the passed line.
+ * @param <T> scalar types
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class IntersectingLine implements Line {
+public final class IntersectingLine<T> implements Line<T> {
 
     /**
      * A point by which this line passes.
      */
-    private final Vect pnt;
+    private final Vect<T> pnt;
 
     /**
      * Line direction.
      */
-    private Vect dir;
+    private Vect<T> dir;
 
     /**
      * Constructor. Builds a random intersecting line.
      * @param intersect The line to intersect
      */
-    public IntersectingLine(final Line intersect) {
-        this(intersect, new OutsideLinePoint(intersect));
+    public IntersectingLine(final Line<T> intersect) {
+        this(intersect, new OutsideLinePoint<T>(intersect));
     }
 
     /**
@@ -59,18 +60,18 @@ public final class IntersectingLine implements Line {
      * @param intersect The line to be intersect to
      * @param point The point to pass by
      */
-    public IntersectingLine(final Line intersect, final Vect point) {
+    public IntersectingLine(final Line<T> intersect, final Vect<T> point) {
         this.pnt = point;
-        this.dir = new DifferentPoint(intersect.direction());
+        this.dir = new DifferentPoint<T>(intersect.direction());
     }
 
     @Override
-    public Vect direction() {
+    public Vect<T> direction() {
         return this.dir;
     }
 
     @Override
-    public Vect point() {
+    public Vect<T> point() {
         return this.pnt;
     }
 
