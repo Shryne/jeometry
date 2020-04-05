@@ -85,29 +85,29 @@ public final class AwtTest {
      * to this painter.
      * @throws InterruptedException If fails.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void addsPainter() throws InterruptedException {
         final Awt awt = new Awt();
         final CountDownLatch latch = new CountDownLatch(1);
-        @SuppressWarnings("unchecked")
         final AbstractAwtPaint painter = new AbstractAwtPaint(
             Mockito.mock(Field.class), Line.class
         ) {
             @Override
             protected void draw(final Shape renderable,
                 final Graphics2D graphic, final AwtContext ctx) {
-                ((Line) renderable.renderable()).direction();
+                ((Line<Double>) renderable.renderable()).direction();
                 latch.countDown();
             }
         };
-        final Line line = Mockito.mock(Line.class);
+        final Line<Double> line = Mockito.mock(Line.class);
         Mockito.when(line.point()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(line.direction()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
             )
         );

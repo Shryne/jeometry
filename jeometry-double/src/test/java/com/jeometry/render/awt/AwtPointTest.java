@@ -47,7 +47,7 @@ public final class AwtPointTest {
      */
     @Test
     public void rendersPoints() {
-        final XyPoint point = new RandomPoint();
+        final XyPoint<Double> point = new RandomPoint<>();
         final AwtPoint painter = new AwtPoint(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
@@ -64,7 +64,7 @@ public final class AwtPointTest {
      */
     @Test
     public void usesRightColor() {
-        final XyPoint point = new RandomPoint();
+        final XyPoint<Double> point = new RandomPoint<>();
         final AwtPoint painter = new AwtPoint(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
@@ -88,7 +88,8 @@ public final class AwtPointTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final Line render = Mockito.mock(Line.class);
+        @SuppressWarnings("unchecked")
+        final Line<Double> render = Mockito.mock(Line.class);
         final AwtPoint painter = new AwtPoint(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));

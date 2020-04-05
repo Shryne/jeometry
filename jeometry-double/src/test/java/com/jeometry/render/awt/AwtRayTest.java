@@ -42,16 +42,17 @@ public final class AwtRayTest {
     /**
      * {@link AwtRay} renders forward rays.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersForwardRays() {
-        final Ray ray = Mockito.mock(Ray.class);
+        final Ray<Double> ray = Mockito.mock(Ray.class);
         Mockito.when(ray.origin()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(ray.direction()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
             )
         );
@@ -66,16 +67,17 @@ public final class AwtRayTest {
     /**
      * {@link AwtRay} renders backward rays.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersBackwardRays() {
-        final Ray ray = Mockito.mock(Ray.class);
+        final Ray<Double> ray = Mockito.mock(Ray.class);
         Mockito.when(ray.origin()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(ray.direction()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(-1.), new Scalar.Default<Double>(-1.)
             )
         );
@@ -90,16 +92,17 @@ public final class AwtRayTest {
     /**
      * {@link AwtRay} renders vertical up rays.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersVerticalUpRays() {
-        final Ray ray = Mockito.mock(Ray.class);
+        final Ray<Double> ray = Mockito.mock(Ray.class);
         Mockito.when(ray.origin()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(ray.direction()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
             )
         );
@@ -114,16 +117,17 @@ public final class AwtRayTest {
     /**
      * {@link AwtRay} renders vertical down rays.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersVerticalDownRays() {
-        final Ray ray = Mockito.mock(Ray.class);
+        final Ray<Double> ray = Mockito.mock(Ray.class);
         Mockito.when(ray.origin()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(ray.direction()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(-1.)
             )
         );
@@ -140,7 +144,8 @@ public final class AwtRayTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final Angle render = Mockito.mock(Angle.class);
+        @SuppressWarnings("unchecked")
+        final Angle<Double> render = Mockito.mock(Angle.class);
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));

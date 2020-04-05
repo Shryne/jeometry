@@ -74,10 +74,10 @@ public final class AxisPaint {
     public void paint(final Graphics2D graphics) {
         final DblPoint origin = new DblPoint(0., 0.);
         final Shape xaxis = new Shape(
-            new PtDirLine(origin, new DblPoint(1.0, 0.))
+            new PtDirLine<>(origin, new DblPoint(1.0, 0.))
         );
         final Shape yaxis = new Shape(
-            new PtDirLine(origin, new DblPoint(0., 1.))
+            new PtDirLine<>(origin, new DblPoint(0., 1.))
         );
         final Color color = graphics.getColor();
         graphics.setStroke(new AwtStroke(new DefaultStroke()));

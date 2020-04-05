@@ -58,7 +58,8 @@ public final class AwtLine extends AbstractAwtPaint {
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
-        final Line line = (Line) renderable.renderable();
+        @SuppressWarnings("unchecked")
+        final Line<Double> line = (Line<Double>) renderable.renderable();
         if (new Vertical(line).resolve(this.field())) {
             AwtLine.vertical(graphics, line, context);
         } else {
@@ -73,13 +74,13 @@ public final class AwtLine extends AbstractAwtPaint {
      * @param context AwtContext
      */
     private void regular(final Graphics2D graphics,
-        final Line line, final AwtContext context) {
+        final Line<Double> line, final AwtContext context) {
         final int width = context.width();
         final AwtTransform transform = new AwtTransform(context);
         final Double xstart = transform.inverse(new Point(0, 0)).dblx();
         final Double xend = transform.inverse(new Point(width, 0)).dblx();
-        final Double slope = this.field().actual(new Slope(line));
-        final Double intercept = this.field().actual(new Intercept(line));
+        final Double slope = this.field().actual(new Slope<>(line));
+        final Double intercept = this.field().actual(new Intercept<>(line));
         final Point start = transform.transform(
             new DblPoint(xstart, slope * xstart + intercept)
         );
@@ -95,7 +96,7 @@ public final class AwtLine extends AbstractAwtPaint {
      * @param line Line to draw
      * @param context AwtContext
      */
-    private static void vertical(final Graphics2D graphics, final Line line,
+    private static void vertical(final Graphics2D graphics, final Line<Double> line,
         final AwtContext context) {
         final Point point = new AwtTransform(context).transform(line.point());
         graphics.drawLine(point.x, 0, point.x, context.height());
