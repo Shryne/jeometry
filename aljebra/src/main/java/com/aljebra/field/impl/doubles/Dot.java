@@ -23,7 +23,6 @@
  */
 package com.aljebra.field.impl.doubles;
 
-import com.aljebra.aspects.DimensionsEqual;
 import com.aljebra.matrix.FixedMatrix;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.metric.angle.Degrees;
@@ -43,7 +42,6 @@ public final class Dot implements InnerProduct<Double> {
 
     @SuppressWarnings("unchecked")
     @Override
-    @DimensionsEqual
     public Scalar<Double> product(final Vect<Double> foperand, final Vect<Double> soperand) {
         final Scalar<Double>[] first = foperand.coords();
         final Scalar<Double>[] second = soperand.coords();
@@ -61,7 +59,6 @@ public final class Dot implements InnerProduct<Double> {
 
     @SuppressWarnings("unchecked")
     @Override
-    @DimensionsEqual
     public Degrees angle(final Vect<Double> first, final Vect<Double> second) {
         final Double cross =
             Dot.val(first.coords()[0]) * Dot.val(second.coords()[1])

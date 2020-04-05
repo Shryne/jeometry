@@ -23,7 +23,6 @@
  */
 package com.aljebra.vector;
 
-import com.aljebra.aspects.DimensionsEqual;
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Scalar;
 import com.google.common.collect.HashMultiset;
@@ -51,7 +50,6 @@ public final class Sum<T> implements Vect<T> {
      * @param operands Sum operands
      */
     @SuppressWarnings("unchecked")
-    @DimensionsEqual
     public Sum(final Vect<T>... operands) {
         this.operands = HashMultiset.create(Arrays.asList(operands));
     }
