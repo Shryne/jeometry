@@ -28,6 +28,8 @@ import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
+import java.util.ArrayList;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -55,9 +57,9 @@ public final class DotTest {
         final Scalar<Double>[] coords = DotTest.scalars(DotTest.COORDS_LENGTH);
         Mockito.when(vectb.coords()).thenReturn(coords);
         Mockito.when(vecta.coords()).thenReturn(coords);
-        final Scalar<Double>[] multis = new Scalar[coords.length];
-        for (int idx = 0; idx < coords.length; ++idx) {
-            multis[idx] = DotTest.square(coords[idx]);
+        final List<Scalar<Double>> multis = new ArrayList<>(coords.length);
+        for (final Scalar<Double> coord : coords) {
+            multis.add(DotTest.square(coord));
         }
         MatcherAssert.assertThat(
             new Dot().product(vecta, vectb),

@@ -26,6 +26,7 @@ package com.jeometry.twod.segment;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.point.RandomPoint;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -40,7 +41,6 @@ public final class PtVectSegmentTest {
      * {@link PtVectSegment} builds a segment with the given start and the
      * given vector.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void createsSegmentWithExtremityAndVector() {
         final Vect<Object> start = new RandomPoint<>();
@@ -48,7 +48,7 @@ public final class PtVectSegmentTest {
         final Segment<Object> segment = new PtVectSegment<>(start, vect);
         MatcherAssert.assertThat(segment.start(), Matchers.equalTo(start));
         MatcherAssert.assertThat(
-            segment.end(), Matchers.equalTo(new Sum<>(start, vect))
+            segment.end(), Matchers.equalTo(new Sum<>(Arrays.asList(start, vect)))
         );
     }
 

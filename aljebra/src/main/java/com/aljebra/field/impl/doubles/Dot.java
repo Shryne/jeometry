@@ -30,6 +30,8 @@ import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class implementing dot operation (scalar product) or inner product
@@ -40,14 +42,13 @@ import com.aljebra.vector.Vect;
  */
 public final class Dot implements InnerProduct<Double> {
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar<Double> product(final Vect<Double> foperand, final Vect<Double> soperand) {
         final Scalar<Double>[] first = foperand.coords();
         final Scalar<Double>[] second = soperand.coords();
-        final Multiplication<Double>[] multis = new Multiplication[first.length];
+        final List<Multiplication<Double>> multis = new ArrayList<>(first.length);
         for (int idx = 0; idx < first.length; ++idx) {
-            multis[idx] = Dot.mult(first[idx], second[idx]);
+            multis.add(Dot.mult(first[idx], second[idx]));
         }
         return new Add<Double>(multis);
     }

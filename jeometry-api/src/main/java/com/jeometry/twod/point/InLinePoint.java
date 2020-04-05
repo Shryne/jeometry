@@ -27,6 +27,7 @@ import com.aljebra.scalar.Random;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
 import com.jeometry.twod.line.Line;
+import java.util.Arrays;
 
 /**
  * A point defined by belonging to a line. The point is dynamic regarding to the
@@ -41,9 +42,10 @@ public final class InLinePoint<T> extends XyPoint<T> {
      * Constructor.
      * @param line The line to belong to
      */
-    @SuppressWarnings("unchecked")
     public InLinePoint(final Line<T> line) {
-        super(new Sum<>(new Times<>(line.direction(), new Random<>()), line.point()));
+        super(
+            new Sum<>(Arrays.asList(new Times<>(line.direction(), new Random<>()), line.point()))
+        );
     }
 
 }

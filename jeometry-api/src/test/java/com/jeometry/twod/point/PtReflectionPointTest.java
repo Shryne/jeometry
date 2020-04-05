@@ -28,6 +28,7 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Sum;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -90,9 +91,8 @@ public final class PtReflectionPointTest {
      * @param input Reflection input
      * @return Reflection result
      */
-    @SuppressWarnings("unchecked")
     private static XyPoint<Double> expected(final XyPoint<Double> ctr,
         final XyPoint<Double> input) {
-        return new XyPoint<>(new Minus<>(new Sum<>(ctr, ctr), input));
+        return new XyPoint<>(new Minus<>(new Sum<>(Arrays.asList(ctr, ctr)), input));
     }
 }

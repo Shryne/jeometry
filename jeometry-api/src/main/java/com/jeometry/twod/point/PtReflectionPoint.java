@@ -27,6 +27,7 @@ import com.aljebra.scalar.AddIdentity;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -42,9 +43,8 @@ public final class PtReflectionPoint<T> extends XyPoint<T> {
      * @param center Reflection center
      * @param input The point to reflect
      */
-    @SuppressWarnings("unchecked")
     public PtReflectionPoint(final Vect<T> center, final Vect<T> input) {
-        super(new Sum<T>(center, new Minus<T>(center, input)));
+        super(new Sum<T>(Arrays.asList(center, new Minus<T>(center, input))));
     }
 
     /**

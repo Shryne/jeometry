@@ -28,7 +28,8 @@ import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -50,55 +51,42 @@ public final class Sum<T> implements Matrix<T> {
      * Constructor.
      * @param operands Sum operands
      */
-    @SuppressWarnings("unchecked")
-    public Sum(final Matrix<T>... operands) {
-        this.operands = HashMultiset.create(Arrays.asList(operands));
+    public Sum(final Iterable<Matrix<T>> operands) {
+        this.operands = HashMultiset.create(operands);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar<T>[] coords() {
-        final Vect<T>[] results = new Vect[this.operands.size()];
-        int idx = 0;
+        final List<Vect<T>> results = new ArrayList<>(this.operands.size());
         for (final Matrix<T> oper : this.operands) {
-            results[idx] = Sum.vector(oper.coords());
-            ++idx;
+            results.add(Sum.vector(oper.coords()));
         }
         return new com.aljebra.vector.Sum<T>(results).coords();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar<T>[] column(final int index) {
-        final Vect<T>[] cols = new Vect[this.operands.size()];
-        int idx = 0;
+        final List<Vect<T>> cols = new ArrayList<>(this.operands.size());
         for (final Matrix<T> oper : this.operands) {
-            cols[idx] = Sum.vector(oper.column(index));
-            ++idx;
+            cols.add(Sum.vector(oper.column(index)));
         }
         return new com.aljebra.vector.Sum<T>(cols).coords();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar<T>[] line(final int index) {
-        final Vect<T>[] lines = new Vect[this.operands.size()];
-        int idx = 0;
+        final List<Vect<T>> lines = new ArrayList<>(this.operands.size());
         for (final Matrix<T> oper : this.operands) {
-            lines[idx] = Sum.vector(oper.line(index));
-            ++idx;
+            lines.add(Sum.vector(oper.line(index)));
         }
         return new com.aljebra.vector.Sum<T>(lines).coords();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Vect<T> apply(final Vect<T> input) {
-        final Vect<T>[] results = new Vect[this.operands.size()];
-        int idx = 0;
+        final List<Vect<T>> results = new ArrayList<>(this.operands.size());
         for (final Matrix<T> oper : this.operands) {
-            results[idx] = oper.apply(input);
-            ++idx;
+            results.add(oper.apply(input));
         }
         return new com.aljebra.vector.Sum<T>(results);
     }

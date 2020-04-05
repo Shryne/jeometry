@@ -25,6 +25,7 @@ package com.aljebra.vector;
 
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -60,7 +61,7 @@ public final class SumTest {
             expected[idx] = SumTest.sum(acoords[idx], bcoords[idx]);
         }
         MatcherAssert.assertThat(
-            new Sum<>(vecta, vectb).coords(), Matchers.equalTo(expected)
+            new Sum<>(Arrays.asList(vecta, vectb)).coords(), Matchers.equalTo(expected)
         );
     }
 
@@ -70,9 +71,8 @@ public final class SumTest {
      * @param another Second scalar
      * @return A scalar representing the sum if the two passed scalars
      */
-    @SuppressWarnings("unchecked")
     private static Scalar<Object> sum(final Scalar<Object> scalar, final Scalar<Object> another) {
-        return new Add<>(scalar, another);
+        return new Add<>(Arrays.asList(scalar, another));
     }
 
     /**
