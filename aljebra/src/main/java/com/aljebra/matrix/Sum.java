@@ -23,7 +23,6 @@
  */
 package com.aljebra.matrix;
 
-import com.aljebra.aspects.DimensionsEqual;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
@@ -52,7 +51,6 @@ public final class Sum<T> implements Matrix<T> {
      * @param operands Sum operands
      */
     @SuppressWarnings("unchecked")
-    @DimensionsEqual
     public Sum(final Matrix<T>... operands) {
         this.operands = HashMultiset.create(Arrays.asList(operands));
     }

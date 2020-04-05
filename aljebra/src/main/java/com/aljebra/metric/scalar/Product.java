@@ -23,7 +23,6 @@
  */
 package com.aljebra.metric.scalar;
 
-import com.aljebra.aspects.DimensionsEqual;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.vector.Vect;
 import lombok.EqualsAndHashCode;
@@ -54,7 +53,6 @@ public final class Product<T> implements MetricScalar<T> {
      * @param first First operand
      * @param second Second operand
      */
-    @DimensionsEqual
     public Product(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;

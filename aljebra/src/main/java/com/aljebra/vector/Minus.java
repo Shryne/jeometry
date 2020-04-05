@@ -23,7 +23,6 @@
  */
 package com.aljebra.vector;
 
-import com.aljebra.aspects.DimensionsEqual;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Scalar;
 import lombok.EqualsAndHashCode;
@@ -52,7 +51,6 @@ public final class Minus<T> implements Vect<T> {
      * @param first First operand (minuend)
      * @param second Second operand (subtrahend)
      */
-    @DimensionsEqual
     public Minus(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;
