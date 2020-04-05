@@ -54,7 +54,8 @@ public final class AwtSegment extends AbstractAwtPaint {
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
-        final Segment seg = (Segment) renderable.renderable();
+        @SuppressWarnings("unchecked")
+        final Segment<Double> seg = (Segment<Double>) renderable.renderable();
         final AwtTransform transform = new AwtTransform(context);
         final Point start = transform.transform(seg.start());
         final Point end = transform.transform(seg.end());

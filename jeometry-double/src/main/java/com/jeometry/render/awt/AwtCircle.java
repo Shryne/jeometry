@@ -54,7 +54,8 @@ public final class AwtCircle extends AbstractAwtPaint {
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
-        final Circle circle = (Circle) renderable.renderable();
+        @SuppressWarnings("unchecked")
+        final Circle<Double> circle = (Circle<Double>) renderable.renderable();
         final int size = (int) (context.scale() * this.field().actual(
             circle.radius()
         ));

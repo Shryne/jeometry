@@ -55,7 +55,8 @@ public final class AwtPoint extends AbstractAwtPaint {
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
         final int size = 4;
-        final Vect point = (Vect) renderable.renderable();
+        @SuppressWarnings("unchecked")
+        final Vect<Double> point = (Vect<Double>) renderable.renderable();
         final Point awtpt = new AwtTransform(context).transform(point);
         graphics.drawRect(awtpt.x - size / 2, awtpt.y - size / 2, size, size);
     }

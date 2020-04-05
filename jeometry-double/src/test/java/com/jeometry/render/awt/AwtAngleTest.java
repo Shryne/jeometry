@@ -42,21 +42,22 @@ public final class AwtAngleTest {
     /**
      * {@link AwtAngle} renders angles.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void rendersAngles() {
-        final Angle angle = Mockito.mock(Angle.class);
+        final Angle<Double> angle = Mockito.mock(Angle.class);
         Mockito.when(angle.origin()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(angle.start()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(1.), new Scalar.Default<Double>(0.)
             )
         );
         Mockito.when(angle.end()).thenReturn(
-            new FixedVector(
+            new FixedVector<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
             )
         );
@@ -72,7 +73,8 @@ public final class AwtAngleTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final Line render = Mockito.mock(Line.class);
+        @SuppressWarnings("unchecked")
+        final Line<Double> render = Mockito.mock(Line.class);
         final AwtAngle painter = new AwtAngle(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));

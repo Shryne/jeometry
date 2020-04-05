@@ -52,18 +52,14 @@ public final class AwtTransformTest {
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             result.getX(), Matchers.closeTo(
-                (int) (
-                    ctx.width() / 2d + ctx.scale() * xcoor
-                    - ctx.center().dblx() * ctx.scale()
-                ), error
+                (int) (ctx.width() / 2d + ctx.scale() * xcoor
+                    - ctx.center().dblx() * ctx.scale()), error
             )
         );
         MatcherAssert.assertThat(
             result.getY(), Matchers.closeTo(
-                (int) (
-                    ctx.height() / 2d - ctx.scale() * ycoor
-                    + ctx.center().dbly() * ctx.scale()
-                ), error
+                (int) (ctx.height() / 2d - ctx.scale() * ycoor
+                    + ctx.center().dbly() * ctx.scale()), error
             )
         );
     }
@@ -75,24 +71,20 @@ public final class AwtTransformTest {
     public void transformsXyPoint() {
         final Double xcoor = Math.random();
         final Double ycoor = Math.random();
-        final XyPoint point = new DblPoint(xcoor, ycoor);
+        final XyPoint<Double> point = new DblPoint(xcoor, ycoor);
         final AwtContext ctx = AwtTransformTest.context();
         final Point result = new AwtTransform(ctx).transform(point);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             result.getX(), Matchers.closeTo(
-                (int) (
-                    ctx.width() / 2d + ctx.scale() * xcoor
-                    - ctx.center().dblx() * ctx.scale()
-                ), error
+                (int) (ctx.width() / 2d + ctx.scale() * xcoor
+                    - ctx.center().dblx() * ctx.scale()), error
             )
         );
         MatcherAssert.assertThat(
             result.getY(), Matchers.closeTo(
-                (int) (
-                    ctx.height() / 2d - ctx.scale() * ycoor
-                    + ctx.center().dbly() * ctx.scale()
-                ), error
+                (int) (ctx.height() / 2d - ctx.scale() * ycoor
+                    + ctx.center().dbly() * ctx.scale()), error
             )
         );
     }
@@ -104,24 +96,20 @@ public final class AwtTransformTest {
     public void transformsVect() {
         final Double xcoor = Math.random();
         final Double ycoor = Math.random();
-        final Vect point = new DblPoint(xcoor, ycoor);
+        final Vect<Double> point = new DblPoint(xcoor, ycoor);
         final AwtContext ctx = AwtTransformTest.context();
         final Point res = new AwtTransform(ctx, new Decimal()).transform(point);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             res.getX(), Matchers.closeTo(
-                (int) (
-                    ctx.width() / 2d + ctx.scale() * xcoor
-                    - ctx.center().dblx() * ctx.scale()
-                ), error
+                (int) (ctx.width() / 2d + ctx.scale() * xcoor
+                    - ctx.center().dblx() * ctx.scale()), error
             )
         );
         MatcherAssert.assertThat(
             res.getY(), Matchers.closeTo(
-                (int) (
-                    ctx.height() / 2d - ctx.scale() * ycoor
-                    + ctx.center().dbly() * ctx.scale()
-                ), error
+                (int) (ctx.height() / 2d - ctx.scale() * ycoor
+                    + ctx.center().dbly() * ctx.scale()), error
             )
         );
     }
@@ -139,9 +127,9 @@ public final class AwtTransformTest {
             Matchers.equalTo(
                 new DblPoint(
                     (xcoor - ctx.width() / 2d) / ctx.scale()
-                    + ctx.center().dblx(),
+                        + ctx.center().dblx(),
                     (ctx.height() / 2d - ycoor) / ctx.scale()
-                    + ctx.center().dbly()
+                        + ctx.center().dbly()
                 )
             )
         );

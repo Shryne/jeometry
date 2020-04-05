@@ -58,7 +58,8 @@ public final class AwtRay extends AbstractAwtPaint {
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
         final AwtContext context) {
-        final Ray ray = (Ray) renderable.renderable();
+        @SuppressWarnings("unchecked")
+        final Ray<Double> ray = (Ray<Double>) renderable.renderable();
         if (new Vertical(ray).resolve(this.field())) {
             this.vertical(graphics, ray, context);
         } else {
@@ -73,12 +74,12 @@ public final class AwtRay extends AbstractAwtPaint {
      * @param ray Ray to draw
      */
     private void regular(final Graphics2D graphics, final AwtContext ctxt,
-        final Ray ray) {
+        final Ray<Double> ray) {
         final int width = ctxt.width();
         final Field<Double> field = this.field();
         final Double xdir = field.actual(ray.direction().coords()[0]);
-        final Double slope = this.field().actual(new Slope(ray));
-        final Double intercept = this.field().actual(new Intercept(ray));
+        final Double slope = this.field().actual(new Slope<>(ray));
+        final Double intercept = this.field().actual(new Intercept<>(ray));
         final AwtTransform transform = new AwtTransform(ctxt);
         final Point origin = transform.transform(ray.origin());
         final Double limit;
@@ -99,7 +100,7 @@ public final class AwtRay extends AbstractAwtPaint {
      * @param ray Ray to draw
      * @param context AwtContext
      */
-    private void vertical(final Graphics2D graphics, final Ray ray,
+    private void vertical(final Graphics2D graphics, final Ray<Double> ray,
         final AwtContext context) {
         final Field<Double> field = this.field();
         final AwtTransform transform = new AwtTransform(context);

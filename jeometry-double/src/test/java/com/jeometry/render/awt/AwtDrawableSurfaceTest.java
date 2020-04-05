@@ -116,11 +116,12 @@ public final class AwtDrawableSurfaceTest {
             @Override
             protected void draw(final Shape renderable,
                 final Graphics2D graphic, final AwtContext ctx) {
-                ((Line) renderable.renderable()).direction();
+                ((Line<Double>) renderable.renderable()).direction();
                 latch.countDown();
             }
         };
-        final Line line = Mockito.mock(Line.class);
+        @SuppressWarnings("unchecked")
+        final Line<Double> line = Mockito.mock(Line.class);
         Mockito.when(line.point()).thenReturn(new DblPoint(0., 0.));
         Mockito.when(line.direction()).thenReturn(new DblPoint(1., 1.));
         final Figure figure = new Figure().add(new Shape(line));

@@ -39,6 +39,7 @@ public final class DblCircleTest {
     /**
      * {@link DblCircle} accepts double radius.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void acceptsDoubleRadius() {
         final double radius = Math.random();
