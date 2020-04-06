@@ -25,14 +25,12 @@ package com.jeometry.twod.line;
 
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Vect;
-import lombok.ToString;
 
 /**
  * A line passing by two points (vectors).
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
 public final class PtsLine<T> extends PtDirLine<T> {
 
     /**
