@@ -25,7 +25,6 @@ package com.jeometry.twod.segment;
 
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.point.DifferentPoint;
-import lombok.ToString;
 
 /**
  * A segment defined by its start extremity. Its end extremity is
@@ -33,7 +32,6 @@ import lombok.ToString;
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
 public class StartSegment<T> extends PtsSegment<T> {
 
     /**

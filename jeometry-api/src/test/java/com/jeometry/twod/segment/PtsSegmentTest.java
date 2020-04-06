@@ -47,4 +47,15 @@ public final class PtsSegmentTest {
         MatcherAssert.assertThat(segment.end(), Matchers.equalTo(end));
     }
 
+    /**
+     * {@link PtsSegment} toString prints extremities.
+     */
+    @Test
+    public void printsExtremities() {
+        final Vect<Object> start = new RandomPoint<>();
+        final Vect<Object> end = new RandomPoint<>();
+        final String print = new PtsSegment<>(start, end).toString();
+        MatcherAssert.assertThat(print, Matchers.containsString(start.toString()));
+        MatcherAssert.assertThat(print, Matchers.containsString(end.toString()));
+    }
 }
