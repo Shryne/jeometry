@@ -25,7 +25,9 @@ package com.aljebra.vector;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -62,12 +64,11 @@ public final class OppositeTest {
      * Builds an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
-    private static Scalar<Double>[] scalars() {
-        @SuppressWarnings("unchecked")
-        final Scalar<Double>[] result = new Scalar[new Random()
-            .nextInt(OppositeTest.COORDS_LENGTH)];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = OppositeTest.scalar();
+    private static List<Scalar<Double>> scalars() {
+        final int size = new Random().nextInt(OppositeTest.COORDS_LENGTH);
+        final List<Scalar<Double>> result = new ArrayList<>(size);
+        for (int idx = 0; idx < size; ++idx) {
+            result.add(OppositeTest.scalar());
         }
         return result;
     }

@@ -30,6 +30,7 @@ import com.jeometry.twod.Shape;
 import com.jeometry.twod.angle.Angle;
 import com.jeometry.twod.ray.Ray;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -48,12 +49,16 @@ public final class AwtRayTest {
         final Ray<Double> ray = Mockito.mock(Ray.class);
         Mockito.when(ray.origin()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(ray.direction()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
+                )
             )
         );
         final AwtRay painter = new AwtRay(new Decimal());
@@ -73,12 +78,16 @@ public final class AwtRayTest {
         final Ray<Double> ray = Mockito.mock(Ray.class);
         Mockito.when(ray.origin()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(ray.direction()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(-1.), new Scalar.Default<Double>(-1.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(-1.), new Scalar.Default<Double>(-1.)
+                )
             )
         );
         final AwtRay painter = new AwtRay(new Decimal());
@@ -98,12 +107,16 @@ public final class AwtRayTest {
         final Ray<Double> ray = Mockito.mock(Ray.class);
         Mockito.when(ray.origin()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(ray.direction()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
+                )
             )
         );
         final AwtRay painter = new AwtRay(new Decimal());
@@ -123,12 +136,16 @@ public final class AwtRayTest {
         final Ray<Double> ray = Mockito.mock(Ray.class);
         Mockito.when(ray.origin()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(ray.direction()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(-1.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(-1.)
+                )
             )
         );
         final AwtRay painter = new AwtRay(new Decimal());

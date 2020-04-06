@@ -73,24 +73,24 @@ public final class DotTest {
      */
     @Test
     public void calculatesAngle() {
-        final Vect<Double> vecta = new DblVect(1., 0.);
+        final Vect<Double> vecta = new DblVect(Arrays.asList(1., 0.));
         final double pifourth = Math.PI / 4;
         final Dot dot = new Dot();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            dot.angle(vecta, new DblVect(0., -1.)).resolve(dot).doubleValue(),
+            dot.angle(vecta, new DblVect(Arrays.asList(0., -1.))).resolve(dot).doubleValue(),
             Matchers.closeTo(-Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            dot.angle(vecta, new DblVect(-1., 0.)).resolve(dot).doubleValue(),
+            dot.angle(vecta, new DblVect(Arrays.asList(-1., 0.))).resolve(dot).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
         MatcherAssert.assertThat(
-            dot.angle(vecta, new DblVect(0., 1.)).resolve(dot).doubleValue(),
+            dot.angle(vecta, new DblVect(Arrays.asList(0., 1.))).resolve(dot).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            dot.angle(vecta, new DblVect(1., 1.)).resolve(dot).doubleValue(),
+            dot.angle(vecta, new DblVect(Arrays.asList(1., 1.))).resolve(dot).doubleValue(),
             Matchers.closeTo(pifourth, error)
         );
     }
@@ -100,7 +100,7 @@ public final class DotTest {
      */
     @Test
     public void calculatesRotation() {
-        final Vect<Double> vecta = new DblVect(1., 0.);
+        final Vect<Double> vecta = new DblVect(Arrays.asList(1., 0.));
         final Degrees pifourth = new Degrees.Default(Math.PI / 4);
         final Dot dot = new Dot();
         final Decimal field = new Decimal();
@@ -143,21 +143,21 @@ public final class DotTest {
         final Decimal field = new Decimal();
         final Dot dot = new Dot();
         MatcherAssert.assertThat(
-            field.actual(dot.norm(new DblVect(1., 0.))),
+            field.actual(dot.norm(new DblVect(Arrays.asList(1., 0.)))),
             Matchers.equalTo(1.)
         );
         MatcherAssert.assertThat(
-            field.actual(dot.norm(new DblVect(0., 0.))),
+            field.actual(dot.norm(new DblVect(Arrays.asList(0., 0.)))),
             Matchers.equalTo(0.)
         );
         MatcherAssert.assertThat(
-            field.actual(dot.norm(new DblVect(1., 1.))),
+            field.actual(dot.norm(new DblVect(Arrays.asList(1., 1.)))),
             Matchers.equalTo(Math.sqrt(2.))
         );
         final double expected = Math.sqrt(8);
         final double mintwo = -2.;
         MatcherAssert.assertThat(
-            field.actual(dot.norm(new DblVect(mintwo, mintwo))),
+            field.actual(dot.norm(new DblVect(Arrays.asList(mintwo, mintwo)))),
             Matchers.equalTo(expected)
         );
     }

@@ -25,6 +25,7 @@ package com.aljebra.matrix;
 
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
+import java.util.Arrays;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -50,7 +51,9 @@ public final class VectorMatrixTest {
         final int dim = new Random().nextInt(VectorMatrixTest.INT_RANDOM);
         final Scalar<Object>[] coorsa = VectorMatrixTest.scalars(dim);
         final Matrix<Object> scalarmat = new VectorMatrix<>(coorsa);
-        final Matrix<Object> vectmat = new VectorMatrix<>(new FixedVector<Object>(coorsa));
+        final Matrix<Object> vectmat = new VectorMatrix<>(
+            new FixedVector<Object>(Arrays.asList(coorsa))
+        );
         MatcherAssert.assertThat(scalarmat.lines(), Matchers.equalTo(1));
         MatcherAssert.assertThat(scalarmat.columns(), Matchers.equalTo(dim));
         MatcherAssert.assertThat(

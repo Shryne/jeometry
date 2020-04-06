@@ -27,6 +27,7 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.Renderable;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -42,18 +43,16 @@ public class XyPoint<T> extends FixedVector<T> implements Renderable {
      * @param xcoor X coordinate
      * @param ycoor Y coordinate
      */
-    @SuppressWarnings("unchecked")
     public XyPoint(final Scalar<T> xcoor, final Scalar<T> ycoor) {
-        super(xcoor, ycoor);
+        super(Arrays.asList(xcoor, ycoor));
     }
 
     /**
      * Constructor. Projects the given vector on X and Y axis.
      * @param vector Input vector
      */
-    @SuppressWarnings("unchecked")
     public XyPoint(final Vect<T> vector) {
-        super(vector.coords()[0], vector.coords()[1]);
+        super(Arrays.asList(vector.coords()[0], vector.coords()[1]));
     }
 
     /**

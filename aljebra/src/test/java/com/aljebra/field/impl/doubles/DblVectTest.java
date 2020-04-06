@@ -24,6 +24,7 @@
 package com.aljebra.field.impl.doubles;
 
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -45,7 +46,7 @@ public final class DblVectTest {
         final double coorc = Math.random();
         final double coord = Math.random();
         final double coore = Math.random();
-        final DblVect vect = new DblVect(coora, coorb, coorc, coord, coore);
+        final DblVect vect = new DblVect(Arrays.asList(coora, coorb, coorc, coord, coore));
         MatcherAssert.assertThat(
             vect.coords(),
             Matchers.array(

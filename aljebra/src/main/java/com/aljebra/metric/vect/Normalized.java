@@ -28,6 +28,7 @@ import com.aljebra.scalar.MultInverse;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Times;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -43,7 +44,11 @@ public final class Normalized<T> extends FixedVector<T> {
      * @param vector Vector to normalize
      */
     public Normalized(final Vect<T> vector) {
-        super(new Times<T>(vector, new MultInverse<T>(new Norm<T>(vector))).coords());
+        super(
+            Arrays.asList(
+                new Times<T>(vector, new MultInverse<T>(new Norm<T>(vector))).coords()
+            )
+        );
     }
 
 }

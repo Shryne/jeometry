@@ -30,6 +30,7 @@ import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -103,12 +104,16 @@ public final class AwtTest {
         final Line<Double> line = Mockito.mock(Line.class);
         Mockito.when(line.point()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(line.direction()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
+                )
             )
         );
         awt.add(painter).render(new Figure().add(new Shape(line)));

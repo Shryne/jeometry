@@ -53,7 +53,7 @@ public final class TimesTest {
             new FixedMatrix<Object>(lines, cols, coorsa), factor
         );
         final Scalar<Object>[] expected = new com.aljebra.vector.Times<Object>(
-            new FixedVector<Object>(coorsa), factor
+            new FixedVector<Object>(Arrays.asList(coorsa)), factor
         ).coords();
         MatcherAssert.assertThat(times.lines(), Matchers.equalTo(lines));
         MatcherAssert.assertThat(times.columns(), Matchers.equalTo(cols));

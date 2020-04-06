@@ -26,6 +26,7 @@ package com.aljebra.matrix;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -61,21 +62,21 @@ public final class Times<T> implements Matrix<T> {
     @Override
     public Scalar<T>[] coords() {
         return new com.aljebra.vector.Times<T>(
-            new FixedVector<T>(this.matrix.coords()), this.scalar
+            new FixedVector<T>(Arrays.asList(this.matrix.coords())), this.scalar
         ).coords();
     }
 
     @Override
     public Scalar<T>[] column(final int index) {
         return new com.aljebra.vector.Times<T>(
-            new FixedVector<T>(this.matrix.column(index)), this.scalar
+            new FixedVector<T>(Arrays.asList(this.matrix.column(index))), this.scalar
         ).coords();
     }
 
     @Override
     public Scalar<T>[] line(final int index) {
         return new com.aljebra.vector.Times<T>(
-            new FixedVector<T>(this.matrix.line(index)), this.scalar
+            new FixedVector<T>(Arrays.asList(this.matrix.line(index))), this.scalar
         ).coords();
     }
 

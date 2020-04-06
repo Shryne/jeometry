@@ -30,6 +30,7 @@ import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.segment.Segment;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -48,12 +49,16 @@ public final class AwtSegmentTest {
         final Segment<Double> segment = Mockito.mock(Segment.class);
         Mockito.when(segment.start()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(segment.end()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
+                )
             )
         );
         final AwtSegment painter = new AwtSegment(new Decimal());

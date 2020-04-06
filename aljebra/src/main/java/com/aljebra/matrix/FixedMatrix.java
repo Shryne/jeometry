@@ -28,7 +28,9 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import com.google.common.base.Preconditions;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -102,7 +104,6 @@ public class FixedMatrix<T> implements Matrix<T> {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public final Vect<T> apply(final Vect<T> input) {
         if (input.coords().length != this.source) {
@@ -113,9 +114,9 @@ public class FixedMatrix<T> implements Matrix<T> {
                 )
             );
         }
-        final Scalar<T>[] result = new Scalar[this.target];
+        final List<Scalar<T>> result = new ArrayList<>(this.target);
         for (int idx = 0; idx < this.target; ++idx) {
-            result[idx] = this.product(input, idx + 1);
+            result.add(this.product(input, idx + 1));
         }
         return new FixedVector<T>(result);
     }
@@ -147,7 +148,7 @@ public class FixedMatrix<T> implements Matrix<T> {
      * @return Product
      */
     private Scalar<T> product(final Vect<T> input, final int idx) {
-        return new Product<T>(input, new FixedVector<T>(this.line(idx)));
+        return new Product<T>(input, new FixedVector<T>(Arrays.asList(this.line(idx))));
     }
 
     /**
