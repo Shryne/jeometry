@@ -60,7 +60,6 @@ public final class PointInLine<T> implements Predicate {
         this.line = line;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <R> boolean resolve(final Field<R> field) {
         final Scalar<T> xcoor = this.point.coords()[0];
@@ -73,7 +72,7 @@ public final class PointInLine<T> implements Predicate {
                 this.point.coords()[1],
                 new Add<T>(
                     Arrays.asList(
-                        new Multiplication<>(xcoor, analytics.slope()),
+                        new Multiplication<>(Arrays.asList(xcoor, analytics.slope())),
                         analytics.intercept()
                     )
                 )

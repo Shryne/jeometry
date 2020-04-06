@@ -25,6 +25,7 @@ package com.aljebra.vector;
 
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -74,8 +75,7 @@ public final class Times<T> implements Vect<T> {
      * @param scl Scalar
      * @return Multiplication
      */
-    @SuppressWarnings("unchecked")
     private Multiplication<T> mult(final Scalar<T> scl) {
-        return new Multiplication<T>(scl, this.scalar);
+        return new Multiplication<T>(Arrays.asList(scl, this.scalar));
     }
 }

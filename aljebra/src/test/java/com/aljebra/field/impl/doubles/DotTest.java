@@ -29,6 +29,7 @@ import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -166,9 +167,8 @@ public final class DotTest {
      * @param oper The scalar to square
      * @return A {@link Multiplication} object representing the square
      */
-    @SuppressWarnings("unchecked")
     private static Multiplication<Double> square(final Scalar<Double> oper) {
-        return new Multiplication<Double>(oper, oper);
+        return new Multiplication<Double>(Arrays.asList(oper, oper));
     }
 
     /**

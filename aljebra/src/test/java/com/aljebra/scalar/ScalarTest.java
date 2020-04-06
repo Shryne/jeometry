@@ -66,14 +66,13 @@ public final class ScalarTest {
     /**
      * Scalar can build multiplication.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void buildsMultiplication() {
         final Scalar<Object> scalar = new Scalar.Default<>(new Object());
         final Scalar<Object> other = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.mult(other),
-            Matchers.equalTo(new Multiplication<>(scalar, other))
+            Matchers.equalTo(new Multiplication<>(Arrays.asList(scalar, other)))
         );
     }
 }
