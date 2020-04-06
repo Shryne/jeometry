@@ -24,14 +24,12 @@
 package com.jeometry.twod.line;
 
 import com.jeometry.twod.point.RandomPoint;
-import lombok.ToString;
 
 /**
  * A random line.
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
 public final class RandomLine<T> extends PtDirLine<T> {
 
     /**
