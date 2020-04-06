@@ -24,6 +24,7 @@
 package com.aljebra.vector;
 
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -36,17 +37,20 @@ public final class FixedVectorTest {
     /**
      * {@link FixedVector} respects equals on coordinates.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
+                )
             ),
             Matchers.equalTo(
                 new FixedVector<>(
-                    new Scalar.Default<Double>(0.),
-                    new Scalar.Default<Double>(1.)
+                    Arrays.asList(
+                        new Scalar.Default<Double>(0.),
+                        new Scalar.Default<Double>(1.)
+                    )
                 )
             )
         );
@@ -55,15 +59,19 @@ public final class FixedVectorTest {
         final String third = "test3";
         MatcherAssert.assertThat(
             new FixedVector<>(
-                new Scalar.Default<String>(first),
-                new Scalar.Default<String>(second),
-                new Scalar.Default<String>(third)
-            ),
-            Matchers.equalTo(
-                new FixedVector<>(
+                Arrays.asList(
                     new Scalar.Default<String>(first),
                     new Scalar.Default<String>(second),
                     new Scalar.Default<String>(third)
+                )
+            ),
+            Matchers.equalTo(
+                new FixedVector<>(
+                    Arrays.asList(
+                        new Scalar.Default<String>(first),
+                        new Scalar.Default<String>(second),
+                        new Scalar.Default<String>(third)
+                    )
                 )
             )
         );

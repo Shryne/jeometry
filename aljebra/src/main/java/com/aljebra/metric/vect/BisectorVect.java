@@ -27,6 +27,7 @@ import com.aljebra.metric.angle.Times;
 import com.aljebra.metric.angle.VectsDegrees;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -44,9 +45,11 @@ public final class BisectorVect<T> extends FixedVector<T> {
      */
     public BisectorVect(final Vect<T> first, final Vect<T> second) {
         super(
-            new RotateVect<T>(
-                first, new Times(new VectsDegrees(first, second), 1 / 2.)
-            ).coords()
+            Arrays.asList(
+                new RotateVect<T>(
+                    first, new Times(new VectsDegrees(first, second), 1 / 2.)
+                ).coords()
+            )
         );
     }
 

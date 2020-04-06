@@ -26,6 +26,7 @@ package com.aljebra.matrix;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 
 /**
@@ -42,7 +43,7 @@ public class VectorMatrix<T> extends FixedMatrix<T> {
      */
     @SuppressWarnings("unchecked")
     public VectorMatrix(final Scalar<T>... coor) {
-        this(new FixedVector<T>(coor));
+        this(new FixedVector<T>(Arrays.asList(coor)));
     }
 
     /**

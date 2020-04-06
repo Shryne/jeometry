@@ -29,6 +29,7 @@ import com.aljebra.vector.Vect;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -59,7 +60,7 @@ public final class Sum<T> implements Matrix<T> {
     public Scalar<T>[] coords() {
         final List<Vect<T>> results = new ArrayList<>(this.operands.size());
         for (final Matrix<T> oper : this.operands) {
-            results.add(Sum.vector(oper.coords()));
+            results.add(Sum.vector(Arrays.asList(oper.coords())));
         }
         return new com.aljebra.vector.Sum<T>(results).coords();
     }
@@ -68,7 +69,7 @@ public final class Sum<T> implements Matrix<T> {
     public Scalar<T>[] column(final int index) {
         final List<Vect<T>> cols = new ArrayList<>(this.operands.size());
         for (final Matrix<T> oper : this.operands) {
-            cols.add(Sum.vector(oper.column(index)));
+            cols.add(Sum.vector(Arrays.asList(oper.column(index))));
         }
         return new com.aljebra.vector.Sum<T>(cols).coords();
     }
@@ -77,7 +78,7 @@ public final class Sum<T> implements Matrix<T> {
     public Scalar<T>[] line(final int index) {
         final List<Vect<T>> lines = new ArrayList<>(this.operands.size());
         for (final Matrix<T> oper : this.operands) {
-            lines.add(Sum.vector(oper.line(index)));
+            lines.add(Sum.vector(Arrays.asList(oper.line(index))));
         }
         return new com.aljebra.vector.Sum<T>(lines).coords();
     }
@@ -107,8 +108,7 @@ public final class Sum<T> implements Matrix<T> {
      * @param <T> scalar types
      * @return A {@link FixedVector} instance
      */
-    @SuppressWarnings("unchecked")
-    private static <T> FixedVector<T> vector(final Scalar<T>... coords) {
+    private static <T> FixedVector<T> vector(final Iterable<Scalar<T>> coords) {
         return new FixedVector<T>(coords);
     }
 }
