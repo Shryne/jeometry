@@ -51,15 +51,32 @@ public final class ScalarTest {
     }
 
     /**
+     * Scalar.Default toString prints underlying object.
+     */
+    @Test
+    public void printsUnderlying() {
+        final String str = "whatever";
+        MatcherAssert.assertThat(
+            new Scalar.Default<String>(str).toString(),
+            Matchers.containsString(str)
+        );
+    }
+
+    /**
      * Scalar can build addition.
      */
     @Test
     public void buildsAddition() {
         final Scalar<Object> scalar = new Scalar.Default<>(new Object());
         final Scalar<Object> other = new Scalar.Default<>(new Object());
+        final Scalar<Object> third = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.add(other),
             Matchers.equalTo(new Add<>(Arrays.asList(scalar, other)))
+        );
+        MatcherAssert.assertThat(
+            scalar.add(Arrays.asList(other, third)),
+            Matchers.equalTo(new Add<>(Arrays.asList(scalar, other, third)))
         );
     }
 
@@ -70,9 +87,14 @@ public final class ScalarTest {
     public void buildsMultiplication() {
         final Scalar<Object> scalar = new Scalar.Default<>(new Object());
         final Scalar<Object> other = new Scalar.Default<>(new Object());
+        final Scalar<Object> third = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.mult(other),
             Matchers.equalTo(new Multiplication<>(Arrays.asList(scalar, other)))
+        );
+        MatcherAssert.assertThat(
+            scalar.mult(Arrays.asList(other, third)),
+            Matchers.equalTo(new Multiplication<>(Arrays.asList(scalar, other, third)))
         );
     }
 }

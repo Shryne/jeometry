@@ -27,14 +27,12 @@ import com.aljebra.scalar.AddIdentity;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.point.PtReflectionPoint;
 import com.jeometry.twod.point.XyPoint;
-import lombok.ToString;
 
 /**
  * A segment defined as the reflection of a segment, across a given point.
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
 public final class PtReflectionSegment<T> extends PtsSegment<T> {
 
     /**
