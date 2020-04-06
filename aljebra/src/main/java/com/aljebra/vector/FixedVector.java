@@ -24,6 +24,7 @@
 package com.aljebra.vector;
 
 import com.aljebra.scalar.Scalar;
+import com.google.common.collect.Lists;
 import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -47,8 +48,8 @@ public class FixedVector<T> implements Vect<T> {
      * @param coor Vector coordinates
      */
     @SuppressWarnings("unchecked")
-    public FixedVector(final Scalar<T>... coor) {
-        this.coors = Arrays.copyOf(coor, coor.length);
+    public FixedVector(final Iterable<? extends Scalar<T>> coor) {
+        this.coors = Lists.newArrayList(coor).toArray(new Scalar[1]);
     }
 
     @Override

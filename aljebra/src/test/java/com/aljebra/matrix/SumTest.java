@@ -52,7 +52,11 @@ public final class SumTest {
         final FixedMatrix<Object> second = new FixedMatrix<>(lines, cols, coorsb);
         final Matrix<Object> sum = new Sum<>(Arrays.asList(first, second));
         final Scalar<Object>[] expected = new com.aljebra.vector.Sum<Object>(
-            Arrays.asList(new FixedVector<Object>(coorsa), new FixedVector<Object>(coorsb))
+            Arrays.asList(
+                new FixedVector<Object>(Arrays.asList(coorsa)), new FixedVector<Object>(
+                    Arrays.asList(coorsb)
+                )
+            )
         ).coords();
         MatcherAssert.assertThat(sum.lines(), Matchers.equalTo(lines));
         MatcherAssert.assertThat(sum.columns(), Matchers.equalTo(cols));

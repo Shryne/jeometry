@@ -26,6 +26,8 @@ package com.aljebra.vector;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Different;
 import com.aljebra.scalar.Scalar;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -47,7 +49,7 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToTrueWhenEqual() {
-        final Scalar<Double>[] coords = VectEqualsTest.scalars();
+        final List<Scalar<Double>> coords = VectEqualsTest.scalars();
         MatcherAssert.assertThat(
             new VectEquals(
                 new FixedVector<>(coords), new FixedVector<>(coords)
@@ -61,11 +63,10 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToFalseWhenNotEqual() {
-        final Scalar<Double>[] coords = VectEqualsTest.scalars();
-        @SuppressWarnings("unchecked")
-        final Scalar<Double>[] second = new Scalar[coords.length];
-        System.arraycopy(coords, 0, second, 0, coords.length);
-        second[0] = new Different<>(coords[0]);
+        final List<Scalar<Double>> coords = VectEqualsTest.scalars();
+        final List<Scalar<Double>> second = new ArrayList<>(coords);
+        second.remove(0);
+        second.add(0, new Different<>(coords.get(0)));
         MatcherAssert.assertThat(
             new VectEquals(
                 new FixedVector<>(coords), new FixedVector<>(second)
@@ -80,10 +81,9 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToFalseWhenNotSameDimension() {
-        final Scalar<Double>[] coords = VectEqualsTest.scalars();
-        @SuppressWarnings("unchecked")
-        final Scalar<Double>[] second = new Scalar[coords.length - 1];
-        System.arraycopy(coords, 0, second, 0, coords.length - 1);
+        final List<Scalar<Double>> coords = VectEqualsTest.scalars();
+        final List<Scalar<Double>> second = new ArrayList<>(coords);
+        second.remove(second.size() - 1);
         MatcherAssert.assertThat(
             new VectEquals(
                 new FixedVector<>(coords), new FixedVector<>(second)
@@ -96,12 +96,11 @@ public final class VectEqualsTest {
      * Mocks an array of {@link Scalar} with a random length.
      * @return An array of scalars.
      */
-    private static Scalar<Double>[] scalars() {
+    private static List<Scalar<Double>> scalars() {
         final int lgth = 1 + new Random().nextInt(VectEqualsTest.COORDS_LENGTH);
-        @SuppressWarnings("unchecked")
-        final Scalar<Double>[] result = new Scalar[lgth];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = VectEqualsTest.random();
+        final List<Scalar<Double>> result = new ArrayList<>(lgth);
+        for (int idx = 0; idx < lgth; ++idx) {
+            result.add(VectEqualsTest.random());
         }
         return result;
     }

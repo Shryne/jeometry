@@ -30,6 +30,7 @@ import com.jeometry.twod.circle.Circle;
 import com.jeometry.twod.circle.analytics.PointInCircle;
 import com.jeometry.twod.point.InCirclePoint;
 import com.jeometry.twod.point.PtReflectionPoint;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -70,7 +71,6 @@ public class CircleDiameter<T> extends PtsSegment<T> {
      * @param <T> scalar types
      * @return The passed point if it belongs to the circle
      */
-    @SuppressWarnings("unchecked")
     private static <T> Vect<T> extremity(final Vect<T> point, final Circle<T> circle) {
         final PointInCircle predicate = new PointInCircle(point, circle);
         final IllegalArgumentException err = new IllegalArgumentException(
@@ -80,8 +80,10 @@ public class CircleDiameter<T> extends PtsSegment<T> {
             )
         );
         return new FixedVector<>(
-            predicate.ifElse(point.coords()[0], err),
-            predicate.ifElse(point.coords()[1], err)
+            Arrays.asList(
+                predicate.ifElse(point.coords()[0], err),
+                predicate.ifElse(point.coords()[1], err)
+            )
         );
     }
 

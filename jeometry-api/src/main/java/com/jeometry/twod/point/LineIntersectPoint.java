@@ -32,6 +32,7 @@ import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.analytics.Intersecting;
 import com.jeometry.twod.line.analytics.LineAnalytics;
 import com.jeometry.twod.line.analytics.LinePointOrdinate;
+import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -58,11 +59,12 @@ public final class LineIntersectPoint<T> extends XyPoint<T> {
      * @param <T> scalar types
      * @return The intersection point
      */
-    @SuppressWarnings("unchecked")
     private static <T> Vect<T> vector(final Line<T> first, final Line<T> second) {
         final Scalar<T> abscissa = LineIntersectPoint.abscissa(first, second);
         return new FixedVector<T>(
-            abscissa, LineIntersectPoint.ordinate(first, second, abscissa)
+            Arrays.asList(
+                abscissa, LineIntersectPoint.ordinate(first, second, abscissa)
+            )
         );
     }
 

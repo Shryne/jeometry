@@ -29,6 +29,8 @@ import com.aljebra.metric.scalar.MetricScalar;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -66,11 +68,10 @@ public final class RotateVect<T> extends FixedVector<T> {
      * @param <T> scalar types
      * @return Scalar array of the rotated vector coordinates
      */
-    @SuppressWarnings("unchecked")
-    private static <T> Scalar<T>[] coords(final Vect<T> vector, final Degrees angle) {
-        final Scalar<T>[] result = new Scalar[vector.coords().length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = RotateVect.coord(vector, angle, idx);
+    private static <T> List<Scalar<T>> coords(final Vect<T> vector, final Degrees angle) {
+        final List<Scalar<T>> result = new ArrayList<>(vector.coords().length);
+        for (int idx = 0; idx < vector.coords().length; ++idx) {
+            result.add(RotateVect.coord(vector, angle, idx));
         }
         return result;
     }

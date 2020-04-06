@@ -30,6 +30,7 @@ import com.jeometry.twod.Shape;
 import com.jeometry.twod.angle.Angle;
 import com.jeometry.twod.line.Line;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -48,17 +49,23 @@ public final class AwtAngleTest {
         final Angle<Double> angle = Mockito.mock(Angle.class);
         Mockito.when(angle.origin()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(angle.start()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(1.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(1.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(angle.end()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
+                )
             )
         );
         final AwtAngle painter = new AwtAngle(new Decimal());

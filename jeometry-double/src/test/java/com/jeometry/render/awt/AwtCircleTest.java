@@ -33,6 +33,7 @@ import com.jeometry.twod.style.Fill;
 import com.jeometry.twod.style.Stroke;
 import com.jeometry.twod.style.Style;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -51,7 +52,9 @@ public final class AwtCircleTest {
         final Circle<Double> circle = Mockito.mock(Circle.class);
         Mockito.when(circle.center()).thenReturn(
             new FixedVector<>(
-                new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                Arrays.asList(
+                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
+                )
             )
         );
         Mockito.when(circle.radius()).thenReturn(

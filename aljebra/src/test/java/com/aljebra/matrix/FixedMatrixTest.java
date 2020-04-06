@@ -28,6 +28,7 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -100,7 +101,7 @@ public final class FixedMatrixTest {
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
         final Scalar<Double>[] expected = new Scalar[lines];
-        final Vect<Double> input = new FixedVector<>(FixedMatrixTest.scalars(cols));
+        final Vect<Double> input = new FixedVector<>(Arrays.asList(FixedMatrixTest.scalars(cols)));
         for (int idx = 0; idx < lines; ++idx) {
             expected[idx] = FixedMatrixTest.pdt(input, matrix.line(idx + 1));
         }
@@ -121,7 +122,9 @@ public final class FixedMatrixTest {
         final FixedMatrix<Double> matrix = new FixedMatrix<>(
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
-        final Vect<Double> input = new FixedVector<>(FixedMatrixTest.scalars(cols + 1));
+        final Vect<Double> input = new FixedVector<>(
+            Arrays.asList(FixedMatrixTest.scalars(cols + 1))
+        );
         matrix.apply(input);
     }
 
@@ -134,7 +137,7 @@ public final class FixedMatrixTest {
      */
     @SuppressWarnings("unchecked")
     private static Scalar<Double> pdt(final Vect<Double> input, final Scalar<Double>... scalars) {
-        return new Product<Double>(input, new FixedVector<Double>(scalars));
+        return new Product<Double>(input, new FixedVector<Double>(Arrays.asList(scalars)));
     }
 
     /**
