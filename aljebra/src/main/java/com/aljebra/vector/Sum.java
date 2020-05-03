@@ -28,6 +28,7 @@ import com.aljebra.scalar.Scalar;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -54,11 +55,11 @@ public final class Sum<T> implements Vect<T> {
         this.operands = HashMultiset.create(operands);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar<T>[] coords() {
-        final int dim = this.operands.iterator().next().coords().length;
-        final Scalar<T>[] result = new Scalar[dim];
+        final Scalar<T>[] coords = this.operands.iterator().next().coords();
+        final int dim = coords.length;
+        final Scalar<T>[] result = Arrays.copyOf(coords, dim);
         for (int axis = 0; axis < dim; ++axis) {
             result[axis] = this.dimension(axis);
         }

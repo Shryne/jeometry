@@ -24,6 +24,9 @@
 package com.aljebra.matrix;
 
 import com.aljebra.scalar.Scalar;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -50,13 +53,12 @@ public class TransposeMatrix<T> extends FixedMatrix<T> {
      * @param <T> scalar types
      * @return Scalar coordinates of the transposed matrix
      */
-    @SuppressWarnings("unchecked")
-    private static <T> Scalar<T>[] transpose(final Matrix<T> mat) {
+    private static <T> List<Scalar<T>> transpose(final Matrix<T> mat) {
         final int lines = mat.lines();
         final int cols = mat.columns();
-        final Scalar<T>[] result = new Scalar[lines * cols];
+        final List<Scalar<T>> result = new ArrayList<>(lines * cols);
         for (int line = 0; line < lines; ++line) {
-            System.arraycopy(mat.line(line + 1), 0, result, line * cols, cols);
+            result.addAll(Arrays.asList(mat.line(line + 1)));
         }
         return result;
     }

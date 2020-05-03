@@ -27,7 +27,9 @@ import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -46,16 +48,15 @@ public final class SumTest {
     public void calculatesSumCoordinates() {
         final int lines = 3;
         final int cols = 4;
-        final Scalar<Object>[] coorsa = SumTest.scalars(lines * cols);
-        final Scalar<Object>[] coorsb = SumTest.scalars(lines * cols);
+        final List<Scalar<Object>> coorsa = SumTest.scalars(lines * cols);
+        final List<Scalar<Object>> coorsb = SumTest.scalars(lines * cols);
         final FixedMatrix<Object> first = new FixedMatrix<>(lines, cols, coorsa);
         final FixedMatrix<Object> second = new FixedMatrix<>(lines, cols, coorsb);
         final Matrix<Object> sum = new Sum<>(Arrays.asList(first, second));
         final Scalar<Object>[] expected = new com.aljebra.vector.Sum<Object>(
             Arrays.asList(
-                new FixedVector<Object>(Arrays.asList(coorsa)), new FixedVector<Object>(
-                    Arrays.asList(coorsb)
-                )
+                new FixedVector<Object>(coorsa),
+                new FixedVector<Object>(coorsb)
             )
         ).coords();
         MatcherAssert.assertThat(sum.lines(), Matchers.equalTo(lines));
@@ -79,7 +80,7 @@ public final class SumTest {
             lines, cols, SumTest.scalars(lines * cols)
         );
         final Vect<Object> input = Mockito.mock(Vect.class);
-        Mockito.when(input.coords()).thenReturn(SumTest.scalars(cols));
+        Mockito.when(input.coords()).thenReturn(SumTest.scalars(cols).toArray(new Scalar[1]));
         MatcherAssert.assertThat(
             new Sum<Object>(Arrays.asList(first, second)).apply(input),
             Matchers.equalTo(
@@ -107,10 +108,10 @@ public final class SumTest {
         final Matrix<Object> matrix = new Sum<>(
             Arrays.asList(
                 new FixedMatrix<Object>(
-                    2, 2, scalara, scalarb, scalarc, scalard
+                    2, 2, Arrays.asList(scalara, scalarb, scalarc, scalard)
                 ),
                 new FixedMatrix<Object>(
-                    2, 2, scalare, scalarf, scalarg, scalarh
+                    2, 2, Arrays.asList(scalare, scalarf, scalarg, scalarh)
                 )
             )
         );
@@ -182,15 +183,15 @@ public final class SumTest {
     }
 
     /**
-     * Mocks an array of {@link Scalar} with a given length.
-     * @param length Array length
-     * @return An array of scalars
+     * Mocks a list of {@link Scalar} with a given size.
+     * @param length List size
+     * @return A list of scalars
      */
     @SuppressWarnings("unchecked")
-    private static Scalar<Object>[] scalars(final int length) {
-        final Scalar<Object>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = Mockito.mock(Scalar.class);
+    private static List<Scalar<Object>> scalars(final int length) {
+        final List<Scalar<Object>> result = new ArrayList<>(length);
+        for (int idx = 0; idx < length; ++idx) {
+            result.add(Mockito.mock(Scalar.class));
         }
         return result;
     }

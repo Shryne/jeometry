@@ -25,6 +25,7 @@ package com.aljebra.vector;
 
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -56,11 +57,11 @@ public final class Minus<T> implements Vect<T> {
         this.second = second;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar<T>[] coords() {
-        final int dim = this.first.coords().length;
-        final Scalar<T>[] result = new Scalar[dim];
+        final Scalar<T>[] coords = this.first.coords();
+        final int dim = coords.length;
+        final Scalar<T>[] result = Arrays.copyOf(coords, dim);
         for (int axis = 0; axis < dim; ++axis) {
             result[axis] = this.dimension(axis);
         }

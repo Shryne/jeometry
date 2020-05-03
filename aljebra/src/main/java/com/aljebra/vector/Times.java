@@ -58,11 +58,10 @@ public final class Times<T> implements Vect<T> {
         this.scalar = scalar;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Scalar<T>[] coords() {
         final Scalar<T>[] coors = this.vector.coords();
-        final Scalar<T>[] result = new Scalar[coors.length];
+        final Scalar<T>[] result = Arrays.copyOf(coors, coors.length);
         for (int idx = 0; idx < coors.length; ++idx) {
             result[idx] = this.mult(coors[idx]);
         }

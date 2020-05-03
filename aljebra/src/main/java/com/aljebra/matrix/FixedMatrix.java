@@ -28,6 +28,7 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,10 +67,10 @@ public class FixedMatrix<T> implements Matrix<T> {
      */
     @SuppressWarnings("unchecked")
     public FixedMatrix(final int lines, final int columns,
-        final Scalar<T>... coor) {
+        final Iterable<? extends Scalar<T>> coor) {
         this.source = columns;
         this.target = lines;
-        this.coors = this.valid(coor);
+        this.coors = this.valid(Lists.newArrayList(coor)).toArray(new Scalar[1]);
     }
 
     /**
@@ -93,11 +94,10 @@ public class FixedMatrix<T> implements Matrix<T> {
         return Arrays.copyOfRange(this.coors, first, first + this.target);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public final Scalar<T>[] line(final int index) {
         final int first = this.index(index, 1);
-        final Scalar<T>[] result = new Scalar[this.source];
+        final Scalar<T>[] result = Arrays.copyOf(this.coors, this.source);
         for (int idx = 0; idx < this.source; ++idx) {
             result[idx] = this.coors[first + idx * this.target];
         }
@@ -155,14 +155,13 @@ public class FixedMatrix<T> implements Matrix<T> {
      * Checks if this scalar array could be took as matrix coordinate, regarding
      * the matrix lines and columns count. Throws
      * {@link IllegalArgumentException} if the scalar array is not valid.
-     * @param coor Scalar array to check
+     * @param coor Scalar list to check
      * @return The scalar array if it is valid
      */
-    @SuppressWarnings("unchecked")
-    private Scalar<T>[] valid(final Scalar<T>... coor) {
+    private List<? extends Scalar<T>> valid(final List<? extends Scalar<T>> coor) {
         final int expected = this.source * this.target;
         Preconditions.checkArgument(
-            expected == coor.length,
+            expected == coor.size(),
             "Expected %d scalars for a matrix with %d lines and %d columns",
             expected, this.source, this.target
         );

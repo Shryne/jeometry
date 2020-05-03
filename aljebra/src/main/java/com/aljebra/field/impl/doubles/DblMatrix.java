@@ -25,6 +25,8 @@ package com.aljebra.field.impl.doubles;
 
 import com.aljebra.matrix.FixedMatrix;
 import com.aljebra.scalar.Scalar;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A convenient class for double matrices.
@@ -47,11 +49,10 @@ public final class DblMatrix extends FixedMatrix<Double> {
      * @param coords Double array
      * @return A scalar array wrapping the doubles
      */
-    @SuppressWarnings("unchecked")
-    private static Scalar<Double>[] wrap(final Double... coords) {
-        final Scalar<Double>[] result = new Scalar[coords.length];
-        for (int idx = 0; idx < coords.length; ++idx) {
-            result[idx] = DblMatrix.wrap(coords[idx]);
+    private static List<Scalar<Double>> wrap(final Double... coords) {
+        final List<Scalar<Double>> result = new ArrayList<>(coords.length);
+        for (final Double coord : coords) {
+            result.add(DblMatrix.wrap(coord));
         }
         return result;
     }
