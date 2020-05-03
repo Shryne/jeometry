@@ -41,9 +41,8 @@ public class VectorMatrix<T> extends FixedMatrix<T> {
      * Constructor.
      * @param coor Scalars to build the matrix from
      */
-    @SuppressWarnings("unchecked")
-    public VectorMatrix(final Scalar<T>... coor) {
-        this(new FixedVector<T>(Arrays.asList(coor)));
+    public VectorMatrix(final Iterable<? extends Scalar<T>> coor) {
+        this(new FixedVector<T>(coor));
     }
 
     /**
@@ -51,6 +50,6 @@ public class VectorMatrix<T> extends FixedMatrix<T> {
      * @param vector Vector to build the matrix from
      */
     public VectorMatrix(final Vect<T> vector) {
-        super(1, vector.coords().length, vector.coords());
+        super(1, vector.coords().length, Arrays.asList(vector.coords()));
     }
 }

@@ -84,16 +84,17 @@ public final class Dot implements InnerProduct<Double> {
         return new Degrees.Default(result);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Vect<Double> rot(final Vect<Double> vect, final Degrees ang) {
         final Number angle = this.resolve(ang);
         final FixedMatrix<Double> rot = new FixedMatrix<>(
             2, 2,
-            Dot.wrap(Math.cos(angle.doubleValue())),
-            Dot.wrap(Math.sin(angle.doubleValue())),
-            Dot.wrap(-Math.sin(angle.doubleValue())),
-            Dot.wrap(Math.cos(angle.doubleValue()))
+            Arrays.asList(
+                Dot.wrap(Math.cos(angle.doubleValue())),
+                Dot.wrap(Math.sin(angle.doubleValue())),
+                Dot.wrap(-Math.sin(angle.doubleValue())),
+                Dot.wrap(Math.cos(angle.doubleValue()))
+            )
         );
         return rot.apply(vect);
     }

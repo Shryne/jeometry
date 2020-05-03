@@ -25,6 +25,7 @@ package com.aljebra.vector;
 
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -55,7 +56,7 @@ public final class MinusTest {
         final Scalar<Object>[] bcoords = MinusTest.scalars(acoords.length);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Scalar<Object>[] expected = new Scalar[acoords.length];
+        final Scalar<Object>[] expected = Arrays.copyOf(acoords, acoords.length);
         for (int idx = 0; idx < expected.length; ++idx) {
             expected[idx] = MinusTest.minus(acoords[idx], bcoords[idx]);
         }

@@ -24,6 +24,9 @@
 package com.aljebra.matrix;
 
 import com.aljebra.scalar.Scalar;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -51,7 +54,7 @@ public final class TransposeMatrixTest {
         final Scalar<Object> scalf = Mockito.mock(Scalar.class);
         final Matrix<Object> matrix = new TransposeMatrix<>(
             new FixedMatrix<Object>(
-                lines, cols, scala, scalb, scalc, scald, scale, scalf
+                lines, cols, Arrays.asList(scala, scalb, scalc, scald, scale, scalf)
             )
         );
         MatcherAssert.assertThat(
@@ -81,16 +84,17 @@ public final class TransposeMatrixTest {
     }
 
     /**
-     * Mocks an array of {@link Scalar} with a given length.
-     * @param length Array length
-     * @return An array of scalars
+     * Mocks a list of {@link Scalar} with a given size.
+     * @param length List size
+     * @return A list of scalars
      */
     @SuppressWarnings("unchecked")
-    private static Scalar<Object>[] scalars(final int length) {
-        final Scalar<Object>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = Mockito.mock(Scalar.class);
+    private static List<Scalar<Object>> scalars(final int length) {
+        final List<Scalar<Object>> result = new ArrayList<>(length);
+        for (int idx = 0; idx < length; ++idx) {
+            result.add(Mockito.mock(Scalar.class));
         }
         return result;
     }
+
 }

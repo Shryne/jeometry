@@ -56,7 +56,7 @@ public final class SumTest {
         final Scalar<Object>[] bcoords = SumTest.scalars(acoords.length);
         Mockito.when(vectb.coords()).thenReturn(bcoords);
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Scalar<Object>[] expected = new Scalar[acoords.length];
+        final Scalar<Object>[] expected = Arrays.copyOf(acoords, acoords.length);
         for (int idx = 0; idx < expected.length; ++idx) {
             expected[idx] = SumTest.sum(acoords[idx], bcoords[idx]);
         }

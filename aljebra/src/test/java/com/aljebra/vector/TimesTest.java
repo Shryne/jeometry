@@ -54,7 +54,7 @@ public final class TimesTest {
         final Scalar<Object> factor = TimesTest.scalars(1)[0];
         final Scalar<Object>[] acoords = TimesTest.scalars();
         Mockito.when(vecta.coords()).thenReturn(acoords);
-        final Scalar<Object>[] expected = new Scalar[acoords.length];
+        final Scalar<Object>[] expected = Arrays.copyOf(acoords, acoords.length);
         for (int idx = 0; idx < expected.length; ++idx) {
             expected[idx] = TimesTest.mult(acoords[idx], factor);
         }
