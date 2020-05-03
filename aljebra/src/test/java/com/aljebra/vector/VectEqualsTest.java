@@ -97,7 +97,7 @@ public final class VectEqualsTest {
      * @return An array of scalars.
      */
     private static List<Scalar<Double>> scalars() {
-        final int lgth = 1 + new Random().nextInt(VectEqualsTest.COORDS_LENGTH);
+        final int lgth = 2 + new Random().nextInt(VectEqualsTest.COORDS_LENGTH);
         final List<Scalar<Double>> result = new ArrayList<>(lgth);
         for (int idx = 0; idx < lgth; ++idx) {
             result.add(VectEqualsTest.random());

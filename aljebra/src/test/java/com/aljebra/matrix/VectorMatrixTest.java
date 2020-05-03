@@ -50,7 +50,7 @@ public final class VectorMatrixTest {
      */
     @Test
     public void calculatesCoordinates() {
-        final int dim = new Random().nextInt(VectorMatrixTest.INT_RANDOM);
+        final int dim = 1 + new Random().nextInt(VectorMatrixTest.INT_RANDOM);
         final List<Scalar<Object>> coorsa = VectorMatrixTest.scalars(dim);
         final Matrix<Object> scalarmat = new VectorMatrix<>(coorsa);
         final Matrix<Object> vectmat = new VectorMatrix<>(
@@ -75,7 +75,7 @@ public final class VectorMatrixTest {
     @Test
     public void considersEqualsIfSameCoordinates() {
         final List<Scalar<Object>> coords = VectorMatrixTest.scalars(
-            new Random().nextInt(VectorMatrixTest.INT_RANDOM)
+            1 + new Random().nextInt(VectorMatrixTest.INT_RANDOM)
         );
         MatcherAssert.assertThat(
             new VectorMatrix<Object>(coords), Matchers.equalTo(new VectorMatrix<Object>(coords))
@@ -89,7 +89,7 @@ public final class VectorMatrixTest {
     @Test
     public void sameHashCodeIfSameCoordinates() {
         final List<Scalar<Object>> coords = VectorMatrixTest.scalars(
-            new Random().nextInt(VectorMatrixTest.INT_RANDOM)
+            1 + new Random().nextInt(VectorMatrixTest.INT_RANDOM)
         );
         MatcherAssert.assertThat(
             new VectorMatrix<Object>(coords).hashCode(),
