@@ -36,7 +36,6 @@ import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link FixedMatrix}.
@@ -57,8 +56,8 @@ public final class FixedMatrixTest {
     public void returnsCoords() {
         final int lines = 3;
         final int cols = 4;
-        final List<Scalar<Double>> scalars = FixedMatrixTest.scalars(lines * cols);
-        final FixedMatrix<Double> matrix = new FixedMatrix<>(lines, cols, scalars);
+        final List<Scalar<Object>> scalars = FixedMatrixTest.scalars(lines * cols);
+        final FixedMatrix<Object> matrix = new FixedMatrix<>(lines, cols, scalars);
         MatcherAssert.assertThat(
             Arrays.asList(matrix.coords()), Matchers.equalTo(scalars)
         );
@@ -97,13 +96,13 @@ public final class FixedMatrixTest {
     public void appliesTransformation() {
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix<Double> matrix = new FixedMatrix<>(
+        final FixedMatrix<Object> matrix = new FixedMatrix<>(
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
-        final List<Scalar<Double>> expected = new ArrayList<>(lines);
-        final Vect<Double> input = new FixedVector<>(FixedMatrixTest.scalars(cols));
+        final List<Scalar<Object>> expected = new ArrayList<>(lines);
+        final Vect<Object> input = new FixedVector<>(FixedMatrixTest.scalars(cols));
         for (int idx = 0; idx < lines; ++idx) {
-            expected.add(FixedMatrixTest.pdt(input, matrix.line(idx + 1)));
+            expected.add(FixedMatrixTest.pdt(input, Arrays.asList(matrix.line(idx + 1))));
         }
         MatcherAssert.assertThat(
             Arrays.asList(matrix.apply(input).coords()), Matchers.equalTo(expected)
@@ -119,10 +118,10 @@ public final class FixedMatrixTest {
         this.thrown.expect(IllegalArgumentException.class);
         final int lines = 3;
         final int cols = 4;
-        final FixedMatrix<Double> matrix = new FixedMatrix<>(
+        final FixedMatrix<Object> matrix = new FixedMatrix<>(
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
-        final Vect<Double> input = new FixedVector<>(FixedMatrixTest.scalars(cols + 1));
+        final Vect<Object> input = new FixedVector<>(FixedMatrixTest.scalars(cols + 1));
         matrix.apply(input);
     }
 
@@ -130,12 +129,12 @@ public final class FixedMatrixTest {
      * Gives a scalar representing the product value of the given vector
      * by a coordinate array.
      * @param input Input vector
-     * @param scalars Scalar array by which to operate the dot product
+     * @param scalars Scalar list by which to operate the dot product
      * @return A {@link Scalar}, value of the product
      */
-    @SuppressWarnings("unchecked")
-    private static Scalar<Double> pdt(final Vect<Double> input, final Scalar<Double>... scalars) {
-        return new Product<Double>(input, new FixedVector<Double>(Arrays.asList(scalars)));
+    private static Scalar<Object> pdt(final Vect<Object> input,
+        final List<Scalar<Object>> scalars) {
+        return new Product<Object>(input, new FixedVector<Object>(scalars));
     }
 
     /**
@@ -143,11 +142,10 @@ public final class FixedMatrixTest {
      * @param length List size
      * @return A list of scalars
      */
-    @SuppressWarnings("unchecked")
-    private static List<Scalar<Double>> scalars(final int length) {
-        final List<Scalar<Double>> result = new ArrayList<>(length);
+    private static List<Scalar<Object>> scalars(final int length) {
+        final List<Scalar<Object>> result = new ArrayList<>(length);
         for (int idx = 0; idx < length; ++idx) {
-            result.add(Mockito.mock(Scalar.class));
+            result.add(new Scalar.Default<>(new Object()));
         }
         return result;
     }

@@ -24,17 +24,16 @@
 package com.aljebra.field.impl.doubles;
 
 import com.aljebra.metric.angle.Degrees;
-import com.aljebra.scalar.Add;
-import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.condition.Equals;
 import com.aljebra.vector.Vect;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Dot}.
@@ -50,21 +49,20 @@ public final class DotTest {
     /**
      * {@link Dot} can calculate vector product.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void calculatesProduct() {
-        final Vect<Double> vecta = Mockito.mock(Vect.class);
-        final Vect<Double> vectb = Mockito.mock(Vect.class);
-        final Scalar<Double>[] coords = DotTest.scalars(DotTest.COORDS_LENGTH);
-        Mockito.when(vectb.coords()).thenReturn(coords);
-        Mockito.when(vecta.coords()).thenReturn(coords);
-        final List<Scalar<Double>> multis = new ArrayList<>(coords.length);
-        for (final Scalar<Double> coord : coords) {
-            multis.add(DotTest.square(coord));
+        final List<Double> coords = DotTest.scalars(DotTest.COORDS_LENGTH);
+        final Vect<Double> vecta = new DblVect(coords);
+        final Vect<Double> vectb = new DblVect(coords);
+        Double result = 0.;
+        for (final Double coord : coords) {
+            result += coord * coord;
         }
         MatcherAssert.assertThat(
-            new Dot().product(vecta, vectb),
-            Matchers.equalTo(new Add<Double>(multis))
+            new Equals(
+                new Dot().product(vecta, vectb), new Scalar.Default<>(result)
+            ).resolve(new Decimal()),
+            Matchers.equalTo(true)
         );
     }
 
@@ -163,24 +161,15 @@ public final class DotTest {
     }
 
     /**
-     * Gives the square of a scalar.
-     * @param oper The scalar to square
-     * @return A {@link Multiplication} object representing the square
+     * Generates a list of doubles with the given length.
+     * @param length List size to generate
+     * @return A list of doubles.
      */
-    private static Multiplication<Double> square(final Scalar<Double> oper) {
-        return new Multiplication<Double>(Arrays.asList(oper, oper));
-    }
-
-    /**
-     * Mocks an array of {@link Scalar} with the given length.
-     * @param length Array length to generate
-     * @return An array of scalars.
-     */
-    @SuppressWarnings("unchecked")
-    private static Scalar<Double>[] scalars(final int length) {
-        final Scalar<Double>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = Mockito.mock(Scalar.class);
+    private static List<Double> scalars(final int length) {
+        final List<Double> result = new ArrayList<>(length);
+        final Random random = new Random();
+        for (int idx = 0; idx < length; ++idx) {
+            result.add(random.nextDouble());
         }
         return result;
     }

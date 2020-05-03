@@ -99,8 +99,8 @@ public final class DiffTest {
     @SuppressWarnings("unchecked")
     @Test
     public void diffDelegatesToFieldAddition() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
         Mockito.when(field.addition()).thenReturn(add);
@@ -113,11 +113,10 @@ public final class DiffTest {
     /**
      * {@link Diff} returns minuend and subtrahend.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void givesAccessToMinuendAndSubtrahend() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Diff<Object> difference = new Diff<>(first, second);
         MatcherAssert.assertThat(
             difference.first(), Matchers.equalTo(first)

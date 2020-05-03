@@ -88,7 +88,7 @@ public final class ProductTest {
     private static Scalar<Object>[] scalars(final int length) {
         final Scalar<Object>[] result = new Scalar[length];
         for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = Mockito.mock(Scalar.class);
+            result[idx] = new Scalar.Default<>(new Object());
         }
         return result;
     }

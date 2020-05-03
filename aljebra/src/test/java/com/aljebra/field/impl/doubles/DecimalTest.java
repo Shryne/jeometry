@@ -67,10 +67,10 @@ public final class DecimalTest {
      * Decimal delegates actual value calculations
      * for other scalar implementation.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void delegatesActualValueForScalars() {
         final Decimal field = new Decimal();
+        @SuppressWarnings("unchecked")
         final Scalar<Double> scalar = Mockito.mock(Scalar.class);
         field.actual(scalar);
         Mockito.verify(scalar).value(Mockito.eq(field));
