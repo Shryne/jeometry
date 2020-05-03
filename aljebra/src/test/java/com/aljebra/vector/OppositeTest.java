@@ -65,7 +65,7 @@ public final class OppositeTest {
      * @return An array of scalars.
      */
     private static List<Scalar<Double>> scalars() {
-        final int size = new Random().nextInt(OppositeTest.COORDS_LENGTH);
+        final int size = 1 + new Random().nextInt(OppositeTest.COORDS_LENGTH);
         final List<Scalar<Double>> result = new ArrayList<>(size);
         for (int idx = 0; idx < size; ++idx) {
             result.add(OppositeTest.scalar());

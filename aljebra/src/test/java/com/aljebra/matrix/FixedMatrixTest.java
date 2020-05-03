@@ -28,7 +28,9 @@ import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -55,17 +57,16 @@ public final class FixedMatrixTest {
     public void returnsCoords() {
         final int lines = 3;
         final int cols = 4;
-        final Scalar<Double>[] scalars = FixedMatrixTest.scalars(lines * cols);
+        final List<Scalar<Double>> scalars = FixedMatrixTest.scalars(lines * cols);
         final FixedMatrix<Double> matrix = new FixedMatrix<>(lines, cols, scalars);
         MatcherAssert.assertThat(
-            matrix.coords(), Matchers.equalTo(scalars)
+            Arrays.asList(matrix.coords()), Matchers.equalTo(scalars)
         );
     }
 
     /**
      * {@link FixedMatrix} can return lines and columns.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void returnsLinesAndColumns() {
         final Default<String> scalara = new Scalar.Default<>("a");
@@ -73,7 +74,7 @@ public final class FixedMatrixTest {
         final Default<String> scalarc = new Scalar.Default<>("c");
         final Default<String> scalard = new Scalar.Default<>("d");
         final FixedMatrix<String> matrix = new FixedMatrix<>(
-            2, 2, scalara, scalarb, scalarc, scalard
+            2, 2, Arrays.asList(scalara, scalarb, scalarc, scalard)
         );
         MatcherAssert.assertThat(
             matrix.line(1), Matchers.equalTo(new Scalar[] {scalara, scalarc})
@@ -92,7 +93,6 @@ public final class FixedMatrixTest {
     /**
      * {@link FixedMatrix} can apply transformation.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void appliesTransformation() {
         final int lines = 3;
@@ -100,13 +100,13 @@ public final class FixedMatrixTest {
         final FixedMatrix<Double> matrix = new FixedMatrix<>(
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
-        final Scalar<Double>[] expected = new Scalar[lines];
-        final Vect<Double> input = new FixedVector<>(Arrays.asList(FixedMatrixTest.scalars(cols)));
+        final List<Scalar<Double>> expected = new ArrayList<>(lines);
+        final Vect<Double> input = new FixedVector<>(FixedMatrixTest.scalars(cols));
         for (int idx = 0; idx < lines; ++idx) {
-            expected[idx] = FixedMatrixTest.pdt(input, matrix.line(idx + 1));
+            expected.add(FixedMatrixTest.pdt(input, matrix.line(idx + 1)));
         }
         MatcherAssert.assertThat(
-            matrix.apply(input).coords(), Matchers.equalTo(expected)
+            Arrays.asList(matrix.apply(input).coords()), Matchers.equalTo(expected)
         );
     }
 
@@ -122,9 +122,7 @@ public final class FixedMatrixTest {
         final FixedMatrix<Double> matrix = new FixedMatrix<>(
             lines, cols, FixedMatrixTest.scalars(lines * cols)
         );
-        final Vect<Double> input = new FixedVector<>(
-            Arrays.asList(FixedMatrixTest.scalars(cols + 1))
-        );
+        final Vect<Double> input = new FixedVector<>(FixedMatrixTest.scalars(cols + 1));
         matrix.apply(input);
     }
 
@@ -141,16 +139,17 @@ public final class FixedMatrixTest {
     }
 
     /**
-     * Mocks an array of {@link Scalar} with a given length.
-     * @param length Array length
-     * @return An array of scalars
+     * Mocks a list of {@link Scalar} with a given size.
+     * @param length List size
+     * @return A list of scalars
      */
     @SuppressWarnings("unchecked")
-    private static Scalar<Double>[] scalars(final int length) {
-        final Scalar<Double>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = Mockito.mock(Scalar.class);
+    private static List<Scalar<Double>> scalars(final int length) {
+        final List<Scalar<Double>> result = new ArrayList<>(length);
+        for (int idx = 0; idx < length; ++idx) {
+            result.add(Mockito.mock(Scalar.class));
         }
         return result;
     }
+
 }
