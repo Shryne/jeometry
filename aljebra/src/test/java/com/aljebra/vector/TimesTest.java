@@ -30,7 +30,6 @@ import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Times}.
@@ -47,13 +46,11 @@ public final class TimesTest {
      * {@link Times} coordinates equals to the field multiplication
      * of vector coordinates by the scalar.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void coordsEqualCoordsMult() {
-        final Vect<Object> vecta = Mockito.mock(Vect.class);
         final Scalar<Object> factor = TimesTest.scalars(1)[0];
         final Scalar<Object>[] acoords = TimesTest.scalars();
-        Mockito.when(vecta.coords()).thenReturn(acoords);
+        final Vect<Object> vecta = new FixedVector<>(Arrays.asList(acoords));
         final Scalar<Object>[] expected = Arrays.copyOf(acoords, acoords.length);
         for (int idx = 0; idx < expected.length; ++idx) {
             expected[idx] = TimesTest.mult(acoords[idx], factor);
@@ -78,7 +75,7 @@ public final class TimesTest {
      * @return An array of scalars.
      */
     private static Scalar<Object>[] scalars() {
-        return TimesTest.scalars(new Random().nextInt(TimesTest.COORDS_LENGTH));
+        return TimesTest.scalars(1 + new Random().nextInt(TimesTest.COORDS_LENGTH));
     }
 
     /**
