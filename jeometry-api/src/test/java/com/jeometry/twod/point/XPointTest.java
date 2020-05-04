@@ -27,7 +27,6 @@ import com.aljebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link XPoint}.
@@ -39,8 +38,7 @@ public final class XPointTest {
      */
     @Test
     public void buildsAVector() {
-        @SuppressWarnings("unchecked")
-        final Scalar<Object> xcoor = Mockito.mock(Scalar.class);
+        final Scalar<Object> xcoor = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new XPoint<>(xcoor).xcoor(), Matchers.equalTo(xcoor)
         );

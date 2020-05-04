@@ -32,7 +32,6 @@ import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link VectorMatrix}.
@@ -102,11 +101,10 @@ public final class VectorMatrixTest {
      * @param length List size
      * @return A list of scalars
      */
-    @SuppressWarnings("unchecked")
     private static List<Scalar<Object>> scalars(final int length) {
         final List<Scalar<Object>> result = new ArrayList<>(length);
         for (int idx = 0; idx < length; ++idx) {
-            result.add(Mockito.mock(Scalar.class));
+            result.add(new Scalar.Default<>(new Object()));
         }
         return result;
     }

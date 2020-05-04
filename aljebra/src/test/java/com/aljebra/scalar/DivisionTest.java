@@ -94,7 +94,7 @@ public final class DivisionTest {
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
         new Division<>(
-            Mockito.mock(Scalar.class), Mockito.mock(Scalar.class)
+            new Scalar.Default<>(new Object()), new Scalar.Default<>(new Object())
         ).value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).inverse(Mockito.any());
@@ -104,11 +104,10 @@ public final class DivisionTest {
     /**
      * {@link Division} returns dividend and divisor.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void givesAccessToDividendAndDivisor() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Division<Object> division = new Division<>(first, second);
         MatcherAssert.assertThat(
             division.first(), Matchers.equalTo(first)

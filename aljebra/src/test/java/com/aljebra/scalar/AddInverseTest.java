@@ -46,7 +46,7 @@ public final class AddInverseTest {
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
         Mockito.when(field.addition()).thenReturn(add);
-        final Scalar<Object> scalar = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalar = new Scalar.Default<>(new Object());
         new AddInverse<>(scalar).value(field);
         Mockito.verify(field).addition();
         Mockito.verify(add).inverse(Mockito.any());
@@ -56,11 +56,10 @@ public final class AddInverseTest {
      * {@link AddInverse} respects equals and hashcode
      * regarding the scalar to inverse.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqualAndHashcode() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new AddInverse<>(first),
             Matchers.equalTo(new AddInverse<>(first))

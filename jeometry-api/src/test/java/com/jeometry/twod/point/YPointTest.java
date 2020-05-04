@@ -28,7 +28,6 @@ import com.aljebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link YPoint}.
@@ -40,8 +39,7 @@ public final class YPointTest {
      */
     @Test
     public void buildsAVector() {
-        @SuppressWarnings("unchecked")
-        final Scalar<Object> ycoor = Mockito.mock(Scalar.class);
+        final Scalar<Object> ycoor = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new YPoint<>(ycoor).ycoor(), Matchers.equalTo(ycoor)
         );

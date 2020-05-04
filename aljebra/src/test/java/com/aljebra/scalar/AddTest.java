@@ -40,11 +40,10 @@ public final class AddTest {
      * {@link Add} respects equals and hashcode with disregard
      * to order of operands.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void additionIsCommutative() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new Add<>(Arrays.asList(first, second)),
             Matchers.equalTo(new Add<>(Arrays.asList(second, first)))
@@ -64,11 +63,10 @@ public final class AddTest {
     /**
      * {@link Add} operands are bag-like collection: duplicates counts.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void additionOperandsAreNotASet() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new Add<>(Arrays.asList(first, second, first)),
             Matchers.not(Matchers.equalTo(new Add<>(Arrays.asList(second, first))))
@@ -81,8 +79,8 @@ public final class AddTest {
     @SuppressWarnings("unchecked")
     @Test
     public void exposesOperands() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new Add<>(Arrays.asList(first, second)).operands(),
             Matchers.containsInAnyOrder(first, second)
@@ -95,8 +93,8 @@ public final class AddTest {
     @SuppressWarnings("unchecked")
     @Test
     public void addDelegatesToFieldAddition() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
         final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
         Mockito.when(field.addition()).thenReturn(add);

@@ -41,8 +41,8 @@ public final class TernaryTest {
     @SuppressWarnings("unchecked")
     @Test
     public void valueToFirstScalarWhenTrue() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
         new Ternary<>(new True(), first, second).value(field);
         Mockito.verify(field).actual(first);
@@ -56,8 +56,8 @@ public final class TernaryTest {
     @SuppressWarnings("unchecked")
     @Test
     public void valueToSecondScalarWhenFalse() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
         new Ternary<>(new False(), first, second).value(field);
         Mockito.verify(field).actual(second);
