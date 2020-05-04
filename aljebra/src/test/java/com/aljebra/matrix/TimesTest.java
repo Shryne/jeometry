@@ -33,7 +33,6 @@ import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Times}.
@@ -119,7 +118,6 @@ public final class TimesTest {
      * {@link Times} transforms a vector as the multiplication
      * of the transformations by the scalar (linear).
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void appliesTimesTransformation() {
         final int lines = 3;
@@ -127,8 +125,7 @@ public final class TimesTest {
         final FixedMatrix<Object> first = new FixedMatrix<>(
             lines, cols, TimesTest.scalars(lines * cols)
         );
-        final Vect<Object> input = Mockito.mock(Vect.class);
-        Mockito.when(input.coords()).thenReturn(TimesTest.scalars(cols).toArray(new Scalar[1]));
+        final Vect<Object> input = new FixedVector<>(TimesTest.scalars(cols));
         final Scalar<Object> factor = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new Times<Object>(first, factor).apply(input),

@@ -24,7 +24,10 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.scalar.Random;
+import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -43,8 +46,8 @@ public final class VectsDegreesTest {
     @SuppressWarnings("unchecked")
     @Test
     public void delegatesToInnerProduct() {
-        final Vect<Object> first = Mockito.mock(Vect.class);
-        final Vect<Object> second = Mockito.mock(Vect.class);
+        final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
+        final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
         final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         Mockito.when(
             pdt.angle(Mockito.any(), Mockito.any())
@@ -56,11 +59,10 @@ public final class VectsDegreesTest {
     /**
      * {@link VectsDegrees} respects equals and hashcode on vectors.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqual() {
-        final Vect<Object> first = Mockito.mock(Vect.class);
-        final Vect<Object> second = Mockito.mock(Vect.class);
+        final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
+        final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
         MatcherAssert.assertThat(
             new VectsDegrees(first, second),
             Matchers.equalTo(new VectsDegrees(first, second))
@@ -80,11 +82,10 @@ public final class VectsDegreesTest {
     /**
      * {@link VectsDegrees} toString prints underlying vectors.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void toStringPrintsDegrees() {
-        final Vect<Object> first = Mockito.mock(Vect.class);
-        final Vect<Object> second = Mockito.mock(Vect.class);
+        final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
+        final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
         MatcherAssert.assertThat(
             new VectsDegrees(first, second).toString(),
             Matchers.allOf(

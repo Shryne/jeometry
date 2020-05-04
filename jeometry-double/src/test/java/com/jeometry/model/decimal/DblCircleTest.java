@@ -24,11 +24,10 @@
 package com.jeometry.model.decimal;
 
 import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.Vect;
+import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link DblCircle}.
@@ -39,12 +38,11 @@ public final class DblCircleTest {
     /**
      * {@link DblCircle} accepts double radius.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void acceptsDoubleRadius() {
         final double radius = Math.random();
         MatcherAssert.assertThat(
-            new DblCircle(Mockito.mock(Vect.class), radius).radius(),
+            new DblCircle(new RandomPoint<>(), radius).radius(),
             Matchers.equalTo(new Scalar.Default<Double>(radius))
         );
     }
