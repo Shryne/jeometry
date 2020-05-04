@@ -24,10 +24,10 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Complementary}.
@@ -38,13 +38,12 @@ public final class ComplementaryTest {
     /**
      * {@link Complementary} resolves to a complementary angle.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesComplementaryAngle() {
         final Degrees first = new Degrees.Default(Math.random());
         final Degrees second = new Degrees.Default(Math.random());
         final Degrees third = new Degrees.Default(Math.random());
-        final InnerProduct<Double> pdt = Mockito.mock(InnerProduct.class);
+        final InnerProduct<Double> pdt = new MockProduct<>();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new Complementary(first).resolve(pdt).doubleValue()

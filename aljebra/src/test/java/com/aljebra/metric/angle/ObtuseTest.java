@@ -23,11 +23,10 @@
  */
 package com.aljebra.metric.angle;
 
-import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Obtuse}.
@@ -40,10 +39,7 @@ public final class ObtuseTest {
      */
     @Test
     public void resolvesObtuseAngle() {
-        @SuppressWarnings("unchecked")
-        final double angle = new Obtuse().resolve(
-            Mockito.mock(InnerProduct.class)
-        ).doubleValue();
+        final double angle = new Obtuse().resolve(new MockProduct<>()).doubleValue();
         MatcherAssert.assertThat(
             angle, Matchers.greaterThanOrEqualTo(Math.PI / 2)
         );
@@ -56,10 +52,7 @@ public final class ObtuseTest {
     @Test
     public void toStringPrintsAngle() {
         final Obtuse obtuse = new Obtuse();
-        @SuppressWarnings("unchecked")
-        final Double angle = obtuse.resolve(
-            Mockito.mock(InnerProduct.class)
-        ).doubleValue();
+        final Double angle = obtuse.resolve(new MockProduct<>()).doubleValue();
         final int precision = 6;
         MatcherAssert.assertThat(
             obtuse.toString(),

@@ -24,6 +24,7 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -39,13 +40,12 @@ public final class SumTest {
     /**
      * {@link Sum} resolves to angles sum.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesAngleSum() {
         final Degrees first = new Degrees.Default(Math.random());
         final Degrees second = new Degrees.Default(Math.random());
         final Degrees third = new Degrees.Default(Math.random());
-        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
+        final InnerProduct<Object> pdt = new MockProduct<>();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new Sum(Arrays.asList(first, second, third)).resolve(pdt).doubleValue(),

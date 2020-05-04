@@ -21,44 +21,39 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.metric.angle;
+package com.aljebra.metric;
 
-import com.aljebra.metric.MockProduct;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import com.aljebra.metric.angle.Degrees;
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 
 /**
- * Tests for {@link Acute}.
+ * Mock InnerProduct with spying (verifying) capabilities on the methods angle, norm and product.
+ * It holds the parameters with which the methods were last called as optionals.
+ * If the optional is empty, that means the method was never called.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class AcuteTest {
+public final class MockProduct<T> implements InnerProduct<T> {
 
-    /**
-     * {@link Acute} resolves to an acute angle.
-     */
-    @Test
-    public void resolvesAcuteAngle() {
-        final double angle = new Acute().resolve(new MockProduct<Object>()).doubleValue();
-        MatcherAssert.assertThat(angle, Matchers.greaterThanOrEqualTo(0.));
-        MatcherAssert.assertThat(
-            angle, Matchers.lessThanOrEqualTo(Math.PI / 2)
-        );
+    @Override
+    public Scalar<T> product(final Vect<T> first, final Vect<T> second) {
+        return null;
     }
 
-    /**
-     * {@link Acute} to string prints the generated angle.
-     */
-    @Test
-    public void toStringPrintsAngle() {
-        final Acute acute = new Acute();
-        final Double angle = acute.resolve(new MockProduct<Object>()).doubleValue();
-        final int precision = 6;
-        MatcherAssert.assertThat(
-            acute.toString(),
-            Matchers.containsString(
-                Double.toString(angle * 2 / Math.PI).substring(0, precision)
-            )
-        );
+    @Override
+    public Degrees angle(final Vect<T> first, final Vect<T> second) {
+        return null;
     }
+
+    @Override
+    public Scalar<T> norm(final Vect<T> vect) {
+        return null;
+    }
+
+    @Override
+    public Vect<T> rot(final Vect<T> vect, final Degrees angle) {
+        return null;
+    }
+
 }
