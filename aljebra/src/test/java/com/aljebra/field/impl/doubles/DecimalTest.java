@@ -26,6 +26,7 @@ package com.aljebra.field.impl.doubles;
 import com.aljebra.field.OrderedRandom;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
+import com.aljebra.scalar.SpyScalar;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
@@ -70,10 +71,12 @@ public final class DecimalTest {
     @Test
     public void delegatesActualValueForScalars() {
         final Decimal field = new Decimal();
-        @SuppressWarnings("unchecked")
-        final Scalar<Double> scalar = Mockito.mock(Scalar.class);
+        final SpyScalar<Double> scalar = new SpyScalar<>(new Scalar.Default<>(0.));
         field.actual(scalar);
-        Mockito.verify(scalar).value(Mockito.eq(field));
+        MatcherAssert.assertThat(
+            "Expecting call to value method with field as parameter",
+            scalar.field().isPresent() && scalar.field().get().equals(field)
+        );
     }
 
     /**
