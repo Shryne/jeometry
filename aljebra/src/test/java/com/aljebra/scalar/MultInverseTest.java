@@ -57,7 +57,7 @@ public final class MultInverseTest {
             FieldMultiplication.class
         );
         Mockito.when(field.multiplication()).thenReturn(mult);
-        final Scalar<Object> scalar = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalar = new Scalar.Default<>(new Object());
         new MultInverse<>(scalar).value(field);
         Mockito.verify(field).multiplication();
         Mockito.verify(mult).inverse(Mockito.any());
@@ -77,11 +77,10 @@ public final class MultInverseTest {
      * {@link MultInverse} respects equals and hashcode
      * regarding the scalar to inverse.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void respectsEqualAndHashcode() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new MultInverse<>(first),
             Matchers.equalTo(new MultInverse<>(first))

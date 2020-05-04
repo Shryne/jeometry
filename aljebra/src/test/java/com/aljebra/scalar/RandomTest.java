@@ -42,7 +42,7 @@ public final class RandomTest {
     @Test
     public void delegatesToField() {
         final Field<Object> field = Mockito.mock(Field.class);
-        Mockito.when(field.random()).thenReturn(Mockito.mock(Scalar.class));
+        Mockito.when(field.random()).thenReturn(new Scalar.Default<>(new Object()));
         new Random<>().value(field);
         Mockito.verify(field).random();
     }

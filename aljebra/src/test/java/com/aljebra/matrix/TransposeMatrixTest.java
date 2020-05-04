@@ -30,7 +30,6 @@ import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link TransposeMatrix}.
@@ -46,12 +45,12 @@ public final class TransposeMatrixTest {
     public void calculatesTransposedCoordinates() {
         final int lines = 3;
         final int cols = 2;
-        final Scalar<Object> scala = Mockito.mock(Scalar.class);
-        final Scalar<Object> scalb = Mockito.mock(Scalar.class);
-        final Scalar<Object> scalc = Mockito.mock(Scalar.class);
-        final Scalar<Object> scald = Mockito.mock(Scalar.class);
-        final Scalar<Object> scale = Mockito.mock(Scalar.class);
-        final Scalar<Object> scalf = Mockito.mock(Scalar.class);
+        final Scalar<Object> scala = new Scalar.Default<>(new Object());
+        final Scalar<Object> scalb = new Scalar.Default<>(new Object());
+        final Scalar<Object> scalc = new Scalar.Default<>(new Object());
+        final Scalar<Object> scald = new Scalar.Default<>(new Object());
+        final Scalar<Object> scale = new Scalar.Default<>(new Object());
+        final Scalar<Object> scalf = new Scalar.Default<>(new Object());
         final Matrix<Object> matrix = new TransposeMatrix<>(
             new FixedMatrix<Object>(
                 lines, cols, Arrays.asList(scala, scalb, scalc, scald, scale, scalf)
@@ -88,11 +87,10 @@ public final class TransposeMatrixTest {
      * @param length List size
      * @return A list of scalars
      */
-    @SuppressWarnings("unchecked")
     private static List<Scalar<Object>> scalars(final int length) {
         final List<Scalar<Object>> result = new ArrayList<>(length);
         for (int idx = 0; idx < length; ++idx) {
-            result.add(Mockito.mock(Scalar.class));
+            result.add(new Scalar.Default<>(new Object()));
         }
         return result;
     }

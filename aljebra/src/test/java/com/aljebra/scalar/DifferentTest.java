@@ -39,11 +39,11 @@ public final class DifferentTest {
     @SuppressWarnings("unchecked")
     @Test
     public void delegatesToField() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(
             field.other(Mockito.any())
-        ).thenReturn(Mockito.mock(Scalar.class));
+        ).thenReturn(new Scalar.Default<>(new Object()));
         new Different<>(first).value(field);
         Mockito.verify(field).other(first);
     }

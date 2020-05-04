@@ -42,8 +42,8 @@ public final class EqualsTest {
     @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenEqual() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(field.equals(first, second)).thenReturn(true);
         MatcherAssert.assertThat(
@@ -58,8 +58,8 @@ public final class EqualsTest {
     @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenNotEqual() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
         Mockito.when(field.equals(first, second)).thenReturn(false);
         MatcherAssert.assertThat(

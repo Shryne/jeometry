@@ -44,13 +44,12 @@ public final class TimesTest {
     /**
      * {@link Times} calculates coordinates as the multiplication of scalars.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void calculatesTimesCoordinates() {
         final int lines = 3;
         final int cols = 4;
         final List<Scalar<Object>> coorsa = TimesTest.scalars(lines * cols);
-        final Scalar<Object> factor = Mockito.mock(Scalar.class);
+        final Scalar<Object> factor = new Scalar.Default<>(new Object());
         final Matrix<Object> times = new Times<>(
             new FixedMatrix<Object>(lines, cols, coorsa), factor
         );
@@ -65,14 +64,13 @@ public final class TimesTest {
     /**
      * {@link Times} can return lines and columns.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void returnsLinesAndColumns() {
-        final Scalar<Object> scalara = Mockito.mock(Scalar.class);
-        final Scalar<Object> scalarb = Mockito.mock(Scalar.class);
-        final Scalar<Object> scalarc = Mockito.mock(Scalar.class);
-        final Scalar<Object> scalard = Mockito.mock(Scalar.class);
-        final Scalar<Object> scalare = Mockito.mock(Scalar.class);
+        final Scalar<Object> scalara = new Scalar.Default<>(new Object());
+        final Scalar<Object> scalarb = new Scalar.Default<>(new Object());
+        final Scalar<Object> scalarc = new Scalar.Default<>(new Object());
+        final Scalar<Object> scalard = new Scalar.Default<>(new Object());
+        final Scalar<Object> scalare = new Scalar.Default<>(new Object());
         final Matrix<Object> matrix = new Times<>(
             new FixedMatrix<Object>(
                 2, 2, Arrays.asList(scalara, scalarb, scalarc, scalard)
@@ -131,7 +129,7 @@ public final class TimesTest {
         );
         final Vect<Object> input = Mockito.mock(Vect.class);
         Mockito.when(input.coords()).thenReturn(TimesTest.scalars(cols).toArray(new Scalar[1]));
-        final Scalar<Object> factor = Mockito.mock(Scalar.class);
+        final Scalar<Object> factor = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new Times<Object>(first, factor).apply(input),
             Matchers.equalTo(
@@ -145,11 +143,10 @@ public final class TimesTest {
      * @param length List size
      * @return A list of scalars
      */
-    @SuppressWarnings("unchecked")
     private static List<Scalar<Object>> scalars(final int length) {
         final List<Scalar<Object>> result = new ArrayList<>(length);
         for (int idx = 0; idx < length; ++idx) {
-            result.add(Mockito.mock(Scalar.class));
+            result.add(new Scalar.Default<>(new Object()));
         }
         return result;
     }

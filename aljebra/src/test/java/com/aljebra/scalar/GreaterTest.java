@@ -48,11 +48,11 @@ public final class GreaterTest {
     @SuppressWarnings("unchecked")
     @Test
     public void delegatesToOrderedFieldRandomizer() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
         final OrderedField<Object> field = Mockito.mock(OrderedField.class);
         Mockito.when(
             field.greater(Mockito.any())
-        ).thenReturn(Mockito.mock(Scalar.class));
+        ).thenReturn(new Scalar.Default<>(new Object()));
         new Greater<>(first).value(field);
         Mockito.verify(field).greater(first);
     }
@@ -65,7 +65,7 @@ public final class GreaterTest {
     public void throwsExceptionWhenUnorderedField() {
         this.thrown.expect(UnsupportedOperationException.class);
         new Greater<>(
-            Mockito.mock(Scalar.class)
+            new Scalar.Default<>(new Object())
         ).value(Mockito.mock(Field.class));
     }
 }

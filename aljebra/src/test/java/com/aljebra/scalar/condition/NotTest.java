@@ -75,8 +75,8 @@ public final class NotTest {
     @SuppressWarnings("unchecked")
     @Test
     public void buildsTernary() {
-        final Scalar<Object> first = Mockito.mock(Scalar.class);
-        final Scalar<Object> second = Mockito.mock(Scalar.class);
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
         new Not(new False()).ifElse(first, second).value(field);
         Mockito.verify(field).actual(first);
@@ -93,7 +93,7 @@ public final class NotTest {
         this.thrown.expect(err.getClass());
         final Field<Object> field = Mockito.mock(AbstractField.class);
         new Not(new True()).ifElse(
-            Mockito.mock(Scalar.class), err
+            new Scalar.Default<>(new Object()), err
         ).value(field);
     }
 }
