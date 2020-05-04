@@ -24,7 +24,9 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
-import com.aljebra.vector.Vect;
+import com.aljebra.scalar.Random;
+import com.aljebra.vector.FixedVector;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -74,7 +76,8 @@ public final class FlatTest {
             Matchers.not(
                 Matchers.equalTo(
                     new VectsDegrees(
-                        Mockito.mock(Vect.class), Mockito.mock(Vect.class)
+                        new FixedVector<>(Arrays.asList(new Random<>())),
+                        new FixedVector<>(Arrays.asList(new Random<>()))
                     )
                 )
             )

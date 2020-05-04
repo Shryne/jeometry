@@ -26,7 +26,10 @@ package com.aljebra.metric.scalar;
 import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.scalar.Random;
+import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -50,7 +53,7 @@ public final class NormTest {
     @SuppressWarnings("unchecked")
     @Test
     public void delegatesToInnerProduct() {
-        final Vect<Object> first = Mockito.mock(Vect.class);
+        final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
         final MetricSpaceField<Object> field = Mockito.mock(MetricSpaceField.class);
         final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         Mockito.when(field.product()).thenReturn(pdt);
@@ -66,6 +69,6 @@ public final class NormTest {
     public void errorsWhenNoMetricSpace() {
         this.thrown.expect(UnsupportedOperationException.class);
         final Field<Object> field = Mockito.mock(Field.class);
-        new Norm<>(Mockito.mock(Vect.class)).value(field);
+        new Norm<>(new FixedVector<>(Arrays.asList(new Random<>()))).value(field);
     }
 }

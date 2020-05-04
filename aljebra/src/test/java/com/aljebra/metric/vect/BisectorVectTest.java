@@ -26,11 +26,12 @@ package com.aljebra.metric.vect;
 import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link BisectorVect}.
@@ -41,14 +42,11 @@ public final class BisectorVectTest {
     /**
      * {@link BisectorVect} calculates bisector vector.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void calculatesBisector() {
         final int dim = 2;
-        final Vect<Double> first = Mockito.mock(Vect.class);
-        final Vect<Double> second = Mockito.mock(Vect.class);
-        Mockito.when(first.coords()).thenReturn(BisectorVectTest.scalars(dim));
-        Mockito.when(second.coords()).thenReturn(BisectorVectTest.scalars(dim));
+        final Vect<Double> first = new FixedVector<>(Arrays.asList(BisectorVectTest.scalars(dim)));
+        final Vect<Double> second = new FixedVector<>(Arrays.asList(BisectorVectTest.scalars(dim)));
         final InnerProduct<Double> pdt = new Dot();
         final Vect<Double> result = new BisectorVect<>(first, second);
         final double error = 1.e-6;

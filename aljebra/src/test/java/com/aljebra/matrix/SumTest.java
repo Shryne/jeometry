@@ -33,7 +33,6 @@ import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Sum}.
@@ -68,7 +67,6 @@ public final class SumTest {
      * {@link Sum} transforms a vector as the sum
      * of the transformations (linear).
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void appliesSumTransformation() {
         final int lines = 3;
@@ -79,8 +77,7 @@ public final class SumTest {
         final FixedMatrix<Object> second = new FixedMatrix<>(
             lines, cols, SumTest.scalars(lines * cols)
         );
-        final Vect<Object> input = Mockito.mock(Vect.class);
-        Mockito.when(input.coords()).thenReturn(SumTest.scalars(cols).toArray(new Scalar[1]));
+        final Vect<Object> input = new FixedVector<>(SumTest.scalars(cols));
         MatcherAssert.assertThat(
             new Sum<Object>(Arrays.asList(first, second)).apply(input),
             Matchers.equalTo(

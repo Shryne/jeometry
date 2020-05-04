@@ -30,7 +30,6 @@ import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Sum}.
@@ -47,15 +46,12 @@ public final class SumTest {
      * {@link Sum} coordinates equals to the field additions
      * of vectors coordinates.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void coordsEqualCoordsSum() {
-        final Vect<Object> vecta = Mockito.mock(Vect.class);
-        final Vect<Object> vectb = Mockito.mock(Vect.class);
         final Scalar<Object>[] acoords = SumTest.scalars();
         final Scalar<Object>[] bcoords = SumTest.scalars(acoords.length);
-        Mockito.when(vectb.coords()).thenReturn(bcoords);
-        Mockito.when(vecta.coords()).thenReturn(acoords);
+        final Vect<Object> vecta = new FixedVector<>(Arrays.asList(acoords));
+        final Vect<Object> vectb = new FixedVector<>(Arrays.asList(bcoords));
         final Scalar<Object>[] expected = Arrays.copyOf(acoords, acoords.length);
         for (int idx = 0; idx < expected.length; ++idx) {
             expected[idx] = SumTest.sum(acoords[idx], bcoords[idx]);

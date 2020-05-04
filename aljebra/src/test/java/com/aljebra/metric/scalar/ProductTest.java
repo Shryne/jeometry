@@ -27,7 +27,9 @@ import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -52,10 +54,8 @@ public final class ProductTest {
     @Test
     public void delegatesToInnerProduct() {
         final int dim = 6;
-        final Vect<Object> first = Mockito.mock(Vect.class);
-        final Vect<Object> second = Mockito.mock(Vect.class);
-        Mockito.when(first.coords()).thenReturn(ProductTest.scalars(dim));
-        Mockito.when(second.coords()).thenReturn(ProductTest.scalars(dim));
+        final Vect<Object> first = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
+        final Vect<Object> second = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
         final MetricSpaceField<Object> field = Mockito.mock(MetricSpaceField.class);
         final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         Mockito.when(field.product()).thenReturn(pdt);
@@ -71,10 +71,8 @@ public final class ProductTest {
     public void errorsWhenNoMetricSpace() {
         this.thrown.expect(UnsupportedOperationException.class);
         final int dim = 6;
-        final Vect<Object> first = Mockito.mock(Vect.class);
-        final Vect<Object> second = Mockito.mock(Vect.class);
-        Mockito.when(first.coords()).thenReturn(ProductTest.scalars(dim));
-        Mockito.when(second.coords()).thenReturn(ProductTest.scalars(dim));
+        final Vect<Object> first = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
+        final Vect<Object> second = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
         final Field<Object> field = Mockito.mock(Field.class);
         new Product<>(first, second).value(field);
     }
