@@ -26,6 +26,9 @@ package com.aljebra.metric;
 import com.aljebra.metric.angle.Degrees;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Mock InnerProduct with spying (verifying) capabilities on the methods angle, norm and product.
@@ -36,24 +39,69 @@ import com.aljebra.vector.Vect;
  */
 public final class MockProduct<T> implements InnerProduct<T> {
 
+    /**
+     * An optional holding the last vectors passed as parameter when calling angle method.
+     * The optional is empty if the method was never called.
+     */
+    private Optional<List<Vect<T>>> ang = Optional.empty();
+
+    /**
+     * An optional holding the last vector passed as parameter when calling norm method.
+     * The optional is empty if the method was never called.
+     */
+    private Optional<Vect<T>> nrm = Optional.empty();
+
+    /**
+     * An optional holding the last vectors passed as parameter when calling product method.
+     * The optional is empty if the method was never called.
+     */
+    private Optional<List<Vect<T>>> pdt = Optional.empty();
+
     @Override
     public Scalar<T> product(final Vect<T> first, final Vect<T> second) {
-        return null;
+        this.pdt = Optional.of(Arrays.asList(first, second));
+        return first.coords()[0];
     }
 
     @Override
     public Degrees angle(final Vect<T> first, final Vect<T> second) {
-        return null;
+        this.ang = Optional.of(Arrays.asList(first, second));
+        return new Degrees.Default(0.);
     }
 
     @Override
     public Scalar<T> norm(final Vect<T> vect) {
-        return null;
+        this.nrm = Optional.of(vect);
+        return vect.coords()[0];
     }
 
     @Override
     public Vect<T> rot(final Vect<T> vect, final Degrees angle) {
-        return null;
+        return vect;
+    }
+
+    /**
+     * Accessor for the last vectors passed when calling angle method.
+     * @return An optional probably containing two vectors, or empty if the method was never called
+     */
+    public Optional<List<Vect<T>>> angle() {
+        return this.ang;
+    }
+
+    /**
+     * Accessor for the last vector passed when calling norm method.
+     * @return An optional probably containing a vector, or empty if the method was never called
+     */
+    public Optional<Vect<T>> norm() {
+        return this.nrm;
+    }
+
+    /**
+     * Accessor for the last vectors passed when calling product method.
+     * @return An optional probably containing two vectors, or empty if the method was never called
+     */
+    public Optional<List<Vect<T>>> product() {
+        return this.pdt;
     }
 
 }

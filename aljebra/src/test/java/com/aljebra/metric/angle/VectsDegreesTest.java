@@ -23,15 +23,16 @@
  */
 package com.aljebra.metric.angle;
 
-import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link VectsDegrees}.
@@ -43,17 +44,18 @@ public final class VectsDegreesTest {
      * {@link VectsDegrees} rely on InnerProduct to calculate
      * angle between vectors.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToInnerProduct() {
         final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
         final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
-        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
-        Mockito.when(
-            pdt.angle(Mockito.any(), Mockito.any())
-        ).thenReturn(Mockito.mock(Degrees.class));
+        final MockProduct<Object> pdt = new MockProduct<>();
         new VectsDegrees(first, second).resolve(pdt);
-        Mockito.verify(pdt).angle(first, second);
+        final Optional<List<Vect<Object>>> params = pdt.angle();
+        MatcherAssert.assertThat(
+            "Expecting call to angle method with vectors as parameters",
+            params.isPresent() && params.get().get(0).equals(first)
+                && params.get().get(1).equals(second)
+        );
     }
 
     /**
