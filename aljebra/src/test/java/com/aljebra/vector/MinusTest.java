@@ -76,7 +76,7 @@ public final class MinusTest {
      * @return An array of scalars.
      */
     private static Scalar<Object>[] scalars() {
-        return MinusTest.scalars(new Random().nextInt(MinusTest.COORDS_LENGTH));
+        return MinusTest.scalars(1 + new Random().nextInt(MinusTest.COORDS_LENGTH));
     }
 
     /**

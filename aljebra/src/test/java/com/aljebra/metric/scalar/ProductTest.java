@@ -25,11 +25,14 @@ package com.aljebra.metric.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
-import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -56,11 +59,16 @@ public final class ProductTest {
         final int dim = 6;
         final Vect<Object> first = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
         final Vect<Object> second = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
+        final MockProduct<Object> pdt = new MockProduct<>();
         final MetricSpaceField<Object> field = Mockito.mock(MetricSpaceField.class);
-        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         Mockito.when(field.product()).thenReturn(pdt);
         new Product<>(first, second).value(field);
-        Mockito.verify(pdt).product(first, second);
+        final Optional<List<Vect<Object>>> params = pdt.product();
+        MatcherAssert.assertThat(
+            "Expecting call to product method with vectors as parameters",
+            params.isPresent() && params.get().get(0).equals(first)
+                && params.get().get(1).equals(second)
+        );
     }
 
     /**

@@ -24,10 +24,10 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Supplementary}.
@@ -43,8 +43,7 @@ public final class SupplementaryTest {
         final Degrees first = new Degrees.Default(Math.random());
         final Degrees second = new Degrees.Default(Math.random());
         final Degrees third = new Degrees.Default(Math.random());
-        @SuppressWarnings("unchecked")
-        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
+        final InnerProduct<Object> pdt = new MockProduct<>();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new Supplementary(first).resolve(pdt).doubleValue()

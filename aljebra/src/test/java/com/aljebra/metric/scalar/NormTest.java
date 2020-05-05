@@ -25,11 +25,13 @@ package com.aljebra.metric.scalar;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
-import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import java.util.Arrays;
+import java.util.Optional;
+import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -54,11 +56,15 @@ public final class NormTest {
     @Test
     public void delegatesToInnerProduct() {
         final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
+        final MockProduct<Object> pdt = new MockProduct<>();
         final MetricSpaceField<Object> field = Mockito.mock(MetricSpaceField.class);
-        final InnerProduct<Object> pdt = Mockito.mock(InnerProduct.class);
         Mockito.when(field.product()).thenReturn(pdt);
         new Norm<>(first).value(field);
-        Mockito.verify(pdt).norm(first);
+        final Optional<Vect<Object>> params = pdt.norm();
+        MatcherAssert.assertThat(
+            "Expecting call to norm method with vector as parameters",
+            params.isPresent() && params.get().equals(first)
+        );
     }
 
     /**

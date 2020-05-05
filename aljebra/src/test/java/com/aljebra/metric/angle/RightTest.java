@@ -24,13 +24,13 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Right}.
@@ -44,8 +44,7 @@ public final class RightTest {
     @Test
     public void resolvesRightAngle() {
         final double error = 1.e-6;
-        @SuppressWarnings("unchecked")
-        final InnerProduct<Object> product = Mockito.mock(InnerProduct.class);
+        final InnerProduct<Object> product = new MockProduct<>();
         MatcherAssert.assertThat(
             new Right().resolve(product).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)

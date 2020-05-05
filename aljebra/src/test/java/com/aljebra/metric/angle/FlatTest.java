@@ -24,13 +24,13 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MockProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Flat}.
@@ -41,11 +41,10 @@ public final class FlatTest {
     /**
      * {@link Flat} resolves to an flat angle.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesFlatAngle() {
         final double error = 1.e-6;
-        final InnerProduct<Object> product = Mockito.mock(InnerProduct.class);
+        final InnerProduct<Object> product = new MockProduct<>();
         MatcherAssert.assertThat(
             new Flat().resolve(product).doubleValue(),
             Matchers.closeTo(Math.PI, error)
