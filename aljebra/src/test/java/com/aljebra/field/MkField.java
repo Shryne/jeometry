@@ -40,6 +40,16 @@ public final class MkField<T> extends AbstractOrderedField<T> implements MetricS
     private final InnerProduct<T> pdt;
 
     /**
+     * Ctor. MkAddition and MkMultiplication are used as implementations.
+     * @param addelt Addition neutral element
+     * @param mulelt Multiplication neutral element
+     * @param pdt Inner product
+     */
+    public MkField(final T addelt, final T mulelt, final InnerProduct<T> pdt) {
+        this(new MkAddition<>(addelt), new MkMultiplication<>(mulelt), pdt);
+    }
+
+    /**
      * Ctor.
      * @param add Addition operation
      * @param mul Multiplication operation

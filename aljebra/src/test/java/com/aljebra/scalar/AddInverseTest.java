@@ -24,7 +24,7 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldAddition;
+import com.aljebra.field.MkAddition;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -44,12 +44,14 @@ public final class AddInverseTest {
     @Test
     public void addInverseDelegatesToFieldAddition() {
         final Field<Object> field = Mockito.mock(Field.class);
-        final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
+        final MkAddition<Object> add = new MkAddition<>(new Object());
         Mockito.when(field.addition()).thenReturn(add);
         final Scalar<Object> scalar = new Scalar.Default<>(new Object());
         new AddInverse<>(scalar).value(field);
         Mockito.verify(field).addition();
-        Mockito.verify(add).inverse(Mockito.any());
+        MatcherAssert.assertThat(
+            add.inverted(), Matchers.is(true)
+        );
     }
 
     /**

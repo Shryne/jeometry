@@ -24,8 +24,9 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldAddition;
+import com.aljebra.field.MkAddition;
 import java.util.Arrays;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -96,14 +97,16 @@ public final class AddTest {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = Mockito.mock(Field.class);
-        final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
+        final MkAddition<Object> add = new MkAddition<>(new Object());
         Mockito.when(field.addition()).thenReturn(add);
-        new Add<>(Arrays.asList(first, second, first)).value(field);
+        final List<Scalar<Object>> operands = Arrays.asList(first, second, first);
+        new Add<>(operands).value(field);
         Mockito.verify(field).addition();
-        Mockito.verify(add).neutral();
-        final int invocations = 3;
-        Mockito.verify(add, Mockito.times(invocations)).add(
-            Mockito.any(), Mockito.any()
+        MatcherAssert.assertThat(
+            add.neutraled(), Matchers.is(true)
+        );
+        MatcherAssert.assertThat(
+            add.added(), Matchers.is(operands.size())
         );
     }
 }
