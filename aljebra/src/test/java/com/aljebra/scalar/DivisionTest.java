@@ -24,7 +24,7 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldMultiplication;
+import com.aljebra.field.MkMultiplication;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -89,16 +89,18 @@ public final class DivisionTest {
     @Test
     public void divisionDelegatesToFieldMultiplication() {
         final Field<Object> field = Mockito.mock(Field.class);
-        final FieldMultiplication<Object> mult = Mockito.mock(
-            FieldMultiplication.class
-        );
+        final MkMultiplication<Object> mult = new MkMultiplication<>(new Object());
         Mockito.when(field.multiplication()).thenReturn(mult);
         new Division<>(
             new Scalar.Default<>(new Object()), new Scalar.Default<>(new Object())
         ).value(field);
         Mockito.verify(field).multiplication();
-        Mockito.verify(mult).inverse(Mockito.any());
-        Mockito.verify(mult).multiply(Mockito.any(), Mockito.any());
+        MatcherAssert.assertThat(
+            mult.inverted(), Matchers.is(true)
+        );
+        MatcherAssert.assertThat(
+            mult.multiplied(), Matchers.greaterThan(0)
+        );
     }
 
     /**

@@ -24,7 +24,7 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldMultiplication;
+import com.aljebra.field.MkMultiplication;
 import com.aljebra.field.impl.doubles.Decimal;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -53,14 +53,14 @@ public final class MultInverseTest {
     @Test
     public void multInverseDelegatesToFieldMultiplication() {
         final Field<Object> field = Mockito.mock(Field.class);
-        final FieldMultiplication<Object> mult = Mockito.mock(
-            FieldMultiplication.class
-        );
+        final MkMultiplication<Object> mult = new MkMultiplication<>(new Object());
         Mockito.when(field.multiplication()).thenReturn(mult);
         final Scalar<Object> scalar = new Scalar.Default<>(new Object());
         new MultInverse<>(scalar).value(field);
         Mockito.verify(field).multiplication();
-        Mockito.verify(mult).inverse(Mockito.any());
+        MatcherAssert.assertThat(
+            mult.inverted(), Matchers.is(true)
+        );
     }
 
     /**

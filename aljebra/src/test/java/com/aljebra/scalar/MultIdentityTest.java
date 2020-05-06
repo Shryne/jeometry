@@ -24,7 +24,7 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldMultiplication;
+import com.aljebra.field.MkMultiplication;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -44,13 +44,13 @@ public final class MultIdentityTest {
     @Test
     public void multIdentityDelegatesToFieldMultiplication() {
         final Field<Object> field = Mockito.mock(Field.class);
-        final FieldMultiplication<Object> mult = Mockito.mock(
-            FieldMultiplication.class
-        );
+        final MkMultiplication<Object> mult = new MkMultiplication<>(new Object());
         Mockito.when(field.multiplication()).thenReturn(mult);
         new MultIdentity<>().value(field);
         Mockito.verify(field).multiplication();
-        Mockito.verify(mult).neutral();
+        MatcherAssert.assertThat(
+            mult.neutraled(), Matchers.is(true)
+        );
     }
 
     /**
