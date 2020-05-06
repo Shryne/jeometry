@@ -24,7 +24,7 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldAddition;
+import com.aljebra.field.MkAddition;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -43,11 +43,13 @@ public final class AddIdentityTest {
     @Test
     public void addIdentityDelegatesToFieldAddition() {
         final Field<Object> field = Mockito.mock(Field.class);
-        final FieldAddition<Object> add = Mockito.mock(FieldAddition.class);
+        final MkAddition<Object> add = new MkAddition<>(new Object());
         Mockito.when(field.addition()).thenReturn(add);
         new AddIdentity<>().value(field);
         Mockito.verify(field).addition();
-        Mockito.verify(add).neutral();
+        MatcherAssert.assertThat(
+            add.neutraled(), Matchers.is(true)
+        );
     }
 
     /**

@@ -24,8 +24,6 @@
 package com.aljebra.metric.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.FieldAddition;
-import com.aljebra.field.FieldMultiplication;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.field.MkField;
 import com.aljebra.metric.MockProduct;
@@ -56,16 +54,13 @@ public final class NormTest {
     /**
      * {@link Norm} rely on InnerProduct for resolution of actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToInnerProduct() {
         final Vect<Object> first = new FixedVector<>(
             Arrays.asList(new Scalar.Default<>(new Object()))
         );
         final MockProduct<Object> pdt = new MockProduct<>();
-        final MetricSpaceField<Object> field = new MkField<>(
-            Mockito.mock(FieldAddition.class), Mockito.mock(FieldMultiplication.class), pdt
-        );
+        final MetricSpaceField<Object> field = new MkField<>(new Object(), new Object(), pdt);
         new Norm<>(first).value(field);
         final Optional<Vect<Object>> params = pdt.norm();
         MatcherAssert.assertThat(
