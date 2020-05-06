@@ -23,16 +23,18 @@
  */
 package com.aljebra.field.impl.doubles;
 
-import com.aljebra.field.OrderedRandom;
+import com.aljebra.field.SpyOrderedRandom;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.scalar.SpyScalar;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Decimal}.
@@ -51,13 +53,12 @@ public final class DecimalTest {
      */
     @Test
     public void returnsDifferentScalar() {
-        final OrderedRandom<Double> rand = DecimalTest.randomizer();
-        final Decimal field = new Decimal(rand);
         final double first = new Random().nextDouble();
+        final SpyOrderedRandom<Double> rand = new SpyOrderedRandom<>(
+            Optional.of(Arrays.asList(first, Math.random()))
+        );
+        final Decimal field = new Decimal(rand);
         final Scalar<Double> scalar = new Scalar.Default<>(first);
-        Mockito.when(
-            rand.between(Mockito.any(), Mockito.any())
-        ).thenReturn(first).thenReturn(Math.random());
         MatcherAssert.assertThat(
             "Generated scalar should be different than the passed one",
             !field.equals(scalar, field.other(scalar))
@@ -84,23 +85,24 @@ public final class DecimalTest {
      */
     @Test
     public void delegatesRandomization() {
-        final OrderedRandom<Double> rand = DecimalTest.randomizer();
+        final SpyOrderedRandom<Double> rand = new SpyOrderedRandom<>();
         final Decimal field = new Decimal(rand);
         final Default<Double> zero = new Scalar.Default<>(0.);
         field.between(zero, zero);
         field.greater(zero);
         field.lower(zero);
-        Mockito.verify(rand).between(0., 0.);
-        Mockito.verify(rand).greater(0.);
-        Mockito.verify(rand).lower(0.);
-    }
-
-    /**
-     * Returns a mocked double randomizer.
-     * @return A mocked double randomizer
-     */
-    @SuppressWarnings("unchecked")
-    private static OrderedRandom<Double> randomizer() {
-        return Mockito.mock(OrderedRandom.class);
+        final Optional<List<Double>> params = rand.between();
+        MatcherAssert.assertThat(
+            "Expecting call to between method with zero as parameters",
+            params.isPresent() && params.get().get(0).equals(0.) && params.get().get(1).equals(0.)
+        );
+        MatcherAssert.assertThat(
+            "Expecting call to greater method with zero as parameter",
+            rand.greater().isPresent() && rand.greater().get().equals(0.)
+        );
+        MatcherAssert.assertThat(
+            "Expecting call to lower method with zero as parameter",
+            rand.lower().isPresent() && rand.lower().get().equals(0.)
+        );
     }
 }
