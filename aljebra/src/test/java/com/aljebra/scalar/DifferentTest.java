@@ -23,9 +23,11 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.SpyField;
+import java.util.Optional;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Different}.
@@ -36,16 +38,14 @@ public final class DifferentTest {
     /**
      * {@link Different} relies on field to calculate actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToField() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
-        Mockito.when(
-            field.other(Mockito.any())
-        ).thenReturn(new Scalar.Default<>(new Object()));
+        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
         new Different<>(first).value(field);
-        Mockito.verify(field).other(first);
+        final Optional<Scalar<Object>> param = field.calls().other();
+        MatcherAssert.assertThat(param.isPresent(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(param.get(), Matchers.equalTo(first));
     }
 
 }

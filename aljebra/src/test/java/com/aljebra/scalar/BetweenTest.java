@@ -23,8 +23,8 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.SpyField;
+import com.aljebra.field.SpyMetricSpace;
 import java.util.List;
 import java.util.Optional;
 import org.hamcrest.MatcherAssert;
@@ -32,7 +32,6 @@ import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Between}.
@@ -53,7 +52,7 @@ public final class BetweenTest {
     public void betweenDelegatesToOrderedFieldRandomizer() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
+        final SpyMetricSpace<Object> field = new SpyMetricSpace<>(new Object(), new Object());
         new Between<>(first, second).value(field);
         final Optional<List<Scalar<Object>>> params = field.between();
         MatcherAssert.assertThat(params.isPresent(), Matchers.is(true));
@@ -64,12 +63,11 @@ public final class BetweenTest {
     /**
      * {@link Between} throws exception if the field is not ordered.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void betweenThrowsExceptionWhenUnorderedField() {
         this.thrown.expect(UnsupportedOperationException.class);
         new Between<>(
             new Scalar.Default<>(new Object()), new Scalar.Default<>(new Object())
-        ).value(Mockito.mock(Field.class));
+        ).value(new SpyField<>(new Object(), new Object()));
     }
 }

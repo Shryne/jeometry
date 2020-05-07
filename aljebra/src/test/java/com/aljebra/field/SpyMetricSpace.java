@@ -30,14 +30,14 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Mock decorator for fields with spying (verifying) capabilities on the methods between, greater
- * and lower.
+ * Mock decorator for metric space fields with spying (verifying) capabilities
+ * on the methods between, greater and lower.
  * It holds the parameters with which the methods were last called as optionals.
  * If the optional is empty, that means the method was never called.
  * @param <T> scalar types
  * @since 0.1
  */
-public final class SpyField<T> extends AbstractField<T> implements MetricSpaceField<T> {
+public final class SpyMetricSpace<T> extends AbstractField<T> implements MetricSpaceField<T> {
 
     /**
      * Decorated field.
@@ -67,7 +67,7 @@ public final class SpyField<T> extends AbstractField<T> implements MetricSpaceFi
      * @param addelt Neutral addition element
      * @param mulelt Neutral multiplication element
      */
-    public SpyField(final T addelt, final T mulelt) {
+    public SpyMetricSpace(final T addelt, final T mulelt) {
         this(new MkField<>(addelt, mulelt));
     }
 
@@ -75,7 +75,7 @@ public final class SpyField<T> extends AbstractField<T> implements MetricSpaceFi
      * Ctor.
      * @param origin Field to decorate
      */
-    public SpyField(final MetricSpaceField<T> origin) {
+    public SpyMetricSpace(final MetricSpaceField<T> origin) {
         super(origin.addition(), origin.multiplication());
         this.origin = origin;
     }

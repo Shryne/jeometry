@@ -23,14 +23,14 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.MkField;
 import com.aljebra.field.MkMultiplication;
+import com.aljebra.field.SpyField;
 import java.util.Arrays;
 import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Multiplication}.
@@ -55,17 +55,19 @@ public final class MultiplicationTest {
      * {@link Multiplication} relies on field multiplication
      * to calculate actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void multiplicationDelegatesToFieldMultiplication() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
         final MkMultiplication<Object> mult = new MkMultiplication<>(new Object());
-        Mockito.when(field.multiplication()).thenReturn(mult);
+        final SpyField<Object> field = new SpyField<>(
+            new MkField<Object>(new Object(), mult)
+        );
         final List<Scalar<Object>> operands = Arrays.asList(first, second);
         new Multiplication<>(operands).value(field);
-        Mockito.verify(field).multiplication();
+        MatcherAssert.assertThat(
+            field.calls().multiplicationed(), Matchers.is(true)
+        );
         MatcherAssert.assertThat(
             mult.neutraled(), Matchers.is(true)
         );

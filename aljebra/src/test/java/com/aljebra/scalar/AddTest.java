@@ -23,14 +23,14 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.MkAddition;
+import com.aljebra.field.MkField;
+import com.aljebra.field.SpyField;
 import java.util.Arrays;
 import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Add}.
@@ -91,17 +91,19 @@ public final class AddTest {
     /**
      * {@link Add} relies on field addition to calculate actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void addDelegatesToFieldAddition() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
         final MkAddition<Object> add = new MkAddition<>(new Object());
-        Mockito.when(field.addition()).thenReturn(add);
+        final SpyField<Object> field = new SpyField<>(
+            new MkField<Object>(new Object(), add)
+        );
         final List<Scalar<Object>> operands = Arrays.asList(first, second, first);
         new Add<>(operands).value(field);
-        Mockito.verify(field).addition();
+        MatcherAssert.assertThat(
+            field.calls().additioned(), Matchers.is(true)
+        );
         MatcherAssert.assertThat(
             add.neutraled(), Matchers.is(true)
         );

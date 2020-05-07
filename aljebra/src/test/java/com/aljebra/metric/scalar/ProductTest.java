@@ -23,9 +23,9 @@
  */
 package com.aljebra.metric.scalar;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.field.MkField;
+import com.aljebra.field.SpyField;
 import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
@@ -37,7 +37,6 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Product}.
@@ -73,15 +72,13 @@ public final class ProductTest {
     /**
      * {@link Product} throws exception when not operating on a metric space.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenNoMetricSpace() {
         this.thrown.expect(UnsupportedOperationException.class);
         final int dim = 6;
         final Vect<Object> first = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
         final Vect<Object> second = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
-        final Field<Object> field = Mockito.mock(Field.class);
-        new Product<>(first, second).value(field);
+        new Product<>(first, second).value(new SpyField<>(new Object(), new Object()));
     }
 
     /**
