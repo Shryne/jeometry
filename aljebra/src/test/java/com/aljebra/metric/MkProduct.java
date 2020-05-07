@@ -37,7 +37,7 @@ import java.util.Optional;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class MockProduct<T> implements InnerProduct<T> {
+public final class MkProduct<T> implements InnerProduct<T> {
 
     /**
      * An optional holding the last vectors passed as parameter when calling angle method.

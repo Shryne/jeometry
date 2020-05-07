@@ -26,7 +26,7 @@ package com.aljebra.metric.scalar;
 import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.field.MkField;
-import com.aljebra.metric.MockProduct;
+import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
@@ -59,7 +59,7 @@ public final class ProductTest {
         final int dim = 6;
         final Vect<Object> first = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
         final Vect<Object> second = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
-        final MockProduct<Object> pdt = new MockProduct<>();
+        final MkProduct<Object> pdt = new MkProduct<>();
         final MetricSpaceField<Object> field = new MkField<>(new Object(), new Object(), pdt);
         new Product<>(first, second).value(field);
         final Optional<List<Vect<Object>>> params = pdt.product();

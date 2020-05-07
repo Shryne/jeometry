@@ -24,7 +24,7 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
-import com.aljebra.metric.MockProduct;
+import com.aljebra.metric.MkProduct;
 import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -45,7 +45,7 @@ public final class SumTest {
         final Degrees first = new Degrees.Default(Math.random());
         final Degrees second = new Degrees.Default(Math.random());
         final Degrees third = new Degrees.Default(Math.random());
-        final InnerProduct<Object> pdt = new MockProduct<>();
+        final InnerProduct<Object> pdt = new MkProduct<>();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new Sum(Arrays.asList(first, second, third)).resolve(pdt).doubleValue(),
