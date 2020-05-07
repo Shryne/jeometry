@@ -23,11 +23,10 @@
  */
 package com.aljebra.scalar.condition;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.MkField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Or}.
@@ -38,13 +37,12 @@ public final class OrTest {
     /**
      * {@link Or} returns true if at least one predicate resolves to true.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenOnePredicateTrue() {
         MatcherAssert.assertThat(
             new Or(
                 new True(), new False(), new False()
-            ).resolve(Mockito.mock(Field.class)),
+            ).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(true)
         );
     }
@@ -52,13 +50,12 @@ public final class OrTest {
     /**
      * {@link Or} resolves to false if all predicates resolve to false.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenAllPredicatesFalse() {
         MatcherAssert.assertThat(
             new Or(
                 new False(), new False(), new False()
-            ).resolve(Mockito.mock(Field.class)),
+            ).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(false)
         );
     }

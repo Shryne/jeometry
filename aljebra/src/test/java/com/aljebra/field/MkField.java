@@ -25,7 +25,6 @@ package com.aljebra.field;
 
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.metric.MkProduct;
-import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 
 /**
@@ -60,6 +59,33 @@ public final class MkField<T> extends AbstractOrderedField<T> implements MetricS
     }
 
     /**
+     * Ctor. MockProduct is used as implementations.
+     * @param add Addition operation
+     * @param mul Multiplication operation
+     */
+    public MkField(final FieldAddition<T> add, final FieldMultiplication<T> mul) {
+        this(add, mul, new MkProduct<T>());
+    }
+
+    /**
+     * Ctor. MockProduct and MkAddition are used as implementations.
+     * @param addelt Addition neutral element
+     * @param mul Multiplication operation
+     */
+    public MkField(final T addelt, final FieldMultiplication<T> mul) {
+        this(new MkAddition<>(addelt), mul);
+    }
+
+    /**
+     * Ctor. MockProduct and MkMultiplication are used as implementations.
+     * @param mulelt Multiplication neutral element
+     * @param add Addition operation
+     */
+    public MkField(final T mulelt, final FieldAddition<T> add) {
+        this(add, new MkMultiplication<>(mulelt));
+    }
+
+    /**
      * Ctor.
      * @param add Addition operation
      * @param mul Multiplication operation
@@ -73,12 +99,12 @@ public final class MkField<T> extends AbstractOrderedField<T> implements MetricS
 
     @Override
     public Scalar<T> random() {
-        return new Random<>();
+        return new Scalar.Default<>(this.addition().neutral());
     }
 
     @Override
     public boolean equals(final Scalar<T> scalar, final Scalar<T> other) {
-        return false;
+        return this.actual(scalar).equals(this.actual(other));
     }
 
     @Override

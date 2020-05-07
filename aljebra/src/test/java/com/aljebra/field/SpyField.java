@@ -23,44 +23,26 @@
  */
 package com.aljebra.field;
 
-import com.aljebra.metric.InnerProduct;
 import com.aljebra.scalar.Scalar;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 /**
- * Mock decorator for fields with spying (verifying) capabilities on the methods between, greater
- * and lower.
- * It holds the parameters with which the methods were last called as optionals.
- * If the optional is empty, that means the method was never called.
+ * Mock decorator for fields with spying (verifying) capabilities on the methods: other, addition,
+ * multiplication, random and actual.
+ * It holds an instance of {@link FieldCalls} to record and report method calls and parameters.
  * @param <T> scalar types
  * @since 0.1
  */
-public final class SpyField<T> extends AbstractField<T> implements MetricSpaceField<T> {
+public final class SpyField<T> implements Field<T> {
 
     /**
      * Decorated field.
      */
-    private final MetricSpaceField<T> origin;
+    private final Field<T> origin;
 
     /**
-     * An optional holding the last scalars passed as parameter when calling between method.
-     * The optional is empty if the method was never called.
+     * Field calls.
      */
-    private Optional<List<Scalar<T>>> bet;
-
-    /**
-     * An optional holding the last scalar passed as parameter when calling greater method.
-     * The optional is empty if the method was never called.
-     */
-    private Optional<Scalar<T>> great;
-
-    /**
-     * An optional holding the last scalar passed as parameter when calling lower method.
-     * The optional is empty if the method was never called.
-     */
-    private Optional<Scalar<T>> low;
+    private final FieldCalls<T> cals;
 
     /**
      * Ctor. Using MkField as underlying field.
@@ -76,30 +58,13 @@ public final class SpyField<T> extends AbstractField<T> implements MetricSpaceFi
      * @param origin Field to decorate
      */
     public SpyField(final MetricSpaceField<T> origin) {
-        super(origin.addition(), origin.multiplication());
         this.origin = origin;
-    }
-
-    @Override
-    public Scalar<T> between(final Scalar<T> lower, final Scalar<T> upper) {
-        this.bet = Optional.of(Arrays.asList(lower, upper));
-        return this.origin.between(lower, upper);
-    }
-
-    @Override
-    public Scalar<T> greater(final Scalar<T> lower) {
-        this.great = Optional.of(lower);
-        return this.origin.greater(lower);
-    }
-
-    @Override
-    public Scalar<T> lower(final Scalar<T> upper) {
-        this.low = Optional.of(upper);
-        return this.origin.lower(upper);
+        this.cals = new FieldCalls<>();
     }
 
     @Override
     public Scalar<T> random() {
+        this.cals.random();
         return this.origin.random();
     }
 
@@ -109,32 +74,34 @@ public final class SpyField<T> extends AbstractField<T> implements MetricSpaceFi
     }
 
     @Override
-    public InnerProduct<T> product() {
-        return this.origin.product();
+    public Scalar<T> other(final Scalar<T> scalar) {
+        this.cals.other(scalar);
+        return this.origin.other(scalar);
+    }
+
+    @Override
+    public T actual(final Scalar<T> scalar) {
+        this.cals.actual(scalar);
+        return this.origin.actual(scalar);
+    }
+
+    @Override
+    public FieldAddition<T> addition() {
+        this.cals.addition();
+        return this.origin.addition();
+    }
+
+    @Override
+    public FieldMultiplication<T> multiplication() {
+        this.cals.multiplication();
+        return this.origin.multiplication();
     }
 
     /**
-     * Accessor for the last scalars passed when calling between method.
-     * @return An optional probably containing two scalars, or empty if the method was never called
+     * Accessor for field calls object.
+     * @return A field method calls
      */
-    public Optional<List<Scalar<T>>> between() {
-        return this.bet;
+    public FieldCalls<T> calls() {
+        return this.cals;
     }
-
-    /**
-     * Accessor for the last scalar passed when calling greater method.
-     * @return An optional probably containing a scalar, or empty if the method was never called
-     */
-    public Optional<Scalar<T>> greater() {
-        return this.great;
-    }
-
-    /**
-     * Accessor for the last scalar passed when calling lower method.
-     * @return An optional probably containing a scalar, or empty if the method was never called
-     */
-    public Optional<Scalar<T>> lower() {
-        return this.low;
-    }
-
 }

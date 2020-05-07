@@ -24,11 +24,11 @@
 package com.aljebra.scalar.condition;
 
 import com.aljebra.field.Field;
+import com.aljebra.field.MkField;
 import com.aljebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Equals}.
@@ -39,13 +39,12 @@ public final class EqualsTest {
     /**
      * {@link Equals} resolves to true if scalars are equal.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenEqual() {
-        final Scalar<Object> first = new Scalar.Default<>(new Object());
-        final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
-        Mockito.when(field.equals(first, second)).thenReturn(true);
+        final Object obj = new Object();
+        final Scalar<Object> first = new Scalar.Default<>(obj);
+        final Scalar<Object> second = new Scalar.Default<>(obj);
+        final Field<Object> field = new MkField<>(new Object(), new Object());
         MatcherAssert.assertThat(
             new Equals(first, second).resolve(field),
             Matchers.is(true)
@@ -55,13 +54,11 @@ public final class EqualsTest {
     /**
      * {@link Equals} resolves to false if scalars are not equal.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenNotEqual() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
-        Mockito.when(field.equals(first, second)).thenReturn(false);
+        final Field<Object> field = new MkField<>(new Object(), new Object());
         MatcherAssert.assertThat(
             new Equals(first, second).resolve(field),
             Matchers.is(false)

@@ -23,14 +23,12 @@
  */
 package com.jeometry.render.awt;
 
-import com.aljebra.field.Field;
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.FixedVector;
+import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
 import java.awt.Graphics2D;
-import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -92,7 +90,7 @@ public final class AwtTest {
         final Awt awt = new Awt();
         final CountDownLatch latch = new CountDownLatch(1);
         final AbstractAwtPaint painter = new AbstractAwtPaint(
-            Mockito.mock(Field.class), Line.class
+            new Decimal(), Line.class
         ) {
             @Override
             protected void draw(final Shape renderable,
@@ -102,20 +100,8 @@ public final class AwtTest {
             }
         };
         final Line<Double> line = Mockito.mock(Line.class);
-        Mockito.when(line.point()).thenReturn(
-            new FixedVector<>(
-                Arrays.asList(
-                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
-                )
-            )
-        );
-        Mockito.when(line.direction()).thenReturn(
-            new FixedVector<>(
-                Arrays.asList(
-                    new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
-                )
-            )
-        );
+        Mockito.when(line.point()).thenReturn(new DblPoint(0., 0.));
+        Mockito.when(line.direction()).thenReturn(new DblPoint(1., 1.));
         awt.add(painter).render(new Figure().add(new Shape(line)));
         latch.await();
         Mockito.verify(line, Mockito.atLeastOnce()).direction();

@@ -23,11 +23,10 @@
  */
 package com.aljebra.scalar.condition;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.MkField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link And}.
@@ -38,13 +37,12 @@ public final class AndTest {
     /**
      * {@link And} returns true if all predicates are true.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenAllPredicatesTrue() {
         MatcherAssert.assertThat(
             new And(
                 new True(), new True(), new True()
-            ).resolve(Mockito.mock(Field.class)),
+            ).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(true)
         );
     }
@@ -52,13 +50,12 @@ public final class AndTest {
     /**
      * {@link And} resolves to false if at least one predicate is false.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenOnePredicateFalse() {
         MatcherAssert.assertThat(
             new And(
                 new True(), new True(), new False()
-            ).resolve(Mockito.mock(Field.class)),
+            ).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(false)
         );
     }

@@ -23,7 +23,7 @@
  */
 package com.aljebra.metric.vect;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.SpyField;
 import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.metric.angle.Degrees;
@@ -36,7 +36,6 @@ import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link RotateVect}.
@@ -80,14 +79,13 @@ public final class RotateVectTest {
      * {@link RotateVect} coordinates cannot be evaluated when
      * the field is not a metric space field.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenEvaluatingCoordinates() {
         this.thrown.expect(UnsupportedOperationException.class);
         final Vect<Double> first = new FixedVector<>(Arrays.asList(RotateVectTest.scalars(2)));
         new RotateVect<>(
             first, Math.random()
-        ).coords()[0].value(Mockito.mock(Field.class));
+        ).coords()[0].value(new SpyField<>(new Double(0.), new Double(1.)));
     }
 
     /**

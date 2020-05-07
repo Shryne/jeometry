@@ -23,9 +23,9 @@
  */
 package com.aljebra.metric.scalar;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.field.MkField;
+import com.aljebra.field.SpyField;
 import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
@@ -37,7 +37,6 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Norm}.
@@ -72,11 +71,11 @@ public final class NormTest {
     /**
      * {@link Norm} throws exception when not operating on a metric space.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void errorsWhenNoMetricSpace() {
         this.thrown.expect(UnsupportedOperationException.class);
-        final Field<Object> field = Mockito.mock(Field.class);
-        new Norm<>(new FixedVector<>(Arrays.asList(new Random<>()))).value(field);
+        new Norm<>(new FixedVector<>(Arrays.asList(new Random<>()))).value(
+            new SpyField<>(new Object(), new Object())
+        );
     }
 }

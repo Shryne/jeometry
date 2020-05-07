@@ -23,15 +23,16 @@
  */
 package com.aljebra.scalar.condition;
 
-import com.aljebra.field.AbstractField;
-import com.aljebra.field.Field;
+import com.aljebra.field.MkField;
+import com.aljebra.field.SpyField;
 import com.aljebra.scalar.Scalar;
+import java.util.List;
+import java.util.Optional;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Not}.
@@ -48,11 +49,10 @@ public final class NotTest {
     /**
      * {@link Not} resolves to false if predicate resolves to true.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrueWhenPredicateIsFalse() {
         MatcherAssert.assertThat(
-            new Not(new True()).resolve(Mockito.mock(Field.class)),
+            new Not(new True()).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(false)
         );
     }
@@ -60,11 +60,10 @@ public final class NotTest {
     /**
      * {@link Not} resolves to true if predicate resolves to false.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToFalseWhenPredicateIsTrue() {
         MatcherAssert.assertThat(
-            new Not(new False()).resolve(Mockito.mock(Field.class)),
+            new Not(new False()).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(true)
         );
     }
@@ -72,28 +71,27 @@ public final class NotTest {
     /**
      * {@link Not} can build a ternary.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void buildsTernary() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
+        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
         new Not(new False()).ifElse(first, second).value(field);
-        Mockito.verify(field).actual(first);
-        Mockito.verify(field, Mockito.never()).actual(second);
+        final Optional<List<Scalar<Object>>> params = field.calls().actuals();
+        MatcherAssert.assertThat(params.isPresent(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(params.get().contains(first), Matchers.equalTo(true));
+        MatcherAssert.assertThat(params.get().contains(second), Matchers.equalTo(false));
     }
 
     /**
      * {@link Not} can build a throwing ternary.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void buildsThrowing() {
         final RuntimeException err = new RuntimeException();
         this.thrown.expect(err.getClass());
-        final Field<Object> field = Mockito.mock(AbstractField.class);
         new Not(new True()).ifElse(
             new Scalar.Default<>(new Object()), err
-        ).value(field);
+        ).value(new MkField<>(new Object(), new Object()));
     }
 }
