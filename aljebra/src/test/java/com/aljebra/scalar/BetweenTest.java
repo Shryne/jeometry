@@ -24,7 +24,11 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.OrderedField;
+import com.aljebra.field.SpyField;
+import java.util.List;
+import java.util.Optional;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -45,17 +49,16 @@ public final class BetweenTest {
     /**
      * {@link Between} relies on ordered field to calculate actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void betweenDelegatesToOrderedFieldRandomizer() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final OrderedField<Object> field = Mockito.mock(OrderedField.class);
-        Mockito.when(
-            field.between(Mockito.any(), Mockito.any())
-        ).thenReturn(new Scalar.Default<>(new Object()));
+        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
         new Between<>(first, second).value(field);
-        Mockito.verify(field).between(first, second);
+        final Optional<List<Scalar<Object>>> params = field.between();
+        MatcherAssert.assertThat(params.isPresent(), Matchers.is(true));
+        MatcherAssert.assertThat(params.get().get(0), Matchers.is(first));
+        MatcherAssert.assertThat(params.get().get(1), Matchers.is(second));
     }
 
     /**

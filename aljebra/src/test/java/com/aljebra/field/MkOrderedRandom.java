@@ -36,7 +36,7 @@ import java.util.Optional;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class SpyOrderedRandom<T> implements OrderedRandom<T> {
+public final class MkOrderedRandom<T> implements OrderedRandom<T> {
 
     /**
      * A list of subsequent returned values for between method.
@@ -69,7 +69,7 @@ public final class SpyOrderedRandom<T> implements OrderedRandom<T> {
     /**
      * Default constructor with no forced returned values for between method.
      */
-    public SpyOrderedRandom() {
+    public MkOrderedRandom() {
         this(Optional.empty());
     }
 
@@ -78,7 +78,7 @@ public final class SpyOrderedRandom<T> implements OrderedRandom<T> {
      * @param forced List of subsequent values to be returned by between method. If the between
      *  method is called more times than this list has elements, arbitrary values will be returned.
      */
-    public SpyOrderedRandom(final Optional<List<T>> forced) {
+    public MkOrderedRandom(final Optional<List<T>> forced) {
         this.forced = forced;
         this.iter = Optional.empty();
         this.bet = Optional.empty();

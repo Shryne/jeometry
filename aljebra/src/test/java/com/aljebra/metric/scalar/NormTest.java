@@ -26,7 +26,7 @@ package com.aljebra.metric.scalar;
 import com.aljebra.field.Field;
 import com.aljebra.field.MetricSpaceField;
 import com.aljebra.field.MkField;
-import com.aljebra.metric.MockProduct;
+import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
@@ -59,7 +59,7 @@ public final class NormTest {
         final Vect<Object> first = new FixedVector<>(
             Arrays.asList(new Scalar.Default<>(new Object()))
         );
-        final MockProduct<Object> pdt = new MockProduct<>();
+        final MkProduct<Object> pdt = new MkProduct<>();
         final MetricSpaceField<Object> field = new MkField<>(new Object(), new Object(), pdt);
         new Norm<>(first).value(field);
         final Optional<Vect<Object>> params = pdt.norm();

@@ -23,7 +23,7 @@
  */
 package com.aljebra.metric.angle;
 
-import com.aljebra.metric.MockProduct;
+import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
@@ -48,7 +48,7 @@ public final class VectsDegreesTest {
     public void delegatesToInnerProduct() {
         final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
         final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
-        final MockProduct<Object> pdt = new MockProduct<>();
+        final MkProduct<Object> pdt = new MkProduct<>();
         new VectsDegrees(first, second).resolve(pdt);
         final Optional<List<Vect<Object>>> params = pdt.angle();
         MatcherAssert.assertThat(

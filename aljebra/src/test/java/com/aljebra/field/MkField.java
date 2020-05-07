@@ -24,6 +24,7 @@
 package com.aljebra.field;
 
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 
@@ -38,6 +39,15 @@ public final class MkField<T> extends AbstractOrderedField<T> implements MetricS
      * Inner product to use.
      */
     private final InnerProduct<T> pdt;
+
+    /**
+     * Ctor. MkAddition and MkMultiplication and MockProduct are used as implementations.
+     * @param addelt Addition neutral element
+     * @param mulelt Multiplication neutral element
+     */
+    public MkField(final T addelt, final T mulelt) {
+        this(addelt, mulelt, new MkProduct<T>());
+    }
 
     /**
      * Ctor. MkAddition and MkMultiplication are used as implementations.
@@ -57,7 +67,7 @@ public final class MkField<T> extends AbstractOrderedField<T> implements MetricS
      */
     public MkField(final FieldAddition<T> add,
         final FieldMultiplication<T> mul, final InnerProduct<T> pdt) {
-        super(add, mul, new SpyOrderedRandom<T>());
+        super(add, mul, new MkOrderedRandom<T>());
         this.pdt = pdt;
     }
 
