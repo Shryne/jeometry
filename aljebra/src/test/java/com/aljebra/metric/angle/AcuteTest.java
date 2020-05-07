@@ -23,7 +23,7 @@
  */
 package com.aljebra.metric.angle;
 
-import com.aljebra.metric.MockProduct;
+import com.aljebra.metric.MkProduct;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public final class AcuteTest {
      */
     @Test
     public void resolvesAcuteAngle() {
-        final double angle = new Acute().resolve(new MockProduct<Object>()).doubleValue();
+        final double angle = new Acute().resolve(new MkProduct<Object>()).doubleValue();
         MatcherAssert.assertThat(angle, Matchers.greaterThanOrEqualTo(0.));
         MatcherAssert.assertThat(
             angle, Matchers.lessThanOrEqualTo(Math.PI / 2)
@@ -52,7 +52,7 @@ public final class AcuteTest {
     @Test
     public void toStringPrintsAngle() {
         final Acute acute = new Acute();
-        final Double angle = acute.resolve(new MockProduct<Object>()).doubleValue();
+        final Double angle = acute.resolve(new MkProduct<Object>()).doubleValue();
         final int precision = 6;
         MatcherAssert.assertThat(
             acute.toString(),

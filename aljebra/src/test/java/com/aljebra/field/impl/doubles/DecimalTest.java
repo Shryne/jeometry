@@ -23,7 +23,7 @@
  */
 package com.aljebra.field.impl.doubles;
 
-import com.aljebra.field.SpyOrderedRandom;
+import com.aljebra.field.MkOrderedRandom;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.scalar.SpyScalar;
@@ -54,7 +54,7 @@ public final class DecimalTest {
     @Test
     public void returnsDifferentScalar() {
         final double first = new Random().nextDouble();
-        final SpyOrderedRandom<Double> rand = new SpyOrderedRandom<>(
+        final MkOrderedRandom<Double> rand = new MkOrderedRandom<>(
             Optional.of(Arrays.asList(first, Math.random()))
         );
         final Decimal field = new Decimal(rand);
@@ -85,7 +85,7 @@ public final class DecimalTest {
      */
     @Test
     public void delegatesRandomization() {
-        final SpyOrderedRandom<Double> rand = new SpyOrderedRandom<>();
+        final MkOrderedRandom<Double> rand = new MkOrderedRandom<>();
         final Decimal field = new Decimal(rand);
         final Default<Double> zero = new Scalar.Default<>(0.);
         field.between(zero, zero);

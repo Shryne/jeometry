@@ -24,7 +24,10 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.OrderedField;
+import com.aljebra.field.SpyField;
+import java.util.Optional;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -45,16 +48,14 @@ public final class GreaterTest {
     /**
      * {@link Greater} relies on ordered field to calculate actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToOrderedFieldRandomizer() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
-        final OrderedField<Object> field = Mockito.mock(OrderedField.class);
-        Mockito.when(
-            field.greater(Mockito.any())
-        ).thenReturn(new Scalar.Default<>(new Object()));
+        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
         new Greater<>(first).value(field);
-        Mockito.verify(field).greater(first);
+        final Optional<Scalar<Object>> params = field.greater();
+        MatcherAssert.assertThat(params.isPresent(), Matchers.is(true));
+        MatcherAssert.assertThat(params.get(), Matchers.is(first));
     }
 
     /**

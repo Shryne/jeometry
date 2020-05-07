@@ -24,7 +24,7 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
-import com.aljebra.metric.MockProduct;
+import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import java.util.Arrays;
@@ -44,7 +44,7 @@ public final class RightTest {
     @Test
     public void resolvesRightAngle() {
         final double error = 1.e-6;
-        final InnerProduct<Object> product = new MockProduct<>();
+        final InnerProduct<Object> product = new MkProduct<>();
         MatcherAssert.assertThat(
             new Right().resolve(product).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)

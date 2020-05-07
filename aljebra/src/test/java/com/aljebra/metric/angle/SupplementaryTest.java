@@ -24,7 +24,7 @@
 package com.aljebra.metric.angle;
 
 import com.aljebra.metric.InnerProduct;
-import com.aljebra.metric.MockProduct;
+import com.aljebra.metric.MkProduct;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public final class SupplementaryTest {
         final Degrees first = new Degrees.Default(Math.random());
         final Degrees second = new Degrees.Default(Math.random());
         final Degrees third = new Degrees.Default(Math.random());
-        final InnerProduct<Object> pdt = new MockProduct<>();
+        final InnerProduct<Object> pdt = new MkProduct<>();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             new Supplementary(first).resolve(pdt).doubleValue()
