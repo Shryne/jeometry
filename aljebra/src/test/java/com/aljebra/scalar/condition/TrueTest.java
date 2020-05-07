@@ -23,11 +23,10 @@
  */
 package com.aljebra.scalar.condition;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.MkField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link True}.
@@ -38,11 +37,10 @@ public final class TrueTest {
     /**
      * {@link True} can always resolve to true.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void resolvesToTrue() {
         MatcherAssert.assertThat(
-            new True().resolve(Mockito.mock(Field.class)),
+            new True().resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(true)
         );
     }

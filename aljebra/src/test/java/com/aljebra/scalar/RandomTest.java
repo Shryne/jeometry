@@ -23,11 +23,10 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.SpyField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Random}.
@@ -38,13 +37,11 @@ public final class RandomTest {
     /**
      * {@link Random} relies on field to calculate actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void delegatesToField() {
-        final Field<Object> field = Mockito.mock(Field.class);
-        Mockito.when(field.random()).thenReturn(new Scalar.Default<>(new Object()));
+        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
         new Random<>().value(field);
-        Mockito.verify(field).random();
+        MatcherAssert.assertThat(field.calls().randomed(), Matchers.equalTo(true));
     }
 
     /**

@@ -23,15 +23,14 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.SpyField;
+import com.aljebra.field.SpyMetricSpace;
 import java.util.Optional;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Lower}.
@@ -51,7 +50,7 @@ public final class LowerTest {
     @Test
     public void delegatesToOrderedFieldRandomizer() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
-        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
+        final SpyMetricSpace<Object> field = new SpyMetricSpace<>(new Object(), new Object());
         new Lower<>(first).value(field);
         final Optional<Scalar<Object>> params = field.lower();
         MatcherAssert.assertThat(params.isPresent(), Matchers.is(true));
@@ -61,12 +60,11 @@ public final class LowerTest {
     /**
      * {@link Lower} throws exception if the field is not ordered.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void throwsExceptionWhenUnorderedField() {
         this.thrown.expect(UnsupportedOperationException.class);
         new Lower<>(
             new Scalar.Default<>(new Object())
-        ).value(Mockito.mock(Field.class));
+        ).value(new SpyField<>(new Object(), new Object()));
     }
 }

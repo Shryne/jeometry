@@ -23,12 +23,12 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.MkAddition;
+import com.aljebra.field.MkField;
+import com.aljebra.field.SpyField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Diff}.
@@ -96,16 +96,18 @@ public final class DiffTest {
     /**
      * {@link Diff} relies on field addition to calculate actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void diffDelegatesToFieldAddition() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
         final MkAddition<Object> add = new MkAddition<>(new Object());
-        Mockito.when(field.addition()).thenReturn(add);
+        final SpyField<Object> field = new SpyField<>(
+            new MkField<Object>(new Object(), add)
+        );
         new Diff<>(first, second).value(field);
-        Mockito.verify(field).addition();
+        MatcherAssert.assertThat(
+            field.calls().additioned(), Matchers.is(true)
+        );
         MatcherAssert.assertThat(
             add.inverted(), Matchers.is(true)
         );

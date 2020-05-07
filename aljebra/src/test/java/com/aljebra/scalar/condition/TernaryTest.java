@@ -23,10 +23,13 @@
  */
 package com.aljebra.scalar.condition;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.SpyField;
 import com.aljebra.scalar.Scalar;
+import java.util.List;
+import java.util.Optional;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Ternary}.
@@ -38,29 +41,31 @@ public final class TernaryTest {
      * {@link Ternary} evaluates to the first scalar
      * returns true if all predicates are true.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void valueToFirstScalarWhenTrue() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
+        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
         new Ternary<>(new True(), first, second).value(field);
-        Mockito.verify(field).actual(first);
-        Mockito.verify(field, Mockito.never()).actual(second);
+        final Optional<List<Scalar<Object>>> params = field.calls().actuals();
+        MatcherAssert.assertThat(params.isPresent(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(params.get().contains(first), Matchers.equalTo(true));
+        MatcherAssert.assertThat(params.get().contains(second), Matchers.equalTo(false));
     }
 
     /**
      * {@link Ternary} evaluates to the second scalar
      * if the predicate resolves to false.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void valueToSecondScalarWhenFalse() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Field<Object> field = Mockito.mock(Field.class);
+        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
         new Ternary<>(new False(), first, second).value(field);
-        Mockito.verify(field).actual(second);
-        Mockito.verify(field, Mockito.never()).actual(first);
+        final Optional<List<Scalar<Object>>> params = field.calls().actuals();
+        MatcherAssert.assertThat(params.isPresent(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(params.get().contains(first), Matchers.equalTo(false));
+        MatcherAssert.assertThat(params.get().contains(second), Matchers.equalTo(true));
     }
 }

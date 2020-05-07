@@ -23,7 +23,7 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.MkField;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -44,11 +44,10 @@ public final class ThrowingTest {
     /**
      * {@link Throwing} throws exception when trying to calculate actual value.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void throwsExceptionWhenValue() {
         final RuntimeException rex = Mockito.mock(RuntimeException.class);
         this.thrown.expect(rex.getClass());
-        new Throwing<>(rex).value(Mockito.mock(Field.class));
+        new Throwing<>(rex).value(new MkField<>(new Object(), new Object()));
     }
 }
