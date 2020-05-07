@@ -23,7 +23,7 @@
  */
 package com.jeometry.render.awt;
 
-import com.aljebra.field.Field;
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
@@ -111,7 +111,7 @@ public final class AwtDrawableSurfaceTest {
         final CountDownLatch latch = new CountDownLatch(1);
         @SuppressWarnings("unchecked")
         final AbstractAwtPaint painter = new AbstractAwtPaint(
-            Mockito.mock(Field.class), Line.class
+            new Decimal(), Line.class
         ) {
             @Override
             protected void draw(final Shape renderable,
