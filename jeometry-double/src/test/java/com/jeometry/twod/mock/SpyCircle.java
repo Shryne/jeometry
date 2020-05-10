@@ -23,82 +23,63 @@
  */
 package com.jeometry.twod.mock;
 
+import com.aljebra.scalar.Random;
+import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
-import com.jeometry.twod.angle.Angle;
-import com.jeometry.twod.angle.VectsAngle;
+import com.jeometry.twod.circle.Circle;
+import com.jeometry.twod.circle.PtRadCircle;
 import com.jeometry.twod.point.RandomPoint;
 
 /**
- * Mock decorator for angle with spying (verifying) capabilities on the method: start.
+ * Mock decorator for circle with spying (verifying) capabilities on the method: center.
  * @param <T> scalar types
  * @since 0.1
  */
-public final class SpyAngle<T> implements Angle<T> {
+public final class SpyCircle<T> implements Circle<T> {
 
     /**
-     * Decorated angle.
+     * Decorated circle.
      */
-    private final Angle<T> org;
+    private final Circle<T> org;
 
     /**
-     * Boolean indicating if start method was called.
+     * Boolean indicating if center method was called.
      */
-    private Boolean str;
+    private Boolean cnt;
 
     /**
-     * Boolean indicating if origin method was called.
+     * Ctor. Decorates a random 2D-circle.
      */
-    private Boolean orig;
-
-    /**
-     * Ctor. Decorated angle is a random 2D-angle.
-     */
-    public SpyAngle() {
-        this(
-            new VectsAngle<>(new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>())
-        );
+    public SpyCircle() {
+        this(new PtRadCircle<>(new RandomPoint<>(), new Random<>()));
     }
 
     /**
      * Ctor.
-     * @param origin Decorated angle
+     * @param origin Decorated circle
      */
-    public SpyAngle(final Angle<T> origin) {
+    public SpyCircle(final Circle<T> origin) {
         this.org = origin;
-        this.str = Boolean.FALSE;
-        this.orig = Boolean.FALSE;
+        this.cnt = Boolean.FALSE;
     }
 
     @Override
-    public Vect<T> start() {
-        this.str = Boolean.TRUE;
-        return this.org.start();
+    public Vect<T> center() {
+        this.cnt = Boolean.TRUE;
+        return this.org.center();
     }
 
     @Override
-    public Vect<T> end() {
-        return this.org.start();
-    }
-
-    @Override
-    public Vect<T> origin() {
-        this.orig = Boolean.TRUE;
-        return this.org.start();
+    public Scalar<T> radius() {
+        return this.org.radius();
     }
 
     /**
-     * Accessor for a boolean indicating if start method was called.
-     * @return True if start method was called.
+     * Accessor for a boolean indicating if center method was called.
+     * @return True if point method was called.
      */
-    public Boolean started() {
-        return this.str;
+    public Boolean centered() {
+        return this.cnt;
     }
 
-    /**
-     * Accessor for a boolean indicating if origin method was called.
-     * @return True if origin method was called.
-     */
-    public Boolean origined() {
-        return this.orig;
-    }
 }

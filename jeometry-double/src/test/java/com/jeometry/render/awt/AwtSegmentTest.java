@@ -24,13 +24,12 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.FixedVector;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.line.Line;
-import com.jeometry.twod.segment.Segment;
+import com.jeometry.twod.mock.SpyLine;
+import com.jeometry.twod.mock.SpySegment;
 import java.awt.Graphics2D;
-import java.util.Arrays;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -43,30 +42,15 @@ public final class AwtSegmentTest {
     /**
      * {@link AwtSegment} renders segments.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersSegments() {
-        final Segment<Double> segment = Mockito.mock(Segment.class);
-        Mockito.when(segment.start()).thenReturn(
-            new FixedVector<>(
-                Arrays.asList(
-                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
-                )
-            )
-        );
-        Mockito.when(segment.end()).thenReturn(
-            new FixedVector<>(
-                Arrays.asList(
-                    new Scalar.Default<Double>(1.), new Scalar.Default<Double>(1.)
-                )
-            )
-        );
+        final SpySegment<Double> segment = new SpySegment<>();
         final AwtSegment painter = new AwtSegment(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(segment));
-        Mockito.verify(segment).start();
-        Mockito.verify(segment).end();
+        MatcherAssert.assertThat(segment.started(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(segment.ended(), Matchers.equalTo(true));
     }
 
     /**
@@ -74,14 +58,13 @@ public final class AwtSegmentTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        @SuppressWarnings("unchecked")
-        final Line<Double> render = Mockito.mock(Line.class);
+        final SpyLine<Double> render = new SpyLine<>();
         final AwtSegment painter = new AwtSegment(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(render));
-        Mockito.verify(render, Mockito.never()).point();
-        Mockito.verify(render, Mockito.never()).direction();
+        MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
+        MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
     }
 
 }

@@ -24,11 +24,10 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.angle.VectsAngle;
-import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.VerticalLine;
 import com.jeometry.twod.mock.SpyAngle;
+import com.jeometry.twod.mock.SpyLine;
 import java.awt.Graphics2D;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -44,35 +43,29 @@ public final class AwtLineTest {
     /**
      * {@link AwtLine} renders lines.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersLines() {
-        final Line<Double> line = Mockito.mock(Line.class);
-        Mockito.when(line.point()).thenReturn(new DblPoint(0., 0.));
-        Mockito.when(line.direction()).thenReturn(new DblPoint(1., 1.));
+        final SpyLine<Double> line = new SpyLine<>();
         final AwtLine painter = new AwtLine(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(line));
-        Mockito.verify(line, Mockito.atLeastOnce()).direction();
-        Mockito.verify(line, Mockito.atLeastOnce()).point();
+        MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(line.pointed(), Matchers.equalTo(true));
     }
 
     /**
      * {@link AwtLine} renders vertical lines.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersVertical() {
-        final Line<Double> line = Mockito.mock(Line.class);
-        Mockito.when(line.point()).thenReturn(new DblPoint(0., 0.));
-        Mockito.when(line.direction()).thenReturn(new DblPoint(0., 1.));
+        final SpyLine<Double> line = new SpyLine<>(new VerticalLine<>());
         final AwtLine painter = new AwtLine(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(line));
-        Mockito.verify(line).direction();
-        Mockito.verify(line).point();
+        MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(line.pointed(), Matchers.equalTo(true));
     }
 
     /**
@@ -80,9 +73,7 @@ public final class AwtLineTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final SpyAngle<Double> render = new SpyAngle<>(
-            new VectsAngle<>(new DblPoint(0., 0.), new DblPoint(1., 0.), new DblPoint(0., 1.))
-        );
+        final SpyAngle<Double> render = new SpyAngle<>();
         final AwtLine painter = new AwtLine(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
