@@ -24,66 +24,58 @@
 package com.jeometry.twod.mock;
 
 import com.aljebra.vector.Vect;
-import com.jeometry.twod.angle.Angle;
-import com.jeometry.twod.angle.VectsAngle;
-import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.segment.RandomSegment;
+import com.jeometry.twod.segment.Segment;
 
 /**
- * Mock decorator for angle with spying (verifying) capabilities on the method: start.
+ * Mock decorator for segment with spying (verifying) capabilities on the methods: start and end.
  * @param <T> scalar types
  * @since 0.1
  */
-public final class SpyAngle<T> implements Angle<T> {
+public final class SpySegment<T> implements Segment<T> {
 
     /**
-     * Decorated angle.
+     * Decorated segment.
      */
-    private final Angle<T> org;
+    private final Segment<T> org;
 
     /**
      * Boolean indicating if start method was called.
      */
-    private Boolean str;
+    private Boolean strt;
 
     /**
-     * Boolean indicating if origin method was called.
+     * Boolean indicating if end method was called.
      */
-    private Boolean orig;
+    private Boolean endd;
 
     /**
-     * Ctor. Decorated angle is a random 2D-angle.
+     * Ctor. Decorates a random generated line.
      */
-    public SpyAngle() {
-        this(
-            new VectsAngle<>(new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>())
-        );
+    public SpySegment() {
+        this(new RandomSegment<>());
     }
 
     /**
      * Ctor.
-     * @param origin Decorated angle
+     * @param origin Decorated Segment
      */
-    public SpyAngle(final Angle<T> origin) {
+    public SpySegment(final Segment<T> origin) {
         this.org = origin;
-        this.str = Boolean.FALSE;
-        this.orig = Boolean.FALSE;
+        this.strt = Boolean.FALSE;
+        this.endd = Boolean.FALSE;
     }
 
     @Override
     public Vect<T> start() {
-        this.str = Boolean.TRUE;
+        this.strt = Boolean.TRUE;
         return this.org.start();
     }
 
     @Override
     public Vect<T> end() {
-        return this.org.start();
-    }
-
-    @Override
-    public Vect<T> origin() {
-        this.orig = Boolean.TRUE;
-        return this.org.start();
+        this.endd = Boolean.TRUE;
+        return this.org.end();
     }
 
     /**
@@ -91,14 +83,14 @@ public final class SpyAngle<T> implements Angle<T> {
      * @return True if start method was called.
      */
     public Boolean started() {
-        return this.str;
+        return this.strt;
     }
 
     /**
-     * Accessor for a boolean indicating if origin method was called.
-     * @return True if origin method was called.
+     * Accessor for a boolean indicating if end method was called.
+     * @return True if end method was called.
      */
-    public Boolean origined() {
-        return this.orig;
+    public Boolean ended() {
+        return this.endd;
     }
 }

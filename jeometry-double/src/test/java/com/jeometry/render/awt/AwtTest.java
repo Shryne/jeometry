@@ -24,10 +24,11 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.RandomLine;
+import com.jeometry.twod.mock.SpyLine;
 import java.awt.Graphics2D;
 import java.util.concurrent.CountDownLatch;
 import org.hamcrest.MatcherAssert;
@@ -35,7 +36,6 @@ import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Awt}.
@@ -84,7 +84,6 @@ public final class AwtTest {
      * to this painter.
      * @throws InterruptedException If fails.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void addsPainter() throws InterruptedException {
         final Awt awt = new Awt();
@@ -95,16 +94,14 @@ public final class AwtTest {
             @Override
             protected void draw(final Shape renderable,
                 final Graphics2D graphic, final AwtContext ctx) {
-                ((Line<Double>) renderable.renderable()).direction();
+                ((Line<?>) renderable.renderable()).direction();
                 latch.countDown();
             }
         };
-        final Line<Double> line = Mockito.mock(Line.class);
-        Mockito.when(line.point()).thenReturn(new DblPoint(0., 0.));
-        Mockito.when(line.direction()).thenReturn(new DblPoint(1., 1.));
-        awt.add(painter).render(new Figure().add(new Shape(line)));
+        final SpyLine<Double> line = new SpyLine<>(new RandomLine<>());
+        awt.add(painter).render(new Figure().add(line));
         latch.await();
-        Mockito.verify(line, Mockito.atLeastOnce()).direction();
+        MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
     }
 
 }

@@ -24,26 +24,20 @@
 package com.jeometry.twod.mock;
 
 import com.aljebra.vector.Vect;
-import com.jeometry.twod.angle.Angle;
-import com.jeometry.twod.angle.VectsAngle;
-import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.ray.PtDirRay;
+import com.jeometry.twod.ray.Ray;
 
 /**
- * Mock decorator for angle with spying (verifying) capabilities on the method: start.
+ * Mock decorator for ray with spying (verifying) capabilities on the methods: origin and direction.
  * @param <T> scalar types
  * @since 0.1
  */
-public final class SpyAngle<T> implements Angle<T> {
+public final class SpyRay<T> implements Ray<T> {
 
     /**
-     * Decorated angle.
+     * Decorated ray.
      */
-    private final Angle<T> org;
-
-    /**
-     * Boolean indicating if start method was called.
-     */
-    private Boolean str;
+    private final Ray<T> org;
 
     /**
      * Boolean indicating if origin method was called.
@@ -51,47 +45,39 @@ public final class SpyAngle<T> implements Angle<T> {
     private Boolean orig;
 
     /**
-     * Ctor. Decorated angle is a random 2D-angle.
+     * Boolean indicating if direction method was called.
      */
-    public SpyAngle() {
-        this(
-            new VectsAngle<>(new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>())
-        );
+    private Boolean dir;
+
+    /**
+     * Ctor. Builds and decorates a ray with the passed origin point and direction.
+     * @param point Ray origin
+     * @param dir Ray direction
+     */
+    public SpyRay(final Vect<T> point, final Vect<T> dir) {
+        this(new PtDirRay<T>(point, dir));
     }
 
     /**
      * Ctor.
-     * @param origin Decorated angle
+     * @param origin Decorated ray
      */
-    public SpyAngle(final Angle<T> origin) {
+    public SpyRay(final Ray<T> origin) {
         this.org = origin;
-        this.str = Boolean.FALSE;
         this.orig = Boolean.FALSE;
+        this.dir = Boolean.FALSE;
     }
 
     @Override
-    public Vect<T> start() {
-        this.str = Boolean.TRUE;
-        return this.org.start();
-    }
-
-    @Override
-    public Vect<T> end() {
-        return this.org.start();
+    public Vect<T> direction() {
+        this.dir = Boolean.TRUE;
+        return this.org.direction();
     }
 
     @Override
     public Vect<T> origin() {
         this.orig = Boolean.TRUE;
-        return this.org.start();
-    }
-
-    /**
-     * Accessor for a boolean indicating if start method was called.
-     * @return True if start method was called.
-     */
-    public Boolean started() {
-        return this.str;
+        return this.org.origin();
     }
 
     /**
@@ -100,5 +86,13 @@ public final class SpyAngle<T> implements Angle<T> {
      */
     public Boolean origined() {
         return this.orig;
+    }
+
+    /**
+     * Accessor for a boolean indicating if direction method was called.
+     * @return True if direction method was called.
+     */
+    public Boolean directioned() {
+        return this.dir;
     }
 }

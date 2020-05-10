@@ -25,14 +25,14 @@ package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.line.Line;
+import com.jeometry.twod.mock.SpyLine;
 import com.jeometry.twod.point.RandomPoint;
-import com.jeometry.twod.point.XyPoint;
 import com.jeometry.twod.style.Dash;
-import com.jeometry.twod.style.impl.DefaultStyle;
-import com.jeometry.twod.style.impl.FixedStroke;
+import com.jeometry.twod.style.impl.StrokeStyle;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -47,12 +47,11 @@ public final class AwtPointTest {
      */
     @Test
     public void rendersPoints() {
-        final XyPoint<Double> point = new RandomPoint<>();
         final AwtPoint painter = new AwtPoint(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
         painter.setGraphics(graphics);
-        painter.render(new Shape(point));
+        painter.render(new Shape(new RandomPoint<>()));
         Mockito.verify(graphics).drawRect(
             Mockito.anyInt(), Mockito.anyInt(),
             Mockito.anyInt(), Mockito.anyInt()
@@ -64,16 +63,14 @@ public final class AwtPointTest {
      */
     @Test
     public void usesRightColor() {
-        final XyPoint<Double> point = new RandomPoint<>();
         final AwtPoint painter = new AwtPoint(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
         painter.setGraphics(graphics);
         painter.render(
             new Shape(
-                point, new DefaultStyle(
-                    new FixedStroke(Color.CYAN, Dash.SOLID, 1.f)
-                )
+                new RandomPoint<>(),
+                new StrokeStyle(Color.CYAN, Dash.SOLID, 1.f)
             )
         );
         Mockito.verify(graphics).drawRect(
@@ -88,14 +85,13 @@ public final class AwtPointTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        @SuppressWarnings("unchecked")
-        final Line<Double> render = Mockito.mock(Line.class);
+        final SpyLine<Double> render = new SpyLine<>();
         final AwtPoint painter = new AwtPoint(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(render));
-        Mockito.verify(render, Mockito.never()).point();
-        Mockito.verify(render, Mockito.never()).direction();
+        MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
+        MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
     }
 
 }

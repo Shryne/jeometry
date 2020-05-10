@@ -26,9 +26,8 @@ package com.jeometry.render.awt;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.angle.VectsAngle;
 import com.jeometry.twod.mock.SpyAngle;
-import com.jeometry.twod.ray.Ray;
+import com.jeometry.twod.mock.SpyRay;
 import java.awt.Graphics2D;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -44,69 +43,65 @@ public final class AwtRayTest {
     /**
      * {@link AwtRay} renders forward rays.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersForwardRays() {
-        final Ray<Double> ray = Mockito.mock(Ray.class);
-        Mockito.when(ray.origin()).thenReturn(new DblPoint(0., 0.));
-        Mockito.when(ray.direction()).thenReturn(new DblPoint(1., 1.));
+        final SpyRay<Double> ray = new SpyRay<>(
+            new DblPoint(0., 0.), new DblPoint(1., 1.)
+        );
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(ray));
-        Mockito.verify(ray, Mockito.atLeastOnce()).direction();
-        Mockito.verify(ray, Mockito.atLeastOnce()).origin();
+        MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
 
     /**
      * {@link AwtRay} renders backward rays.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersBackwardRays() {
-        final Ray<Double> ray = Mockito.mock(Ray.class);
-        Mockito.when(ray.origin()).thenReturn(new DblPoint(0., 0.));
-        Mockito.when(ray.direction()).thenReturn(new DblPoint(-1., -1.));
+        final SpyRay<Double> ray = new SpyRay<>(
+            new DblPoint(0., 0.), new DblPoint(-1., -1.)
+        );
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(ray));
-        Mockito.verify(ray, Mockito.atLeastOnce()).direction();
-        Mockito.verify(ray, Mockito.atLeastOnce()).origin();
+        MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
 
     /**
      * {@link AwtRay} renders vertical up rays.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersVerticalUpRays() {
-        final Ray<Double> ray = Mockito.mock(Ray.class);
-        Mockito.when(ray.origin()).thenReturn(new DblPoint(0., 0.));
-        Mockito.when(ray.direction()).thenReturn(new DblPoint(0., 1.));
+        final SpyRay<Double> ray = new SpyRay<>(
+            new DblPoint(0., 0.), new DblPoint(0., 1.)
+        );
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(ray));
-        Mockito.verify(ray, Mockito.atLeastOnce()).direction();
-        Mockito.verify(ray, Mockito.atLeastOnce()).origin();
+        MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
 
     /**
      * {@link AwtRay} renders vertical down rays.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersVerticalDownRays() {
-        final Ray<Double> ray = Mockito.mock(Ray.class);
-        Mockito.when(ray.origin()).thenReturn(new DblPoint(0., 0.));
-        Mockito.when(ray.direction()).thenReturn(new DblPoint(0., -1.));
+        final SpyRay<Double> ray = new SpyRay<>(
+            new DblPoint(0., 0.), new DblPoint(0., -1.)
+        );
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(ray));
-        Mockito.verify(ray, Mockito.atLeastOnce()).direction();
-        Mockito.verify(ray, Mockito.atLeastOnce()).origin();
+        MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
 
     /**
@@ -114,9 +109,7 @@ public final class AwtRayTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final SpyAngle<Double> render = new SpyAngle<>(
-            new VectsAngle<>(new DblPoint(0., 0.), new DblPoint(1., 0.), new DblPoint(0., 1.))
-        );
+        final SpyAngle<Double> render = new SpyAngle<>();
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
