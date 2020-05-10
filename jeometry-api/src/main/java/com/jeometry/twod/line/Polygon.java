@@ -24,7 +24,8 @@
 package com.jeometry.twod.line;
 
 import com.aljebra.vector.Vect;
-import java.util.Arrays;
+import com.google.common.collect.Lists;
+import java.util.List;
 import lombok.ToString;
 
 /**
@@ -39,7 +40,7 @@ public final class Polygon<T> extends PtsPolyline<T> {
      * Constructor.
      * @param points Points sequence forming the polygon.
      */
-    public Polygon(@SuppressWarnings("unchecked") final Vect<T>... points) {
+    public Polygon(final Iterable<? extends Vect<T>> points) {
         super(Polygon.closed(points));
     }
 
@@ -50,10 +51,10 @@ public final class Polygon<T> extends PtsPolyline<T> {
      * @param <T> scalar types
      * @return Closed points sequence
      */
-    private static <T> Vect<T>[] closed(@SuppressWarnings("unchecked") final Vect<T>... points) {
-        final Vect<T>[] result = Arrays.copyOf(points, points.length + 1);
-        result[points.length] = points[0];
-        return result;
+    private static <T> List<Vect<T>> closed(final Iterable<? extends Vect<T>> points) {
+        final List<Vect<T>> pts = Lists.newArrayList(points);
+        pts.add(points.iterator().next());
+        return pts;
     }
 
 }
