@@ -24,7 +24,7 @@
 package com.jeometry.twod.line;
 
 import com.aljebra.vector.Vect;
-import java.util.Arrays;
+import com.google.common.collect.Lists;
 import java.util.List;
 import lombok.ToString;
 
@@ -45,8 +45,8 @@ public class PtsPolyline<T> implements Polyline<T> {
      * Constructor.
      * @param points Points sequence forming the polyline.
      */
-    public PtsPolyline(@SuppressWarnings("unchecked") final Vect<T>... points) {
-        this.pts = Arrays.asList(points);
+    public PtsPolyline(final Iterable<? extends Vect<T>> points) {
+        this.pts = Lists.newArrayList(points);
     }
 
     @Override

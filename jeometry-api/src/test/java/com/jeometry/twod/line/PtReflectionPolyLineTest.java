@@ -28,6 +28,7 @@ import com.aljebra.vector.Vect;
 import com.aljebra.vector.VectEquals;
 import com.jeometry.twod.point.PtReflectionPoint;
 import com.jeometry.twod.point.RandomPoint;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -44,10 +45,11 @@ public final class PtReflectionPolyLineTest {
      */
     @Test
     public void buildsReflection() {
-        @SuppressWarnings("unchecked")
         final Polyline<Object> input = new PtsPolyline<>(
-            new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>(),
-            new RandomPoint<>()
+            Arrays.asList(
+                new RandomPoint<>(), new RandomPoint<>(),
+                new RandomPoint<>(), new RandomPoint<>()
+            )
         );
         final RandomPoint<Object> across = new RandomPoint<>();
         final Polyline<Object> result = new PtReflectionPolyLine<>(across, input);
@@ -67,10 +69,11 @@ public final class PtReflectionPolyLineTest {
      */
     @Test
     public void buildsReflectionAcrossOrigin() {
-        @SuppressWarnings("unchecked")
         final Polyline<Object> input = new PtsPolyline<>(
-            new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>(),
-            new RandomPoint<>()
+            Arrays.asList(
+                new RandomPoint<>(), new RandomPoint<>(),
+                new RandomPoint<>(), new RandomPoint<>()
+            )
         );
         final Polyline<Object> result = new PtReflectionPolyLine<>(input);
         for (int idx = 0; idx < result.points().size(); ++idx) {
