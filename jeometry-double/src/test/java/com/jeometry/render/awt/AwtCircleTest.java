@@ -24,16 +24,13 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.FixedVector;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.circle.Circle;
+import com.jeometry.twod.mock.SpyCircle;
 import com.jeometry.twod.mock.SpyLine;
 import com.jeometry.twod.style.Fill;
 import com.jeometry.twod.style.Stroke;
 import com.jeometry.twod.style.Style;
 import java.awt.Graphics2D;
-import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -48,20 +45,9 @@ public final class AwtCircleTest {
     /**
      * {@link AwtCircle} renders circle.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersCircles() {
-        final Circle<Double> circle = Mockito.mock(Circle.class);
-        Mockito.when(circle.center()).thenReturn(
-            new FixedVector<>(
-                Arrays.asList(
-                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
-                )
-            )
-        );
-        Mockito.when(circle.radius()).thenReturn(
-            new Scalar.Default<Double>(1.)
-        );
+        final SpyCircle<Double> circle = new SpyCircle<>();
         final AwtCircle painter = new AwtCircle(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
@@ -71,9 +57,9 @@ public final class AwtCircleTest {
         );
         Mockito.when(style.fillStyle()).thenReturn(Mockito.mock(Fill.class));
         painter.render(new Shape(circle, style));
-        Mockito.verify(circle).center();
         Mockito.verify(style).fillStyle();
         Mockito.verify(style).strokeStyle();
+        MatcherAssert.assertThat(circle.centered(), Matchers.equalTo(true));
     }
 
     /**
