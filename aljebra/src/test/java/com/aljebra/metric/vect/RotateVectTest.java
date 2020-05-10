@@ -27,10 +27,9 @@ import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.field.mock.SpyField;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.metric.angle.Degrees;
-import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -55,8 +54,8 @@ public final class RotateVectTest {
     @Test
     public void rotatesVector() {
         final int dim = 2;
-        final Vect<Double> first = new FixedVector<>(Arrays.asList(RotateVectTest.scalars(dim)));
-        final Vect<Double> second = new FixedVector<>(Arrays.asList(RotateVectTest.scalars(dim)));
+        final Vect<Double> first = new FixedVector<>(new Scalars<>(dim));
+        final Vect<Double> second = new FixedVector<>(new Scalars<>(dim));
         final InnerProduct<Double> pdt = new Dot();
         final double error = 1.e-6;
         Degrees angle = new Degrees.Default(Math.random());
@@ -82,32 +81,10 @@ public final class RotateVectTest {
     @Test
     public void errorsWhenEvaluatingCoordinates() {
         this.thrown.expect(UnsupportedOperationException.class);
-        final Vect<Double> first = new FixedVector<>(Arrays.asList(RotateVectTest.scalars(2)));
+        final Vect<Double> first = new FixedVector<>(new Scalars<>(2));
         new RotateVect<>(
             first, Math.random()
         ).coords()[0].value(new SpyField<>(new Double(0.), new Double(1.)));
     }
 
-    /**
-     * Mocks an array of {@link Scalar} with a given length.
-     * @param length Array length
-     * @return An array of scalars
-     */
-    private static Scalar<Double>[] scalars(final int length) {
-        @SuppressWarnings("unchecked")
-        final Scalar<Double>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = RotateVectTest.scalar(Math.random());
-        }
-        return result;
-    }
-
-    /**
-     * Returns a default scalar of the double.
-     * @param num A double
-     * @return A scalar
-     */
-    private static Scalar<Double> scalar(final double num) {
-        return new Scalar.Default<Double>(num);
-    }
 }

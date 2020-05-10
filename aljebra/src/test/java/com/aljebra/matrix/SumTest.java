@@ -25,11 +25,11 @@ package com.aljebra.matrix;
 
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -47,8 +47,8 @@ public final class SumTest {
     public void calculatesSumCoordinates() {
         final int lines = 3;
         final int cols = 4;
-        final List<Scalar<Object>> coorsa = SumTest.scalars(lines * cols);
-        final List<Scalar<Object>> coorsb = SumTest.scalars(lines * cols);
+        final Iterable<Scalar<Object>> coorsa = new Scalars<>(lines * cols);
+        final Iterable<Scalar<Object>> coorsb = new Scalars<>(lines * cols);
         final FixedMatrix<Object> first = new FixedMatrix<>(lines, cols, coorsa);
         final FixedMatrix<Object> second = new FixedMatrix<>(lines, cols, coorsb);
         final Matrix<Object> sum = new Sum<>(Arrays.asList(first, second));
@@ -72,12 +72,12 @@ public final class SumTest {
         final int lines = 3;
         final int cols = 4;
         final FixedMatrix<Object> first = new FixedMatrix<>(
-            lines, cols, SumTest.scalars(lines * cols)
+            lines, cols, new Scalars<>(lines * cols)
         );
         final FixedMatrix<Object> second = new FixedMatrix<>(
-            lines, cols, SumTest.scalars(lines * cols)
+            lines, cols, new Scalars<>(lines * cols)
         );
-        final Vect<Object> input = new FixedVector<>(SumTest.scalars(cols));
+        final Vect<Object> input = new FixedVector<>(new Scalars<>(cols));
         MatcherAssert.assertThat(
             new Sum<Object>(Arrays.asList(first, second)).apply(input),
             Matchers.equalTo(
@@ -93,21 +93,25 @@ public final class SumTest {
      */
     @Test
     public void returnsLinesAndColumns() {
-        final Scalar<Object> scalara = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalarb = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalarc = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalard = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalare = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalarf = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalarg = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalarh = new Scalar.Default<>(new Object());
+        final int lines = 2;
+        final int cols = 2;
+        Iterator<Scalar<Object>> scalars = new Scalars<>(lines * cols).iterator();
+        final Scalar<Object> scalara = scalars.next();
+        final Scalar<Object> scalarb = scalars.next();
+        final Scalar<Object> scalarc = scalars.next();
+        final Scalar<Object> scalard = scalars.next();
+        scalars = new Scalars<>(lines * cols).iterator();
+        final Scalar<Object> scalare = scalars.next();
+        final Scalar<Object> scalarf = scalars.next();
+        final Scalar<Object> scalarg = scalars.next();
+        final Scalar<Object> scalarh = scalars.next();
         final Matrix<Object> matrix = new Sum<>(
             Arrays.asList(
                 new FixedMatrix<Object>(
-                    2, 2, Arrays.asList(scalara, scalarb, scalarc, scalard)
+                    lines, cols, Arrays.asList(scalara, scalarb, scalarc, scalard)
                 ),
                 new FixedMatrix<Object>(
-                    2, 2, Arrays.asList(scalare, scalarf, scalarg, scalarh)
+                    lines, cols, Arrays.asList(scalare, scalarf, scalarg, scalarh)
                 )
             )
         );
@@ -158,13 +162,13 @@ public final class SumTest {
         final int lines = 3;
         final int cols = 4;
         final FixedMatrix<Object> first = new FixedMatrix<>(
-            lines, cols, SumTest.scalars(lines * cols)
+            lines, cols, new Scalars<>(lines * cols)
         );
         final FixedMatrix<Object> second = new FixedMatrix<>(
-            lines, cols, SumTest.scalars(lines * cols)
+            lines, cols, new Scalars<>(lines * cols)
         );
         final FixedMatrix<Object> third = new FixedMatrix<>(
-            lines, cols, SumTest.scalars(lines * cols)
+            lines, cols, new Scalars<>(lines * cols)
         );
         MatcherAssert.assertThat(
             new Sum<Object>(Arrays.asList(first, second, third)),
@@ -176,19 +180,6 @@ public final class SumTest {
                 Matchers.equalTo(new Sum<Object>(Arrays.asList(third, first, second)))
             )
         );
-    }
-
-    /**
-     * Mocks a list of {@link Scalar} with a given size.
-     * @param length List size
-     * @return A list of scalars
-     */
-    private static List<Scalar<Object>> scalars(final int length) {
-        final List<Scalar<Object>> result = new ArrayList<>(length);
-        for (int idx = 0; idx < length; ++idx) {
-            result.add(new Scalar.Default<>(new Object()));
-        }
-        return result;
     }
 
 }

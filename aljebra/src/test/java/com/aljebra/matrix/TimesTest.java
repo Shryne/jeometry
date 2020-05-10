@@ -25,11 +25,11 @@ package com.aljebra.matrix;
 
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -47,8 +47,8 @@ public final class TimesTest {
     public void calculatesTimesCoordinates() {
         final int lines = 3;
         final int cols = 4;
-        final List<Scalar<Object>> coorsa = TimesTest.scalars(lines * cols);
-        final Scalar<Object> factor = new Scalar.Default<>(new Object());
+        final Iterable<Scalar<Object>> coorsa = new Scalars<>(lines * cols);
+        final Scalar<Object> factor = new Scalars<>(1).iterator().next();
         final Matrix<Object> times = new Times<>(
             new FixedMatrix<Object>(lines, cols, coorsa), factor
         );
@@ -65,14 +65,17 @@ public final class TimesTest {
      */
     @Test
     public void returnsLinesAndColumns() {
-        final Scalar<Object> scalara = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalarb = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalarc = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalard = new Scalar.Default<>(new Object());
-        final Scalar<Object> scalare = new Scalar.Default<>(new Object());
+        final int lines = 2;
+        final int cols = 2;
+        final Iterator<Scalar<Object>> scalars = new Scalars<>(lines * cols + 1).iterator();
+        final Scalar<Object> scalara = scalars.next();
+        final Scalar<Object> scalarb = scalars.next();
+        final Scalar<Object> scalarc = scalars.next();
+        final Scalar<Object> scalard = scalars.next();
+        final Scalar<Object> scalare = scalars.next();
         final Matrix<Object> matrix = new Times<>(
             new FixedMatrix<Object>(
-                2, 2, Arrays.asList(scalara, scalarb, scalarc, scalard)
+                lines, cols, Arrays.asList(scalara, scalarb, scalarc, scalard)
             ),
             scalare
         );
@@ -123,29 +126,16 @@ public final class TimesTest {
         final int lines = 3;
         final int cols = 4;
         final FixedMatrix<Object> first = new FixedMatrix<>(
-            lines, cols, TimesTest.scalars(lines * cols)
+            lines, cols, new Scalars<>(lines * cols)
         );
-        final Vect<Object> input = new FixedVector<>(TimesTest.scalars(cols));
-        final Scalar<Object> factor = new Scalar.Default<>(new Object());
+        final Vect<Object> input = new FixedVector<>(new Scalars<>(cols));
+        final Scalar<Object> factor = new Scalars<>(1).iterator().next();
         MatcherAssert.assertThat(
             new Times<Object>(first, factor).apply(input),
             Matchers.equalTo(
                 new com.aljebra.vector.Times<Object>(first.apply(input), factor)
             )
         );
-    }
-
-    /**
-     * Mocks a list of {@link Scalar} with a given size.
-     * @param length List size
-     * @return A list of scalars
-     */
-    private static List<Scalar<Object>> scalars(final int length) {
-        final List<Scalar<Object>> result = new ArrayList<>(length);
-        for (int idx = 0; idx < length; ++idx) {
-            result.add(new Scalar.Default<>(new Object()));
-        }
-        return result;
     }
 
 }

@@ -27,10 +27,9 @@ import com.aljebra.field.MetricSpaceField;
 import com.aljebra.field.mock.MkField;
 import com.aljebra.field.mock.SpyField;
 import com.aljebra.metric.MkProduct;
-import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.hamcrest.MatcherAssert;
@@ -56,8 +55,8 @@ public final class ProductTest {
     @Test
     public void delegatesToInnerProduct() {
         final int dim = 6;
-        final Vect<Object> first = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
-        final Vect<Object> second = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
+        final Vect<Object> first = new FixedVector<>(new Scalars<>(dim));
+        final Vect<Object> second = new FixedVector<>(new Scalars<>(dim));
         final MkProduct<Object> pdt = new MkProduct<>();
         final MetricSpaceField<Object> field = new MkField<>(new Object(), new Object(), pdt);
         new Product<>(first, second).value(field);
@@ -76,22 +75,8 @@ public final class ProductTest {
     public void errorsWhenNoMetricSpace() {
         this.thrown.expect(UnsupportedOperationException.class);
         final int dim = 6;
-        final Vect<Object> first = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
-        final Vect<Object> second = new FixedVector<>(Arrays.asList(ProductTest.scalars(dim)));
+        final Vect<Object> first = new FixedVector<>(new Scalars<>(dim));
+        final Vect<Object> second = new FixedVector<>(new Scalars<>(dim));
         new Product<>(first, second).value(new SpyField<>(new Object(), new Object()));
-    }
-
-    /**
-     * Mocks an array of {@link Scalar} with a given length.
-     * @param length Array length
-     * @return An array of scalars
-     */
-    @SuppressWarnings("unchecked")
-    private static Scalar<Object>[] scalars(final int length) {
-        final Scalar<Object>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = new Scalar.Default<>(new Object());
-        }
-        return result;
     }
 }

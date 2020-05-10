@@ -21,36 +21,51 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.render.awt;
 
-import java.util.Arrays;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+package com.aljebra.scalar.mock;
+
+import com.aljebra.scalar.Random;
+import com.aljebra.scalar.Scalar;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * Tests for {@link Painters}.
+ * Scalar iterator. Usage in testing purposes as a generator for scalars.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class PaintersTest {
+public final class Scalars<T> implements Iterable<Scalar<T>> {
 
     /**
-     * {@link Painters} initializes with default painters.
+     * List of scalars.
      */
-    @Test
-    public void givesDefaultPainters() {
-        MatcherAssert.assertThat(
-            new Painters().defaults(),
-            Matchers.containsInAnyOrder(
-                Arrays.asList(
-                    Matchers.instanceOf(AwtAngle.class),
-                    Matchers.instanceOf(AwtLine.class),
-                    Matchers.instanceOf(AwtSegment.class),
-                    Matchers.instanceOf(AwtRay.class),
-                    Matchers.instanceOf(AwtCircle.class),
-                    Matchers.instanceOf(AwtPoint.class)
-                )
-            )
-        );
+    private final List<Scalar<T>> lst;
+
+    /**
+     * Ctor.
+     * @param dim List size
+     */
+    public Scalars(final int dim) {
+        this.lst = Scalars.list(dim);
+    }
+
+    @Override
+    public Iterator<Scalar<T>> iterator() {
+        return this.lst.iterator();
+    }
+
+    /**
+     * Builds a list with the given dimension and the passed Scalar.
+     * @param dim List size
+     * @param <T> scalar types
+     * @return A list with given size and with a repeating element
+     */
+    private static <T> List<Scalar<T>> list(final int dim) {
+        final List<Scalar<T>> result = new ArrayList<>(dim);
+        for (int idx = 0; idx < dim; ++idx) {
+            result.add(new Random<>());
+        }
+        return result;
     }
 }

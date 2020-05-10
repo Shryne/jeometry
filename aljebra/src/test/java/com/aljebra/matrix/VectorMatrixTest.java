@@ -24,10 +24,10 @@
 package com.aljebra.matrix;
 
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
-import java.util.ArrayList;
+import com.google.common.collect.Lists;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -50,7 +50,7 @@ public final class VectorMatrixTest {
     @Test
     public void calculatesCoordinates() {
         final int dim = 1 + new Random().nextInt(VectorMatrixTest.INT_RANDOM);
-        final List<Scalar<Object>> coorsa = VectorMatrixTest.scalars(dim);
+        final Iterable<Scalar<Object>> coorsa = new Scalars<>(dim);
         final Matrix<Object> scalarmat = new VectorMatrix<>(coorsa);
         final Matrix<Object> vectmat = new VectorMatrix<>(
             new FixedVector<Object>(coorsa)
@@ -58,12 +58,12 @@ public final class VectorMatrixTest {
         MatcherAssert.assertThat(scalarmat.lines(), Matchers.equalTo(1));
         MatcherAssert.assertThat(scalarmat.columns(), Matchers.equalTo(dim));
         MatcherAssert.assertThat(
-            Arrays.asList(scalarmat.coords()), Matchers.equalTo(coorsa)
+            Arrays.asList(scalarmat.coords()), Matchers.equalTo(Lists.newArrayList(coorsa))
         );
         MatcherAssert.assertThat(vectmat.lines(), Matchers.equalTo(1));
         MatcherAssert.assertThat(vectmat.columns(), Matchers.equalTo(dim));
         MatcherAssert.assertThat(
-            Arrays.asList(vectmat.coords()), Matchers.equalTo(coorsa)
+            Arrays.asList(vectmat.coords()), Matchers.equalTo(Lists.newArrayList(coorsa))
         );
     }
 
@@ -73,7 +73,7 @@ public final class VectorMatrixTest {
      */
     @Test
     public void considersEqualsIfSameCoordinates() {
-        final List<Scalar<Object>> coords = VectorMatrixTest.scalars(
+        final Iterable<Scalar<Object>> coords = new Scalars<>(
             1 + new Random().nextInt(VectorMatrixTest.INT_RANDOM)
         );
         MatcherAssert.assertThat(
@@ -87,7 +87,7 @@ public final class VectorMatrixTest {
      */
     @Test
     public void sameHashCodeIfSameCoordinates() {
-        final List<Scalar<Object>> coords = VectorMatrixTest.scalars(
+        final Iterable<Scalar<Object>> coords = new Scalars<>(
             1 + new Random().nextInt(VectorMatrixTest.INT_RANDOM)
         );
         MatcherAssert.assertThat(
@@ -95,18 +95,4 @@ public final class VectorMatrixTest {
             Matchers.equalTo(new VectorMatrix<Object>(coords).hashCode())
         );
     }
-
-    /**
-     * Mocks a list of {@link Scalar} with a given size.
-     * @param length List size
-     * @return A list of scalars
-     */
-    private static List<Scalar<Object>> scalars(final int length) {
-        final List<Scalar<Object>> result = new ArrayList<>(length);
-        for (int idx = 0; idx < length; ++idx) {
-            result.add(new Scalar.Default<>(new Object()));
-        }
-        return result;
-    }
-
 }

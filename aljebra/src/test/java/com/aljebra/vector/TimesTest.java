@@ -25,7 +25,9 @@ package com.aljebra.vector;
 
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.mock.Scalars;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -48,16 +50,17 @@ public final class TimesTest {
      */
     @Test
     public void coordsEqualCoordsMult() {
-        final Scalar<Object> factor = TimesTest.scalars(1)[0];
-        final Scalar<Object>[] acoords = TimesTest.scalars();
-        final Vect<Object> vecta = new FixedVector<>(Arrays.asList(acoords));
-        final Scalar<Object>[] expected = Arrays.copyOf(acoords, acoords.length);
-        for (int idx = 0; idx < expected.length; ++idx) {
-            expected[idx] = TimesTest.mult(acoords[idx], factor);
+        final Scalar<Object> factor = new Scalars<>(1).iterator().next();
+        final int dim = 1 + new Random().nextInt(TimesTest.COORDS_LENGTH);
+        final Iterable<Scalar<Object>> acoords = new Scalars<>(dim);
+        final Vect<Object> vecta = new FixedVector<>(acoords);
+        final Iterator<Scalar<Object>> aiterator = acoords.iterator();
+        final Scalar<Object>[] actual = new Times<>(vecta, factor).coords();
+        for (int idx = 0; idx < dim; ++idx) {
+            MatcherAssert.assertThat(
+                actual[idx], Matchers.equalTo(TimesTest.mult(aiterator.next(), factor))
+            );
         }
-        MatcherAssert.assertThat(
-            new Times<>(vecta, factor).coords(), Matchers.equalTo(expected)
-        );
     }
 
     /**
@@ -68,28 +71,6 @@ public final class TimesTest {
      */
     private static Scalar<Object> mult(final Scalar<Object> scalar, final Scalar<Object> another) {
         return new Multiplication<>(Arrays.asList(scalar, another));
-    }
-
-    /**
-     * Mocks an array of {@link Scalar} with a random length.
-     * @return An array of scalars.
-     */
-    private static Scalar<Object>[] scalars() {
-        return TimesTest.scalars(1 + new Random().nextInt(TimesTest.COORDS_LENGTH));
-    }
-
-    /**
-     * Mocks an array of {@link Scalar} with the given length.
-     * @param length Array length to generate
-     * @return An array of scalars.
-     */
-    @SuppressWarnings("unchecked")
-    private static Scalar<Object>[] scalars(final int length) {
-        final Scalar<Object>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = new Scalar.Default<>(new Object());
-        }
-        return result;
     }
 
 }

@@ -26,6 +26,7 @@ package com.aljebra.scalar;
 import com.aljebra.field.mock.MkAddition;
 import com.aljebra.field.mock.MkField;
 import com.aljebra.field.mock.SpyField;
+import com.google.common.collect.Lists;
 import java.util.Arrays;
 import java.util.List;
 import org.hamcrest.MatcherAssert;
@@ -77,14 +78,18 @@ public final class AddTest {
     /**
      * {@link Add} give operands access.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void exposesOperands() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
+        final List<Scalar<Object>> operands = Lists.newArrayList(
+            new Add<>(Arrays.asList(first, second)).operands()
+        );
         MatcherAssert.assertThat(
-            new Add<>(Arrays.asList(first, second)).operands(),
-            Matchers.containsInAnyOrder(first, second)
+            operands.contains(first), Matchers.equalTo(true)
+        );
+        MatcherAssert.assertThat(
+            operands.contains(second), Matchers.equalTo(true)
         );
     }
 

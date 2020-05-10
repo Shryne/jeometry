@@ -38,7 +38,6 @@ public final class DblVectTest {
     /**
      * DblVect returns right coordinates.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void returnsCoordinates() {
         final double coora = Math.random();
@@ -48,13 +47,15 @@ public final class DblVectTest {
         final double coore = Math.random();
         final DblVect vect = new DblVect(Arrays.asList(coora, coorb, coorc, coord, coore));
         MatcherAssert.assertThat(
-            vect.coords(),
-            Matchers.array(
-                Matchers.equalTo(new Scalar.Default<>(coora)),
-                Matchers.equalTo(new Scalar.Default<>(coorb)),
-                Matchers.equalTo(new Scalar.Default<>(coorc)),
-                Matchers.equalTo(new Scalar.Default<>(coord)),
-                Matchers.equalTo(new Scalar.Default<>(coore))
+            Arrays.asList(vect.coords()),
+            Matchers.equalTo(
+                Arrays.asList(
+                    new Scalar.Default<>(coora),
+                    new Scalar.Default<>(coorb),
+                    new Scalar.Default<>(coorc),
+                    new Scalar.Default<>(coord),
+                    new Scalar.Default<>(coore)
+                )
             )
         );
     }
