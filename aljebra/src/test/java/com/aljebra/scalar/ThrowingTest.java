@@ -23,7 +23,7 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.MkField;
+import com.aljebra.field.mock.MkField;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

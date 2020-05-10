@@ -23,8 +23,8 @@
  */
 package com.aljebra.metric.vect;
 
-import com.aljebra.field.SpyField;
 import com.aljebra.field.impl.doubles.Dot;
+import com.aljebra.field.mock.SpyField;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.metric.angle.Degrees;
 import com.aljebra.scalar.Scalar;

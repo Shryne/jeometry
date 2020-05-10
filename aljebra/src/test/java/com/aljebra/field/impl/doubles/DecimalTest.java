@@ -23,7 +23,7 @@
  */
 package com.aljebra.field.impl.doubles;
 
-import com.aljebra.field.MkOrderedRandom;
+import com.aljebra.field.mock.MkOrderedRandom;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.scalar.SpyScalar;

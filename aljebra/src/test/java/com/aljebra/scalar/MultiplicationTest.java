@@ -23,9 +23,9 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.MkField;
-import com.aljebra.field.MkMultiplication;
-import com.aljebra.field.SpyField;
+import com.aljebra.field.mock.MkField;
+import com.aljebra.field.mock.MkMultiplication;
+import com.aljebra.field.mock.SpyField;
 import java.util.Arrays;
 import java.util.List;
 import org.hamcrest.MatcherAssert;

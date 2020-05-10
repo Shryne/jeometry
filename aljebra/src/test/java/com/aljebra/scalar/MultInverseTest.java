@@ -23,10 +23,10 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.MkField;
-import com.aljebra.field.MkMultiplication;
-import com.aljebra.field.SpyField;
 import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.field.mock.MkField;
+import com.aljebra.field.mock.MkMultiplication;
+import com.aljebra.field.mock.SpyField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;

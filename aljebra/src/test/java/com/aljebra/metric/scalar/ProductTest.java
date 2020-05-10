@@ -24,8 +24,8 @@
 package com.aljebra.metric.scalar;
 
 import com.aljebra.field.MetricSpaceField;
-import com.aljebra.field.MkField;
-import com.aljebra.field.SpyField;
+import com.aljebra.field.mock.MkField;
+import com.aljebra.field.mock.SpyField;
 import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
