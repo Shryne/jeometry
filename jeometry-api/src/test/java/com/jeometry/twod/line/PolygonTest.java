@@ -23,7 +23,10 @@
  */
 package com.jeometry.twod.line;
 
+import com.aljebra.vector.Vect;
 import com.jeometry.twod.point.RandomPoint;
+import java.util.Arrays;
+import java.util.Iterator;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -37,17 +40,28 @@ public final class PolygonTest {
     /**
      * {@link Polygon} builds a polygon with the passed points.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void buildPolygonWithPoints() {
         final RandomPoint<Object> pointa = new RandomPoint<>();
         final RandomPoint<Object> pointb = new RandomPoint<>();
         final RandomPoint<Object> pointc = new RandomPoint<>();
         final RandomPoint<Object> pointd = new RandomPoint<>();
-        final Polyline<Object> poly = new Polygon<>(pointa, pointb, pointc, pointd);
+        final Polyline<Object> poly = new Polygon<>(Arrays.asList(pointa, pointb, pointc, pointd));
+        final Iterator<Vect<Object>> points = poly.points().iterator();
         MatcherAssert.assertThat(
-            poly.points(),
-            Matchers.contains(pointa, pointb, pointc, pointd, pointa)
+            points.next(), Matchers.equalTo(pointa)
+        );
+        MatcherAssert.assertThat(
+            points.next(), Matchers.equalTo(pointb)
+        );
+        MatcherAssert.assertThat(
+            points.next(), Matchers.equalTo(pointc)
+        );
+        MatcherAssert.assertThat(
+            points.next(), Matchers.equalTo(pointd)
+        );
+        MatcherAssert.assertThat(
+            points.next(), Matchers.equalTo(pointa)
         );
     }
 }

@@ -27,6 +27,7 @@ import com.aljebra.scalar.AddIdentity;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.point.PtReflectionPoint;
 import com.jeometry.twod.point.XyPoint;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.ToString;
 
@@ -62,12 +63,10 @@ public final class PtReflectionPolyLine<T> extends PtsPolyline<T> {
      * @param <T> scalar types
      * @return An array of reflected points
      */
-    private static <T> Vect<T>[] reflected(final Vect<T> center, final List<Vect<T>> pts) {
-        final int size = pts.size();
-        @SuppressWarnings("unchecked")
-        final Vect<T>[] result = new Vect[size];
-        for (int idx = 0; idx < size; ++idx) {
-            result[idx] = PtReflectionPolyLine.reflected(center, pts.get(idx));
+    private static <T> List<Vect<T>> reflected(final Vect<T> center, final List<Vect<T>> pts) {
+        final List<Vect<T>> result = new ArrayList<>(pts.size());
+        for (final Vect<T> point : pts) {
+            result.add(PtReflectionPolyLine.reflected(center, point));
         }
         return result;
     }
