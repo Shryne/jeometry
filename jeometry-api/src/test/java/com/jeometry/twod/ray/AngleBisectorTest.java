@@ -32,7 +32,6 @@ import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link AngleBisector}.
@@ -68,8 +67,9 @@ public final class AngleBisectorTest {
      */
     @Test
     public void toStringContainsAngle() {
-        @SuppressWarnings("unchecked")
-        final Angle<Object> angle = Mockito.mock(Angle.class);
+        final Angle<Object> angle = new VectsAngle<>(
+            new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>()
+        );
         MatcherAssert.assertThat(
             new AngleBisector<>(angle).toString(),
             Matchers.containsString(angle.toString())
