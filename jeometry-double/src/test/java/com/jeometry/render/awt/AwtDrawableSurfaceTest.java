@@ -28,6 +28,7 @@ import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.mock.SpyLine;
 import java.awt.Graphics2D;
 import java.awt.event.MouseListener;
 import java.util.concurrent.CountDownLatch;
@@ -109,26 +110,22 @@ public final class AwtDrawableSurfaceTest {
     public void addsPainter() throws InterruptedException {
         final AwtDrawableSurface surface = new AwtDrawableSurface();
         final CountDownLatch latch = new CountDownLatch(1);
-        @SuppressWarnings("unchecked")
         final AbstractAwtPaint painter = new AbstractAwtPaint(
             new Decimal(), Line.class
         ) {
             @Override
             protected void draw(final Shape renderable,
                 final Graphics2D graphic, final AwtContext ctx) {
-                ((Line<Double>) renderable.renderable()).direction();
+                ((Line<?>) renderable.renderable()).direction();
                 latch.countDown();
             }
         };
-        @SuppressWarnings("unchecked")
-        final Line<Double> line = Mockito.mock(Line.class);
-        Mockito.when(line.point()).thenReturn(new DblPoint(0., 0.));
-        Mockito.when(line.direction()).thenReturn(new DblPoint(1., 1.));
-        final Figure figure = new Figure().add(new Shape(line));
+        final SpyLine<Double> line = new SpyLine<>();
+        final Figure figure = new Figure().add(line);
         surface.add(painter);
         surface.setFigure(figure);
         surface.paint(Mockito.mock(Graphics2D.class));
         latch.await();
-        Mockito.verify(line, Mockito.atLeastOnce()).direction();
+        MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
     }
 }

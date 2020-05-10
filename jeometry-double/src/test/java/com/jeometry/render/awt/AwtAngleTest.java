@@ -25,10 +25,8 @@ package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.angle.VectsAngle;
-import com.jeometry.twod.line.Line;
 import com.jeometry.twod.mock.SpyAngle;
-import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.mock.SpyLine;
 import java.awt.Graphics2D;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -46,11 +44,7 @@ public final class AwtAngleTest {
      */
     @Test
     public void rendersAngles() {
-        final SpyAngle<Double> angle = new SpyAngle<>(
-            new VectsAngle<>(
-                new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>()
-            )
-        );
+        final SpyAngle<Double> angle = new SpyAngle<>();
         final AwtAngle painter = new AwtAngle(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
@@ -63,14 +57,13 @@ public final class AwtAngleTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        @SuppressWarnings("unchecked")
-        final Line<Double> render = Mockito.mock(Line.class);
+        final SpyLine<Double> render = new SpyLine<>();
         final AwtAngle painter = new AwtAngle(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(render));
-        Mockito.verify(render, Mockito.never()).point();
-        Mockito.verify(render, Mockito.never()).direction();
+        MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
+        MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
     }
 
 }

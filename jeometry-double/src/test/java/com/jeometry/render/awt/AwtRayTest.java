@@ -26,7 +26,6 @@ package com.jeometry.render.awt;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.angle.VectsAngle;
 import com.jeometry.twod.mock.SpyAngle;
 import com.jeometry.twod.ray.Ray;
 import java.awt.Graphics2D;
@@ -114,9 +113,7 @@ public final class AwtRayTest {
      */
     @Test
     public void doesNotRenderOthers() {
-        final SpyAngle<Double> render = new SpyAngle<>(
-            new VectsAngle<>(new DblPoint(0., 0.), new DblPoint(1., 0.), new DblPoint(0., 1.))
-        );
+        final SpyAngle<Double> render = new SpyAngle<>();
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
