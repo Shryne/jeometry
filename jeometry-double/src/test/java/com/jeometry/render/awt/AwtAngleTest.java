@@ -24,13 +24,14 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.FixedVector;
 import com.jeometry.twod.Shape;
-import com.jeometry.twod.angle.Angle;
+import com.jeometry.twod.angle.VectsAngle;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.mock.SpyAngle;
+import com.jeometry.twod.point.RandomPoint;
 import java.awt.Graphics2D;
-import java.util.Arrays;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -43,36 +44,18 @@ public final class AwtAngleTest {
     /**
      * {@link AwtAngle} renders angles.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void rendersAngles() {
-        final Angle<Double> angle = Mockito.mock(Angle.class);
-        Mockito.when(angle.origin()).thenReturn(
-            new FixedVector<>(
-                Arrays.asList(
-                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
-                )
-            )
-        );
-        Mockito.when(angle.start()).thenReturn(
-            new FixedVector<>(
-                Arrays.asList(
-                    new Scalar.Default<Double>(1.), new Scalar.Default<Double>(0.)
-                )
-            )
-        );
-        Mockito.when(angle.end()).thenReturn(
-            new FixedVector<>(
-                Arrays.asList(
-                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
-                )
+        final SpyAngle<Double> angle = new SpyAngle<>(
+            new VectsAngle<>(
+                new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>()
             )
         );
         final AwtAngle painter = new AwtAngle(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         painter.render(new Shape(angle));
-        Mockito.verify(angle).start();
+        MatcherAssert.assertThat(angle.started(), Matchers.equalTo(true));
     }
 
     /**
