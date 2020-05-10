@@ -24,75 +24,73 @@
 package com.jeometry.twod.mock;
 
 import com.aljebra.vector.Vect;
-import com.jeometry.twod.ray.PtDirRay;
-import com.jeometry.twod.ray.Ray;
+import com.jeometry.twod.segment.RandomSegment;
+import com.jeometry.twod.segment.Segment;
 
 /**
- * Mock decorator for ray with spying (verifying) capabilities on the methods: origin and direction.
+ * Mock decorator for segment with spying (verifying) capabilities on the methods: start and end.
  * @param <T> scalar types
  * @since 0.1
  */
-public final class SpyRay<T> implements Ray<T> {
+public final class SpySegment<T> implements Segment<T> {
 
     /**
-     * Decorated ray.
+     * Decorated segment.
      */
-    private final Ray<T> org;
+    private final Segment<T> org;
 
     /**
-     * Boolean indicating if origin method was called.
+     * Boolean indicating if start method was called.
      */
-    private Boolean orig;
+    private Boolean strt;
 
     /**
-     * Boolean indicating if direction method was called.
+     * Boolean indicating if end method was called.
      */
-    private Boolean dir;
+    private Boolean endd;
 
     /**
-     * Ctor. Builds and decorates a ray with the passed origin point and direction.
-     * @param point Ray origin
-     * @param dir Ray direction
+     * Ctor. Decorates a random generated line.
      */
-    public SpyRay(final Vect<T> point, final Vect<T> dir) {
-        this(new PtDirRay<T>(point, dir));
+    public SpySegment() {
+        this(new RandomSegment<>());
     }
 
     /**
      * Ctor.
-     * @param origin Decorated ray
+     * @param origin Decorated Segment
      */
-    public SpyRay(final Ray<T> origin) {
+    public SpySegment(final Segment<T> origin) {
         this.org = origin;
-        this.orig = Boolean.FALSE;
-        this.dir = Boolean.FALSE;
+        this.strt = Boolean.FALSE;
+        this.endd = Boolean.FALSE;
     }
 
     @Override
-    public Vect<T> direction() {
-        this.dir = Boolean.TRUE;
-        return this.org.direction();
+    public Vect<T> start() {
+        this.strt = Boolean.TRUE;
+        return this.org.start();
     }
 
     @Override
-    public Vect<T> origin() {
-        this.orig = Boolean.TRUE;
-        return this.org.origin();
+    public Vect<T> end() {
+        this.endd = Boolean.TRUE;
+        return this.org.end();
     }
 
     /**
-     * Accessor for a boolean indicating if origin method was called.
-     * @return True if origin method was called.
+     * Accessor for a boolean indicating if start method was called.
+     * @return True if start method was called.
      */
-    public Boolean origined() {
-        return this.orig;
+    public Boolean started() {
+        return this.strt;
     }
 
     /**
-     * Accessor for a boolean indicating if direction method was called.
-     * @return True if direction method was called.
+     * Accessor for a boolean indicating if end method was called.
+     * @return True if end method was called.
      */
-    public Boolean directioned() {
-        return this.dir;
+    public Boolean ended() {
+        return this.endd;
     }
 }

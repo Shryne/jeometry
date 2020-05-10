@@ -28,7 +28,6 @@ import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.mock.SpyAngle;
 import com.jeometry.twod.mock.SpyRay;
-import com.jeometry.twod.ray.PtDirRay;
 import java.awt.Graphics2D;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -47,7 +46,7 @@ public final class AwtRayTest {
     @Test
     public void rendersForwardRays() {
         final SpyRay<Double> ray = new SpyRay<>(
-            new PtDirRay<>(new DblPoint(0., 0.), new DblPoint(1., 1.))
+            new DblPoint(0., 0.), new DblPoint(1., 1.)
         );
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
@@ -63,7 +62,7 @@ public final class AwtRayTest {
     @Test
     public void rendersBackwardRays() {
         final SpyRay<Double> ray = new SpyRay<>(
-            new PtDirRay<>(new DblPoint(0., 0.), new DblPoint(-1., -1.))
+            new DblPoint(0., 0.), new DblPoint(-1., -1.)
         );
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
@@ -79,7 +78,7 @@ public final class AwtRayTest {
     @Test
     public void rendersVerticalUpRays() {
         final SpyRay<Double> ray = new SpyRay<>(
-            new PtDirRay<>(new DblPoint(0., 0.), new DblPoint(0., 1.))
+            new DblPoint(0., 0.), new DblPoint(0., 1.)
         );
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
@@ -95,7 +94,7 @@ public final class AwtRayTest {
     @Test
     public void rendersVerticalDownRays() {
         final SpyRay<Double> ray = new SpyRay<>(
-            new PtDirRay<>(new DblPoint(0., 0.), new DblPoint(0., -1.))
+            new DblPoint(0., 0.), new DblPoint(0., -1.)
         );
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
