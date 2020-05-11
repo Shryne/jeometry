@@ -29,7 +29,6 @@ import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Tests for {@link Sum}.
@@ -42,13 +41,13 @@ public final class SumTest {
      */
     @Test
     public void resolvesAngleSum() {
-        final Degrees first = new Degrees.Default(Math.random());
-        final Degrees second = new Degrees.Default(Math.random());
-        final Degrees third = new Degrees.Default(Math.random());
+        final Degrees<Object> first = new Degrees.Default<>(Math.random());
+        final Degrees<Object> second = new Degrees.Default<>(Math.random());
+        final Degrees<Object> third = new Degrees.Default<>(Math.random());
         final InnerProduct<Object> pdt = new MkProduct<>();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Sum(Arrays.asList(first, second, third)).resolve(pdt).doubleValue(),
+            new Sum<>(Arrays.asList(first, second, third)).resolve(pdt).doubleValue(),
             Matchers.closeTo(
                 first.resolve(pdt).doubleValue()
                     + second.resolve(pdt).doubleValue()
@@ -64,17 +63,17 @@ public final class SumTest {
      */
     @Test
     public void equalsWhenOperandOrderChanges() {
-        final Degrees first = Mockito.mock(Degrees.class);
-        final Degrees second = Mockito.mock(Degrees.class);
-        final Degrees third = Mockito.mock(Degrees.class);
+        final Degrees<Object> first = new Degrees.Default<>(Math.random());
+        final Degrees<Object> second = new Degrees.Default<>(Math.random());
+        final Degrees<Object> third = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Sum(Arrays.asList(first, second, third)),
+            new Sum<>(Arrays.asList(first, second, third)),
             Matchers.allOf(
-                Matchers.equalTo(new Sum(Arrays.asList(first, third, second))),
-                Matchers.equalTo(new Sum(Arrays.asList(second, third, first))),
-                Matchers.equalTo(new Sum(Arrays.asList(second, first, third))),
-                Matchers.equalTo(new Sum(Arrays.asList(third, second, first))),
-                Matchers.equalTo(new Sum(Arrays.asList(third, first, second)))
+                Matchers.equalTo(new Sum<>(Arrays.asList(first, third, second))),
+                Matchers.equalTo(new Sum<>(Arrays.asList(second, third, first))),
+                Matchers.equalTo(new Sum<>(Arrays.asList(second, first, third))),
+                Matchers.equalTo(new Sum<>(Arrays.asList(third, second, first))),
+                Matchers.equalTo(new Sum<>(Arrays.asList(third, first, second)))
             )
         );
     }
@@ -84,10 +83,10 @@ public final class SumTest {
      */
     @Test
     public void toStringPrintsDegrees() {
-        final Degrees first = new Degrees.Default(Math.random());
-        final Degrees second = new Degrees.Default(Math.random());
+        final Degrees<Object> first = new Degrees.Default<>(Math.random());
+        final Degrees<Object> second = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Sum(Arrays.asList(first, second)).toString(),
+            new Sum<>(Arrays.asList(first, second)).toString(),
             Matchers.allOf(
                 Matchers.containsString(first.toString()),
                 Matchers.containsString(second.toString())

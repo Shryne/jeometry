@@ -58,14 +58,14 @@ public final class RotateVectTest {
         final Vect<Double> second = new FixedVector<>(new Scalars<>(dim));
         final InnerProduct<Double> pdt = new Dot();
         final double error = 1.e-6;
-        Degrees angle = new Degrees.Default(Math.random());
+        Degrees<Double> angle = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
             pdt.angle(
                 first, new RotateVect<>(first, angle)
             ).resolve(pdt).doubleValue(),
             Matchers.closeTo(angle.resolve(pdt).doubleValue(), error)
         );
-        angle = new Degrees.Default(Math.random());
+        angle = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
             pdt.angle(
                 second, new RotateVect<>(second, angle)

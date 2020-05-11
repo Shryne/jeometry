@@ -48,11 +48,11 @@ public final class EqualAngleTest {
         final Angle<Double> angle = new EqualAngle<>(ref);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
+            new VectsDegrees<>(
                 ref.start(), ref.end()
             ).resolve(new Dot()).doubleValue(),
             Matchers.closeTo(
-                new VectsDegrees(
+                new VectsDegrees<>(
                     angle.start(), angle.end()
                 ).resolve(new Dot()).doubleValue(),
                 error
@@ -74,11 +74,11 @@ public final class EqualAngleTest {
         final Angle<Double> angle = new EqualAngle<>(origin, start, ref);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
+            new VectsDegrees<>(
                 ref.start(), ref.end()
             ).resolve(new Dot()).doubleValue(),
             Matchers.closeTo(
-                new VectsDegrees(
+                new VectsDegrees<>(
                     angle.start(), angle.end()
                 ).resolve(new Dot()).doubleValue(),
                 error

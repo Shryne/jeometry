@@ -47,7 +47,7 @@ public final class BisectorVect<T> extends FixedVector<T> {
         super(
             Arrays.asList(
                 new RotateVect<T>(
-                    first, new Times(new VectsDegrees(first, second), 1 / 2.)
+                    first, new Times<>(new VectsDegrees<>(first, second), 1 / 2.)
                 ).coords()
             )
         );

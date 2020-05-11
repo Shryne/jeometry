@@ -40,23 +40,23 @@ public final class SupplementaryTest {
      */
     @Test
     public void resolvesSupplementaryAngle() {
-        final Degrees first = new Degrees.Default(Math.random());
-        final Degrees second = new Degrees.Default(Math.random());
-        final Degrees third = new Degrees.Default(Math.random());
+        final Degrees<Object> first = new Degrees.Default<>(Math.random());
+        final Degrees<Object> second = new Degrees.Default<>(Math.random());
+        final Degrees<Object> third = new Degrees.Default<>(Math.random());
         final InnerProduct<Object> pdt = new MkProduct<>();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Supplementary(first).resolve(pdt).doubleValue()
+            new Supplementary<>(first).resolve(pdt).doubleValue()
                 + first.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
         MatcherAssert.assertThat(
-            new Supplementary(second).resolve(pdt).doubleValue()
+            new Supplementary<>(second).resolve(pdt).doubleValue()
                 + second.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
         MatcherAssert.assertThat(
-            new Supplementary(third).resolve(pdt).doubleValue()
+            new Supplementary<>(third).resolve(pdt).doubleValue()
                 + third.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
@@ -67,9 +67,9 @@ public final class SupplementaryTest {
      */
     @Test
     public void toStringPrintsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Object> deg = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Supplementary(deg).toString(),
+            new Supplementary<>(deg).toString(),
             Matchers.containsString(deg.toString())
         );
     }
@@ -79,10 +79,10 @@ public final class SupplementaryTest {
      */
     @Test
     public void equalsRespectsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Object> deg = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Supplementary(deg),
-            Matchers.equalTo(new Supplementary(deg))
+            new Supplementary<>(deg),
+            Matchers.equalTo(new Supplementary<>(deg))
         );
     }
 
@@ -91,10 +91,10 @@ public final class SupplementaryTest {
      */
     @Test
     public void hashCodeRespectsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Object> deg = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Supplementary(deg).hashCode(),
-            Matchers.equalTo(new Supplementary(deg).hashCode())
+            new Supplementary<>(deg).hashCode(),
+            Matchers.equalTo(new Supplementary<>(deg).hashCode())
         );
     }
 }

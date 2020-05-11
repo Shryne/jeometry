@@ -64,9 +64,9 @@ public final class MkProduct<T> implements InnerProduct<T> {
     }
 
     @Override
-    public Degrees angle(final Vect<T> first, final Vect<T> second) {
+    public Degrees<T> angle(final Vect<T> first, final Vect<T> second) {
         this.ang = Optional.of(Arrays.asList(first, second));
-        return new Degrees.Default(0.);
+        return new Degrees.Default<>(0.);
     }
 
     @Override
@@ -76,7 +76,7 @@ public final class MkProduct<T> implements InnerProduct<T> {
     }
 
     @Override
-    public Vect<T> rot(final Vect<T> vect, final Degrees angle) {
+    public Vect<T> rot(final Vect<T> vect, final Degrees<T> angle) {
         return vect;
     }
 
