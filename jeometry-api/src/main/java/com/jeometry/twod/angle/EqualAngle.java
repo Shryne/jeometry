@@ -62,7 +62,7 @@ public final class EqualAngle<T> implements Angle<T> {
         this.org = origin;
         this.frst = start;
         this.scnd = new RotateVect<T>(
-            start, new VectsDegrees(angle.start(), angle.end())
+            start, new VectsDegrees<>(angle.start(), angle.end())
         );
     }
 

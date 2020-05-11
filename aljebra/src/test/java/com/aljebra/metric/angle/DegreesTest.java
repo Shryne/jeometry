@@ -40,17 +40,17 @@ public final class DegreesTest {
     public void respectsEqual() {
         final double num = Math.random();
         MatcherAssert.assertThat(
-            new Degrees.Default(num),
-            Matchers.equalTo(new Degrees.Default(num))
+            new Degrees.Default<>(num),
+            Matchers.equalTo(new Degrees.Default<>(num))
         );
         MatcherAssert.assertThat(
-            new Degrees.Default(num).hashCode(),
-            Matchers.equalTo(new Degrees.Default(num).hashCode())
+            new Degrees.Default<>(num).hashCode(),
+            Matchers.equalTo(new Degrees.Default<>(num).hashCode())
         );
         MatcherAssert.assertThat(
-            new Degrees.Default(num),
+            new Degrees.Default<>(num),
             Matchers.not(
-                Matchers.equalTo(new Degrees.Default(2))
+                Matchers.equalTo(new Degrees.Default<>(2))
             )
         );
     }
@@ -61,7 +61,7 @@ public final class DegreesTest {
     @Test
     public void toStringPrintsAngle() {
         final Double angle = Math.random();
-        final Degrees deg = new Degrees.Default(angle);
+        final Degrees<Double> deg = new Degrees.Default<>(angle);
         MatcherAssert.assertThat(deg.toString(), Matchers.containsString(angle.toString()));
     }
 }

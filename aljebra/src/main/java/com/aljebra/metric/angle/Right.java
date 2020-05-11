@@ -28,13 +28,14 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Right angle degrees.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
-public final class Right implements Degrees {
+public final class Right<T> implements Degrees<T> {
 
     @Override
-    public <T> Number resolve(final InnerProduct<T> product) {
+    public Number resolve(final InnerProduct<T> product) {
         return Math.PI / 2;
     }
 

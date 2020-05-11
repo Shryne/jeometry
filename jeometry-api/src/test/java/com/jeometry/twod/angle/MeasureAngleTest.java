@@ -46,7 +46,7 @@ public final class MeasureAngleTest {
         final Angle<Double> angle = new MeasureAngle<>(measure);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
+            new VectsDegrees<>(
                 angle.start(), angle.end()
             ).resolve(new Dot()).doubleValue(),
             Matchers.closeTo(measure, error)
@@ -65,7 +65,7 @@ public final class MeasureAngleTest {
         final Angle<Double> angle = new MeasureAngle<>(origin, start, measure);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectsDegrees(
+            new VectsDegrees<>(
                 angle.start(), angle.end()
             ).resolve(new Dot()).doubleValue(),
             Matchers.closeTo(measure, error)

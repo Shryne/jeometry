@@ -39,7 +39,7 @@ public final class ObtuseTest {
      */
     @Test
     public void resolvesObtuseAngle() {
-        final double angle = new Obtuse().resolve(new MkProduct<>()).doubleValue();
+        final double angle = new Obtuse<>().resolve(new MkProduct<>()).doubleValue();
         MatcherAssert.assertThat(
             angle, Matchers.greaterThanOrEqualTo(Math.PI / 2)
         );
@@ -51,7 +51,7 @@ public final class ObtuseTest {
      */
     @Test
     public void toStringPrintsAngle() {
-        final Obtuse obtuse = new Obtuse();
+        final Obtuse<Double> obtuse = new Obtuse<>();
         final Double angle = obtuse.resolve(new MkProduct<>()).doubleValue();
         final int precision = 6;
         MatcherAssert.assertThat(

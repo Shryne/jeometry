@@ -40,22 +40,22 @@ public final class TimesTest {
      */
     @Test
     public void resolvesAngleTimes() {
-        final Degrees first = new Degrees.Default(Math.random());
-        final Degrees second = new Degrees.Default(Math.random());
-        final Degrees third = new Degrees.Default(Math.random());
+        final Degrees<Object> first = new Degrees.Default<>(Math.random());
+        final Degrees<Object> second = new Degrees.Default<>(Math.random());
+        final Degrees<Object> third = new Degrees.Default<>(Math.random());
         final InnerProduct<Object> pdt = new MkProduct<>();
         final double factor = Math.random();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Times(first, factor).resolve(pdt).doubleValue(),
+            new Times<>(first, factor).resolve(pdt).doubleValue(),
             Matchers.closeTo(first.resolve(pdt).doubleValue() * factor, error)
         );
         MatcherAssert.assertThat(
-            new Times(second, factor).resolve(pdt).doubleValue(),
+            new Times<>(second, factor).resolve(pdt).doubleValue(),
             Matchers.closeTo(second.resolve(pdt).doubleValue() * factor, error)
         );
         MatcherAssert.assertThat(
-            new Times(third, factor).resolve(pdt).doubleValue(),
+            new Times<>(third, factor).resolve(pdt).doubleValue(),
             Matchers.closeTo(third.resolve(pdt).doubleValue() * factor, error)
         );
     }
@@ -65,10 +65,10 @@ public final class TimesTest {
      */
     @Test
     public void toStringPrintsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Object> deg = new Degrees.Default<>(Math.random());
         final Number multiple = Math.random();
         MatcherAssert.assertThat(
-            new Times(deg, multiple).toString(),
+            new Times<>(deg, multiple).toString(),
             Matchers.allOf(
                 Matchers.containsString(deg.toString()),
                 Matchers.containsString(multiple.toString())
@@ -81,11 +81,11 @@ public final class TimesTest {
      */
     @Test
     public void equalsRespectsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Object> deg = new Degrees.Default<>(Math.random());
         final Number multiple = Math.random();
         MatcherAssert.assertThat(
-            new Times(deg, multiple),
-            Matchers.equalTo(new Times(deg, multiple))
+            new Times<>(deg, multiple),
+            Matchers.equalTo(new Times<>(deg, multiple))
         );
     }
 
@@ -94,11 +94,11 @@ public final class TimesTest {
      */
     @Test
     public void hashCodeRespectsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Object> deg = new Degrees.Default<>(Math.random());
         final Number multiple = Math.random();
         MatcherAssert.assertThat(
-            new Times(deg, multiple).hashCode(),
-            Matchers.equalTo(new Times(deg, multiple).hashCode())
+            new Times<>(deg, multiple).hashCode(),
+            Matchers.equalTo(new Times<>(deg, multiple).hashCode())
         );
     }
 }

@@ -70,7 +70,7 @@ public final class Perpendicular<T> implements Predicate {
     @Override
     public <R> boolean resolve(final Field<R> field) {
         if (field instanceof MetricSpaceField<?>) {
-            final Double degrees = new VectsDegrees(
+            final Double degrees = new VectsDegrees<>(
                 this.first, this.second
             ).resolve(((MetricSpaceField<?>) field).product()).doubleValue();
             final double error = 1.e-6;

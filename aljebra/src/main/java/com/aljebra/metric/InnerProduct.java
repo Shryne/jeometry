@@ -49,7 +49,7 @@ public interface InnerProduct<T> {
      * @param second Second operand
      * @return The angle between two vectors
      */
-    Degrees angle(Vect<T> first, Vect<T> second);
+    Degrees<T> angle(Vect<T> first, Vect<T> second);
 
     /**
      * Calculates the norm of a vector.
@@ -64,14 +64,14 @@ public interface InnerProduct<T> {
      * @param angle Angle to form with the input vector
      * @return A vector
      */
-    Vect<T> rot(Vect<T> vect, Degrees angle);
+    Vect<T> rot(Vect<T> vect, Degrees<T> angle);
 
     /**
      * Calculates the actual value of the angle.
      * @param angle Angle to resolve
      * @return A number representing the angle
      */
-    default Number resolve(Degrees angle) {
+    default Number resolve(Degrees<T> angle) {
         return angle.resolve(this);
     }
 }
