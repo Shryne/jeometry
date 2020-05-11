@@ -37,7 +37,6 @@ public interface Degrees<T> {
     /**
      * Return the actual value of the degrees.
      * @param product Related {@link InnerProduct}
-     * @param <T> scalar types on which inner product operates
      * @return A number representing the angle in radians
      */
     Number resolve(InnerProduct<T> product);
@@ -45,7 +44,6 @@ public interface Degrees<T> {
     /**
      * Determines if this angle is right.
      * @param product Related {@link InnerProduct}
-     * @param <T> scalar types on which inner product operates
      * @return True if the angle is right
      */
     default boolean right(InnerProduct<T> product) {
@@ -57,7 +55,6 @@ public interface Degrees<T> {
     /**
      * Determines if this angle is flat.
      * @param product Related {@link InnerProduct}
-     * @param <T> scalar types on which inner product operates
      * @return True if the angle is flat
      */
     default boolean flat(InnerProduct<T> product) {
