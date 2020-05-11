@@ -51,11 +51,11 @@ public final class PointInCircleTest {
         final Circle<Double> any = new PtsCircle<>(new RandomPoint<>(), point);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new PointInCircle(point, any).resolve(field),
+            new PointInCircle<>(point, any).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInCircle(
+            new PointInCircle<>(
                 new InCirclePoint<>(any), any
             ).resolve(field),
             Matchers.is(true)
@@ -74,7 +74,7 @@ public final class PointInCircleTest {
             point = PointInCircleTest.point();
         }
         MatcherAssert.assertThat(
-            new PointInCircle(point, any).resolve(field),
+            new PointInCircle<>(point, any).resolve(field),
             Matchers.is(false)
         );
     }

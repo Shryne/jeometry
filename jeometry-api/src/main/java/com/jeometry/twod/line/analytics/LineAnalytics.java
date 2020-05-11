@@ -70,8 +70,8 @@ public final class LineAnalytics<T> {
      * Checks if the line is vertical.
      * @return A predicate for the line verticality
      */
-    public Predicate vertical() {
-        return new Vertical(this.line);
+    public Predicate<T> vertical() {
+        return new Vertical<>(this.line);
     }
 
 }

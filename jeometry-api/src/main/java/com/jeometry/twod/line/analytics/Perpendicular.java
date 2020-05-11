@@ -36,7 +36,7 @@ import com.jeometry.twod.line.Line;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class Perpendicular<T> implements Predicate {
+public final class Perpendicular<T> implements Predicate<T> {
 
     /**
      * First vector.
@@ -68,7 +68,7 @@ public final class Perpendicular<T> implements Predicate {
     }
 
     @Override
-    public <R> boolean resolve(final Field<R> field) {
+    public boolean resolve(final Field<T> field) {
         if (field instanceof MetricSpaceField<?>) {
             final Double degrees = new VectsDegrees<>(
                 this.first, this.second

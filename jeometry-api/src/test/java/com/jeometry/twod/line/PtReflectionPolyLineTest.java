@@ -45,14 +45,14 @@ public final class PtReflectionPolyLineTest {
      */
     @Test
     public void buildsReflection() {
-        final Polyline<Object> input = new PtsPolyline<>(
+        final Polyline<Double> input = new PtsPolyline<>(
             Arrays.asList(
                 new RandomPoint<>(), new RandomPoint<>(),
                 new RandomPoint<>(), new RandomPoint<>()
             )
         );
-        final RandomPoint<Object> across = new RandomPoint<>();
-        final Polyline<Object> result = new PtReflectionPolyLine<>(across, input);
+        final RandomPoint<Double> across = new RandomPoint<>();
+        final Polyline<Double> result = new PtReflectionPolyLine<>(across, input);
         for (int idx = 0; idx < result.points().size(); ++idx) {
             PtReflectionPolyLineTest.equal(
                 result.points().get(idx),
@@ -69,13 +69,13 @@ public final class PtReflectionPolyLineTest {
      */
     @Test
     public void buildsReflectionAcrossOrigin() {
-        final Polyline<Object> input = new PtsPolyline<>(
+        final Polyline<Double> input = new PtsPolyline<>(
             Arrays.asList(
                 new RandomPoint<>(), new RandomPoint<>(),
                 new RandomPoint<>(), new RandomPoint<>()
             )
         );
-        final Polyline<Object> result = new PtReflectionPolyLine<>(input);
+        final Polyline<Double> result = new PtReflectionPolyLine<>(input);
         for (int idx = 0; idx < result.points().size(); ++idx) {
             PtReflectionPolyLineTest.equal(
                 result.points().get(idx),
@@ -88,11 +88,10 @@ public final class PtReflectionPolyLineTest {
      * Asserts equality of two points.
      * @param first First point
      * @param second Second point
-     * @param <T> scalar types
      */
-    private static <T> void equal(final Vect<T> first, final Vect<T> second) {
+    private static void equal(final Vect<Double> first, final Vect<Double> second) {
         MatcherAssert.assertThat(
-            new VectEquals(first, second).resolve(new Decimal()),
+            new VectEquals<>(first, second).resolve(new Decimal()),
             Matchers.is(true)
         );
     }

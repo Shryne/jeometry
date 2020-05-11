@@ -50,13 +50,13 @@ public final class LineReflectionLineTest {
         final Line<Double> result = new LineReflectionLine<>(axis, origin);
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.point(), new LineReflectionPoint<>(axis, origin.point())
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 new Sum<>(Arrays.asList(result.point(), result.direction())),
                 new LineReflectionPoint<>(
                     axis, new Sum<>(Arrays.asList(origin.point(), origin.direction()))

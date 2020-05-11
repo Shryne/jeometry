@@ -35,47 +35,43 @@ import lombok.EqualsAndHashCode;
 
 /**
  * A predicate to determine if a line is vertical.
+ * @param <T> scalar types
  * @since 0.1
  */
 @EqualsAndHashCode
-public final class Vertical implements Predicate {
+public final class Vertical<T> implements Predicate<T> {
 
     /**
      * Line.
      */
-    @SuppressWarnings("rawtypes")
-    private final Line line;
+    private final Line<T> line;
 
     /**
      * Constructor.
      * @param line Line to check
-     * @param <T> scalar types
      */
-    public <T> Vertical(final Line<T> line) {
+    public Vertical(final Line<T> line) {
         this.line = line;
     }
 
     /**
      * Constructor.
      * @param ray Ray to check
-     * @param <T> scalar types
      */
-    public <T> Vertical(final Ray<T> ray) {
+    public Vertical(final Ray<T> ray) {
         this(new RayLine<>(ray));
     }
 
     /**
      * Constructor.
      * @param seg Segment to check
-     * @param <T> scalar types
      */
-    public <T> Vertical(final Segment<T> seg) {
+    public Vertical(final Segment<T> seg) {
         this(new SgtLine<>(seg));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public <R> boolean resolve(final Field<R> field) {
+    public boolean resolve(final Field<T> field) {
         return field.equals(
             this.line.direction().coords()[0], new AddIdentity<>()
         );

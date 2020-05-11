@@ -46,7 +46,7 @@ public final class EqualsTest {
         final Scalar<Object> second = new Scalar.Default<>(obj);
         final Field<Object> field = new MkField<>(new Object(), new Object());
         MatcherAssert.assertThat(
-            new Equals(first, second).resolve(field),
+            new Equals<>(first, second).resolve(field),
             Matchers.is(true)
         );
     }
@@ -60,7 +60,7 @@ public final class EqualsTest {
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         final Field<Object> field = new MkField<>(new Object(), new Object());
         MatcherAssert.assertThat(
-            new Equals(first, second).resolve(field),
+            new Equals<>(first, second).resolve(field),
             Matchers.is(false)
         );
     }

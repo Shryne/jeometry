@@ -32,36 +32,33 @@ import com.jeometry.twod.circle.Circle;
 
 /**
  * A predicate to determine if a point belongs to a circle.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class PointInCircle implements Predicate {
+public final class PointInCircle<T> implements Predicate<T> {
 
     /**
      * Point.
      */
-    @SuppressWarnings("rawtypes")
-    private final Vect point;
+    private final Vect<T> point;
 
     /**
      * Circle.
      */
-    @SuppressWarnings("rawtypes")
-    private final Circle circle;
+    private final Circle<T> circle;
 
     /**
      * Constructor.
      * @param point Point
      * @param circle Circle
-     * @param <T> scalar types
      */
-    public <T> PointInCircle(final Vect<T> point, final Circle<T> circle) {
+    public PointInCircle(final Vect<T> point, final Circle<T> circle) {
         this.point = point;
         this.circle = circle;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public <T> boolean resolve(final Field<T> field) {
+    public boolean resolve(final Field<T> field) {
         return field.equals(
             this.circle.radius(),
             new Norm<T>(new Minus<T>(this.point, this.circle.center()))

@@ -82,7 +82,7 @@ public final class InSegPointTest {
         final Double starty = any.start().coords()[1].value(dec);
         final Double endx = any.end().coords()[0].value(dec);
         final Double endy = any.end().coords()[1].value(dec);
-        if (new Vertical(any).resolve(dec)) {
+        if (new Vertical<>(any).resolve(dec)) {
             result = startx == xcoor;
         } else {
             final double error = 1.e-6;

@@ -46,10 +46,10 @@ public final class PtsAngleTest {
      */
     @Test
     public void buildsPointsAngle() {
-        final Vect<Object> origin = new RandomPoint<>();
-        final Vect<Object> startpt = new RandomPoint<>();
-        final Vect<Object> endpt = new RandomPoint<>();
-        final Angle<Object> angle = new PtsAngle<>(origin, startpt, endpt);
+        final Vect<Double> origin = new RandomPoint<>();
+        final Vect<Double> startpt = new RandomPoint<>();
+        final Vect<Double> endpt = new RandomPoint<>();
+        final Angle<Double> angle = new PtsAngle<>(origin, startpt, endpt);
         MatcherAssert.assertThat(angle.origin(), Matchers.equalTo(origin));
         MatcherAssert.assertThat(
             angle.start(), Matchers.equalTo(new Minus<>(startpt, origin))

@@ -60,7 +60,7 @@ public final class AwtLine extends AbstractAwtPaint {
         final AwtContext context) {
         @SuppressWarnings("unchecked")
         final Line<Double> line = (Line<Double>) renderable.renderable();
-        if (new Vertical(line).resolve(this.field())) {
+        if (new Vertical<>(line).resolve(this.field())) {
             AwtLine.vertical(graphics, line, context);
         } else {
             this.regular(graphics, line, context);
