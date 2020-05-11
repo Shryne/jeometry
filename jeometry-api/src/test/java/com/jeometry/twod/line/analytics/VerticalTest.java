@@ -43,7 +43,7 @@ public final class VerticalTest {
     @Test
     public void resolvesTrueWhenVertical() {
         MatcherAssert.assertThat(
-            new Vertical(
+            new Vertical<Double>(
                 new PtDirLine<>(new VertPoint<>(), new VertPoint<>())
             ).resolve(new Decimal()), Matchers.is(true)
         );
@@ -55,7 +55,7 @@ public final class VerticalTest {
     @Test
     public void resolvesFalseWhenNotVertical() {
         MatcherAssert.assertThat(
-            new Vertical(
+            new Vertical<Double>(
                 new PtDirLine<>(
                     new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
                 )

@@ -60,7 +60,7 @@ public final class AwtRay extends AbstractAwtPaint {
         final AwtContext context) {
         @SuppressWarnings("unchecked")
         final Ray<Double> ray = (Ray<Double>) renderable.renderable();
-        if (new Vertical(ray).resolve(this.field())) {
+        if (new Vertical<>(ray).resolve(this.field())) {
             this.vertical(graphics, ray, context);
         } else {
             this.regular(graphics, context, ray);

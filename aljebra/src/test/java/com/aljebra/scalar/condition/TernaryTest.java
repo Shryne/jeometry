@@ -46,7 +46,7 @@ public final class TernaryTest {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         final SpyField<Object> field = new SpyField<>(new Object(), new Object());
-        new Ternary<>(new True(), first, second).value(field);
+        new Ternary<>(new True<>(), first, second).value(field);
         final Optional<List<Scalar<Object>>> params = field.calls().actuals();
         MatcherAssert.assertThat(params.isPresent(), Matchers.equalTo(true));
         MatcherAssert.assertThat(params.get().contains(first), Matchers.equalTo(true));
@@ -62,7 +62,7 @@ public final class TernaryTest {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         final SpyField<Object> field = new SpyField<>(new Object(), new Object());
-        new Ternary<>(new False(), first, second).value(field);
+        new Ternary<>(new False<>(), first, second).value(field);
         final Optional<List<Scalar<Object>>> params = field.calls().actuals();
         MatcherAssert.assertThat(params.isPresent(), Matchers.equalTo(true));
         MatcherAssert.assertThat(params.get().contains(first), Matchers.equalTo(false));

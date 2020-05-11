@@ -46,7 +46,7 @@ public final class ParallelTest {
     @Test
     public void resolvesTrueIfBothVertical() {
         MatcherAssert.assertThat(
-            new Parallel<>(
+            new Parallel<Double>(
                 new PtDirLine<>(new RandomPoint<>(), new VertPoint<>()),
                 new PtDirLine<>(new RandomPoint<>(), new VertPoint<>())
             ).resolve(new Decimal()),
@@ -60,7 +60,7 @@ public final class ParallelTest {
     @Test
     public void resolvesFalseIfOneVertical() {
         MatcherAssert.assertThat(
-            new Parallel<>(
+            new Parallel<Double>(
                 new PtDirLine<>(new RandomPoint<>(), new VertPoint<>()),
                 new PtDirLine<>(
                     new RandomPoint<>(), new DifferentPoint<>(new VertPoint<>())

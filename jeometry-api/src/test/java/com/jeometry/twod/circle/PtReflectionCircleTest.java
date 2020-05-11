@@ -54,7 +54,7 @@ public final class PtReflectionCircleTest {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.center(), new PtReflectionPoint<>(across, center)
             ).resolve(dec),
             Matchers.is(true)
@@ -79,7 +79,7 @@ public final class PtReflectionCircleTest {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.center(), new PtReflectionPoint<>(center)
             ).resolve(dec),
             Matchers.is(true)

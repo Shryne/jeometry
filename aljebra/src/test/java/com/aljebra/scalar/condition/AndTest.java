@@ -24,6 +24,7 @@
 package com.aljebra.scalar.condition;
 
 import com.aljebra.field.mock.MkField;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -40,8 +41,8 @@ public final class AndTest {
     @Test
     public void resolvesToTrueWhenAllPredicatesTrue() {
         MatcherAssert.assertThat(
-            new And(
-                new True(), new True(), new True()
+            new And<>(
+                Arrays.asList(new True<>(), new True<>(), new True<>())
             ).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(true)
         );
@@ -53,8 +54,8 @@ public final class AndTest {
     @Test
     public void resolvesToFalseWhenOnePredicateFalse() {
         MatcherAssert.assertThat(
-            new And(
-                new True(), new True(), new False()
+            new And<>(
+                Arrays.asList(new True<>(), new True<>(), new False<>())
             ).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(false)
         );

@@ -52,7 +52,7 @@ public final class NotTest {
     @Test
     public void resolvesToTrueWhenPredicateIsFalse() {
         MatcherAssert.assertThat(
-            new Not(new True()).resolve(new MkField<>(new Object(), new Object())),
+            new Not<>(new True<>()).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(false)
         );
     }
@@ -63,7 +63,7 @@ public final class NotTest {
     @Test
     public void resolvesToFalseWhenPredicateIsTrue() {
         MatcherAssert.assertThat(
-            new Not(new False()).resolve(new MkField<>(new Object(), new Object())),
+            new Not<>(new False<>()).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(true)
         );
     }
@@ -76,7 +76,7 @@ public final class NotTest {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         final SpyField<Object> field = new SpyField<>(new Object(), new Object());
-        new Not(new False()).ifElse(first, second).value(field);
+        new Not<>(new False<>()).ifElse(first, second).value(field);
         final Optional<List<Scalar<Object>>> params = field.calls().actuals();
         MatcherAssert.assertThat(params.isPresent(), Matchers.equalTo(true));
         MatcherAssert.assertThat(params.get().contains(first), Matchers.equalTo(true));
@@ -90,7 +90,7 @@ public final class NotTest {
     public void buildsThrowing() {
         final RuntimeException err = new RuntimeException();
         this.thrown.expect(err.getClass());
-        new Not(new True()).ifElse(
+        new Not<>(new True<>()).ifElse(
             new Scalar.Default<>(new Object()), err
         ).value(new MkField<>(new Object(), new Object()));
     }

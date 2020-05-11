@@ -38,7 +38,7 @@ import java.util.Arrays;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class PointInLine<T> implements Predicate {
+public final class PointInLine<T> implements Predicate<T> {
 
     /**
      * Point.
@@ -61,14 +61,14 @@ public final class PointInLine<T> implements Predicate {
     }
 
     @Override
-    public <R> boolean resolve(final Field<R> field) {
+    public boolean resolve(final Field<T> field) {
         final Scalar<T> xcoor = this.point.coords()[0];
-        final Predicate result;
-        if (new Vertical(this.line).resolve(field)) {
-            result = new Equals(xcoor, this.line.point().coords()[0]);
+        final Predicate<T> result;
+        if (new Vertical<>(this.line).resolve(field)) {
+            result = new Equals<>(xcoor, this.line.point().coords()[0]);
         } else {
             final LineAnalytics<T> analytics = new LineAnalytics<>(this.line);
-            result = new Equals(
+            result = new Equals<>(
                 this.point.coords()[1],
                 new Add<T>(
                     Arrays.asList(
