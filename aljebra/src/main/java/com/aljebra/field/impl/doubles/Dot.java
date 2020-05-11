@@ -60,7 +60,7 @@ public final class Dot implements InnerProduct<Double> {
     }
 
     @Override
-    public Degrees angle(final Vect<Double> first, final Vect<Double> second) {
+    public Degrees<Double> angle(final Vect<Double> first, final Vect<Double> second) {
         final Double cross =
             Dot.val(first.coords()[0]) * Dot.val(second.coords()[1])
                 - Dot.val(second.coords()[0]) * Dot.val(first.coords()[1]);
@@ -81,11 +81,11 @@ public final class Dot implements InnerProduct<Double> {
                 result = -arcos;
             }
         }
-        return new Degrees.Default(result);
+        return new Degrees.Default<>(result);
     }
 
     @Override
-    public Vect<Double> rot(final Vect<Double> vect, final Degrees ang) {
+    public Vect<Double> rot(final Vect<Double> vect, final Degrees<Double> ang) {
         final Number angle = this.resolve(ang);
         final FixedMatrix<Double> rot = new FixedMatrix<>(
             2, 2,

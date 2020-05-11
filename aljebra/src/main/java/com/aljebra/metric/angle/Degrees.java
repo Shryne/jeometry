@@ -29,25 +29,24 @@ import lombok.ToString;
 
 /**
  * Degrees interface. Abstract representation of angles.
+ * @param <T> scalar types
  * @since 0.1
  */
-public interface Degrees {
+public interface Degrees<T> {
 
     /**
      * Return the actual value of the degrees.
      * @param product Related {@link InnerProduct}
-     * @param <T> scalar types on which inner product operates
      * @return A number representing the angle in radians
      */
-    <T> Number resolve(InnerProduct<T> product);
+    Number resolve(InnerProduct<T> product);
 
     /**
      * Determines if this angle is right.
      * @param product Related {@link InnerProduct}
-     * @param <T> scalar types on which inner product operates
      * @return True if the angle is right
      */
-    default <T> boolean right(InnerProduct<T> product) {
+    default boolean right(InnerProduct<T> product) {
         return Double.valueOf(
             this.resolve(product).doubleValue() % Math.PI
         ).equals(Math.PI / 2);
@@ -56,20 +55,20 @@ public interface Degrees {
     /**
      * Determines if this angle is flat.
      * @param product Related {@link InnerProduct}
-     * @param <T> scalar types on which inner product operates
      * @return True if the angle is flat
      */
-    default <T> boolean flat(InnerProduct<T> product) {
+    default boolean flat(InnerProduct<T> product) {
         return this.resolve(product).doubleValue() % Math.PI == 0;
     }
 
     /**
      * Minimal representation of a degrees holding a reference to a number.
+     * @param <T> scalar types
      * @since 0.1
      */
     @EqualsAndHashCode
     @ToString(includeFieldNames = false)
-    class Default implements Degrees {
+    class Default<T> implements Degrees<T> {
         /**
          * Wrapped Number.
          */
@@ -84,7 +83,7 @@ public interface Degrees {
         }
 
         @Override
-        public <T> Number resolve(final InnerProduct<T> product) {
+        public Number resolve(final InnerProduct<T> product) {
             return this.origin;
         }
     }

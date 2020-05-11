@@ -40,23 +40,23 @@ public final class ComplementaryTest {
      */
     @Test
     public void resolvesComplementaryAngle() {
-        final Degrees first = new Degrees.Default(Math.random());
-        final Degrees second = new Degrees.Default(Math.random());
-        final Degrees third = new Degrees.Default(Math.random());
+        final Degrees<Double> first = new Degrees.Default<>(Math.random());
+        final Degrees<Double> second = new Degrees.Default<>(Math.random());
+        final Degrees<Double> third = new Degrees.Default<>(Math.random());
         final InnerProduct<Double> pdt = new MkProduct<>();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Complementary(first).resolve(pdt).doubleValue()
+            new Complementary<>(first).resolve(pdt).doubleValue()
                 + first.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            new Complementary(second).resolve(pdt).doubleValue()
+            new Complementary<>(second).resolve(pdt).doubleValue()
                 + second.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            new Complementary(third).resolve(pdt).doubleValue()
+            new Complementary<>(third).resolve(pdt).doubleValue()
                 + third.resolve(pdt).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
@@ -67,9 +67,9 @@ public final class ComplementaryTest {
      */
     @Test
     public void toStringPrintsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Double> deg = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Complementary(deg).toString(),
+            new Complementary<>(deg).toString(),
             Matchers.containsString(deg.toString())
         );
     }
@@ -79,10 +79,10 @@ public final class ComplementaryTest {
      */
     @Test
     public void equalsRespectsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Double> deg = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Complementary(deg),
-            Matchers.equalTo(new Complementary(deg))
+            new Complementary<>(deg),
+            Matchers.equalTo(new Complementary<>(deg))
         );
     }
 
@@ -91,10 +91,10 @@ public final class ComplementaryTest {
      */
     @Test
     public void hashCodeRespectsDegrees() {
-        final Degrees deg = new Degrees.Default(Math.random());
+        final Degrees<Double> deg = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Complementary(deg).hashCode(),
-            Matchers.equalTo(new Complementary(deg).hashCode())
+            new Complementary<>(deg).hashCode(),
+            Matchers.equalTo(new Complementary<>(deg).hashCode())
         );
     }
 }

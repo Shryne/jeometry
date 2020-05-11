@@ -49,7 +49,7 @@ public final class RotateVect<T> extends FixedVector<T> {
      * @param angle Rotation angle
      */
     public RotateVect(final Vect<T> vector, final Number angle) {
-        this(vector, new Degrees.Default(angle));
+        this(vector, new Degrees.Default<>(angle));
     }
 
     /**
@@ -57,7 +57,7 @@ public final class RotateVect<T> extends FixedVector<T> {
      * @param vector Vector to rotate
      * @param angle Rotation angle
      */
-    public RotateVect(final Vect<T> vector, final Degrees angle) {
+    public RotateVect(final Vect<T> vector, final Degrees<T> angle) {
         super(RotateVect.coords(vector, angle));
     }
 
@@ -68,7 +68,7 @@ public final class RotateVect<T> extends FixedVector<T> {
      * @param <T> scalar types
      * @return Scalar array of the rotated vector coordinates
      */
-    private static <T> List<Scalar<T>> coords(final Vect<T> vector, final Degrees angle) {
+    private static <T> List<Scalar<T>> coords(final Vect<T> vector, final Degrees<T> angle) {
         final List<Scalar<T>> result = new ArrayList<>(vector.coords().length);
         for (int idx = 0; idx < vector.coords().length; ++idx) {
             result.add(RotateVect.coord(vector, angle, idx));
@@ -85,7 +85,7 @@ public final class RotateVect<T> extends FixedVector<T> {
      * @param <T> scalar types
      * @return A scalar corresponding to a coordinate of the rotated vector
      */
-    private static <T> Scalar<T> coord(final Vect<T> vector, final Degrees angle,
+    private static <T> Scalar<T> coord(final Vect<T> vector, final Degrees<T> angle,
         final int dim) {
         return new MetricScalar<T>() {
             @Override

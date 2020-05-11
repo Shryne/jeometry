@@ -46,14 +46,14 @@ public final class FlatTest {
         final double error = 1.e-6;
         final InnerProduct<Object> product = new MkProduct<>();
         MatcherAssert.assertThat(
-            new Flat().resolve(product).doubleValue(),
+            new Flat<>().resolve(product).doubleValue(),
             Matchers.closeTo(Math.PI, error)
         );
         MatcherAssert.assertThat(
-            new Flat().flat(product), Matchers.is(true)
+            new Flat<>().flat(product), Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new Flat().right(product), Matchers.is(false)
+            new Flat<>().right(product), Matchers.is(false)
         );
     }
 
@@ -63,18 +63,18 @@ public final class FlatTest {
     @Test
     public void respectsEqualAndHashcode() {
         MatcherAssert.assertThat(
-            new Flat(),
-            Matchers.equalTo(new Flat())
+            new Flat<>(),
+            Matchers.equalTo(new Flat<>())
         );
         MatcherAssert.assertThat(
-            new Flat().hashCode(),
-            Matchers.equalTo(new Flat().hashCode())
+            new Flat<>().hashCode(),
+            Matchers.equalTo(new Flat<>().hashCode())
         );
         MatcherAssert.assertThat(
-            new Flat(),
+            new Flat<>(),
             Matchers.not(
                 Matchers.equalTo(
-                    new VectsDegrees(
+                    new VectsDegrees<>(
                         new FixedVector<>(Arrays.asList(new Random<>())),
                         new FixedVector<>(Arrays.asList(new Random<>()))
                     )

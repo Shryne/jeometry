@@ -70,9 +70,9 @@ public final class Perpendicular<T> implements Predicate<T> {
     @Override
     public boolean resolve(final Field<T> field) {
         if (field instanceof MetricSpaceField<?>) {
-            final Double degrees = new VectsDegrees(
+            final Double degrees = new VectsDegrees<>(
                 this.first, this.second
-            ).resolve(((MetricSpaceField<?>) field).product()).doubleValue();
+            ).resolve(((MetricSpaceField<T>) field).product()).doubleValue();
             final double error = 1.e-6;
             return Math.abs(degrees - Math.PI / 2) < error
                 || Math.abs(degrees + Math.PI / 2) < error;

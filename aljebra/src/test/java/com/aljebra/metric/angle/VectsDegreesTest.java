@@ -49,7 +49,7 @@ public final class VectsDegreesTest {
         final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
         final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
         final MkProduct<Object> pdt = new MkProduct<>();
-        new VectsDegrees(first, second).resolve(pdt);
+        new VectsDegrees<>(first, second).resolve(pdt);
         final Optional<List<Vect<Object>>> params = pdt.angle();
         MatcherAssert.assertThat(
             "Expecting call to angle method with vectors as parameters",
@@ -66,17 +66,17 @@ public final class VectsDegreesTest {
         final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
         final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
         MatcherAssert.assertThat(
-            new VectsDegrees(first, second),
-            Matchers.equalTo(new VectsDegrees(first, second))
+            new VectsDegrees<>(first, second),
+            Matchers.equalTo(new VectsDegrees<>(first, second))
         );
         MatcherAssert.assertThat(
-            new VectsDegrees(first, second).hashCode(),
-            Matchers.equalTo(new VectsDegrees(first, second).hashCode())
+            new VectsDegrees<>(first, second).hashCode(),
+            Matchers.equalTo(new VectsDegrees<>(first, second).hashCode())
         );
         MatcherAssert.assertThat(
-            new VectsDegrees(first, second),
+            new VectsDegrees<>(first, second),
             Matchers.not(
-                Matchers.equalTo(new VectsDegrees(second, first))
+                Matchers.equalTo(new VectsDegrees<>(second, first))
             )
         );
     }
@@ -89,7 +89,7 @@ public final class VectsDegreesTest {
         final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
         final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
         MatcherAssert.assertThat(
-            new VectsDegrees(first, second).toString(),
+            new VectsDegrees<>(first, second).toString(),
             Matchers.allOf(
                 Matchers.containsString(first.toString()),
                 Matchers.containsString(second.toString())
