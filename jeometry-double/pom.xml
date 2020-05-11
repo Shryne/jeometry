@@ -29,7 +29,7 @@
     <parent>
         <groupId>com.github.hdouss</groupId>
         <artifactId>jeometry</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.3</version>
     </parent>
     <artifactId>jeometry-double</artifactId>
     <description>Java Geometry library abstract API</description>
@@ -37,12 +37,12 @@
         <dependency>
             <groupId>com.github.hdouss</groupId>
             <artifactId>aljebra</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>0.3</version>
         </dependency>
         <dependency>
             <groupId>com.github.hdouss</groupId>
             <artifactId>jeometry-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>0.3</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
