@@ -59,7 +59,7 @@ public final class DotTest {
             result += coord * coord;
         }
         MatcherAssert.assertThat(
-            new Equals(
+            new Equals<>(
                 new Dot().product(vecta, vectb), new Scalar.Default<>(result)
             ).resolve(new Decimal()),
             Matchers.equalTo(true)

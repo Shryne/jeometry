@@ -68,7 +68,7 @@ public class CircleChord<T> extends PtsSegment<T> {
      * @return The passed point if it belongs to the circle
      */
     private static <T> Vect<T> extremity(final Vect<T> point, final Circle<T> circle) {
-        final PointInCircle predicate = new PointInCircle(point, circle);
+        final PointInCircle<T> predicate = new PointInCircle<>(point, circle);
         final IllegalArgumentException err = new IllegalArgumentException(
             String.format(
                 "Unable to build a chord of %s passing by the point %s.",
