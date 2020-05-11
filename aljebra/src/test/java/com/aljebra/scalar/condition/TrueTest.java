@@ -23,7 +23,7 @@
  */
 package com.aljebra.scalar.condition;
 
-import com.aljebra.field.MkField;
+import com.aljebra.field.mock.MkField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;

@@ -24,6 +24,7 @@
 package com.aljebra.field.impl.doubles;
 
 import com.aljebra.scalar.Scalar;
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -37,7 +38,6 @@ public final class DblMatrixTest {
     /**
      * DblMatrix returns right coordinates.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void returnsCoordinates() {
         final double coora = Math.random();
@@ -46,12 +46,14 @@ public final class DblMatrixTest {
         final double coord = Math.random();
         final DblMatrix mat = new DblMatrix(2, 2, coora, coorb, coorc, coord);
         MatcherAssert.assertThat(
-            mat.coords(),
-            Matchers.array(
-                Matchers.equalTo(new Scalar.Default<>(coora)),
-                Matchers.equalTo(new Scalar.Default<>(coorb)),
-                Matchers.equalTo(new Scalar.Default<>(coorc)),
-                Matchers.equalTo(new Scalar.Default<>(coord))
+            Arrays.asList(mat.coords()),
+            Matchers.equalTo(
+                Arrays.asList(
+                    new Scalar.Default<>(coora),
+                    new Scalar.Default<>(coorb),
+                    new Scalar.Default<>(coorc),
+                    new Scalar.Default<>(coord)
+                )
             )
         );
     }

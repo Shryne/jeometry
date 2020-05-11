@@ -22,9 +22,10 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.aljebra.scalar;
+package com.aljebra.scalar.mock;
 
 import com.aljebra.field.Field;
+import com.aljebra.scalar.Scalar;
 import java.util.Optional;
 
 /**

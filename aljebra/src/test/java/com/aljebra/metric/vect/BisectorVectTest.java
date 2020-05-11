@@ -25,10 +25,9 @@ package com.aljebra.metric.vect;
 
 import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
-import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -45,8 +44,8 @@ public final class BisectorVectTest {
     @Test
     public void calculatesBisector() {
         final int dim = 2;
-        final Vect<Double> first = new FixedVector<>(Arrays.asList(BisectorVectTest.scalars(dim)));
-        final Vect<Double> second = new FixedVector<>(Arrays.asList(BisectorVectTest.scalars(dim)));
+        final Vect<Double> first = new FixedVector<>(new Scalars<>(dim));
+        final Vect<Double> second = new FixedVector<>(new Scalars<>(dim));
         final InnerProduct<Double> pdt = new Dot();
         final Vect<Double> result = new BisectorVect<>(first, second);
         final double error = 1.e-6;
@@ -58,26 +57,4 @@ public final class BisectorVectTest {
         );
     }
 
-    /**
-     * Mocks an array of {@link Scalar} with a given length.
-     * @param length Array length
-     * @return An array of scalars
-     */
-    private static Scalar<Double>[] scalars(final int length) {
-        @SuppressWarnings("unchecked")
-        final Scalar<Double>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = BisectorVectTest.scalar(Math.random());
-        }
-        return result;
-    }
-
-    /**
-     * Returns a default scalar of the double.
-     * @param num A double
-     * @return A scalar
-     */
-    private static Scalar<Double> scalar(final double num) {
-        return new Scalar.Default<Double>(num);
-    }
 }

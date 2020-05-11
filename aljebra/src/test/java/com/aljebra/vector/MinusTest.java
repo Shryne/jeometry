@@ -25,7 +25,8 @@ package com.aljebra.vector;
 
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Scalar;
-import java.util.Arrays;
+import com.aljebra.scalar.mock.Scalars;
+import java.util.Iterator;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -48,17 +49,19 @@ public final class MinusTest {
      */
     @Test
     public void coordsEqualCoordsDiff() {
-        final Scalar<Object>[] acoords = MinusTest.scalars();
-        final Scalar<Object>[] bcoords = MinusTest.scalars(acoords.length);
-        final Vect<Object> vecta = new FixedVector<>(Arrays.asList(acoords));
-        final Vect<Object> vectb = new FixedVector<>(Arrays.asList(bcoords));
-        final Scalar<Object>[] expected = Arrays.copyOf(acoords, acoords.length);
-        for (int idx = 0; idx < expected.length; ++idx) {
-            expected[idx] = MinusTest.minus(acoords[idx], bcoords[idx]);
+        final int dim = 1 + new Random().nextInt(MinusTest.COORDS_LENGTH);
+        final Iterable<Scalar<Object>> acoords = new Scalars<>(dim);
+        final Iterable<Scalar<Object>> bcoords = new Scalars<>(dim);
+        final Vect<Object> vecta = new FixedVector<>(acoords);
+        final Vect<Object> vectb = new FixedVector<>(bcoords);
+        final Iterator<Scalar<Object>> aiterator = acoords.iterator();
+        final Iterator<Scalar<Object>> biterator = bcoords.iterator();
+        final Scalar<Object>[] actual = new Minus<>(vecta, vectb).coords();
+        for (int idx = 0; idx < dim; ++idx) {
+            MatcherAssert.assertThat(
+                actual[idx], Matchers.equalTo(MinusTest.minus(aiterator.next(), biterator.next()))
+            );
         }
-        MatcherAssert.assertThat(
-            new Minus<>(vecta, vectb).coords(), Matchers.equalTo(expected)
-        );
     }
 
     /**
@@ -69,28 +72,6 @@ public final class MinusTest {
      */
     private static Scalar<Object> minus(final Scalar<Object> scalar, final Scalar<Object> another) {
         return new Diff<>(scalar, another);
-    }
-
-    /**
-     * Mocks an array of {@link Scalar} with a random length.
-     * @return An array of scalars.
-     */
-    private static Scalar<Object>[] scalars() {
-        return MinusTest.scalars(1 + new Random().nextInt(MinusTest.COORDS_LENGTH));
-    }
-
-    /**
-     * Mocks an array of {@link Scalar} with the given length.
-     * @param length Array length to generate
-     * @return An array of scalars.
-     */
-    @SuppressWarnings("unchecked")
-    private static Scalar<Object>[] scalars(final int length) {
-        final Scalar<Object>[] result = new Scalar[length];
-        for (int idx = 0; idx < result.length; ++idx) {
-            result[idx] = new Scalar.Default<>(new Object());
-        }
-        return result;
     }
 
 }

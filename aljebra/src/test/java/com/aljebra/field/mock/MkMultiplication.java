@@ -21,7 +21,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.field;
+package com.aljebra.field.mock;
+
+import com.aljebra.field.FieldMultiplication;
 
 /**
  * Mock FieldMultiplication. Gives the ability to see:

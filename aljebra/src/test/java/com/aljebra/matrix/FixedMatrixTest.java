@@ -26,8 +26,10 @@ package com.aljebra.matrix;
 import com.aljebra.metric.scalar.Product;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.Scalar.Default;
+import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
+import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,10 +58,10 @@ public final class FixedMatrixTest {
     public void returnsCoords() {
         final int lines = 3;
         final int cols = 4;
-        final List<Scalar<Object>> scalars = FixedMatrixTest.scalars(lines * cols);
+        final Iterable<Scalar<Object>> scalars = new Scalars<>(lines * cols);
         final FixedMatrix<Object> matrix = new FixedMatrix<>(lines, cols, scalars);
         MatcherAssert.assertThat(
-            Arrays.asList(matrix.coords()), Matchers.equalTo(scalars)
+            Arrays.asList(matrix.coords()), Matchers.equalTo(Lists.newArrayList(scalars))
         );
     }
 
@@ -97,10 +99,10 @@ public final class FixedMatrixTest {
         final int lines = 3;
         final int cols = 4;
         final FixedMatrix<Object> matrix = new FixedMatrix<>(
-            lines, cols, FixedMatrixTest.scalars(lines * cols)
+            lines, cols, new Scalars<>(lines * cols)
         );
         final List<Scalar<Object>> expected = new ArrayList<>(lines);
-        final Vect<Object> input = new FixedVector<>(FixedMatrixTest.scalars(cols));
+        final Vect<Object> input = new FixedVector<>(new Scalars<>(cols));
         for (int idx = 0; idx < lines; ++idx) {
             expected.add(FixedMatrixTest.pdt(input, Arrays.asList(matrix.line(idx + 1))));
         }
@@ -119,9 +121,9 @@ public final class FixedMatrixTest {
         final int lines = 3;
         final int cols = 4;
         final FixedMatrix<Object> matrix = new FixedMatrix<>(
-            lines, cols, FixedMatrixTest.scalars(lines * cols)
+            lines, cols, new Scalars<>(lines * cols)
         );
-        final Vect<Object> input = new FixedVector<>(FixedMatrixTest.scalars(cols + 1));
+        final Vect<Object> input = new FixedVector<>(new Scalars<>(cols + 1));
         matrix.apply(input);
     }
 
@@ -135,19 +137,6 @@ public final class FixedMatrixTest {
     private static Scalar<Object> pdt(final Vect<Object> input,
         final List<Scalar<Object>> scalars) {
         return new Product<Object>(input, new FixedVector<Object>(scalars));
-    }
-
-    /**
-     * Mocks a list of {@link Scalar} with a given size.
-     * @param length List size
-     * @return A list of scalars
-     */
-    private static List<Scalar<Object>> scalars(final int length) {
-        final List<Scalar<Object>> result = new ArrayList<>(length);
-        for (int idx = 0; idx < length; ++idx) {
-            result.add(new Scalar.Default<>(new Object()));
-        }
-        return result;
     }
 
 }

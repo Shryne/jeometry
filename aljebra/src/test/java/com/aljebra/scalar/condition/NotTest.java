@@ -23,8 +23,8 @@
  */
 package com.aljebra.scalar.condition;
 
-import com.aljebra.field.MkField;
-import com.aljebra.field.SpyField;
+import com.aljebra.field.mock.MkField;
+import com.aljebra.field.mock.SpyField;
 import com.aljebra.scalar.Scalar;
 import java.util.List;
 import java.util.Optional;
