@@ -21,28 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar.condition;
-
-import com.aljebra.field.mock.MkField;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
-
 /**
- * Tests for {@link False}.
- * @since 0.1
+ * Scalar mocks.
  */
-public final class FalseTest {
-
-    /**
-     * {@link False} can always resolve to false.
-     */
-    @Test
-    public void resolvesToFalse() {
-        MatcherAssert.assertThat(
-            new False().resolve(new MkField<>(new Object(), new Object())),
-            Matchers.is(false)
-        );
-    }
-
-}
+package com.aljebra.scalar.mock;

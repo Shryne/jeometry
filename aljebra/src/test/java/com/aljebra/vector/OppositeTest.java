@@ -25,9 +25,8 @@ package com.aljebra.vector;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
-import java.util.ArrayList;
+import com.aljebra.scalar.mock.Scalars;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -50,7 +49,9 @@ public final class OppositeTest {
      */
     @Test
     public void coordsEqualCoordsMult() {
-        final Vect<Double> vecta = new FixedVector<>(OppositeTest.scalars());
+        final Vect<Double> vecta = new FixedVector<>(
+            new Scalars<>(1 + new Random().nextInt(OppositeTest.COORDS_LENGTH))
+        );
         final Scalar<Double>[] sum = new Sum<>(
             Arrays.asList(new Opposite<>(vecta), vecta)
         ).coords();
@@ -58,27 +59,6 @@ public final class OppositeTest {
         for (final Scalar<Double> scalar : sum) {
             MatcherAssert.assertThat(field.actual(scalar), Matchers.is(0.));
         }
-    }
-
-    /**
-     * Builds an array of {@link Scalar} with a random length.
-     * @return An array of scalars.
-     */
-    private static List<Scalar<Double>> scalars() {
-        final int size = 1 + new Random().nextInt(OppositeTest.COORDS_LENGTH);
-        final List<Scalar<Double>> result = new ArrayList<>(size);
-        for (int idx = 0; idx < size; ++idx) {
-            result.add(OppositeTest.scalar());
-        }
-        return result;
-    }
-
-    /**
-     * Builds a random scalar.
-     * @return A random scalar
-     */
-    private static Scalar<Double> scalar() {
-        return new com.aljebra.scalar.Random<>();
     }
 
 }

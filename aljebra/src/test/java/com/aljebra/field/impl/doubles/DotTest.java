@@ -51,7 +51,7 @@ public final class DotTest {
      */
     @Test
     public void calculatesProduct() {
-        final List<Double> coords = DotTest.scalars(DotTest.COORDS_LENGTH);
+        final List<Double> coords = DotTest.doubles(DotTest.COORDS_LENGTH);
         final Vect<Double> vecta = new DblVect(coords);
         final Vect<Double> vectb = new DblVect(coords);
         Double result = 0.;
@@ -165,7 +165,7 @@ public final class DotTest {
      * @param length List size to generate
      * @return A list of doubles.
      */
-    private static List<Double> scalars(final int length) {
+    private static List<Double> doubles(final int length) {
         final List<Double> result = new ArrayList<>(length);
         final Random random = new Random();
         for (int idx = 0; idx < length; ++idx) {

@@ -24,7 +24,7 @@
 package com.aljebra.scalar.condition;
 
 import com.aljebra.field.Field;
-import com.aljebra.field.MkField;
+import com.aljebra.field.mock.MkField;
 import com.aljebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;

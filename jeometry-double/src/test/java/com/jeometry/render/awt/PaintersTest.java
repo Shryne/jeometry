@@ -23,6 +23,7 @@
  */
 package com.jeometry.render.awt;
 
+import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -36,18 +37,19 @@ public final class PaintersTest {
     /**
      * {@link Painters} initializes with default painters.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void givesDefaultPainters() {
         MatcherAssert.assertThat(
             new Painters().defaults(),
             Matchers.containsInAnyOrder(
-                Matchers.instanceOf(AwtAngle.class),
-                Matchers.instanceOf(AwtLine.class),
-                Matchers.instanceOf(AwtSegment.class),
-                Matchers.instanceOf(AwtRay.class),
-                Matchers.instanceOf(AwtCircle.class),
-                Matchers.instanceOf(AwtPoint.class)
+                Arrays.asList(
+                    Matchers.instanceOf(AwtAngle.class),
+                    Matchers.instanceOf(AwtLine.class),
+                    Matchers.instanceOf(AwtSegment.class),
+                    Matchers.instanceOf(AwtRay.class),
+                    Matchers.instanceOf(AwtCircle.class),
+                    Matchers.instanceOf(AwtPoint.class)
+                )
             )
         );
     }

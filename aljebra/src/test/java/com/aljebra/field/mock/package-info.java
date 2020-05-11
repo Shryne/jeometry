@@ -22,6 +22,6 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * Tests for field definitions.
+ * Mocks for fields addition and multiplication.
  */
-package com.aljebra.field;
+package com.aljebra.field.mock;

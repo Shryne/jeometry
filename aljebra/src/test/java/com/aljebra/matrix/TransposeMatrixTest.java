@@ -24,9 +24,8 @@
 package com.aljebra.matrix;
 
 import com.aljebra.scalar.Scalar;
-import java.util.ArrayList;
+import com.aljebra.scalar.mock.Scalars;
 import java.util.Arrays;
-import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -40,7 +39,6 @@ public final class TransposeMatrixTest {
     /**
      * {@link TransposeMatrix} calculates coordinates.
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void calculatesTransposedCoordinates() {
         final int lines = 3;
@@ -57,12 +55,8 @@ public final class TransposeMatrixTest {
             )
         );
         MatcherAssert.assertThat(
-            matrix.coords(),
-            Matchers.array(
-                Matchers.equalTo(scala), Matchers.equalTo(scald),
-                Matchers.equalTo(scalb), Matchers.equalTo(scale),
-                Matchers.equalTo(scalc), Matchers.equalTo(scalf)
-            )
+            Arrays.asList(matrix.coords()),
+            Matchers.equalTo(Arrays.asList(scala, scald, scalb, scale, scalc, scalf))
         );
     }
 
@@ -75,24 +69,11 @@ public final class TransposeMatrixTest {
         final int cols = 4;
         final Matrix<Object> matrix = new TransposeMatrix<>(
             new FixedMatrix<Object>(
-                lines, cols, TransposeMatrixTest.scalars(lines * cols)
+                lines, cols, new Scalars<>(lines * cols)
             )
         );
         MatcherAssert.assertThat(matrix.lines(), Matchers.equalTo(cols));
         MatcherAssert.assertThat(matrix.columns(), Matchers.equalTo(lines));
-    }
-
-    /**
-     * Mocks a list of {@link Scalar} with a given size.
-     * @param length List size
-     * @return A list of scalars
-     */
-    private static List<Scalar<Object>> scalars(final int length) {
-        final List<Scalar<Object>> result = new ArrayList<>(length);
-        for (int idx = 0; idx < length; ++idx) {
-            result.add(new Scalar.Default<>(new Object()));
-        }
-        return result;
     }
 
 }

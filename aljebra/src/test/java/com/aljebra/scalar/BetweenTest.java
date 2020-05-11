@@ -23,8 +23,8 @@
  */
 package com.aljebra.scalar;
 
-import com.aljebra.field.SpyField;
-import com.aljebra.field.SpyMetricSpace;
+import com.aljebra.field.mock.SpyField;
+import com.aljebra.field.mock.SpyMetricSpace;
 import java.util.List;
 import java.util.Optional;
 import org.hamcrest.MatcherAssert;

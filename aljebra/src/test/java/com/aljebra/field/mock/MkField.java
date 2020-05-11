@@ -21,8 +21,12 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.field;
+package com.aljebra.field.mock;
 
+import com.aljebra.field.AbstractOrderedField;
+import com.aljebra.field.FieldAddition;
+import com.aljebra.field.FieldMultiplication;
+import com.aljebra.field.MetricSpaceField;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Scalar;
