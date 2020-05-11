@@ -52,13 +52,13 @@ public final class PtReflectionLineTest {
         );
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.point(), new PtReflectionPoint<>(across, passing)
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new VectEquals(result.direction(), dir).resolve(dec),
+            new VectEquals<>(result.direction(), dir).resolve(dec),
             Matchers.is(true)
         );
     }
@@ -74,13 +74,13 @@ public final class PtReflectionLineTest {
         final Line<Double> result = new PtReflectionLine<>(new PtDirLine<>(passing, dir));
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.point(), new PtReflectionPoint<>(passing)
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new VectEquals(result.direction(), dir).resolve(dec),
+            new VectEquals<>(result.direction(), dir).resolve(dec),
             Matchers.is(true)
         );
     }

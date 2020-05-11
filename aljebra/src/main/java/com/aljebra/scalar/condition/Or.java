@@ -26,31 +26,31 @@ package com.aljebra.scalar.condition;
 import com.aljebra.field.Field;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import java.util.Arrays;
 
 /**
  * A predicate that is true if one of the given predicates is true.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class Or implements Predicate {
+public final class Or<T> implements Predicate<T> {
 
     /**
      * Predicates.
      */
-    private final Multiset<Predicate> opers;
+    private final Multiset<Predicate<T>> opers;
 
     /**
      * Constructor.
      * @param operands Predicates
      */
-    public Or(final Predicate... operands) {
-        this.opers = HashMultiset.create(Arrays.asList(operands));
+    public Or(final Iterable<? extends Predicate<T>> operands) {
+        this.opers = HashMultiset.create(operands);
     }
 
     @Override
-    public <T> boolean resolve(final Field<T> field) {
+    public boolean resolve(final Field<T> field) {
         boolean result = false;
-        for (final Predicate predicate : this.opers) {
+        for (final Predicate<T> predicate : this.opers) {
             if (predicate.resolve(field)) {
                 result = true;
                 break;

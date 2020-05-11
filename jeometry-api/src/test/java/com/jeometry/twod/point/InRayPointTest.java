@@ -81,7 +81,7 @@ public final class InRayPointTest {
         final double ycoor = pnt.coords()[1].value(dec);
         final boolean result;
         final double xorigin = any.origin().coords()[0].value(dec);
-        if (new Vertical(any).resolve(dec)) {
+        if (new Vertical<>(any).resolve(dec)) {
             final double ydir = any.direction().coords()[1].value(dec);
             final double yorigin = any.origin().coords()[1].value(dec);
             final boolean between = ydir > 0 && ycoor > yorigin

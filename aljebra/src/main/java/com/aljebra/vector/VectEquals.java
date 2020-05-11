@@ -30,36 +30,33 @@ import com.aljebra.scalar.condition.Predicate;
 
 /**
  * A predicate to determine if two vectors are equals.
+ * @param <T> scalar types
  * @since 0.1
  */
-public final class VectEquals implements Predicate {
+public final class VectEquals<T> implements Predicate<T> {
 
     /**
      * First vector.
      */
-    @SuppressWarnings("rawtypes")
-    private final Vect first;
+    private final Vect<T> first;
 
     /**
      * Second vector.
      */
-    @SuppressWarnings("rawtypes")
-    private final Vect second;
+    private final Vect<T> second;
 
     /**
      * Constructor.
      * @param first First vector
      * @param second Second vector
-     * @param <T> scalar types
      */
-    public <T> VectEquals(final Vect<T> first, final Vect<T> second) {
+    public VectEquals(final Vect<T> first, final Vect<T> second) {
         this.first = first;
         this.second = second;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public <T> boolean resolve(final Field<T> field) {
+    public boolean resolve(final Field<T> field) {
         final Scalar<T>[] fcoords = this.first.coords();
         final Scalar<T>[] scoords = this.second.coords();
         return fcoords.length == scoords.length
@@ -96,7 +93,7 @@ public final class VectEquals implements Predicate {
      */
     private static <T> boolean scalarEqual(final Scalar<T> first, final Scalar<T> second,
         final Field<T> field) {
-        return new Equals(first, second).resolve(field);
+        return new Equals<>(first, second).resolve(field);
     }
 
 }

@@ -58,11 +58,11 @@ public final class CircleChordTest {
         final Segment<Double> chord = new CircleChord<>(any);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new PointInCircle(chord.start(), any).resolve(field),
+            new PointInCircle<>(chord.start(), any).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInCircle(chord.end(), any).resolve(field),
+            new PointInCircle<>(chord.end(), any).resolve(field),
             Matchers.is(true)
         );
     }
@@ -78,11 +78,11 @@ public final class CircleChordTest {
         final Segment<Double> chord = new CircleChord<>(any, point);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new PointInCircle(chord.start(), any).resolve(field),
+            new PointInCircle<>(chord.start(), any).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInCircle(chord.end(), any).resolve(field),
+            new PointInCircle<>(chord.end(), any).resolve(field),
             Matchers.is(true)
         );
     }
@@ -122,7 +122,7 @@ public final class CircleChordTest {
      */
     private static boolean pointInCircle(final Circle<Double> circle, final Vect<Double> point,
         final Field<Double> field) {
-        return new PointInCircle(point, circle).resolve(field);
+        return new PointInCircle<>(point, circle).resolve(field);
     }
 
 }

@@ -52,7 +52,7 @@ public final class LineReflectionCircleTest {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.center(), new LineReflectionPoint<>(line, center)
             ).resolve(dec),
             Matchers.is(true)

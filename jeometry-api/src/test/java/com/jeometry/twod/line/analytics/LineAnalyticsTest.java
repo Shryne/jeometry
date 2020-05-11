@@ -49,7 +49,7 @@ public final class LineAnalyticsTest {
             analytics.intercept(), Matchers.equalTo(new Intercept<>(line))
         );
         MatcherAssert.assertThat(
-            analytics.vertical(), Matchers.equalTo(new Vertical(line))
+            analytics.vertical(), Matchers.equalTo(new Vertical<>(line))
         );
     }
 

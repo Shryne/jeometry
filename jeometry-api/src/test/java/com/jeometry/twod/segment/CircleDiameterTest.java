@@ -59,11 +59,11 @@ public final class CircleDiameterTest {
         final Segment<Double> diameter = new CircleDiameter<>(any);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new PointInCircle(diameter.start(), any).resolve(field),
+            new PointInCircle<>(diameter.start(), any).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInCircle(diameter.end(), any).resolve(field),
+            new PointInCircle<>(diameter.end(), any).resolve(field),
             Matchers.is(true)
         );
         final double error = 1.e-6;
@@ -87,11 +87,11 @@ public final class CircleDiameterTest {
         final Segment<Double> diameter = new CircleDiameter<>(any, point);
         final Decimal field = new Decimal();
         MatcherAssert.assertThat(
-            new PointInCircle(diameter.start(), any).resolve(field),
+            new PointInCircle<>(diameter.start(), any).resolve(field),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new PointInCircle(diameter.end(), any).resolve(field),
+            new PointInCircle<>(diameter.end(), any).resolve(field),
             Matchers.is(true)
         );
         final double error = 1.e-6;
@@ -139,7 +139,7 @@ public final class CircleDiameterTest {
      */
     private static boolean pointInCircle(final Circle<Double> circle, final Vect<Double> point,
         final Field<Double> field) {
-        return new PointInCircle(point, circle).resolve(field);
+        return new PointInCircle<>(point, circle).resolve(field);
     }
 
 }

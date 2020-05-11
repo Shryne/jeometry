@@ -52,13 +52,13 @@ public final class PtReflectionSegmentTest {
         );
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.start(), new PtReflectionPoint<>(across, start)
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.end(), new PtReflectionPoint<>(across, end)
             ).resolve(dec),
             Matchers.is(true)
@@ -78,13 +78,13 @@ public final class PtReflectionSegmentTest {
         );
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.start(), new PtReflectionPoint<>(start)
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new VectEquals(
+            new VectEquals<>(
                 result.end(), new PtReflectionPoint<>(end)
             ).resolve(dec),
             Matchers.is(true)

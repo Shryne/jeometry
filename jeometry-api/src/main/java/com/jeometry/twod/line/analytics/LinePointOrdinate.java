@@ -65,7 +65,7 @@ public final class LinePointOrdinate<T> implements Scalar<T> {
         final boolean inline = field.equals(
             this.line.point().coords()[0], this.abscissa
         );
-        final boolean vertical = new Vertical(this.line).resolve(field);
+        final boolean vertical = new Vertical<>(this.line).resolve(field);
         if (vertical && !inline) {
             throw new IllegalStateException(
                 "Vertical line could not pass by a point with this abscissa"

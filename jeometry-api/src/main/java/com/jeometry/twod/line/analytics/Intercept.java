@@ -76,7 +76,7 @@ public final class Intercept<T> implements Scalar<T> {
 
     @Override
     public T value(final Field<T> field) {
-        if (!new Vertical(this.line).resolve(field)) {
+        if (!new Vertical<>(this.line).resolve(field)) {
             final Scalar<T>[] coords = this.line.point().coords();
             final Scalar<T> slope = new Slope<>(this.line);
             return field.actual(

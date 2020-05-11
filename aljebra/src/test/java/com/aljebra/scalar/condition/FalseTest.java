@@ -40,7 +40,7 @@ public final class FalseTest {
     @Test
     public void resolvesToFalse() {
         MatcherAssert.assertThat(
-            new False().resolve(new MkField<>(new Object(), new Object())),
+            new False<>().resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(false)
         );
     }

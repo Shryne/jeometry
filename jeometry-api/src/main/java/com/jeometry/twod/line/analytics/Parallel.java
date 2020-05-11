@@ -33,13 +33,14 @@ import com.jeometry.twod.line.RayLine;
 import com.jeometry.twod.line.SgtLine;
 import com.jeometry.twod.ray.Ray;
 import com.jeometry.twod.segment.Segment;
+import java.util.Arrays;
 
 /**
  * A predicate to determine if two lines have the same direction.
  * @param <T> scalar types
  * @since 0.1
  */
-public final class Parallel<T> implements Predicate {
+public final class Parallel<T> implements Predicate<T> {
 
     /**
      * First line.
@@ -80,13 +81,17 @@ public final class Parallel<T> implements Predicate {
     }
 
     @Override
-    public <R> boolean resolve(final Field<R> field) {
-        return new And(
-            new Vertical(this.first), new Vertical(this.second)
-        ).resolve(field) || new And(
-            new Not(new Vertical(this.first)),
-            new Not(new Vertical(this.second))
-        ).resolve(field) && new Equals(
+    public boolean resolve(final Field<T> field) {
+        return new And<>(
+            Arrays.asList(
+                new Vertical<>(this.first), new Vertical<>(this.second)
+            )
+        ).resolve(field) || new And<>(
+            Arrays.asList(
+                new Not<>(new Vertical<>(this.first)),
+                new Not<>(new Vertical<>(this.second))
+            )
+        ).resolve(field) && new Equals<>(
             new Slope<>(this.first), new Slope<>(this.second)
         ).resolve(field);
     }
