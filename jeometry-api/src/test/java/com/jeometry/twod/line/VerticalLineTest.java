@@ -24,6 +24,8 @@
 package com.jeometry.twod.line;
 
 import com.aljebra.scalar.AddIdentity;
+import com.aljebra.scalar.Random;
+import com.aljebra.scalar.Scalar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -39,9 +41,19 @@ public final class VerticalLineTest {
      */
     @Test
     public void buildsAVerticalLine() {
-        final Line<Object> line = new VerticalLine<>();
         MatcherAssert.assertThat(
-            line.direction().coords()[0], Matchers.equalTo(new AddIdentity<>())
+            new VerticalLine<>().direction().coords()[0], Matchers.equalTo(new AddIdentity<>())
+        );
+    }
+
+    /**
+     * {@link VerticalLine} builds a vertical line with the passed x-coordinate.
+     */
+    @Test
+    public void buildsAVerticalLineWithX() {
+        final Scalar<Object> rnd = new Random<>();
+        MatcherAssert.assertThat(
+            new VerticalLine<>(rnd).point().coords()[0], Matchers.equalTo(rnd)
         );
     }
 }

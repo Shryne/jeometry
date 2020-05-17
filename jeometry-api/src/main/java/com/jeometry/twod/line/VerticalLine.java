@@ -23,8 +23,11 @@
  */
 package com.jeometry.twod.line;
 
+import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 import com.jeometry.twod.point.RandomPoint;
 import com.jeometry.twod.point.VertPoint;
+import com.jeometry.twod.point.XPoint;
 
 /**
  * A vertical line.
@@ -34,10 +37,25 @@ import com.jeometry.twod.point.VertPoint;
 public final class VerticalLine<T> extends PtDirLine<T> {
 
     /**
-     * Constructor.
+     * Constructor. Builds a random vertical line.
      */
     public VerticalLine() {
-        super(new RandomPoint<>(), new VertPoint<>());
+        this(new RandomPoint<>());
     }
 
+    /**
+     * Constructor. Builds a vertical line passing by the given abscissa.
+     * @param abscissa Line coordinate on the x-axis
+     */
+    public VerticalLine(final Scalar<T> abscissa) {
+        this(new XPoint<>(abscissa));
+    }
+
+    /**
+     * Constructor. Builds a vertical line passing by the given point.
+     * @param point Point the vertical line will pass by
+     */
+    public VerticalLine(final Vect<T> point) {
+        super(point, new VertPoint<>());
+    }
 }

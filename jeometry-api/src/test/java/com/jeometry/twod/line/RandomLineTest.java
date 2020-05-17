@@ -23,6 +23,7 @@
  */
 package com.jeometry.twod.line;
 
+import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -45,6 +46,17 @@ public final class RandomLineTest {
         );
         MatcherAssert.assertThat(
             line.direction(), Matchers.instanceOf(RandomPoint.class)
+        );
+    }
+
+    /**
+     * {@link RandomLine} is not vertical.
+     */
+    @Test
+    public void buildsANonVerticalLine() {
+        final Line<Double> line = new RandomLine<>();
+        MatcherAssert.assertThat(
+            line.direction().coords()[0].value(new Decimal()), Matchers.not(0.)
         );
     }
 }

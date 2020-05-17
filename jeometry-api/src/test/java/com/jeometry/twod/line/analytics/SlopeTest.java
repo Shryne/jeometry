@@ -25,12 +25,11 @@ package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtDirLine;
-import com.jeometry.twod.point.DifferentPoint;
-import com.jeometry.twod.point.VertPoint;
+import com.jeometry.twod.line.RandomLine;
+import com.jeometry.twod.line.VerticalLine;
 import com.jeometry.twod.ray.PtDirRay;
 import com.jeometry.twod.ray.Ray;
-import com.jeometry.twod.segment.PtVectSegment;
+import com.jeometry.twod.segment.RandomSegment;
 import com.jeometry.twod.segment.Segment;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -55,9 +54,7 @@ public final class SlopeTest {
      */
     @Test
     public void calculatesSlope() {
-        final Line<Double> line = new PtDirLine<>(
-            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
-        );
+        final Line<Double> line = new RandomLine<>();
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
         final Double dirx = line.direction().coords()[0].value(dec);
@@ -72,8 +69,9 @@ public final class SlopeTest {
      */
     @Test
     public void calculatesRaySlope() {
+        final Line<Double> novertical = new RandomLine<>();
         final Ray<Double> ray = new PtDirRay<>(
-            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
+            novertical.point(), novertical.direction()
         );
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
@@ -89,9 +87,7 @@ public final class SlopeTest {
      */
     @Test
     public void calculatesSegmentSlope() {
-        final Segment<Double> seg = new PtVectSegment<>(
-            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
-        );
+        final Segment<Double> seg = new RandomSegment<>();
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
         final Double startx = seg.start().coords()[0].value(dec);
@@ -110,7 +106,7 @@ public final class SlopeTest {
     @Test
     public void errorsWhenVerticalLine() {
         this.thrown.expect(IllegalStateException.class);
-        final Line<Double> line = new PtDirLine<>(new VertPoint<>(), new VertPoint<>());
+        final Line<Double> line = new VerticalLine<>();
         new Slope<>(line).value(new Decimal());
     }
 }
