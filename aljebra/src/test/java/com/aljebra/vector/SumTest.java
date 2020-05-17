@@ -26,7 +26,6 @@ package com.aljebra.vector;
 import com.aljebra.scalar.Add;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.mock.Scalars;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
@@ -57,7 +56,7 @@ public final class SumTest {
         final Vect<Object> vectb = new FixedVector<>(bcoords);
         final Iterator<Scalar<Object>> aiterator = acoords.iterator();
         final Iterator<Scalar<Object>> biterator = bcoords.iterator();
-        final Scalar<Object>[] actual = new Sum<>(Arrays.asList(vecta, vectb)).coords();
+        final Scalar<Object>[] actual = new Sum<>(vecta, vectb).coords();
         for (int idx = 0; idx < dim; ++idx) {
             MatcherAssert.assertThat(
                 actual[idx], Matchers.equalTo(SumTest.sum(aiterator.next(), biterator.next()))

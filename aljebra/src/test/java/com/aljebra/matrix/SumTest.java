@@ -53,10 +53,8 @@ public final class SumTest {
         final FixedMatrix<Object> second = new FixedMatrix<>(lines, cols, coorsb);
         final Matrix<Object> sum = new Sum<>(Arrays.asList(first, second));
         final Scalar<Object>[] expected = new com.aljebra.vector.Sum<Object>(
-            Arrays.asList(
-                new FixedVector<Object>(coorsa),
-                new FixedVector<Object>(coorsb)
-            )
+            new FixedVector<Object>(coorsa),
+            new FixedVector<Object>(coorsb)
         ).coords();
         MatcherAssert.assertThat(sum.lines(), Matchers.equalTo(lines));
         MatcherAssert.assertThat(sum.columns(), Matchers.equalTo(cols));
@@ -82,7 +80,7 @@ public final class SumTest {
             new Sum<Object>(Arrays.asList(first, second)).apply(input),
             Matchers.equalTo(
                 new com.aljebra.vector.Sum<Object>(
-                    Arrays.asList(first.apply(input), second.apply(input))
+                    first.apply(input), second.apply(input)
                 )
             )
         );

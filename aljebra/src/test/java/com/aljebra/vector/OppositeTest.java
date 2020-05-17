@@ -26,7 +26,6 @@ package com.aljebra.vector;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.mock.Scalars;
-import java.util.Arrays;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -53,7 +52,7 @@ public final class OppositeTest {
             new Scalars<>(1 + new Random().nextInt(OppositeTest.COORDS_LENGTH))
         );
         final Scalar<Double>[] sum = new Sum<>(
-            Arrays.asList(new Opposite<>(vecta), vecta)
+            new Opposite<>(vecta), vecta
         ).coords();
         final Decimal field = new Decimal();
         for (final Scalar<Double> scalar : sum) {
