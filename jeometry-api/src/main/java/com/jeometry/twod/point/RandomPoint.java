@@ -23,11 +23,14 @@
  */
 package com.jeometry.twod.point;
 
+import com.aljebra.scalar.AddIdentity;
+import com.aljebra.scalar.Different;
 import com.aljebra.scalar.Random;
 import lombok.ToString;
 
 /**
- * Represents a random vector or a point.
+ * Represents a random vector or a point. The point is guaranteed to be non-vertical, which means
+ * that it has a non zero coordinate on the first axis.
  * @param <T> scalar types
  * @since 0.1
  */
@@ -37,7 +40,7 @@ public class RandomPoint<T> extends XyPoint<T> {
      * Constructor.
      */
     public RandomPoint() {
-        super(new Random<T>(), new Random<T>());
+        super(new Different<T>(new AddIdentity<>()), new Random<T>());
     }
 
 }

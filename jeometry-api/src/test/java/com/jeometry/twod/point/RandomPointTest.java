@@ -23,7 +23,7 @@
  */
 package com.jeometry.twod.point;
 
-import com.aljebra.scalar.Random;
+import com.aljebra.field.impl.doubles.Decimal;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -35,16 +35,13 @@ import org.junit.Test;
 public final class RandomPointTest {
 
     /**
-     * {@link RandomPoint} returns random coordinates.
+     * {@link RandomPoint} have a non zero x coordinate.
      */
     @Test
-    public void buildsARandomVector() {
-        final XyPoint<Object> vector = new RandomPoint<>();
+    public void buildsANonVerticalPoint() {
+        final XyPoint<Double> vector = new RandomPoint<>();
         MatcherAssert.assertThat(
-            vector.xcoor(), Matchers.instanceOf(Random.class)
-        );
-        MatcherAssert.assertThat(
-            vector.ycoor(), Matchers.instanceOf(Random.class)
+            vector.xcoor().value(new Decimal()), Matchers.not(0.)
         );
     }
 }

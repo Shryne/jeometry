@@ -26,7 +26,7 @@ package com.jeometry.twod.line.analytics;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
-import com.jeometry.twod.point.DifferentPoint;
+import com.jeometry.twod.point.RandomPoint;
 import com.jeometry.twod.point.VertPoint;
 import com.jeometry.twod.ray.PtDirRay;
 import com.jeometry.twod.ray.Ray;
@@ -55,9 +55,7 @@ public final class InterceptTest {
      */
     @Test
     public void calculatesIntercept() {
-        final Line<Double> line = new PtDirLine<>(
-            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
-        );
+        final Line<Double> line = new PtDirLine<>(new RandomPoint<>(), new RandomPoint<>());
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
         final Double startx = line.point().coords()[0].value(dec);
@@ -75,9 +73,7 @@ public final class InterceptTest {
      */
     @Test
     public void calculatesRayIntercept() {
-        final Ray<Double> ray = new PtDirRay<>(
-            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
-        );
+        final Ray<Double> ray = new PtDirRay<>(new RandomPoint<>(), new RandomPoint<>());
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
         final Double startx = ray.origin().coords()[0].value(dec);
@@ -95,9 +91,7 @@ public final class InterceptTest {
      */
     @Test
     public void calculatesSegmentIntercept() {
-        final Segment<Double> seg = new PtVectSegment<>(
-            new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
-        );
+        final Segment<Double> seg = new PtVectSegment<>(new RandomPoint<>(), new RandomPoint<>());
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
         final Double startx = seg.start().coords()[0].value(dec);
