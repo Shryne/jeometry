@@ -38,7 +38,7 @@ public final class VertPointTest {
      * {@link VertPoint} builds vertical point.
      */
     @Test
-    public void buildsHorizontalVector() {
+    public void buildsVerticalVector() {
         MatcherAssert.assertThat(
             new VertPoint<>().xcoor(),
             Matchers.equalTo(new AddIdentity<>())

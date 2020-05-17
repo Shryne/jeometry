@@ -25,9 +25,9 @@ package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.line.RandomLine;
+import com.jeometry.twod.line.VerticalLine;
 import com.jeometry.twod.point.RandomPoint;
-import com.jeometry.twod.point.VertPoint;
 import com.jeometry.twod.ray.PtDirRay;
 import com.jeometry.twod.ray.Ray;
 import com.jeometry.twod.segment.PtVectSegment;
@@ -55,7 +55,7 @@ public final class InterceptTest {
      */
     @Test
     public void calculatesIntercept() {
-        final Line<Double> line = new PtDirLine<>(new RandomPoint<>(), new RandomPoint<>());
+        final Line<Double> line = new RandomLine<>();
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
         final Double startx = line.point().coords()[0].value(dec);
@@ -112,7 +112,7 @@ public final class InterceptTest {
     @Test
     public void errorsWhenVerticalLine() {
         this.thrown.expect(IllegalStateException.class);
-        final Line<Double> line = new PtDirLine<>(new VertPoint<>(), new VertPoint<>());
+        final Line<Double> line = new VerticalLine<>();
         new Intercept<>(line).value(new Decimal());
     }
 }
