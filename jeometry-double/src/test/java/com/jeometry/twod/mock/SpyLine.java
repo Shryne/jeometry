@@ -30,7 +30,7 @@ import com.jeometry.twod.line.RandomLine;
 /**
  * Mock decorator for line with spying (verifying) capabilities on the methods: point and direction.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class SpyLine<T> implements Line<T> {
 

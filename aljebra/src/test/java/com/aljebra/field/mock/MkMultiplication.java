@@ -30,7 +30,7 @@ import com.aljebra.field.FieldMultiplication;
  * - whether neutral or inverse methods are called;
  * - the number of times the multiply method was called.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class MkMultiplication<T> implements FieldMultiplication<T> {
 

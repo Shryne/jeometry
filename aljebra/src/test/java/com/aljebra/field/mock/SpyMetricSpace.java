@@ -37,7 +37,7 @@ import java.util.Optional;
  * It holds the parameters with which the methods were last called as optionals.
  * If the optional is empty, that means the method was never called.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class SpyMetricSpace<T> extends AbstractField<T> implements MetricSpaceField<T> {
 

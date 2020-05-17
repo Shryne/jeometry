@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Scalar iterator. Usage in testing purposes as a generator for scalars.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class Scalars<T> implements Iterable<Scalar<T>> {
 

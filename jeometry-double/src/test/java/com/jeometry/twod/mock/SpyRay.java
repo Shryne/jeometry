@@ -30,7 +30,7 @@ import com.jeometry.twod.ray.Ray;
 /**
  * Mock decorator for ray with spying (verifying) capabilities on the methods: origin and direction.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class SpyRay<T> implements Ray<T> {
 

@@ -35,7 +35,7 @@ import org.mockito.Mockito;
 
 /**
  * Tests for {@link StrokeStyle}.
- * @since 0.1
+ * @since 0.3
  */
 public final class StrokeStyleTest {
 
