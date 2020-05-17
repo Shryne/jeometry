@@ -24,12 +24,11 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.scalar.Random;
-import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.Different;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtDirLine;
-import com.jeometry.twod.point.DifferentPoint;
-import com.jeometry.twod.point.VertPoint;
+import com.jeometry.twod.line.RandomLine;
+import com.jeometry.twod.line.VerticalLine;
+import com.jeometry.twod.point.InLinePoint;
 import com.jeometry.twod.point.XyPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -46,15 +45,10 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesTrueWhenInLine() {
-        final Line<Double> line = new PtDirLine<>(
-            new XyPoint<>(new Random<>(), new Random<>()), new DifferentPoint<>(new VertPoint<>())
-        );
-        final Scalar<Double> abscissa = new Random<>();
-        final Scalar<Double> ordinate = new LinePointOrdinate<>(line, abscissa);
+        final Line<Double> line = new RandomLine<>();
         MatcherAssert.assertThat(
             new PointInLine<>(
-                new XyPoint<>(abscissa, ordinate),
-                line
+                new InLinePoint<>(line), line
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
@@ -65,14 +59,11 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesFalseWhenOutLine() {
-        final Line<Double> line = new PtDirLine<>(
-            new XyPoint<>(new Random<>(), new Random<>()), new DifferentPoint<>(new VertPoint<>())
-        );
-        final Scalar<Double> abscissa = new Random<>();
-        final Scalar<Double> ordinate = new LinePointOrdinate<>(line, abscissa);
+        final Line<Double> line = new RandomLine<>();
+        final XyPoint<Double> point = new InLinePoint<>(line);
         MatcherAssert.assertThat(
             new PointInLine<>(
-                new DifferentPoint<>(new XyPoint<>(abscissa, ordinate)),
+                new XyPoint<>(point.xcoor(), new Different<>(point.ycoor())),
                 line
             ).resolve(new Decimal()),
             Matchers.is(false)
@@ -85,11 +76,10 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesTrueWhenInVerticalLine() {
-        final XyPoint<Double> point = new XyPoint<>(new Random<>(), new Random<>());
+        final Line<Double> line = new VerticalLine<>();
         MatcherAssert.assertThat(
             new PointInLine<>(
-                new XyPoint<>(point.xcoor(), new Random<>()),
-                new PtDirLine<>(point, new VertPoint<>())
+                new InLinePoint<>(line), line
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
@@ -101,11 +91,12 @@ public final class PointInLineTest {
      */
     @Test
     public void resolvesFalseWhenOutVerticalLine() {
-        final XyPoint<Double> point = new XyPoint<>(new Random<>(), new Random<>());
+        final Line<Double> line = new VerticalLine<>();
+        final XyPoint<Double> point = new InLinePoint<>(line);
         MatcherAssert.assertThat(
             new PointInLine<>(
-                new DifferentPoint<>(point),
-                new PtDirLine<>(point, new VertPoint<>())
+                new XyPoint<>(new Different<>(point.xcoor()), point.ycoor()),
+                line
             ).resolve(new Decimal()),
             Matchers.is(false)
         );

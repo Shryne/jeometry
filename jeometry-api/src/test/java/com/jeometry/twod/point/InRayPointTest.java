@@ -28,7 +28,6 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.RayLine;
 import com.jeometry.twod.line.analytics.PointInLine;
-import com.jeometry.twod.line.analytics.Vertical;
 import com.jeometry.twod.ray.PtsRay;
 import com.jeometry.twod.ray.Ray;
 import org.hamcrest.MatcherAssert;
@@ -47,6 +46,18 @@ public final class InRayPointTest {
     @Test
     public void buildsAPointInRay() {
         final Ray<Double> any = new PtsRay<>(new RandomPoint<>(), new RandomPoint<>());
+        MatcherAssert.assertThat(
+            InRayPointTest.belongs(new InRayPoint<>(any), any),
+            Matchers.is(true)
+        );
+    }
+
+    /**
+     * {@link InRayPoint} constructs a point belonging to a vertical ray.
+     */
+    @Test
+    public void buildsAPointInVerticalRay() {
+        final Ray<Double> any = new PtsRay<>(new RandomPoint<>(), new VertPoint<>());
         MatcherAssert.assertThat(
             InRayPointTest.belongs(new InRayPoint<>(any), any),
             Matchers.is(true)
@@ -79,23 +90,17 @@ public final class InRayPointTest {
         final Field<Double> dec = new Decimal();
         final double xcoor = pnt.xcoor().value(dec);
         final double ycoor = pnt.ycoor().value(dec);
-        final boolean result;
         final Scalar<Double>[] coords = any.origin().coords();
         final boolean inline = new PointInLine<>(pnt, new RayLine<>(any)).resolve(dec);
         final Scalar<Double>[] dircoords = any.direction().coords();
-        if (new Vertical<>(any).resolve(dec)) {
-            final double ydir = dircoords[1].value(dec);
-            final double yorigin = coords[1].value(dec);
-            final boolean between = ydir > 0 && ycoor > yorigin
-                || ydir < 0 && ycoor < yorigin;
-            result = inline && between;
-        } else {
-            final double xorigin = coords[0].value(dec);
-            final double xdir = dircoords[0].value(dec);
-            final boolean between = xdir > 0 && xcoor > xorigin
-                || xdir < 0 && xcoor < xorigin;
-            result = inline && between;
-        }
-        return result;
+        final double ydir = dircoords[1].value(dec);
+        final double yorigin = coords[1].value(dec);
+        final boolean ybetween = ydir > 0 && ycoor >= yorigin
+            || ydir < 0 && ycoor <= yorigin;
+        final double xorigin = coords[0].value(dec);
+        final double xdir = dircoords[0].value(dec);
+        final boolean xbetween = xdir > 0 && xcoor >= xorigin
+            || xdir < 0 && xcoor <= xorigin;
+        return inline && xbetween && ybetween;
     }
 }
