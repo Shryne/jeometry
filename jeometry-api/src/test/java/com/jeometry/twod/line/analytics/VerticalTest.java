@@ -25,7 +25,7 @@ package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.PtDirLine;
-import com.jeometry.twod.point.DifferentPoint;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.point.VertPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -56,9 +56,7 @@ public final class VerticalTest {
     public void resolvesFalseWhenNotVertical() {
         MatcherAssert.assertThat(
             new Vertical<Double>(
-                new PtDirLine<>(
-                    new VertPoint<>(), new DifferentPoint<>(new VertPoint<>())
-                )
+                new RandomLine<>()
             ).resolve(new Decimal()), Matchers.is(false)
         );
     }

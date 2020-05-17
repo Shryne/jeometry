@@ -27,6 +27,7 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
+import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.point.DifferentPoint;
 import com.jeometry.twod.point.RandomPoint;
 import com.jeometry.twod.point.VertPoint;
@@ -53,9 +54,7 @@ public final class LinePointOrdinateTest {
      */
     @Test
     public void calculatesOrdinate() {
-        final Line<Double> line = new PtDirLine<>(
-            new RandomPoint<>(), new DifferentPoint<>(new VertPoint<>())
-        );
+        final Line<Double> line = new RandomLine<>();
         final double error = 1.e-6;
         final Decimal dec = new Decimal();
         final Scalar<Double> abscissa = new RandomPoint<Double>().xcoor();
