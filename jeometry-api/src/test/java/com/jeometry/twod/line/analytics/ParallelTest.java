@@ -27,9 +27,9 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
 import com.jeometry.twod.line.RandomLine;
+import com.jeometry.twod.line.VerticalLine;
 import com.jeometry.twod.point.DifferentPoint;
 import com.jeometry.twod.point.RandomPoint;
-import com.jeometry.twod.point.VertPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -47,8 +47,8 @@ public final class ParallelTest {
     public void resolvesTrueIfBothVertical() {
         MatcherAssert.assertThat(
             new Parallel<Double>(
-                new PtDirLine<>(new RandomPoint<>(), new VertPoint<>()),
-                new PtDirLine<>(new RandomPoint<>(), new VertPoint<>())
+                new VerticalLine<>(),
+                new VerticalLine<>()
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
@@ -61,10 +61,8 @@ public final class ParallelTest {
     public void resolvesFalseIfOneVertical() {
         MatcherAssert.assertThat(
             new Parallel<Double>(
-                new PtDirLine<>(new RandomPoint<>(), new VertPoint<>()),
-                new PtDirLine<>(
-                    new RandomPoint<>(), new DifferentPoint<>(new VertPoint<>())
-                )
+                new VerticalLine<>(),
+                new RandomLine<>()
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
