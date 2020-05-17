@@ -61,10 +61,18 @@ public final class FixedStroke implements Stroke {
     }
 
     /**
-     * Ctor. Builds a stroke style with black color, solid style and 1px width.
+     * Ctor. Builds a stroke style with default values.
      */
     public FixedStroke() {
-        this(Color.BLACK, Dash.SOLID, 1.f);
+        this(new DefaultStroke());
+    }
+
+    /**
+     * Ctor. Build a fixed stroke from the passed stroke characteristics.
+     * @param stroke Stroke to take the properties from
+     */
+    public FixedStroke(final Stroke stroke) {
+        this(stroke.color(), stroke.dash(), stroke.width());
     }
 
     @Override

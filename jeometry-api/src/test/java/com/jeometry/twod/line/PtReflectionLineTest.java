@@ -25,7 +25,8 @@ package com.jeometry.twod.line;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.vector.VectEquals;
+import com.jeometry.twod.line.analytics.Parallel;
+import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.point.PtReflectionPoint;
 import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
@@ -47,18 +48,15 @@ public final class PtReflectionLineTest {
         final RandomPoint<Double> passing = new RandomPoint<>();
         final RandomPoint<Double> dir = new RandomPoint<>();
         final RandomPoint<Double> across = new RandomPoint<>();
-        final Line<Double> result = new PtReflectionLine<>(
-            across, new PtDirLine<>(passing, dir)
-        );
+        final PtDirLine<Double> input = new PtDirLine<>(passing, dir);
+        final Line<Double> result = new PtReflectionLine<>(across, input);
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new VectEquals<>(
-                result.point(), new PtReflectionPoint<>(across, passing)
-            ).resolve(dec),
+            new PointInLine<>(new PtReflectionPoint<>(across, passing), result).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new VectEquals<>(result.direction(), dir).resolve(dec),
+            new Parallel<>(result, input).resolve(dec),
             Matchers.is(true)
         );
     }
@@ -71,16 +69,15 @@ public final class PtReflectionLineTest {
     public void buildsReflectionAcrossOrigin() {
         final RandomPoint<Double> passing = new RandomPoint<>();
         final RandomPoint<Double> dir = new RandomPoint<>();
-        final Line<Double> result = new PtReflectionLine<>(new PtDirLine<>(passing, dir));
+        final PtDirLine<Double> input = new PtDirLine<>(passing, dir);
+        final Line<Double> result = new PtReflectionLine<>(input);
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
-            new VectEquals<>(
-                result.point(), new PtReflectionPoint<>(passing)
-            ).resolve(dec),
+            new PointInLine<>(new PtReflectionPoint<>(passing), result).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new VectEquals<>(result.direction(), dir).resolve(dec),
+            new Parallel<>(result, input).resolve(dec),
             Matchers.is(true)
         );
     }

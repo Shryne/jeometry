@@ -25,9 +25,9 @@ package com.jeometry.twod.point;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.vector.Vect;
-import com.jeometry.twod.line.analytics.Intercept;
-import com.jeometry.twod.line.analytics.Slope;
+import com.aljebra.scalar.Scalar;
+import com.jeometry.twod.line.RayLine;
+import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.line.analytics.Vertical;
 import com.jeometry.twod.ray.PtsRay;
 import com.jeometry.twod.ray.Ray;
@@ -75,27 +75,26 @@ public final class InRayPointTest {
      * @param any Ray
      * @return True if the point belongs to the ray
      */
-    private static boolean belongs(final Vect<Double> pnt, final Ray<Double> any) {
+    private static boolean belongs(final XyPoint<Double> pnt, final Ray<Double> any) {
         final Field<Double> dec = new Decimal();
-        final double xcoor = pnt.coords()[0].value(dec);
-        final double ycoor = pnt.coords()[1].value(dec);
+        final double xcoor = pnt.xcoor().value(dec);
+        final double ycoor = pnt.ycoor().value(dec);
         final boolean result;
-        final double xorigin = any.origin().coords()[0].value(dec);
+        final Scalar<Double>[] coords = any.origin().coords();
+        final boolean inline = new PointInLine<>(pnt, new RayLine<>(any)).resolve(dec);
+        final Scalar<Double>[] dircoords = any.direction().coords();
         if (new Vertical<>(any).resolve(dec)) {
-            final double ydir = any.direction().coords()[1].value(dec);
-            final double yorigin = any.origin().coords()[1].value(dec);
+            final double ydir = dircoords[1].value(dec);
+            final double yorigin = coords[1].value(dec);
             final boolean between = ydir > 0 && ycoor > yorigin
                 || ydir < 0 && ycoor < yorigin;
-            result = xorigin == xcoor && between;
+            result = inline && between;
         } else {
-            final double xdir = any.direction().coords()[0].value(dec);
-            final double error = 1.e-6;
+            final double xorigin = coords[0].value(dec);
+            final double xdir = dircoords[0].value(dec);
             final boolean between = xdir > 0 && xcoor > xorigin
                 || xdir < 0 && xcoor < xorigin;
-            result = Math.abs(
-                ycoor - xcoor * new Slope<Double>(any).value(dec)
-                    - new Intercept<Double>(any).value(dec)
-            ) < error && between;
+            result = inline && between;
         }
         return result;
     }

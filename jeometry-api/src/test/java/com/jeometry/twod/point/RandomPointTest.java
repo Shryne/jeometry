@@ -23,7 +23,7 @@
  */
 package com.jeometry.twod.point;
 
-import com.aljebra.scalar.Random;
+import com.aljebra.field.mock.SpyField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -40,11 +40,15 @@ public final class RandomPointTest {
     @Test
     public void buildsARandomVector() {
         final XyPoint<Object> vector = new RandomPoint<>();
+        final SpyField<Object> xfield = new SpyField<>(new Object(), new Object());
+        vector.xcoor().value(xfield);
         MatcherAssert.assertThat(
-            vector.xcoor(), Matchers.instanceOf(Random.class)
+            xfield.calls().randomed(), Matchers.equalTo(true)
         );
+        final SpyField<Object> yfield = new SpyField<>(new Object(), new Object());
+        vector.ycoor().value(yfield);
         MatcherAssert.assertThat(
-            vector.ycoor(), Matchers.instanceOf(Random.class)
+            yfield.calls().randomed(), Matchers.equalTo(true)
         );
     }
 }
