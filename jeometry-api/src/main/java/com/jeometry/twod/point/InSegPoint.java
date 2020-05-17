@@ -30,7 +30,6 @@ import com.aljebra.vector.Minus;
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Times;
 import com.jeometry.twod.segment.Segment;
-import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -48,13 +47,11 @@ public final class InSegPoint<T> extends XyPoint<T> {
     public InSegPoint(final Segment<T> seg) {
         super(
             new Sum<>(
-                Arrays.asList(
-                    new Times<>(
-                        new Minus<>(seg.end(), seg.start()),
-                        new Between<>(new AddIdentity<>(), new MultIdentity<>())
-                    ),
-                    seg.start()
-                )
+                new Times<>(
+                    new Minus<>(seg.end(), seg.start()),
+                    new Between<>(new AddIdentity<>(), new MultIdentity<>())
+                ),
+                seg.start()
             )
         );
     }

@@ -47,18 +47,18 @@ public final class AddTest {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
-            new Add<>(Arrays.asList(first, second)),
-            Matchers.equalTo(new Add<>(Arrays.asList(second, first)))
+            new Add<>(first, second),
+            Matchers.equalTo(new Add<>(second, first))
         );
         MatcherAssert.assertThat(
-            new Add<>(Arrays.asList(first, second)),
+            new Add<>(first, second),
             Matchers.not(
-                Matchers.equalTo(new Add<>(Arrays.asList(first, first)))
+                Matchers.equalTo(new Add<>(first, first))
             )
         );
         MatcherAssert.assertThat(
-            new Add<>(Arrays.asList(first, second)).hashCode(),
-            Matchers.equalTo(new Add<>(Arrays.asList(second, first)).hashCode())
+            new Add<>(first, second).hashCode(),
+            Matchers.equalTo(new Add<>(second, first).hashCode())
         );
     }
 
@@ -71,7 +71,7 @@ public final class AddTest {
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             new Add<>(Arrays.asList(first, second, first)),
-            Matchers.not(Matchers.equalTo(new Add<>(Arrays.asList(second, first))))
+            Matchers.not(Matchers.equalTo(new Add<>(second, first)))
         );
     }
 
@@ -83,7 +83,7 @@ public final class AddTest {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         final List<Scalar<Object>> operands = Lists.newArrayList(
-            new Add<>(Arrays.asList(first, second)).operands()
+            new Add<>(first, second).operands()
         );
         MatcherAssert.assertThat(
             operands.contains(first), Matchers.equalTo(true)

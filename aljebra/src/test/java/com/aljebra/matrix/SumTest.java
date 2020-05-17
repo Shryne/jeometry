@@ -51,12 +51,10 @@ public final class SumTest {
         final Iterable<Scalar<Object>> coorsb = new Scalars<>(lines * cols);
         final FixedMatrix<Object> first = new FixedMatrix<>(lines, cols, coorsa);
         final FixedMatrix<Object> second = new FixedMatrix<>(lines, cols, coorsb);
-        final Matrix<Object> sum = new Sum<>(Arrays.asList(first, second));
+        final Matrix<Object> sum = new Sum<>(first, second);
         final Scalar<Object>[] expected = new com.aljebra.vector.Sum<Object>(
-            Arrays.asList(
-                new FixedVector<Object>(coorsa),
-                new FixedVector<Object>(coorsb)
-            )
+            new FixedVector<Object>(coorsa),
+            new FixedVector<Object>(coorsb)
         ).coords();
         MatcherAssert.assertThat(sum.lines(), Matchers.equalTo(lines));
         MatcherAssert.assertThat(sum.columns(), Matchers.equalTo(cols));
@@ -79,10 +77,10 @@ public final class SumTest {
         );
         final Vect<Object> input = new FixedVector<>(new Scalars<>(cols));
         MatcherAssert.assertThat(
-            new Sum<Object>(Arrays.asList(first, second)).apply(input),
+            new Sum<Object>(first, second).apply(input),
             Matchers.equalTo(
                 new com.aljebra.vector.Sum<Object>(
-                    Arrays.asList(first.apply(input), second.apply(input))
+                    first.apply(input), second.apply(input)
                 )
             )
         );
@@ -106,21 +104,19 @@ public final class SumTest {
         final Scalar<Object> scalarg = scalars.next();
         final Scalar<Object> scalarh = scalars.next();
         final Matrix<Object> matrix = new Sum<>(
-            Arrays.asList(
-                new FixedMatrix<Object>(
-                    lines, cols, Arrays.asList(scalara, scalarb, scalarc, scalard)
-                ),
-                new FixedMatrix<Object>(
-                    lines, cols, Arrays.asList(scalare, scalarf, scalarg, scalarh)
-                )
+            new FixedMatrix<Object>(
+                lines, cols, Arrays.asList(scalara, scalarb, scalarc, scalard)
+            ),
+            new FixedMatrix<Object>(
+                lines, cols, Arrays.asList(scalare, scalarf, scalarg, scalarh)
             )
         );
         MatcherAssert.assertThat(
             matrix.line(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Add<Object>(Arrays.asList(scalara, scalare)),
-                    new Add<Object>(Arrays.asList(scalarc, scalarg)),
+                    new Add<Object>(scalara, scalare),
+                    new Add<Object>(scalarc, scalarg),
                 }
             )
         );
@@ -128,8 +124,8 @@ public final class SumTest {
             matrix.line(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Add<Object>(Arrays.asList(scalarb, scalarf)),
-                    new Add<Object>(Arrays.asList(scalard, scalarh)),
+                    new Add<Object>(scalarb, scalarf),
+                    new Add<Object>(scalard, scalarh),
                 }
             )
         );
@@ -137,8 +133,8 @@ public final class SumTest {
             matrix.column(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Add<Object>(Arrays.asList(scalara, scalare)),
-                    new Add<Object>(Arrays.asList(scalarb, scalarf)),
+                    new Add<Object>(scalara, scalare),
+                    new Add<Object>(scalarb, scalarf),
                 }
             )
         );
@@ -146,8 +142,8 @@ public final class SumTest {
             matrix.column(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Add<Object>(Arrays.asList(scalarc, scalarg)),
-                    new Add<Object>(Arrays.asList(scalard, scalarh)),
+                    new Add<Object>(scalarc, scalarg),
+                    new Add<Object>(scalard, scalarh),
                 }
             )
         );

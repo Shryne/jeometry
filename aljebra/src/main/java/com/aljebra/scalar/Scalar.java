@@ -25,7 +25,6 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -61,7 +60,7 @@ public interface Scalar<T> {
      * @return A scalar defining the addition
      */
     default Scalar<T> add(final Scalar<T> operand) {
-        return new Add<T>(Arrays.asList(operand, this));
+        return new Add<T>(operand, this);
     }
 
     /**
@@ -81,7 +80,7 @@ public interface Scalar<T> {
      * @return A scalar defining the multiplication
      */
     default Scalar<T> mult(final Scalar<T> operand) {
-        return new Multiplication<T>(Arrays.asList(operand, this));
+        return new Multiplication<T>(operand, this);
     }
 
     /**

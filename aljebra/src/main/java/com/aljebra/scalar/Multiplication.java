@@ -27,6 +27,7 @@ import com.aljebra.field.Field;
 import com.aljebra.field.FieldMultiplication;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -50,6 +51,15 @@ public final class Multiplication<T> implements Scalar<T> {
      */
     public Multiplication(final Iterable<? extends Scalar<T>> operands) {
         this.opers = HashMultiset.create(operands);
+    }
+
+    /**
+     * Constructor. Build multiplication with two operands
+     * @param first First operand
+     * @param second Second operand
+     */
+    public Multiplication(final Scalar<T> first, final Scalar<T> second) {
+        this(Arrays.asList(first, second));
     }
 
     /**

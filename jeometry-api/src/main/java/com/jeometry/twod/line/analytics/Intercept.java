@@ -32,7 +32,6 @@ import com.jeometry.twod.line.RayLine;
 import com.jeometry.twod.line.SgtLine;
 import com.jeometry.twod.ray.Ray;
 import com.jeometry.twod.segment.Segment;
-import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -80,7 +79,7 @@ public final class Intercept<T> implements Scalar<T> {
             final Scalar<T>[] coords = this.line.point().coords();
             final Scalar<T> slope = new Slope<>(this.line);
             return field.actual(
-                new Diff<T>(coords[1], new Multiplication<>(Arrays.asList(slope, coords[0])))
+                new Diff<T>(coords[1], new Multiplication<>(slope, coords[0]))
             );
         }
         throw new IllegalStateException(

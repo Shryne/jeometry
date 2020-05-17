@@ -26,6 +26,7 @@ package com.aljebra.scalar.condition;
 import com.aljebra.field.Field;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import java.util.Arrays;
 
 /**
  * A predicate that is true if one of the given predicates is true.
@@ -45,6 +46,15 @@ public final class Or<T> implements Predicate<T> {
      */
     public Or(final Iterable<? extends Predicate<T>> operands) {
         this.opers = HashMultiset.create(operands);
+    }
+
+    /**
+     * Constructor. Build or with two predicates
+     * @param first First operand
+     * @param second Second operand
+     */
+    public Or(final Predicate<T> first, final Predicate<T> second) {
+        this(Arrays.asList(first, second));
     }
 
     @Override

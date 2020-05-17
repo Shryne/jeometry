@@ -26,6 +26,7 @@ package com.aljebra.metric.angle;
 import com.aljebra.metric.InnerProduct;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -49,6 +50,15 @@ public final class Sum<T> implements Degrees<T> {
      */
     public Sum(final Iterable<Degrees<T>> operands) {
         this.operands = HashMultiset.create(operands);
+    }
+
+    /**
+     * Constructor. Build sum with two degrees
+     * @param first First operand
+     * @param second Second operand
+     */
+    public Sum(final Degrees<T> first, final Degrees<T> second) {
+        this(Arrays.asList(first, second));
     }
 
     @Override

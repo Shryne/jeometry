@@ -72,7 +72,7 @@ public final class ScalarTest {
         final Scalar<Object> third = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.add(other),
-            Matchers.equalTo(new Add<>(Arrays.asList(scalar, other)))
+            Matchers.equalTo(new Add<>(scalar, other))
         );
         MatcherAssert.assertThat(
             scalar.add(Arrays.asList(other, third)),
@@ -90,7 +90,7 @@ public final class ScalarTest {
         final Scalar<Object> third = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.mult(other),
-            Matchers.equalTo(new Multiplication<>(Arrays.asList(scalar, other)))
+            Matchers.equalTo(new Multiplication<>(scalar, other))
         );
         MatcherAssert.assertThat(
             scalar.mult(Arrays.asList(other, third)),
