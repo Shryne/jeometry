@@ -90,7 +90,7 @@ public final class ScalarTest {
         final Scalar<Object> third = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
             scalar.mult(other),
-            Matchers.equalTo(new Multiplication<>(Arrays.asList(scalar, other)))
+            Matchers.equalTo(new Multiplication<>(scalar, other))
         );
         MatcherAssert.assertThat(
             scalar.mult(Arrays.asList(other, third)),

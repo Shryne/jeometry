@@ -81,7 +81,7 @@ public interface Scalar<T> {
      * @return A scalar defining the multiplication
      */
     default Scalar<T> mult(final Scalar<T> operand) {
-        return new Multiplication<T>(Arrays.asList(operand, this));
+        return new Multiplication<T>(operand, this);
     }
 
     /**

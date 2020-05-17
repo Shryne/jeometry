@@ -31,7 +31,6 @@ import com.aljebra.scalar.condition.Equals;
 import com.aljebra.scalar.condition.Predicate;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
-import java.util.Arrays;
 
 /**
  * A predicate to determine if a point belongs to a line.
@@ -71,7 +70,7 @@ public final class PointInLine<T> implements Predicate<T> {
             result = new Equals<>(
                 this.point.coords()[1],
                 new Add<T>(
-                    new Multiplication<>(Arrays.asList(xcoor, analytics.slope())),
+                    new Multiplication<>(xcoor, analytics.slope()),
                     analytics.intercept()
                 )
             );
