@@ -33,7 +33,7 @@ import java.util.Optional;
  * It holds the last {@link Field} passed when calling value method as an optional. The optional
  * is empty if the method was never called.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class SpyScalar<T> implements Scalar<T> {
 

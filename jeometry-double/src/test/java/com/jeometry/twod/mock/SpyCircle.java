@@ -33,7 +33,7 @@ import com.jeometry.twod.point.RandomPoint;
 /**
  * Mock decorator for circle with spying (verifying) capabilities on the method: center.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class SpyCircle<T> implements Circle<T> {
 

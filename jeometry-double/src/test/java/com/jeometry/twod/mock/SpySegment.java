@@ -30,7 +30,7 @@ import com.jeometry.twod.segment.Segment;
 /**
  * Mock decorator for segment with spying (verifying) capabilities on the methods: start and end.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class SpySegment<T> implements Segment<T> {
 

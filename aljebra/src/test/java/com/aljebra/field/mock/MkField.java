@@ -34,7 +34,7 @@ import com.aljebra.scalar.Scalar;
 /**
  * Mock MetricSpaceField. Gives the ability to pass the inner product to use.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class MkField<T> extends AbstractOrderedField<T> implements MetricSpaceField<T> {
 
