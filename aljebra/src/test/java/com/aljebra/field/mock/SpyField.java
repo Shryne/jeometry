@@ -34,7 +34,7 @@ import com.aljebra.scalar.Scalar;
  * multiplication, random and actual.
  * It holds an instance of {@link FieldCalls} to record and report method calls and parameters.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class SpyField<T> implements Field<T> {
 

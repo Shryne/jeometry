@@ -30,7 +30,7 @@ import com.aljebra.field.FieldAddition;
  * - whether neutral or inverse methods are called;
  * - the number of times the add method was called.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class MkAddition<T> implements FieldAddition<T> {
 

@@ -28,7 +28,7 @@ import java.awt.Color;
 
 /**
  * Style class defined only by the stroke. A {@link FixedStyle} with {@link TransparentFill}.
- * @since 0.1
+ * @since 0.3
  */
 public final class StrokeStyle extends FixedStyle {
 

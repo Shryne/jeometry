@@ -31,7 +31,7 @@ import com.jeometry.twod.point.RandomPoint;
 /**
  * Mock decorator for angle with spying (verifying) capabilities on the method: start.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.3
  */
 public final class SpyAngle<T> implements Angle<T> {
 
