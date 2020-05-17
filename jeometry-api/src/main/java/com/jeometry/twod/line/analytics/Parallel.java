@@ -33,7 +33,6 @@ import com.jeometry.twod.line.RayLine;
 import com.jeometry.twod.line.SgtLine;
 import com.jeometry.twod.ray.Ray;
 import com.jeometry.twod.segment.Segment;
-import java.util.Arrays;
 
 /**
  * A predicate to determine if two lines have the same direction.
@@ -84,11 +83,9 @@ public final class Parallel<T> implements Predicate<T> {
     public boolean resolve(final Field<T> field) {
         final Vertical<T> fvertical = new Vertical<>(this.first);
         final Vertical<T> svertical = new Vertical<>(this.second);
-        final boolean both = new And<>(
-            Arrays.asList(fvertical, svertical)
-        ).resolve(field);
+        final boolean both = new And<>(fvertical, svertical).resolve(field);
         final boolean none = new And<>(
-            Arrays.asList(new Not<>(fvertical), new Not<>(svertical))
+            new Not<>(fvertical), new Not<>(svertical)
         ).resolve(field);
         return both || none && new Equals<>(
             new Slope<>(this.first), new Slope<>(this.second)
