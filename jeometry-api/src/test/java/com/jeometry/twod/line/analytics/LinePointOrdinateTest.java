@@ -26,11 +26,10 @@ package com.jeometry.twod.line.analytics;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtDirLine;
 import com.jeometry.twod.line.RandomLine;
+import com.jeometry.twod.line.VerticalLine;
 import com.jeometry.twod.point.DifferentPoint;
 import com.jeometry.twod.point.RandomPoint;
-import com.jeometry.twod.point.VertPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -80,7 +79,7 @@ public final class LinePointOrdinateTest {
     public void errorsWhenVerticalLineAndOutsideAbscissa() {
         this.thrown.expect(IllegalStateException.class);
         final RandomPoint<Double> point = new RandomPoint<>();
-        final Line<Double> line = new PtDirLine<>(point, new VertPoint<>());
+        final Line<Double> line = new VerticalLine<>(point);
         new LinePointOrdinate<>(
             line, new DifferentPoint<>(point).xcoor()
         ).value(new Decimal());
@@ -93,7 +92,7 @@ public final class LinePointOrdinateTest {
     @Test
     public void evaluatesWhenVerticalLineAndInsideAbscissa() {
         final RandomPoint<Double> point = new RandomPoint<>();
-        final Line<Double> line = new PtDirLine<>(point, new VertPoint<>());
+        final Line<Double> line = new VerticalLine<>(point);
         new LinePointOrdinate<>(line, point.xcoor()).value(new Decimal());
     }
 }
