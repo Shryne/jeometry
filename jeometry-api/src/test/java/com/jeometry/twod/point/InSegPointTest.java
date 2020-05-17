@@ -25,10 +25,9 @@ package com.jeometry.twod.point;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.vector.Vect;
-import com.jeometry.twod.line.analytics.Intercept;
-import com.jeometry.twod.line.analytics.Slope;
-import com.jeometry.twod.line.analytics.Vertical;
+import com.aljebra.scalar.Scalar;
+import com.jeometry.twod.line.SgtLine;
+import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.segment.RandomSegment;
 import com.jeometry.twod.segment.Segment;
 import org.hamcrest.MatcherAssert;
@@ -73,28 +72,20 @@ public final class InSegPointTest {
      * @param any Segment
      * @return True if the point belongs to the segment
      */
-    private static boolean belongs(final Vect<Double> pnt, final Segment<Double> any) {
+    private static boolean belongs(final XyPoint<Double> pnt, final Segment<Double> any) {
         final Field<Double> dec = new Decimal();
-        final double xcoor = pnt.coords()[0].value(dec);
-        final Double ycoor = pnt.coords()[1].value(dec);
-        final boolean result;
-        final Double startx = any.start().coords()[0].value(dec);
-        final Double starty = any.start().coords()[1].value(dec);
-        final Double endx = any.end().coords()[0].value(dec);
-        final Double endy = any.end().coords()[1].value(dec);
-        if (new Vertical<>(any).resolve(dec)) {
-            result = startx == xcoor;
-        } else {
-            final double error = 1.e-6;
-            result = Math.abs(
-                ycoor - (xcoor * new Slope<Double>(any).value(dec)
-                    + new Intercept<Double>(any).value(dec))
-            ) < error;
-        }
+        final double xcoor = pnt.xcoor().value(dec);
+        final Double ycoor = pnt.ycoor().value(dec);
+        final Scalar<Double>[] scoords = any.start().coords();
+        final Scalar<Double>[] ecoords = any.end().coords();
+        final Double startx = scoords[0].value(dec);
+        final Double starty = scoords[1].value(dec);
+        final Double endx = ecoords[0].value(dec);
+        final Double endy = ecoords[1].value(dec);
         final boolean between = xcoor >= Math.min(startx, endx)
             && xcoor <= Math.max(startx, endx)
             && ycoor >= Math.min(starty, endy)
             && ycoor <= Math.max(starty, endy);
-        return result && between;
+        return between && new PointInLine<>(pnt, new SgtLine<>(any)).resolve(dec);
     }
 }

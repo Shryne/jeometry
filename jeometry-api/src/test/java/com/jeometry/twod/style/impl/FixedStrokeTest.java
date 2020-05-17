@@ -65,4 +65,24 @@ public final class FixedStrokeTest {
         MatcherAssert.assertThat(stroke.dash(), Matchers.equalTo(Dash.SOLID));
         MatcherAssert.assertThat(stroke.color(), Matchers.equalTo(Color.BLACK));
     }
+
+    /**
+     * {@link FixedStroke} responds with characteristics from the passed stroke.
+     */
+    @Test
+    public void respondsWithPassedStrokeAttributes() {
+        final Color color = Mockito.mock(Color.class);
+        final Random rnd = new Random();
+        final float width = rnd.nextFloat();
+        final Dash[] values = Dash.values();
+        final Dash pattern = values[rnd.nextInt(values.length)];
+        final Stroke passed = Mockito.mock(Stroke.class);
+        Mockito.when(passed.color()).thenReturn(color);
+        Mockito.when(passed.width()).thenReturn(width);
+        Mockito.when(passed.dash()).thenReturn(pattern);
+        final Stroke stroke = new FixedStroke(passed);
+        MatcherAssert.assertThat(stroke.width(), Matchers.equalTo(width));
+        MatcherAssert.assertThat(stroke.dash(), Matchers.equalTo(pattern));
+        MatcherAssert.assertThat(stroke.color(), Matchers.equalTo(color));
+    }
 }

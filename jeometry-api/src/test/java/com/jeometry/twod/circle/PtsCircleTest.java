@@ -23,10 +23,8 @@
  */
 package com.jeometry.twod.circle;
 
-import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.metric.scalar.Norm;
-import com.aljebra.vector.Minus;
+import com.jeometry.twod.circle.analytics.PointInCircle;
 import com.jeometry.twod.point.RandomPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -45,17 +43,13 @@ public final class PtsCircleTest {
     public void buildsCircle() {
         final RandomPoint<Double> center = new RandomPoint<>();
         final RandomPoint<Double> point = new RandomPoint<>();
-        final Field<Double> dec = new Decimal();
         final Circle<Double> circle = new PtsCircle<>(center, point);
         MatcherAssert.assertThat(
             circle.center(), Matchers.equalTo(center)
         );
-        final double error = 1.e-6;
         MatcherAssert.assertThat(
-            dec.actual(circle.radius()),
-            Matchers.closeTo(
-                dec.actual(new Norm<>(new Minus<>(point, center))), error
-            )
+            new PointInCircle<>(point, circle).resolve(new Decimal()),
+            Matchers.is(true)
         );
     }
 

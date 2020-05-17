@@ -27,10 +27,9 @@ import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Vect;
-import com.jeometry.twod.line.RayLine;
+import com.jeometry.twod.line.PtsLine;
 import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.point.RandomPoint;
-import com.jeometry.twod.ray.PtsRay;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -60,13 +59,13 @@ public final class PtsAngleTest {
         final Field<Double> dec = new Decimal();
         MatcherAssert.assertThat(
             new PointInLine<>(
-                startpt, new RayLine<>(new PtsRay<>(origin, startpt))
+                startpt, new PtsLine<>(origin, startpt)
             ).resolve(dec),
             Matchers.is(true)
         );
         MatcherAssert.assertThat(
             new PointInLine<>(
-                endpt, new RayLine<>(new PtsRay<>(origin, endpt))
+                endpt, new PtsLine<>(origin, endpt)
             ).resolve(dec),
             Matchers.is(true)
         );
