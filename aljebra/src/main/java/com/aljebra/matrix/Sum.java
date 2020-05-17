@@ -56,6 +56,15 @@ public final class Sum<T> implements Matrix<T> {
         this.operands = HashMultiset.create(operands);
     }
 
+    /**
+     * Constructor. Build sum of two matrices.
+     * @param first First operand
+     * @param second Second operand
+     */
+    public Sum(final Matrix<T> first, final Matrix<T> second) {
+        this(Arrays.asList(first, second));
+    }
+
     @Override
     public Scalar<T>[] coords() {
         final List<Vect<T>> results = new ArrayList<>(this.operands.size());
