@@ -59,7 +59,7 @@ public final class MidSegPoint<T> extends XyPoint<T> {
      */
     private static <T> Vect<T> vector(final Segment<T> seg) {
         final Scalar<T> half = new MultInverse<>(
-            new Add<T>(Arrays.asList(new MultIdentity<>(), new MultIdentity<>()))
+            new Add<T>(new MultIdentity<>(), new MultIdentity<>())
         );
         return new Sum<>(
             Arrays.asList(

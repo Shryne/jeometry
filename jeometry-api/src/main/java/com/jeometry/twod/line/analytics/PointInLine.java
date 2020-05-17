@@ -71,10 +71,8 @@ public final class PointInLine<T> implements Predicate<T> {
             result = new Equals<>(
                 this.point.coords()[1],
                 new Add<T>(
-                    Arrays.asList(
-                        new Multiplication<>(Arrays.asList(xcoor, analytics.slope())),
-                        analytics.intercept()
-                    )
+                    new Multiplication<>(Arrays.asList(xcoor, analytics.slope())),
+                    analytics.intercept()
                 )
             );
         }

@@ -119,8 +119,8 @@ public final class SumTest {
             matrix.line(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Add<Object>(Arrays.asList(scalara, scalare)),
-                    new Add<Object>(Arrays.asList(scalarc, scalarg)),
+                    new Add<Object>(scalara, scalare),
+                    new Add<Object>(scalarc, scalarg),
                 }
             )
         );
@@ -128,8 +128,8 @@ public final class SumTest {
             matrix.line(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Add<Object>(Arrays.asList(scalarb, scalarf)),
-                    new Add<Object>(Arrays.asList(scalard, scalarh)),
+                    new Add<Object>(scalarb, scalarf),
+                    new Add<Object>(scalard, scalarh),
                 }
             )
         );
@@ -137,8 +137,8 @@ public final class SumTest {
             matrix.column(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Add<Object>(Arrays.asList(scalara, scalare)),
-                    new Add<Object>(Arrays.asList(scalarb, scalarf)),
+                    new Add<Object>(scalara, scalare),
+                    new Add<Object>(scalarb, scalarf),
                 }
             )
         );
@@ -146,8 +146,8 @@ public final class SumTest {
             matrix.column(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Add<Object>(Arrays.asList(scalarc, scalarg)),
-                    new Add<Object>(Arrays.asList(scalard, scalarh)),
+                    new Add<Object>(scalarc, scalarg),
+                    new Add<Object>(scalard, scalarh),
                 }
             )
         );

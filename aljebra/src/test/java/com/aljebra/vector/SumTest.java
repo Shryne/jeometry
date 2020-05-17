@@ -72,7 +72,7 @@ public final class SumTest {
      * @return A scalar representing the sum if the two passed scalars
      */
     private static Scalar<Object> sum(final Scalar<Object> scalar, final Scalar<Object> another) {
-        return new Add<>(Arrays.asList(scalar, another));
+        return new Add<>(scalar, another);
     }
 
 }
