@@ -86,7 +86,7 @@ public final class SumTest {
         final Degrees<Object> first = new Degrees.Default<>(Math.random());
         final Degrees<Object> second = new Degrees.Default<>(Math.random());
         MatcherAssert.assertThat(
-            new Sum<>(Arrays.asList(first, second)).toString(),
+            new Sum<>(first, second).toString(),
             Matchers.allOf(
                 Matchers.containsString(first.toString()),
                 Matchers.containsString(second.toString())

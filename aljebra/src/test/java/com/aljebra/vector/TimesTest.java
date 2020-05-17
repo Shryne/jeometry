@@ -26,7 +26,6 @@ package com.aljebra.vector;
 import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.mock.Scalars;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
@@ -70,7 +69,7 @@ public final class TimesTest {
      * @return A scalar representing the multiplication of two scalars
      */
     private static Scalar<Object> mult(final Scalar<Object> scalar, final Scalar<Object> another) {
-        return new Multiplication<>(Arrays.asList(scalar, another));
+        return new Multiplication<>(scalar, another);
     }
 
 }

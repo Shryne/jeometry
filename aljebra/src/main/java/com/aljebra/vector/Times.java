@@ -75,6 +75,6 @@ public final class Times<T> implements Vect<T> {
      * @return Multiplication
      */
     private Multiplication<T> mult(final Scalar<T> scl) {
-        return new Multiplication<T>(Arrays.asList(scl, this.scalar));
+        return new Multiplication<T>(scl, this.scalar);
     }
 }

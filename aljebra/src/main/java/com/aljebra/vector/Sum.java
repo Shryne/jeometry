@@ -55,6 +55,15 @@ public final class Sum<T> implements Vect<T> {
         this.operands = HashMultiset.create(operands);
     }
 
+    /**
+     * Constructor. Build sum of two vectors
+     * @param first First operand
+     * @param second Second operand
+     */
+    public Sum(final Vect<T> first, final Vect<T> second) {
+        this(Arrays.asList(first, second));
+    }
+
     @Override
     public Scalar<T>[] coords() {
         final Scalar<T>[] coords = this.operands.iterator().next().coords();

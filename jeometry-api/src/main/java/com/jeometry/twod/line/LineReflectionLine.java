@@ -26,7 +26,6 @@ package com.jeometry.twod.line;
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Sum;
 import com.jeometry.twod.point.LineReflectionPoint;
-import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -48,7 +47,7 @@ public final class LineReflectionLine<T> extends PtDirLine<T> {
             new LineReflectionPoint<>(axis, line.point()),
             new Minus<>(
                 new LineReflectionPoint<>(
-                    axis, new Sum<>(Arrays.asList(line.point(), line.direction()))
+                    axis, new Sum<>(line.point(), line.direction())
                 ),
                 new LineReflectionPoint<>(axis, line.point())
             )

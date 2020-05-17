@@ -25,7 +25,6 @@ package com.jeometry.twod.segment;
 
 import com.aljebra.vector.Sum;
 import com.aljebra.vector.Vect;
-import java.util.Arrays;
 
 /**
  * A segment defined by one extremity and a vector. The resulting segment
@@ -41,7 +40,7 @@ public class PtVectSegment<T> extends PtsSegment<T> {
      * @param vect Vector defining the segment
      */
     public PtVectSegment(final Vect<T> extremity, final Vect<T> vect) {
-        super(extremity, new Sum<>(Arrays.asList(extremity, vect)));
+        super(extremity, new Sum<>(extremity, vect));
     }
 
 }

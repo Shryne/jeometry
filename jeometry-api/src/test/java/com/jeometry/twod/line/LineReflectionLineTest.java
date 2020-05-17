@@ -28,7 +28,6 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.vector.Sum;
 import com.jeometry.twod.line.analytics.PointInLine;
 import com.jeometry.twod.point.LineReflectionPoint;
-import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -56,7 +55,7 @@ public final class LineReflectionLineTest {
         MatcherAssert.assertThat(
             new PointInLine<>(
                 new LineReflectionPoint<>(
-                    axis, new Sum<>(Arrays.asList(origin.point(), origin.direction()))
+                    axis, new Sum<>(origin.point(), origin.direction())
                 ), result
             ).resolve(dec),
             Matchers.is(true)

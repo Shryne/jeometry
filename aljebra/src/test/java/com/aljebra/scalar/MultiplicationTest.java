@@ -46,8 +46,8 @@ public final class MultiplicationTest {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         MatcherAssert.assertThat(
-            new Multiplication<>(Arrays.asList(first, second)),
-            Matchers.equalTo(new Multiplication<>(Arrays.asList(second, first)))
+            new Multiplication<>(first, second),
+            Matchers.equalTo(new Multiplication<>(second, first))
         );
     }
 

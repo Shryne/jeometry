@@ -27,6 +27,7 @@ import com.aljebra.field.Field;
 import com.aljebra.field.FieldAddition;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
+import java.util.Arrays;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -50,6 +51,15 @@ public final class Add<T> implements Scalar<T> {
      */
     public Add(final Iterable<? extends Scalar<T>> operands) {
         this.opers = HashMultiset.create(operands);
+    }
+
+    /**
+     * Constructor. Build addition with two operands
+     * @param first First operand
+     * @param second Second operand
+     */
+    public Add(final Scalar<T> first, final Scalar<T> second) {
+        this(Arrays.asList(first, second));
     }
 
     /**

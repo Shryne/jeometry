@@ -27,7 +27,6 @@ import com.aljebra.field.Field;
 import com.aljebra.scalar.condition.And;
 import com.aljebra.scalar.condition.Predicate;
 import com.jeometry.twod.line.Line;
-import java.util.Arrays;
 
 /**
  * A predicate to determine if two lines are equal. that means the two lines
@@ -60,10 +59,8 @@ public final class Equal<T> implements Predicate<T> {
     @Override
     public boolean resolve(final Field<T> field) {
         return new And<>(
-            Arrays.asList(
-                new Parallel<>(this.first, this.second),
-                new PointInLine<>(this.first.point(), this.second)
-            )
+            new Parallel<>(this.first, this.second),
+            new PointInLine<>(this.first.point(), this.second)
         ).resolve(field);
     }
 

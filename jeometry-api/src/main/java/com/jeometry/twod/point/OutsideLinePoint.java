@@ -46,7 +46,7 @@ public final class OutsideLinePoint<T> extends FixedVector<T> implements Rendera
     public OutsideLinePoint(final Line<T> line) {
         super(
             Arrays.asList(
-                new Sum<T>(Arrays.asList(line.point(), new PerpLine<>(line).direction())).coords()
+                new Sum<T>(line.point(), new PerpLine<>(line).direction()).coords()
             )
         );
     }

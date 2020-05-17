@@ -83,8 +83,8 @@ public final class TimesTest {
             matrix.line(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(Arrays.asList(scalara, scalare)),
-                    new Multiplication<Object>(Arrays.asList(scalarc, scalare)),
+                    new Multiplication<Object>(scalara, scalare),
+                    new Multiplication<Object>(scalarc, scalare),
                 }
             )
         );
@@ -92,8 +92,8 @@ public final class TimesTest {
             matrix.line(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(Arrays.asList(scalarb, scalare)),
-                    new Multiplication<Object>(Arrays.asList(scalard, scalare)),
+                    new Multiplication<Object>(scalarb, scalare),
+                    new Multiplication<Object>(scalard, scalare),
                 }
             )
         );
@@ -101,8 +101,8 @@ public final class TimesTest {
             matrix.column(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(Arrays.asList(scalara, scalare)),
-                    new Multiplication<Object>(Arrays.asList(scalarb, scalare)),
+                    new Multiplication<Object>(scalara, scalare),
+                    new Multiplication<Object>(scalarb, scalare),
                 }
             )
         );
@@ -110,8 +110,8 @@ public final class TimesTest {
             matrix.column(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(Arrays.asList(scalarc, scalare)),
-                    new Multiplication<Object>(Arrays.asList(scalard, scalare)),
+                    new Multiplication<Object>(scalarc, scalare),
+                    new Multiplication<Object>(scalard, scalare),
                 }
             )
         );
