@@ -24,6 +24,7 @@
 package com.jeometry.twod.point;
 
 import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.field.mock.SpyField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -39,9 +40,20 @@ public final class RandomPointTest {
      */
     @Test
     public void buildsANonVerticalPoint() {
-        final XyPoint<Double> vector = new RandomPoint<>();
         MatcherAssert.assertThat(
-            vector.xcoor().value(new Decimal()), Matchers.not(0.)
+            new RandomPoint<Double>().xcoor().value(new Decimal()), Matchers.not(0.)
+        );
+    }
+
+    /**
+     * {@link RandomPoint} coordinate evaluations delegates to field randomization.
+     */
+    @Test
+    public void buildsRandomCoordinates() {
+        final SpyField<Double> field = new SpyField<>(new Decimal());
+        new RandomPoint<Double>().ycoor().value(field);
+        MatcherAssert.assertThat(
+            field.calls().randomed(), Matchers.equalTo(true)
         );
     }
 }
