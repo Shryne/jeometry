@@ -46,18 +46,8 @@ public final class PtReflectionPointTest {
     public void buildsReflection() {
         final XyPoint<Double> center = new RandomPoint<>();
         final XyPoint<Double> input = new RandomPoint<>();
-        final XyPoint<Double> result = new PtReflectionPoint<>(center, input);
         final XyPoint<Double> expected = PtReflectionPointTest.expected(center, input);
-        final Field<Double> dec = new Decimal();
-        final double error = 1.e-6;
-        MatcherAssert.assertThat(
-            result.xcoor().value(dec),
-            Matchers.closeTo(expected.xcoor().value(dec), error)
-        );
-        MatcherAssert.assertThat(
-            result.ycoor().value(dec),
-            Matchers.closeTo(expected.ycoor().value(dec), error)
-        );
+        PtReflectionPointTest.assertion(new PtReflectionPoint<>(center, input), expected);
     }
 
     /**
@@ -67,12 +57,20 @@ public final class PtReflectionPointTest {
     @Test
     public void buildsReflectionAcrossOrigin() {
         final XyPoint<Double> input = new RandomPoint<>();
-        final XyPoint<Double> result = new PtReflectionPoint<>(input);
         final XyPoint<Double> expected = PtReflectionPointTest.expected(
             new XyPoint<>(
                 new Scalar.Default<Double>(0.), new Scalar.Default<Double>(0.)
             ), input
         );
+        PtReflectionPointTest.assertion(new PtReflectionPoint<>(input), expected);
+    }
+
+    /**
+     * Asserts the two passed points has the same coordinates.
+     * @param result Calculus result to check
+     * @param expected Expected point to compare to
+     */
+    private static void assertion(final XyPoint<Double> result, final XyPoint<Double> expected) {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         MatcherAssert.assertThat(

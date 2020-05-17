@@ -24,7 +24,6 @@
 package com.jeometry.twod.line;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.analytics.Perpendicular;
 import com.jeometry.twod.point.LineIntersectPoint;
 import com.jeometry.twod.point.RandomPoint;
@@ -65,11 +64,11 @@ public final class PerpBisectorTest {
         final RandomPoint<Double> start = new RandomPoint<>();
         final RandomPoint<Double> end = new RandomPoint<>();
         final Segment<Double> seg = new PtsSegment<>(start, end);
-        final Scalar<Double>[] intersect = new LineIntersectPoint<>(
+        final LineIntersectPoint<Double> point = new LineIntersectPoint<>(
             new SgtLine<>(seg), new PerpBisector<>(seg)
-        ).coords();
-        final double intersectx = intersect[0].value(dec);
-        final double intersecty = intersect[1].value(dec);
+        );
+        final double intersectx = point.xcoor().value(dec);
+        final double intersecty = point.ycoor().value(dec);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             end.xcoor().value(dec) - intersectx,

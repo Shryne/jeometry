@@ -47,13 +47,14 @@ public final class MidSegPointTest {
         final Field<Double> dec = new Decimal();
         final double error = 1.e-6;
         final Scalar<Double>[] coords = new MidSegPoint<>(any).coords();
+        final Double[] mid = MidSegPointTest.mid(any);
         MatcherAssert.assertThat(
             coords[0].value(dec),
-            Matchers.closeTo(MidSegPointTest.mid(any)[0], error)
+            Matchers.closeTo(mid[0], error)
         );
         MatcherAssert.assertThat(
             coords[1].value(dec),
-            Matchers.closeTo(MidSegPointTest.mid(any)[1], error)
+            Matchers.closeTo(mid[1], error)
         );
     }
 

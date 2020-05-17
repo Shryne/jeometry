@@ -82,16 +82,15 @@ public final class Parallel<T> implements Predicate<T> {
 
     @Override
     public boolean resolve(final Field<T> field) {
-        return new And<>(
-            Arrays.asList(
-                new Vertical<>(this.first), new Vertical<>(this.second)
-            )
-        ).resolve(field) || new And<>(
-            Arrays.asList(
-                new Not<>(new Vertical<>(this.first)),
-                new Not<>(new Vertical<>(this.second))
-            )
-        ).resolve(field) && new Equals<>(
+        final Vertical<T> fvertical = new Vertical<>(this.first);
+        final Vertical<T> svertical = new Vertical<>(this.second);
+        final boolean both = new And<>(
+            Arrays.asList(fvertical, svertical)
+        ).resolve(field);
+        final boolean none = new And<>(
+            Arrays.asList(new Not<>(fvertical), new Not<>(svertical))
+        ).resolve(field);
+        return both || none && new Equals<>(
             new Slope<>(this.first), new Slope<>(this.second)
         ).resolve(field);
     }

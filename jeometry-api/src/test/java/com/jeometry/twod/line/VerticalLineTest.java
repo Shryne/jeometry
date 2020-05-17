@@ -23,9 +23,9 @@
  */
 package com.jeometry.twod.line;
 
+import com.aljebra.scalar.AddIdentity;
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
-import com.jeometry.twod.point.VertPoint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public final class VerticalLineTest {
     @Test
     public void buildsAVerticalLine() {
         MatcherAssert.assertThat(
-            new VerticalLine<>().direction(), Matchers.instanceOf(VertPoint.class)
+            new VerticalLine<>().direction().coords()[0], Matchers.equalTo(new AddIdentity<>())
         );
     }
 
