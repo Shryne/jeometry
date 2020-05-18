@@ -26,6 +26,7 @@ package com.jeometry.render.awt;
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.render.Surface;
 import com.jeometry.render.awt.style.AwtStroke;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.PtDirLine;
@@ -47,14 +48,14 @@ public final class AxisPaint {
     /**
      * Awt Context.
      */
-    private AwtContext ctx;
+    private Surface ctx;
 
     /**
      * Ctor.
      * @param field Field for scalar operations
      * @param ctx Awt Context
      */
-    public AxisPaint(final Field<Double> field, final AwtContext ctx) {
+    public AxisPaint(final Field<Double> field, final Surface ctx) {
         this.field = field;
         this.ctx = ctx;
     }
@@ -63,7 +64,7 @@ public final class AxisPaint {
      * Ctor.
      * @param ctx Awt Context
      */
-    public AxisPaint(final AwtContext ctx) {
+    public AxisPaint(final Surface ctx) {
         this(new Decimal(), ctx);
     }
 

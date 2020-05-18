@@ -24,10 +24,10 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.render.Surface;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.mock.SpyLine;
 import java.awt.Graphics2D;
 import java.util.concurrent.CountDownLatch;
@@ -64,12 +64,12 @@ public final class AwtTest {
      */
     @Test
     public void modifiesDrawableSurfaceSize() {
-        final Awt awt = new Awt();
+        final AwtDrawableSurface surface = new AwtDrawableSurface();
+        final Awt awt = new Awt(surface);
         final int width = 1401;
         final int height = 2011;
         awt.render(new Figure());
         awt.withSize(width, height);
-        final AwtDrawableSurface surface = awt.surface();
         final double scale = surface.context().scale();
         MatcherAssert.assertThat(
             surface.getWidth(), Matchers.equalTo((int) scale * width)
@@ -93,12 +93,12 @@ public final class AwtTest {
         ) {
             @Override
             protected void draw(final Shape renderable,
-                final Graphics2D graphic, final AwtContext ctx) {
+                final Graphics2D graphic, final Surface ctx) {
                 ((Line<?>) renderable.renderable()).direction();
                 latch.countDown();
             }
         };
-        final SpyLine<Double> line = new SpyLine<>(new RandomLine<>());
+        final SpyLine<Double> line = new SpyLine<>();
         awt.add(painter).render(new Figure().add(line));
         latch.await();
         MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
