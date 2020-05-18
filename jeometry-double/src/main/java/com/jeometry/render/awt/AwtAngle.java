@@ -25,6 +25,7 @@ package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.render.Surface;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.angle.Angle;
 import com.jeometry.twod.ray.PtDirRay;
@@ -53,7 +54,7 @@ public final class AwtAngle extends AbstractAwtPaint {
 
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
-        final AwtContext context) {
+        final Surface context) {
         @SuppressWarnings("unchecked")
         final Angle<Double> angle = (Angle<Double>) renderable.renderable();
         final AwtRay drawer = new AwtRay(this.field());

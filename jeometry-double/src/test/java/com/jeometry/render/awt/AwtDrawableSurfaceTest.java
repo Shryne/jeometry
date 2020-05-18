@@ -25,6 +25,7 @@ package com.jeometry.render.awt;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.render.Surface;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
@@ -115,7 +116,7 @@ public final class AwtDrawableSurfaceTest {
         ) {
             @Override
             protected void draw(final Shape renderable,
-                final Graphics2D graphic, final AwtContext ctx) {
+                final Graphics2D graphic, final Surface ctx) {
                 ((Line<?>) renderable.renderable()).direction();
                 latch.countDown();
             }

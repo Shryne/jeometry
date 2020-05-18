@@ -26,6 +26,8 @@ package com.jeometry.render.awt;
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.render.Surface;
+import com.jeometry.render.Transform;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.analytics.Intercept;
 import com.jeometry.twod.line.analytics.Slope;
@@ -57,7 +59,7 @@ public final class AwtRay extends AbstractAwtPaint {
 
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
-        final AwtContext context) {
+        final Surface context) {
         @SuppressWarnings("unchecked")
         final Ray<Double> ray = (Ray<Double>) renderable.renderable();
         if (new Vertical<>(ray).resolve(this.field())) {
@@ -73,14 +75,14 @@ public final class AwtRay extends AbstractAwtPaint {
      * @param ctxt AwtContext
      * @param ray Ray to draw
      */
-    private void regular(final Graphics2D graphics, final AwtContext ctxt,
+    private void regular(final Graphics2D graphics, final Surface ctxt,
         final Ray<Double> ray) {
         final int width = ctxt.width();
         final Field<Double> field = this.field();
         final Double xdir = field.actual(ray.direction().coords()[0]);
         final Double slope = this.field().actual(new Slope<>(ray));
         final Double intercept = this.field().actual(new Intercept<>(ray));
-        final AwtTransform transform = new AwtTransform(ctxt);
+        final Transform transform = new Transform(ctxt);
         final Point origin = transform.transform(ray.origin());
         final Double limit;
         if (xdir > 0) {
@@ -101,9 +103,9 @@ public final class AwtRay extends AbstractAwtPaint {
      * @param context AwtContext
      */
     private void vertical(final Graphics2D graphics, final Ray<Double> ray,
-        final AwtContext context) {
+        final Surface context) {
         final Field<Double> field = this.field();
-        final AwtTransform transform = new AwtTransform(context);
+        final Transform transform = new Transform(context);
         final Point origin = transform.transform(ray.origin());
         if (field.actual(ray.direction().coords()[1]) > 0) {
             graphics.drawLine(origin.x, origin.y, origin.x, 0);

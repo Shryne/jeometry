@@ -24,6 +24,7 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
+import com.jeometry.render.Surface;
 import com.jeometry.render.awt.style.AwtStroke;
 import com.jeometry.twod.RenderSupport;
 import com.jeometry.twod.Renderable;
@@ -35,7 +36,7 @@ import java.util.Arrays;
 
 /**
  * Represents an abstract AWT renderer accepting an AWT {@link Graphics2D} to
- * draw with and an {@link AwtContext} describing the context for drawing. This
+ * draw with and an {@link Surface} describing the context for drawing. This
  * renderer relies on {@link RenderSupport} and is built with classes to
  * support.
  * @since 0.1
@@ -53,9 +54,9 @@ public abstract class AbstractAwtPaint implements Renderer {
     private Graphics2D graphics;
 
     /**
-     * {@link AwtContext} describing drawing context.
+     * {@link Surface} describing drawing context.
      */
-    private AwtContext context;
+    private Surface context;
 
     /**
      * Supported classes that can be drawn.
@@ -82,10 +83,10 @@ public abstract class AbstractAwtPaint implements Renderer {
     }
 
     /**
-     * Sets current {@link AwtContext} for drawing.
-     * @param ctx Passed {@link AwtContext} to set
+     * Sets current {@link Surface} for drawing.
+     * @param ctx Passed {@link Surface} to set
      */
-    public final void setContext(final AwtContext ctx) {
+    public final void setContext(final Surface ctx) {
         this.context = ctx;
     }
 
@@ -120,8 +121,8 @@ public abstract class AbstractAwtPaint implements Renderer {
      * Draws given {@link Renderable}.
      * @param renderable Renderable to draw
      * @param graphic AWT {@link Graphics2D} to draw
-     * @param ctx Drawing {@link AwtContext}
+     * @param ctx Drawing {@link Surface}
      */
     protected abstract void draw(Shape renderable, Graphics2D graphic,
-        AwtContext ctx);
+        Surface ctx);
 }
