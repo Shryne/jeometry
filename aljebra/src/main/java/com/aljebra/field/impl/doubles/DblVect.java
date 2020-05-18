@@ -38,7 +38,7 @@ public final class DblVect extends FixedVector<Double> {
      * Constructor.
      * @param coords Double vector coordinates
      */
-    public DblVect(Double... coords) {
+    public DblVect(final Double... coords) {
         super(DblVect.wrap(coords));
     }
 
