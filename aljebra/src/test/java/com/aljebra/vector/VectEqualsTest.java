@@ -26,7 +26,8 @@ package com.aljebra.vector;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.scalar.Different;
 import com.aljebra.scalar.Scalar;
-import java.util.ArrayList;
+import com.aljebra.scalar.mock.Scalars;
+import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
@@ -49,7 +50,9 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToTrueWhenEqual() {
-        final List<Scalar<Double>> coords = VectEqualsTest.scalars();
+        final List<Scalar<Double>> coords = Lists.newArrayList(
+            new Scalars<>(1 + new Random().nextInt(VectEqualsTest.COORDS_LENGTH))
+        );
         MatcherAssert.assertThat(
             new VectEquals<>(
                 new FixedVector<>(coords), new FixedVector<>(coords)
@@ -63,8 +66,10 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToFalseWhenNotEqual() {
-        final List<Scalar<Double>> coords = VectEqualsTest.scalars();
-        final List<Scalar<Double>> second = new ArrayList<>(coords);
+        final List<Scalar<Double>> coords = Lists.newArrayList(
+            new Scalars<>(2 + new Random().nextInt(VectEqualsTest.COORDS_LENGTH))
+        );
+        final List<Scalar<Double>> second = Lists.newArrayList(coords);
         second.remove(0);
         second.add(0, new Different<>(coords.get(0)));
         MatcherAssert.assertThat(
@@ -81,8 +86,10 @@ public final class VectEqualsTest {
      */
     @Test
     public void resolvesToFalseWhenNotSameDimension() {
-        final List<Scalar<Double>> coords = VectEqualsTest.scalars();
-        final List<Scalar<Double>> second = new ArrayList<>(coords);
+        final List<Scalar<Double>> coords = Lists.newArrayList(
+            new Scalars<>(2 + new Random().nextInt(VectEqualsTest.COORDS_LENGTH))
+        );
+        final List<Scalar<Double>> second = Lists.newArrayList(coords);
         second.remove(second.size() - 1);
         MatcherAssert.assertThat(
             new VectEquals<>(
@@ -90,26 +97,5 @@ public final class VectEqualsTest {
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
-    }
-
-    /**
-     * Mocks an array of {@link Scalar} with a random length.
-     * @return An array of scalars.
-     */
-    private static List<Scalar<Double>> scalars() {
-        final int lgth = 2 + new Random().nextInt(VectEqualsTest.COORDS_LENGTH);
-        final List<Scalar<Double>> result = new ArrayList<>(lgth);
-        for (int idx = 0; idx < lgth; ++idx) {
-            result.add(VectEqualsTest.random());
-        }
-        return result;
-    }
-
-    /**
-     * Builds a random scalar.
-     * @return A random scalar.
-     */
-    private static Scalar<Double> random() {
-        return new com.aljebra.scalar.Random<>();
     }
 }

@@ -40,16 +40,16 @@ public final class FixedVectorTest {
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
-            new FixedVector<>(
+            new FixedVector<Double>(
                 Arrays.asList(
-                    new Scalar.Default<Double>(0.), new Scalar.Default<Double>(1.)
+                    new Scalar.Default<>(0.), new Scalar.Default<>(1.)
                 )
             ),
             Matchers.equalTo(
-                new FixedVector<>(
+                new FixedVector<Double>(
                     Arrays.asList(
-                        new Scalar.Default<Double>(0.),
-                        new Scalar.Default<Double>(1.)
+                        new Scalar.Default<>(0.),
+                        new Scalar.Default<>(1.)
                     )
                 )
             )
@@ -58,19 +58,19 @@ public final class FixedVectorTest {
         final String second = "test2";
         final String third = "test3";
         MatcherAssert.assertThat(
-            new FixedVector<>(
+            new FixedVector<String>(
                 Arrays.asList(
-                    new Scalar.Default<String>(first),
-                    new Scalar.Default<String>(second),
-                    new Scalar.Default<String>(third)
+                    new Scalar.Default<>(first),
+                    new Scalar.Default<>(second),
+                    new Scalar.Default<>(third)
                 )
             ),
             Matchers.equalTo(
-                new FixedVector<>(
+                new FixedVector<String>(
                     Arrays.asList(
-                        new Scalar.Default<String>(first),
-                        new Scalar.Default<String>(second),
-                        new Scalar.Default<String>(third)
+                        new Scalar.Default<>(first),
+                        new Scalar.Default<>(second),
+                        new Scalar.Default<>(third)
                     )
                 )
             )

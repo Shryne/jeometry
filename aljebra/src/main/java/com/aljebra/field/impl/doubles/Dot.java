@@ -31,7 +31,6 @@ import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.Vect;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -86,15 +85,13 @@ public final class Dot implements InnerProduct<Double> {
 
     @Override
     public Vect<Double> rot(final Vect<Double> vect, final Degrees<Double> ang) {
-        final Number angle = this.resolve(ang);
-        final FixedMatrix<Double> rot = new FixedMatrix<>(
+        final Double angle = this.resolve(ang).doubleValue();
+        final FixedMatrix<Double> rot = new DblMatrix(
             2, 2,
-            Arrays.asList(
-                Dot.wrap(Math.cos(angle.doubleValue())),
-                Dot.wrap(Math.sin(angle.doubleValue())),
-                Dot.wrap(-Math.sin(angle.doubleValue())),
-                Dot.wrap(Math.cos(angle.doubleValue()))
-            )
+            Math.cos(angle),
+            Math.sin(angle),
+            -Math.sin(angle),
+            Math.cos(angle)
         );
         return rot.apply(vect);
     }

@@ -87,12 +87,15 @@ public final class DecimalRandomTest {
         final DecimalRandom rand = new DecimalRandom(
             DecimalRandomTest.MIN, DecimalRandomTest.MAX
         );
-        final Double value = DecimalRandomTest.random();
+        final Double first = DecimalRandomTest.random();
+        final Double second = DecimalRandomTest.random();
+        final Double low = Math.min(first, second);
+        final Double high = Math.max(first, second);
         MatcherAssert.assertThat(
-            rand.between(value, value + 1),
+            rand.between(low, high),
             Matchers.allOf(
-                Matchers.greaterThanOrEqualTo(value),
-                Matchers.lessThanOrEqualTo(value + 1)
+                Matchers.greaterThanOrEqualTo(low),
+                Matchers.lessThanOrEqualTo(high)
             )
         );
     }

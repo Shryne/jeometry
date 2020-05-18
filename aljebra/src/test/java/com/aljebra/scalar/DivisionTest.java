@@ -23,18 +23,28 @@
  */
 package com.aljebra.scalar;
 
+import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.field.mock.MkField;
 import com.aljebra.field.mock.MkMultiplication;
 import com.aljebra.field.mock.SpyField;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * Tests for {@link Division}.
  * @since 0.1
  */
 public final class DivisionTest {
+
+    /**
+     * Junit rule for expected exceptions.
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     /**
      * {@link Division} respects equals and hashcode on divisor and dividend.
      */
@@ -119,5 +129,16 @@ public final class DivisionTest {
         MatcherAssert.assertThat(
             division.second(), Matchers.equalTo(second)
         );
+    }
+
+    /**
+     * {@link Division} by addition identity throws exception.
+     */
+    @Test
+    public void throwsExceptionWhenDivideByZero() {
+        this.thrown.expect(IllegalArgumentException.class);
+        final Scalar<Double> first = new Scalar.Default<>(Math.random());
+        final Scalar<Double> second = new AddIdentity<>();
+        new Division<>(first, second).value(new Decimal());
     }
 }
