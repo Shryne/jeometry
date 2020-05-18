@@ -128,6 +128,28 @@ public final class FixedMatrixTest {
     }
 
     /**
+     * {@link FixedMatrix} toString prints lines, columns and coordinates.
+     */
+    @Test
+    public void printsAttributes() {
+        final int lines = 3;
+        final int cols = 4;
+        final Iterable<Scalar<Object>> scalars = new Scalars<>(lines * cols);
+        final FixedMatrix<Object> matrix = new FixedMatrix<>(lines, cols, scalars);
+        MatcherAssert.assertThat(
+            matrix.toString(), Matchers.containsString(String.valueOf(lines))
+        );
+        MatcherAssert.assertThat(
+            matrix.toString(), Matchers.containsString(String.valueOf(cols))
+        );
+        for (final Scalar<Object> scalar : scalars) {
+            MatcherAssert.assertThat(
+                matrix.toString(), Matchers.containsString(scalar.toString())
+            );
+        }
+    }
+
+    /**
      * Gives a scalar representing the product value of the given vector
      * by a coordinate array.
      * @param input Input vector

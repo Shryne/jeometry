@@ -178,4 +178,31 @@ public final class SumTest {
         );
     }
 
+    /**
+     * {@link Sum} toString prints lines, columns and operands.
+     */
+    @Test
+    public void printsAttributes() {
+        final int lines = 3;
+        final int cols = 4;
+        final FixedMatrix<Object> first = new FixedMatrix<>(
+            lines, cols, new Scalars<>(lines * cols)
+        );
+        final FixedMatrix<Object> second = new FixedMatrix<>(
+            lines, cols, new Scalars<>(lines * cols)
+        );
+        final FixedMatrix<Object> third = new FixedMatrix<>(
+            lines, cols, new Scalars<>(lines * cols)
+        );
+        MatcherAssert.assertThat(
+            new Sum<Object>(Arrays.asList(first, second, third)).toString(),
+            Matchers.allOf(
+                Matchers.containsString(String.valueOf(lines)),
+                Matchers.containsString(String.valueOf(cols)),
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString()),
+                Matchers.containsString(third.toString())
+            )
+        );
+    }
 }

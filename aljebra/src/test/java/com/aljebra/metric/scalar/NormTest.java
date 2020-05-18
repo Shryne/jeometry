@@ -34,6 +34,7 @@ import com.aljebra.vector.Vect;
 import java.util.Arrays;
 import java.util.Optional;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -76,6 +77,20 @@ public final class NormTest {
         this.thrown.expect(UnsupportedOperationException.class);
         new Norm<>(new FixedVector<>(Arrays.asList(new Random<>()))).value(
             new SpyField<>(new Object(), new Object())
+        );
+    }
+
+    /**
+     * {@link Norm} toString prints vector.
+     */
+    @Test
+    public void printsAttributes() {
+        final Vect<Object> input = new FixedVector<>(
+            Arrays.asList(new Scalar.Default<>(new Object()))
+        );
+        MatcherAssert.assertThat(
+            new Norm<>(input).toString(),
+            Matchers.containsString(input.toString())
         );
     }
 }

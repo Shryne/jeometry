@@ -75,5 +75,4 @@ public final class TransposeMatrixTest {
         MatcherAssert.assertThat(matrix.lines(), Matchers.equalTo(cols));
         MatcherAssert.assertThat(matrix.columns(), Matchers.equalTo(lines));
     }
-
 }

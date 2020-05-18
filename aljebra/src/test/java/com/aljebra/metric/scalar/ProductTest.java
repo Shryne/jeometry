@@ -33,6 +33,7 @@ import com.aljebra.vector.Vect;
 import java.util.List;
 import java.util.Optional;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -78,5 +79,22 @@ public final class ProductTest {
         final Vect<Object> first = new FixedVector<>(new Scalars<>(dim));
         final Vect<Object> second = new FixedVector<>(new Scalars<>(dim));
         new Product<>(first, second).value(new SpyField<>(new Object(), new Object()));
+    }
+
+    /**
+     * {@link Product} toString prints vectors.
+     */
+    @Test
+    public void printsAttributes() {
+        final int dim = 6;
+        final Vect<Object> first = new FixedVector<>(new Scalars<>(dim));
+        final Vect<Object> second = new FixedVector<>(new Scalars<>(dim));
+        MatcherAssert.assertThat(
+            new Product<>(first, second).toString(),
+            Matchers.allOf(
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString())
+            )
+        );
     }
 }
