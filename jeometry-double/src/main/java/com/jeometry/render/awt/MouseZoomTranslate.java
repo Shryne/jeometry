@@ -66,7 +66,7 @@ class MouseZoomTranslate extends MouseAdapter {
 
     @Override
     public void mouseDragged(final MouseEvent event) {
-        final double scale = (double) this.awt.context().scale();
+        final double scale = this.awt.context().scale();
         this.awt.translate(
             (this.startx - event.getX()) / scale,
             (event.getY() - this.starty) / scale

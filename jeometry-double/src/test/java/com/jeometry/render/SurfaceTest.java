@@ -21,7 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.render.awt;
+package com.jeometry.render;
 
 import com.jeometry.model.decimal.DblPoint;
 import java.awt.Dimension;
@@ -31,13 +31,13 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Tests for {@link AwtContext}.
+ * Tests for {@link Surface}.
  * @since 0.1
  */
-public final class AwtContextTest {
+public final class SurfaceTest {
 
     /**
-     * {@link AwtContext} gives access to properties.
+     * {@link Surface} gives access to properties.
      */
     @Test
     public void givesAccessToPoperties() {
@@ -46,7 +46,7 @@ public final class AwtContextTest {
         final double scale = Math.random();
         final double xcoor = Math.random();
         final double ycoor = Math.random();
-        final AwtContext ctx = new AwtContext(
+        final Surface ctx = new Surface(
             new Dimension(width, height), scale, new DblPoint(xcoor, ycoor)
         );
         MatcherAssert.assertThat(

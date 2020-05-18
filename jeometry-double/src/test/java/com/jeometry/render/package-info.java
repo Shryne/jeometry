@@ -21,46 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.render.awt;
-
-import com.aljebra.field.Field;
-import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.vector.Vect;
-import com.jeometry.render.Surface;
-import com.jeometry.render.Transform;
-import com.jeometry.twod.Shape;
-import java.awt.Graphics2D;
-import java.awt.Point;
-
 /**
- * Awt Point painter that draws a point on an AWT graphics.
- * @since 0.1
+ * Tests for render implementation.
  */
-public final class AwtPoint extends AbstractAwtPaint {
-
-    /**
-     * Ctor.
-     * @param field Field for scalar operations
-     */
-    public AwtPoint(final Field<Double> field) {
-        super(field, Vect.class);
-    }
-
-    /**
-     * Ctor.
-     */
-    public AwtPoint() {
-        this(new Decimal());
-    }
-
-    @Override
-    public void draw(final Shape renderable, final Graphics2D graphics,
-        final Surface context) {
-        final int size = 4;
-        @SuppressWarnings("unchecked")
-        final Vect<Double> point = (Vect<Double>) renderable.renderable();
-        final Point awtpt = new Transform(context).transform(point);
-        graphics.drawRect(awtpt.x - size / 2, awtpt.y - size / 2, size, size);
-    }
-
-}
+package com.jeometry.render;

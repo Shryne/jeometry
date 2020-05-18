@@ -25,6 +25,8 @@ package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.render.Surface;
+import com.jeometry.render.Transform;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.segment.Segment;
 import java.awt.Graphics2D;
@@ -53,10 +55,10 @@ public final class AwtSegment extends AbstractAwtPaint {
 
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
-        final AwtContext context) {
+        final Surface context) {
         @SuppressWarnings("unchecked")
         final Segment<Double> seg = (Segment<Double>) renderable.renderable();
-        final AwtTransform transform = new AwtTransform(context);
+        final Transform transform = new Transform(context);
         final Point start = transform.transform(seg.start());
         final Point end = transform.transform(seg.end());
         graphics.drawLine(start.x, start.y, end.x, end.y);

@@ -21,17 +21,17 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.render.awt;
+package com.jeometry.render;
 
 import com.jeometry.model.decimal.DblPoint;
 import java.awt.Dimension;
 
 /**
- * Class representing Awt drawable surface properties: width, height, center
+ * Class representing a drawable surface properties: width, height, center
  * and scale(zoom).
  * @since 0.1
  */
-public final class AwtContext {
+public final class Surface {
 
     /**
      * Width of drawable surface.
@@ -59,7 +59,7 @@ public final class AwtContext {
      * @param scale Zoom of drawable surface.
      * @param center Point on which drawable surface is centered
      */
-    public AwtContext(final Dimension dim, final double scale,
+    public Surface(final Dimension dim, final double scale,
         final DblPoint center) {
         this.wdth = dim.width;
         this.hght = dim.height;

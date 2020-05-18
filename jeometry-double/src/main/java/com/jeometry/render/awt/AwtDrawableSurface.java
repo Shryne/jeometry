@@ -24,6 +24,7 @@
 package com.jeometry.render.awt;
 
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.render.Surface;
 import com.jeometry.twod.Figure;
 import com.jeometry.twod.Shape;
 import java.awt.Color;
@@ -110,7 +111,7 @@ public final class AwtDrawableSurface extends JPanel {
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON
             );
-            final AwtContext context = this.context();
+            final Surface context = this.context();
             surface.setColor(Color.BLACK);
             for (final AbstractAwtPaint painter : this.painters) {
                 painter.setGraphics(surface);
@@ -124,11 +125,11 @@ public final class AwtDrawableSurface extends JPanel {
     }
 
     /**
-     * Gives the {@link AwtContext}.
-     * @return Drawing {@link AwtContext}
+     * Gives the {@link Surface}.
+     * @return Drawing {@link Surface}
      */
-    public AwtContext context() {
-        return new AwtContext(
+    public Surface context() {
+        return new Surface(
             new Dimension(this.getWidth(), this.getHeight()),
             this.scale, this.center
         );
@@ -164,9 +165,11 @@ public final class AwtDrawableSurface extends JPanel {
      * Modifies drawable surface size, in coordinates relative size.
      * @param width Width to set in coordinates unit
      * @param height Height to set in coordinates unit
+     * @return This drawable surface
      */
-    public void withSize(final int width, final int height) {
+    public AwtDrawableSurface withSize(final int width, final int height) {
         this.setSize((int) this.scale * width, (int) this.scale * height);
+        return this;
     }
 
     /**

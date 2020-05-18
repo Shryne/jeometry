@@ -26,6 +26,8 @@ package com.jeometry.render.awt;
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.render.Surface;
+import com.jeometry.render.Transform;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.analytics.Intercept;
@@ -57,7 +59,7 @@ public final class AwtLine extends AbstractAwtPaint {
 
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
-        final AwtContext context) {
+        final Surface context) {
         @SuppressWarnings("unchecked")
         final Line<Double> line = (Line<Double>) renderable.renderable();
         if (new Vertical<>(line).resolve(this.field())) {
@@ -74,9 +76,9 @@ public final class AwtLine extends AbstractAwtPaint {
      * @param context AwtContext
      */
     private void regular(final Graphics2D graphics,
-        final Line<Double> line, final AwtContext context) {
+        final Line<Double> line, final Surface context) {
         final int width = context.width();
-        final AwtTransform transform = new AwtTransform(context);
+        final Transform transform = new Transform(context);
         final Double xstart = transform.inverse(new Point(0, 0)).dblx();
         final Double xend = transform.inverse(new Point(width, 0)).dblx();
         final Double slope = this.field().actual(new Slope<>(line));
@@ -97,8 +99,8 @@ public final class AwtLine extends AbstractAwtPaint {
      * @param context AwtContext
      */
     private static void vertical(final Graphics2D graphics, final Line<Double> line,
-        final AwtContext context) {
-        final Point point = new AwtTransform(context).transform(line.point());
+        final Surface context) {
+        final Point point = new Transform(context).transform(line.point());
         graphics.drawLine(point.x, 0, point.x, context.height());
     }
 

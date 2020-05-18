@@ -21,7 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.render.awt;
+package com.jeometry.render;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
@@ -31,15 +31,15 @@ import com.jeometry.twod.point.XyPoint;
 import java.awt.Point;
 
 /**
- * Class transforming double coordinates to Awt graphics coordinates.
+ * Class transforming double coordinates to surface coordinates.
  * @since 0.1
  */
-public final class AwtTransform {
+public final class Transform {
 
     /**
-     * Awt context.
+     * Drawable surface.
      */
-    private final AwtContext ctx;
+    private final Surface ctx;
 
     /**
      * Field for scalar operations.
@@ -48,18 +48,18 @@ public final class AwtTransform {
 
     /**
      * Ctor.
-     * @param ctx Awt context
+     * @param ctx Surface context
      */
-    public AwtTransform(final AwtContext ctx) {
+    public Transform(final Surface ctx) {
         this(ctx, new Decimal());
     }
 
     /**
      * Ctor.
-     * @param ctx Awt context
+     * @param ctx Surface context
      * @param field Field for scalar operations
      */
-    public AwtTransform(final AwtContext ctx, final Field<Double> field) {
+    public Transform(final Surface ctx, final Field<Double> field) {
         this.ctx = ctx;
         this.field = field;
     }
