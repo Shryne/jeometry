@@ -23,12 +23,20 @@
  */
 package com.aljebra.field;
 
+import com.aljebra.metric.InnerProduct;
+
 /**
- * Interface describing a metric space field of scalars. A metric space defines
+ * Interface describing a metric space on a set. A metric space defines
  * scalar vector products, angles, vector distances and norms.
- * @param <T> The actual objects constituting the field.
- * @since 0.1
+ * @param <T> The actual objects constituting the set.
+ * @since 0.3
  */
-public interface MetricSpaceField<T> extends OrderedField<T>, MetricSpace<T> {
+public interface MetricSpace<T> {
+
+    /**
+     * Gives the inner product operation.
+     * @return Inner product implementation
+     */
+    InnerProduct<T> product();
 
 }
