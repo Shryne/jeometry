@@ -87,30 +87,6 @@ public final class MkOrderedRandom<T> implements OrderedRandom<T> {
         this.low = Optional.empty();
     }
 
-    /**
-     * Accessor for the last scalars passed when calling between method.
-     * @return An optional probably containing two scalars, or empty if the method was never called
-     */
-    public Optional<List<T>> between() {
-        return this.bet;
-    }
-
-    /**
-     * Accessor for the last scalar passed when calling greater method.
-     * @return An optional probably containing a scalar, or empty if the method was never called
-     */
-    public Optional<T> greater() {
-        return this.great;
-    }
-
-    /**
-     * Accessor for the last scalar passed when calling lower method.
-     * @return An optional probably containing a scalar, or empty if the method was never called
-     */
-    public Optional<T> lower() {
-        return this.low;
-    }
-
     @Override
     public T between(final T lower, final T upper) {
         this.bet = Optional.of(Arrays.asList(lower, upper));
@@ -137,6 +113,30 @@ public final class MkOrderedRandom<T> implements OrderedRandom<T> {
     public T lower(final T upper) {
         this.low = Optional.of(upper);
         return upper;
+    }
+
+    /**
+     * Accessor for the last scalars passed when calling between method.
+     * @return An optional probably containing two scalars, or empty if the method was never called
+     */
+    public Optional<List<T>> between() {
+        return this.bet;
+    }
+
+    /**
+     * Accessor for the last scalar passed when calling greater method.
+     * @return An optional probably containing a scalar, or empty if the method was never called
+     */
+    public Optional<T> greater() {
+        return this.great;
+    }
+
+    /**
+     * Accessor for the last scalar passed when calling lower method.
+     * @return An optional probably containing a scalar, or empty if the method was never called
+     */
+    public Optional<T> lower() {
+        return this.low;
     }
 
 }
