@@ -61,8 +61,17 @@ public final class Awt extends JFrame implements Output {
      * buttons.
      */
     public Awt() {
+        this(new AwtDrawableSurface());
+    }
+
+    /**
+     * Ctor. Builds a {@link JFrame} with the passed drawable surface and 4 control
+     * buttons.
+     * @param drawable Awt drawable surface
+     */
+    public Awt(final AwtDrawableSurface drawable) {
         super();
-        this.drawable = new AwtDrawableSurface();
+        this.drawable = drawable;
     }
 
     @Override
@@ -94,14 +103,6 @@ public final class Awt extends JFrame implements Output {
     public Awt add(final AbstractAwtPaint painter) {
         this.drawable.add(painter);
         return this;
-    }
-
-    /**
-     * Accessor for the drawable surface.
-     * @return The drawable surface
-     */
-    public AwtDrawableSurface surface() {
-        return this.drawable;
     }
 
     /**

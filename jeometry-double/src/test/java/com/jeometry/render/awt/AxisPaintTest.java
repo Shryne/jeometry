@@ -24,6 +24,7 @@
 package com.jeometry.render.awt;
 
 import com.jeometry.model.decimal.DblPoint;
+import com.jeometry.render.Surface;
 import com.jeometry.render.awt.style.AwtStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,7 +44,7 @@ public final class AxisPaintTest {
      */
     @Test
     public void preservesGraphicsColor() {
-        final AwtContext ctx = AxisPaintTest.context();
+        final Surface ctx = AxisPaintTest.context();
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
         Mockito.when(graphics.getColor()).thenReturn(Color.BLUE);
         new AxisPaint(ctx).paint(graphics);
@@ -55,7 +56,7 @@ public final class AxisPaintTest {
      */
     @Test
     public void overridesGraphicsStroke() {
-        final AwtContext ctx = AxisPaintTest.context();
+        final Surface ctx = AxisPaintTest.context();
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
         new AxisPaint(ctx).paint(graphics);
         Mockito.verify(graphics).setStroke(Mockito.isA(AwtStroke.class));
@@ -66,7 +67,7 @@ public final class AxisPaintTest {
      */
     @Test
     public void drawsLines() {
-        final AwtContext ctx = AxisPaintTest.context();
+        final Surface ctx = AxisPaintTest.context();
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
         new AxisPaint(ctx).paint(graphics);
         Mockito.verify(graphics, Mockito.atLeast(2)).drawLine(
@@ -77,10 +78,10 @@ public final class AxisPaintTest {
 
     /**
      * Builds a random awt context.
-     * @return A random {@link AwtContext}
+     * @return A random {@link Surface}
      */
-    private static AwtContext context() {
-        return new AwtContext(
+    private static Surface context() {
+        return new Surface(
             new Dimension(new Random().nextInt(), new Random().nextInt()),
             Math.random(),
             new DblPoint(Math.random(), Math.random())

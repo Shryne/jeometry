@@ -25,6 +25,8 @@ package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.render.Surface;
+import com.jeometry.render.Transform;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.circle.Circle;
 import java.awt.Graphics2D;
@@ -53,13 +55,13 @@ public final class AwtCircle extends AbstractAwtPaint {
 
     @Override
     public void draw(final Shape renderable, final Graphics2D graphics,
-        final AwtContext context) {
+        final Surface context) {
         @SuppressWarnings("unchecked")
         final Circle<Double> circle = (Circle<Double>) renderable.renderable();
         final int size = (int) (context.scale() * this.field().actual(
             circle.radius()
         ));
-        final Point center = new AwtTransform(context)
+        final Point center = new Transform(context)
             .transform(circle.center());
         graphics.drawOval(center.x - size, center.y - size, 2 * size, 2 * size);
         graphics.setColor(renderable.style().fillStyle().color());

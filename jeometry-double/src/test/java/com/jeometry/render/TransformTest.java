@@ -21,7 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.render.awt;
+package com.jeometry.render;
 
 import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.vector.Vect;
@@ -34,21 +34,21 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Tests for {@link AwtTransform}.
+ * Tests for {@link Transform}.
  * @since 0.1
  */
-public final class AwtTransformTest {
+public final class TransformTest {
 
     /**
-     * {@link AwtTransform} transforms DblPoint.
+     * {@link Transform} transforms DblPoint.
      */
     @Test
     public void transformsDblPoint() {
         final Double xcoor = Math.random();
         final Double ycoor = Math.random();
         final DblPoint point = new DblPoint(xcoor, ycoor);
-        final AwtContext ctx = AwtTransformTest.context();
-        final Point result = new AwtTransform(ctx).transform(point);
+        final Surface ctx = TransformTest.context();
+        final Point result = new Transform(ctx).transform(point);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             result.getX(), Matchers.closeTo(
@@ -65,15 +65,15 @@ public final class AwtTransformTest {
     }
 
     /**
-     * {@link AwtTransform} transforms XyPoint.
+     * {@link Transform} transforms XyPoint.
      */
     @Test
     public void transformsXyPoint() {
         final Double xcoor = Math.random();
         final Double ycoor = Math.random();
         final XyPoint<Double> point = new DblPoint(xcoor, ycoor);
-        final AwtContext ctx = AwtTransformTest.context();
-        final Point result = new AwtTransform(ctx).transform(point);
+        final Surface ctx = TransformTest.context();
+        final Point result = new Transform(ctx).transform(point);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             result.getX(), Matchers.closeTo(
@@ -90,15 +90,15 @@ public final class AwtTransformTest {
     }
 
     /**
-     * {@link AwtTransform} transforms vector.
+     * {@link Transform} transforms vector.
      */
     @Test
     public void transformsVect() {
         final Double xcoor = Math.random();
         final Double ycoor = Math.random();
         final Vect<Double> point = new DblPoint(xcoor, ycoor);
-        final AwtContext ctx = AwtTransformTest.context();
-        final Point res = new AwtTransform(ctx, new Decimal()).transform(point);
+        final Surface ctx = TransformTest.context();
+        final Point res = new Transform(ctx, new Decimal()).transform(point);
         final double error = 1.e-6;
         MatcherAssert.assertThat(
             res.getX(), Matchers.closeTo(
@@ -115,15 +115,15 @@ public final class AwtTransformTest {
     }
 
     /**
-     * {@link AwtTransform} makes inverse transformation.
+     * {@link Transform} makes inverse transformation.
      */
     @Test
     public void transformsAwtPoint() {
         final int xcoor = 2003;
         final int ycoor = 1956;
-        final AwtContext ctx = AwtTransformTest.context();
+        final Surface ctx = TransformTest.context();
         MatcherAssert.assertThat(
-            new AwtTransform(ctx).inverse(new Point(xcoor, ycoor)),
+            new Transform(ctx).inverse(new Point(xcoor, ycoor)),
             Matchers.equalTo(
                 new DblPoint(
                     (xcoor - ctx.width() / 2d) / ctx.scale()
@@ -137,12 +137,12 @@ public final class AwtTransformTest {
 
     /**
      * Builds a random awt context.
-     * @return A random {@link AwtContext}
+     * @return A random {@link Surface}
      */
-    private static AwtContext context() {
+    private static Surface context() {
         final int width = 250;
         final int height = 125;
-        return new AwtContext(
+        return new Surface(
             new Dimension(width, height),
             Math.random(),
             new DblPoint(Math.random(), Math.random())
