@@ -25,6 +25,7 @@ package com.aljebra.metric.vect;
 
 import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
+import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
@@ -57,4 +58,19 @@ public final class BisectorVectTest {
         );
     }
 
+    /**
+     * {@link BisectorVect} toString prints coordinates.
+     */
+    @Test
+    public void printsCoords() {
+        final int dim = 2;
+        final Vect<Double> vect = new BisectorVect<>(
+            new FixedVector<>(new Scalars<>(dim)), new FixedVector<>(new Scalars<>(dim))
+        );
+        for (final Scalar<Double> scalar : vect.coords()) {
+            MatcherAssert.assertThat(
+                vect.toString(), Matchers.containsString(scalar.toString())
+            );
+        }
+    }
 }

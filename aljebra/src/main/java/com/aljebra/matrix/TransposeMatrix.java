@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Represents a matrix as the transpose of another matrix.
@@ -35,6 +36,7 @@ import lombok.EqualsAndHashCode;
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class TransposeMatrix<T> extends FixedMatrix<T> {
 
     /**

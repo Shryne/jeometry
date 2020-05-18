@@ -28,6 +28,7 @@ import com.aljebra.field.impl.doubles.Decimal;
 import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.scalar.Random;
+import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
@@ -70,4 +71,18 @@ public final class NormalizedTest {
         );
     }
 
+    /**
+     * {@link Normalized} toString prints coordinates.
+     */
+    @Test
+    public void printsCoords() {
+        final Normalized<Double> vect = new Normalized<>(
+            new FixedVector<>(Arrays.asList(new Random<>(), new Random<>()))
+        );
+        for (final Scalar<Double> scalar : vect.coords()) {
+            MatcherAssert.assertThat(
+                vect.toString(), Matchers.containsString(scalar.toString())
+            );
+        }
+    }
 }

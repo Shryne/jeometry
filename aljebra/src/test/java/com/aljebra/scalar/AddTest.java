@@ -116,4 +116,20 @@ public final class AddTest {
             add.added(), Matchers.is(operands.size())
         );
     }
+
+    /**
+     * {@link Add} toString prints operands.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
+        MatcherAssert.assertThat(
+            new Add<>(first, second).toString(),
+            Matchers.allOf(
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString())
+            )
+        );
+    }
 }

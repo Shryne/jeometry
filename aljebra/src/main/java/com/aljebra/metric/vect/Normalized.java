@@ -36,7 +36,7 @@ import lombok.ToString;
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
+@ToString(callSuper = true)
 public final class Normalized<T> extends FixedVector<T> {
 
     /**

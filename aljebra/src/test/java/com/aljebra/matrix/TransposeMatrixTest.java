@@ -75,4 +75,42 @@ public final class TransposeMatrixTest {
         MatcherAssert.assertThat(matrix.lines(), Matchers.equalTo(cols));
         MatcherAssert.assertThat(matrix.columns(), Matchers.equalTo(lines));
     }
+
+    /**
+     * {@link TransposeMatrix} respects equality regarding transposed matrix.
+     */
+    @Test
+    public void respectsEqualAndHashcode() {
+        final int lines = 3;
+        final int cols = 4;
+        final FixedMatrix<Object> input = new FixedMatrix<>(
+            lines, cols, new Scalars<>(lines * cols)
+        );
+        MatcherAssert.assertThat(
+            new TransposeMatrix<>(input),
+            Matchers.equalTo(new TransposeMatrix<>(input))
+        );
+        MatcherAssert.assertThat(
+            new TransposeMatrix<>(input).hashCode(),
+            Matchers.equalTo(new TransposeMatrix<>(input).hashCode())
+        );
+    }
+
+    /**
+     * {@link TransposeMatrix} toString prints matrix content.
+     */
+    @Test
+    public void printsCoords() {
+        final int lines = 3;
+        final int cols = 4;
+        final Scalars<Object> scalars = new Scalars<>(lines * cols);
+        final TransposeMatrix<Object> matrix = new TransposeMatrix<>(
+            new FixedMatrix<Object>(lines, cols, scalars)
+        );
+        for (final Scalar<Object> scalar : scalars) {
+            MatcherAssert.assertThat(
+                matrix.toString(), Matchers.containsString(scalar.toString())
+            );
+        }
+    }
 }
