@@ -45,7 +45,7 @@ public final class DblVectTest {
         final double coorc = Math.random();
         final double coord = Math.random();
         final double coore = Math.random();
-        final DblVect vect = new DblVect(Arrays.asList(coora, coorb, coorc, coord, coore));
+        final DblVect vect = new DblVect(coora, coorb, coorc, coord, coore);
         MatcherAssert.assertThat(
             Arrays.asList(vect.coords()),
             Matchers.equalTo(

@@ -38,7 +38,7 @@ public final class DblVect extends FixedVector<Double> {
      * Constructor.
      * @param coords Double vector coordinates
      */
-    public DblVect(final Iterable<Double> coords) {
+    public DblVect(Double... coords) {
         super(DblVect.wrap(coords));
     }
 
@@ -47,8 +47,8 @@ public final class DblVect extends FixedVector<Double> {
      * @param coords Double array
      * @return A scalar array wrapping the doubles
      */
-    private static List<Scalar<Double>> wrap(final Iterable<Double> coords) {
-        final List<Scalar<Double>> result = new ArrayList<>(10);
+    private static List<Scalar<Double>> wrap(final Double... coords) {
+        final List<Scalar<Double>> result = new ArrayList<>(coords.length);
         for (final Double coor : coords) {
             result.add(DblVect.wrap(coor));
         }
