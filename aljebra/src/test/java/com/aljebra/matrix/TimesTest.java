@@ -72,19 +72,19 @@ public final class TimesTest {
         final Scalar<Object> scalarb = scalars.next();
         final Scalar<Object> scalarc = scalars.next();
         final Scalar<Object> scalard = scalars.next();
-        final Scalar<Object> scalare = scalars.next();
+        final Scalar<Object> factor = scalars.next();
         final Matrix<Object> matrix = new Times<>(
             new FixedMatrix<Object>(
                 lines, cols, Arrays.asList(scalara, scalarb, scalarc, scalard)
             ),
-            scalare
+            factor
         );
         MatcherAssert.assertThat(
             matrix.line(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(scalara, scalare),
-                    new Multiplication<Object>(scalarc, scalare),
+                    new Multiplication<Object>(scalara, factor),
+                    new Multiplication<Object>(scalarc, factor),
                 }
             )
         );
@@ -92,8 +92,8 @@ public final class TimesTest {
             matrix.line(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(scalarb, scalare),
-                    new Multiplication<Object>(scalard, scalare),
+                    new Multiplication<Object>(scalarb, factor),
+                    new Multiplication<Object>(scalard, factor),
                 }
             )
         );
@@ -101,8 +101,8 @@ public final class TimesTest {
             matrix.column(1),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(scalara, scalare),
-                    new Multiplication<Object>(scalarb, scalare),
+                    new Multiplication<Object>(scalara, factor),
+                    new Multiplication<Object>(scalarb, factor),
                 }
             )
         );
@@ -110,8 +110,8 @@ public final class TimesTest {
             matrix.column(2),
             Matchers.equalTo(
                 new Scalar[] {
-                    new Multiplication<Object>(scalarc, scalare),
-                    new Multiplication<Object>(scalard, scalare),
+                    new Multiplication<Object>(scalarc, factor),
+                    new Multiplication<Object>(scalard, factor),
                 }
             )
         );

@@ -47,7 +47,7 @@ public final class OppositeTest {
      * zeroed vector.
      */
     @Test
-    public void coordsEqualCoordsMult() {
+    public void calculatesOpposite() {
         final Vect<Double> vecta = new FixedVector<>(
             new Scalars<>(1 + new Random().nextInt(OppositeTest.COORDS_LENGTH))
         );

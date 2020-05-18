@@ -21,47 +21,22 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.field.impl.doubles;
+package com.aljebra.field;
 
-import com.aljebra.scalar.Scalar;
-import com.aljebra.vector.FixedVector;
-import java.util.ArrayList;
-import java.util.List;
+import com.aljebra.metric.InnerProduct;
 
 /**
- * A convenient class for double vectors.
- * @since 0.1
+ * Interface describing a metric space on a set. A metric space defines
+ * scalar vector products, angles, vector distances and norms.
+ * @param <T> The actual objects constituting the set.
+ * @since 0.3
  */
-public final class DblVect extends FixedVector<Double> {
+public interface MetricSpace<T> {
 
     /**
-     * Constructor.
-     * @param coords Double vector coordinates
+     * Gives the inner product operation.
+     * @return Inner product implementation
      */
-    public DblVect(final Double... coords) {
-        super(DblVect.wrap(coords));
-    }
-
-    /**
-     * Wraps double array into scalar array.
-     * @param coords Double array
-     * @return A scalar array wrapping the doubles
-     */
-    private static List<Scalar<Double>> wrap(final Double... coords) {
-        final List<Scalar<Double>> result = new ArrayList<>(coords.length);
-        for (final Double coor : coords) {
-            result.add(DblVect.wrap(coor));
-        }
-        return result;
-    }
-
-    /**
-     * Wraps a double into a scalar.
-     * @param num A double
-     * @return A scalar wrapping the double
-     */
-    private static Scalar<Double> wrap(final Double num) {
-        return new Scalar.Default<Double>(num);
-    }
+    InnerProduct<T> product();
 
 }

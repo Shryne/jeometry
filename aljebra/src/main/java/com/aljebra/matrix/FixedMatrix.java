@@ -47,7 +47,7 @@ public class FixedMatrix<T> implements Matrix<T> {
     /**
      * Coordinates.
      */
-    private Scalar<T>[] coors;
+    private final Scalar<T>[] coors;
 
     /**
      * Source vector space dimension.
@@ -71,16 +71,6 @@ public class FixedMatrix<T> implements Matrix<T> {
         this.source = columns;
         this.target = lines;
         this.coors = this.valid(Lists.newArrayList(coor)).toArray(new Scalar[1]);
-    }
-
-    /**
-     * Modifies a coordinate of the matrix.
-     * @param lin Line index of the coordinate to modify (1-based index)
-     * @param col Column index of the coordinate to modify (1-based index)
-     * @param cor New coordinate
-     */
-    public final void setCoor(final int lin, final int col, final Scalar<T> cor) {
-        this.coors[this.index(lin, col)] = cor;
     }
 
     @Override
