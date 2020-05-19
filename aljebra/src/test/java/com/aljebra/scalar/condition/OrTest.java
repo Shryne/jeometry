@@ -55,7 +55,7 @@ public final class OrTest {
     public void resolvesToFalseWhenAllPredicatesFalse() {
         MatcherAssert.assertThat(
             new Or<>(
-                Arrays.asList(new False<>(), new False<>())
+                new False<>(), new False<>()
             ).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(false)
         );

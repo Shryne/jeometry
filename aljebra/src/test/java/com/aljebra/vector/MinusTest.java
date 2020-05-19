@@ -65,6 +65,41 @@ public final class MinusTest {
     }
 
     /**
+     * {@link Minus} toString prints underlying vectors.
+     */
+    @Test
+    public void printsAttributes() {
+        final int dim = 1 + new Random().nextInt(MinusTest.COORDS_LENGTH);
+        final Vect<Object> vecta = new FixedVector<>(new Scalars<>(dim));
+        final Vect<Object> vectb = new FixedVector<>(new Scalars<>(dim));
+        MatcherAssert.assertThat(
+            new Minus<>(vecta, vectb).toString(),
+            Matchers.allOf(
+                Matchers.containsString(vecta.toString()),
+                Matchers.containsString(vectb.toString())
+            )
+        );
+    }
+
+    /**
+     * {@link Minus} equality is based on operand vectors.
+     */
+    @Test
+    public void respectsEqualAndHashcode() {
+        final int dim = 1 + new Random().nextInt(MinusTest.COORDS_LENGTH);
+        final Vect<Object> vecta = new FixedVector<>(new Scalars<>(dim));
+        final Vect<Object> vectb = new FixedVector<>(new Scalars<>(dim));
+        MatcherAssert.assertThat(
+            new Minus<>(vecta, vectb),
+            Matchers.equalTo(new Minus<>(vecta, vectb))
+        );
+        MatcherAssert.assertThat(
+            new Minus<>(vecta, vectb).hashCode(),
+            Matchers.equalTo(new Minus<>(vecta, vectb).hashCode())
+        );
+    }
+
+    /**
      * Calculates the difference between two scalars.
      * @param scalar First scalar
      * @param another Second scalar

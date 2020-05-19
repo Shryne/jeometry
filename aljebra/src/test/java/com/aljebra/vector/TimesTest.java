@@ -63,6 +63,23 @@ public final class TimesTest {
     }
 
     /**
+     * {@link Times} toString prints vector and factor.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> factor = new Scalars<>(1).iterator().next();
+        final int dim = 1 + new Random().nextInt(TimesTest.COORDS_LENGTH);
+        final Vect<Object> vect = new FixedVector<>(new Scalars<>(dim));
+        MatcherAssert.assertThat(
+            new Times<>(vect, factor).toString(),
+            Matchers.allOf(
+                Matchers.containsString(vect.toString()),
+                Matchers.containsString(factor.toString())
+            )
+        );
+    }
+
+    /**
      * Calculates the product of two scalars.
      * @param scalar First scalar
      * @param another Second scalar

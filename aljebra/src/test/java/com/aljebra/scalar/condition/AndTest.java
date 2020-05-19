@@ -42,7 +42,7 @@ public final class AndTest {
     public void resolvesToTrueWhenAllPredicatesTrue() {
         MatcherAssert.assertThat(
             new And<>(
-                Arrays.asList(new True<>(), new True<>())
+                new True<>(), new True<>()
             ).resolve(new MkField<>(new Object(), new Object())),
             Matchers.is(true)
         );

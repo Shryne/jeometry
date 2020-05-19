@@ -65,6 +65,23 @@ public final class SumTest {
     }
 
     /**
+     * {@link Sum} toString prints operands.
+     */
+    @Test
+    public void printsAttributes() {
+        final int dim = new Random().nextInt(SumTest.COORDS_LENGTH) + 1;
+        final Vect<Object> vecta = new FixedVector<>(new Scalars<>(dim));
+        final Vect<Object> vectb = new FixedVector<>(new Scalars<>(dim));
+        MatcherAssert.assertThat(
+            new Sum<>(vecta, vectb).toString(),
+            Matchers.allOf(
+                Matchers.containsString(vecta.toString()),
+                Matchers.containsString(vectb.toString())
+            )
+        );
+    }
+
+    /**
      * Calculates the sum of two scalars.
      * @param scalar First scalar
      * @param another Second scalar
