@@ -24,6 +24,8 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.mock.MkField;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -49,5 +51,17 @@ public final class ThrowingTest {
         final RuntimeException rex = Mockito.mock(RuntimeException.class);
         this.thrown.expect(rex.getClass());
         new Throwing<>(rex).value(new MkField<>(new Object(), new Object()));
+    }
+
+    /**
+     * {@link Throwing} toString prints exception.
+     */
+    @Test
+    public void printsAttributes() {
+        final RuntimeException rex = Mockito.mock(RuntimeException.class);
+        MatcherAssert.assertThat(
+            new Throwing<>(rex).toString(),
+            Matchers.containsString(rex.toString())
+        );
     }
 }

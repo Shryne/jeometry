@@ -138,4 +138,44 @@ public final class TimesTest {
         );
     }
 
+    /**
+     * {@link Times} toString prints matrix and factor.
+     */
+    @Test
+    public void printsAttributes() {
+        final int lines = 3;
+        final int cols = 4;
+        final FixedMatrix<Object> matrix = new FixedMatrix<>(
+            lines, cols, new Scalars<>(lines * cols)
+        );
+        final Scalar<Object> factor = new Scalars<>(1).iterator().next();
+        MatcherAssert.assertThat(
+            new Times<Object>(matrix, factor).toString(),
+            Matchers.allOf(
+                Matchers.containsString(matrix.toString()),
+                Matchers.containsString(factor.toString())
+            )
+        );
+    }
+
+    /**
+     * {@link Times} respects equality regarding attributes.
+     */
+    @Test
+    public void respectsEqualAndHashcode() {
+        final int lines = 3;
+        final int cols = 4;
+        final FixedMatrix<Object> matrix = new FixedMatrix<>(
+            lines, cols, new Scalars<>(lines * cols)
+        );
+        final Scalar<Object> factor = new Scalars<>(1).iterator().next();
+        MatcherAssert.assertThat(
+            new Times<Object>(matrix, factor),
+            Matchers.equalTo(new Times<Object>(matrix, factor))
+        );
+        MatcherAssert.assertThat(
+            new Times<Object>(matrix, factor).hashCode(),
+            Matchers.equalTo(new Times<Object>(matrix, factor).hashCode())
+        );
+    }
 }

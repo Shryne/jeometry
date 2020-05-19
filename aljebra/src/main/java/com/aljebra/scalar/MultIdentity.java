@@ -25,7 +25,6 @@ package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * A scalar representing the multiplication identity.
@@ -33,7 +32,6 @@ import lombok.ToString;
  * @since 0.1
  */
 @EqualsAndHashCode
-@ToString(includeFieldNames = false)
 public final class MultIdentity<T> implements Scalar<T> {
 
     @Override

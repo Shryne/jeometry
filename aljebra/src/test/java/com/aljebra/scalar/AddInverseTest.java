@@ -79,4 +79,16 @@ public final class AddInverseTest {
             )
         );
     }
+
+    /**
+     * {@link AddInverse} toString prints inverted scalar.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        MatcherAssert.assertThat(
+            new AddInverse<>(first).toString(),
+            Matchers.containsString(first.toString())
+        );
+    }
 }

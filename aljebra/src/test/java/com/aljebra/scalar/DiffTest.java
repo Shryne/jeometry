@@ -131,4 +131,20 @@ public final class DiffTest {
             difference.second(), Matchers.equalTo(second)
         );
     }
+
+    /**
+     * {@link Diff} toString prints operands.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
+        MatcherAssert.assertThat(
+            new Diff<>(first, second).toString(),
+            Matchers.allOf(
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString())
+            )
+        );
+    }
 }

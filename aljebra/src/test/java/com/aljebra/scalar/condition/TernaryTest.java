@@ -68,4 +68,40 @@ public final class TernaryTest {
         MatcherAssert.assertThat(params.get().contains(first), Matchers.equalTo(false));
         MatcherAssert.assertThat(params.get().contains(second), Matchers.equalTo(true));
     }
+
+    /**
+     * {@link Ternary} toString prints attributes.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
+        final Predicate<Object> pred = new Equals<>(first, second);
+        MatcherAssert.assertThat(
+            new Ternary<>(pred, first, second).toString(),
+            Matchers.allOf(
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString()),
+                Matchers.containsString(pred.toString())
+            )
+        );
+    }
+
+    /**
+     * {@link Ternary} equality is based on underlying attributes.
+     */
+    @Test
+    public void respectsEqualAndHashcode() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
+        final Predicate<Object> pred = new Equals<>(first, second);
+        MatcherAssert.assertThat(
+            new Ternary<>(pred, first, second),
+            Matchers.equalTo(new Ternary<>(pred, first, second))
+        );
+        MatcherAssert.assertThat(
+            new Ternary<>(pred, first, second).hashCode(),
+            Matchers.equalTo(new Ternary<>(pred, first, second).hashCode())
+        );
+    }
 }
