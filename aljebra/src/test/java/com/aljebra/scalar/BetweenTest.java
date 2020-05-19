@@ -70,4 +70,20 @@ public final class BetweenTest {
             new Scalar.Default<>(new Object()), new Scalar.Default<>(new Object())
         ).value(new SpyField<>(new Object(), new Object()));
     }
+
+    /**
+     * {@link Between} toString prints bounds.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
+        MatcherAssert.assertThat(
+            new Between<>(first, second).toString(),
+            Matchers.allOf(
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString())
+            )
+        );
+    }
 }

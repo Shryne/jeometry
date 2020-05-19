@@ -50,8 +50,9 @@ public final class GreaterTest {
     @Test
     public void delegatesToOrderedFieldRandomizer() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> greater = new Greater<>(first);
         final SpyMetricSpace<Object> field = new SpyMetricSpace<>(new Object(), new Object());
-        new Greater<>(first).value(field);
+        greater.value(field);
         final Optional<Scalar<Object>> params = field.greater();
         MatcherAssert.assertThat(params.isPresent(), Matchers.is(true));
         MatcherAssert.assertThat(params.get(), Matchers.is(first));
@@ -66,5 +67,17 @@ public final class GreaterTest {
         new Greater<>(
             new Scalar.Default<>(new Object())
         ).value(new SpyField<>(new Object(), new Object()));
+    }
+
+    /**
+     * {@link Greater} toString prints scalar bound.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        MatcherAssert.assertThat(
+            new Greater<>(first).toString(),
+            Matchers.containsString(first.toString())
+        );
     }
 }
