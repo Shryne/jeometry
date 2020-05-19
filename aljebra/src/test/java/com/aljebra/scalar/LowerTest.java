@@ -67,4 +67,16 @@ public final class LowerTest {
             new Scalar.Default<>(new Object())
         ).value(new SpyField<>(new Object(), new Object()));
     }
+
+    /**
+     * {@link Lower} toString prints scalar bound.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        MatcherAssert.assertThat(
+            new Lower<>(first).toString(),
+            Matchers.containsString(first.toString())
+        );
+    }
 }

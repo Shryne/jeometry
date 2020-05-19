@@ -27,6 +27,7 @@ import com.aljebra.field.impl.doubles.Dot;
 import com.aljebra.field.mock.SpyField;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.metric.angle.Degrees;
+import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
@@ -85,6 +86,21 @@ public final class RotateVectTest {
         new RotateVect<>(
             first, Math.random()
         ).coords()[0].value(new SpyField<>(new Double(0.), new Double(1.)));
+    }
+
+    /**
+     * {@link RotateVect} toString prints coordinates.
+     */
+    @Test
+    public void printsCoords() {
+        final Vect<Double> vect = new RotateVect<>(
+            new FixedVector<>(new Scalars<>(2)), Math.random()
+        );
+        for (final Scalar<Double> scalar : vect.coords()) {
+            MatcherAssert.assertThat(
+                vect.toString(), Matchers.containsString(scalar.toString())
+            );
+        }
     }
 
 }

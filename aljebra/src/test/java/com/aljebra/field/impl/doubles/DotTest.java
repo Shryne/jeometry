@@ -88,6 +88,10 @@ public final class DotTest {
             dot.angle(vecta, new DblVect(1., 1.)).resolve(dot).doubleValue(),
             Matchers.closeTo(pifourth, error)
         );
+        MatcherAssert.assertThat(
+            dot.angle(vecta, new DblVect(0., 0.)).resolve(dot).doubleValue(),
+            Matchers.closeTo(0., error)
+        );
     }
 
     /**

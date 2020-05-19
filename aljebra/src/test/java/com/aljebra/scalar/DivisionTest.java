@@ -141,4 +141,20 @@ public final class DivisionTest {
         final Scalar<Double> second = new AddIdentity<>();
         new Division<>(first, second).value(new Decimal());
     }
+
+    /**
+     * {@link Division} toString prints attributes.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        final Scalar<Object> second = new Scalar.Default<>(new Object());
+        MatcherAssert.assertThat(
+            new Division<>(first, second).toString(),
+            Matchers.allOf(
+                Matchers.containsString(first.toString()),
+                Matchers.containsString(second.toString())
+            )
+        );
+    }
 }

@@ -56,13 +56,17 @@ public final class MultIdentityTest {
     }
 
     /**
-     * {@link MultIdentity} respects equal.
+     * {@link MultIdentity} respects equal and hash code.
      */
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
             new MultIdentity<>(),
             Matchers.equalTo(new MultIdentity<>())
+        );
+        MatcherAssert.assertThat(
+            new MultIdentity<>().hashCode(),
+            Matchers.equalTo(new MultIdentity<>().hashCode())
         );
     }
 }

@@ -36,7 +36,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 public class TransposeMatrix<T> extends FixedMatrix<T> {
 
     /**

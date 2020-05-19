@@ -60,4 +60,17 @@ public final class OppositeTest {
         }
     }
 
+    /**
+     * {@link Opposite} toString prints underlying vector.
+     */
+    @Test
+    public void printsAttributes() {
+        final Vect<Double> vect = new FixedVector<>(
+            new Scalars<>(1 + new Random().nextInt(OppositeTest.COORDS_LENGTH))
+        );
+        MatcherAssert.assertThat(
+            new Opposite<>(vect).toString(),
+            Matchers.containsString(vect.toString())
+        );
+    }
 }

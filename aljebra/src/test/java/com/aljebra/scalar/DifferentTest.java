@@ -48,4 +48,15 @@ public final class DifferentTest {
         MatcherAssert.assertThat(param.get(), Matchers.equalTo(first));
     }
 
+    /**
+     * {@link Different} toString prints underlying scalar.
+     */
+    @Test
+    public void printsAttributes() {
+        final Scalar<Object> first = new Scalar.Default<>(new Object());
+        MatcherAssert.assertThat(
+            new Different<>(first).toString(),
+            Matchers.containsString(first.toString())
+        );
+    }
 }

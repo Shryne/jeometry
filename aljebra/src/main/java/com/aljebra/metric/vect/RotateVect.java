@@ -31,7 +31,6 @@ import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -39,8 +38,7 @@ import lombok.ToString;
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public final class RotateVect<T> extends FixedVector<T> {
 
     /**
