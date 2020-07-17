@@ -24,6 +24,8 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.Field;
+import com.aljebra.scalar.Add;
+import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.Line;
@@ -76,7 +78,12 @@ public final class LinePointOrdinate<T> implements Scalar<T> {
             result = field.actual(new Random<T>());
         } else {
             result = field.actual(
-                new Slope<T>(this.line).mult(this.abscissa).add(new Intercept<T>(this.line))
+                new Add<>(
+                    new Multiplication<T>(
+                        new Slope<T>(this.line), this.abscissa
+                    ),
+                    new Intercept<T>(this.line)
+                )
             );
         }
         return result;

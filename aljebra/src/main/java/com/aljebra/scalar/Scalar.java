@@ -24,8 +24,6 @@
 package com.aljebra.scalar;
 
 import com.aljebra.field.Field;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -42,46 +40,6 @@ public interface Scalar<T> {
      * @return An object representing the scalar
      */
     T value(Field<T> field);
-
-    /**
-     * Adds the given scalars to this scalar.
-     * @param operands Scalars to add
-     * @return A scalar defining the addition
-     */
-    default Scalar<T> add(final List<? extends Scalar<T>> operands) {
-        final List<Scalar<T>> ops = new ArrayList<>(operands);
-        ops.add(this);
-        return new Add<T>(ops);
-    }
-
-    /**
-     * Adds the given scalar to this scalar.
-     * @param operand Scalar to add
-     * @return A scalar defining the addition
-     */
-    default Scalar<T> add(final Scalar<T> operand) {
-        return new Add<T>(operand, this);
-    }
-
-    /**
-     * Multiplies the given scalars to this scalar.
-     * @param operands Scalars to multiply
-     * @return A scalar defining the multiplication
-     */
-    default Scalar<T> mult(final List<? extends Scalar<T>> operands) {
-        final List<Scalar<T>> ops = new ArrayList<>(operands);
-        ops.add(this);
-        return new Multiplication<T>(ops);
-    }
-
-    /**
-     * Multiplies the given scalar to this scalar.
-     * @param operand Scalar to multiply
-     * @return A scalar defining the multiplication
-     */
-    default Scalar<T> mult(final Scalar<T> operand) {
-        return new Multiplication<T>(operand, this);
-    }
 
     /**
      * Minimal representation of a scalar holding a reference to an object.
