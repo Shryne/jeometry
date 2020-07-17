@@ -66,12 +66,4 @@ public interface InnerProduct<T> {
      */
     Vect<T> rot(Vect<T> vect, Degrees<T> angle);
 
-    /**
-     * Calculates the actual value of the angle.
-     * @param angle Angle to resolve
-     * @return A number representing the angle
-     */
-    default Number resolve(Degrees<T> angle) {
-        return angle.resolve(this);
-    }
 }

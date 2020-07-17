@@ -85,7 +85,7 @@ public final class Dot implements InnerProduct<Double> {
 
     @Override
     public Vect<Double> rot(final Vect<Double> vect, final Degrees<Double> ang) {
-        final Double angle = this.resolve(ang).doubleValue();
+        final Double angle = ang.resolve(this).doubleValue();
         final FixedMatrix<Double> rot = new DblMatrix(
             2, 2,
             Math.cos(angle),
