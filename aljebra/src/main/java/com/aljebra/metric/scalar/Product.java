@@ -36,7 +36,7 @@ import lombok.ToString;
  */
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode
-public final class Product<T> implements MetricScalar<T> {
+public final class Product<T> extends MetricScalar<T> {
 
     /**
      * First operand.

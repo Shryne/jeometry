@@ -35,7 +35,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString(includeFieldNames = false)
-public final class Norm<T> implements MetricScalar<T> {
+public final class Norm<T> extends MetricScalar<T> {
 
     /**
      * Vector.
