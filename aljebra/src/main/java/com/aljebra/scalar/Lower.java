@@ -33,7 +33,7 @@ import lombok.ToString;
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Lower<T> implements OrderedScalar<T> {
+public final class Lower<T> extends OrderedScalar<T> {
 
     /**
      * Random generated scalar.
