@@ -24,6 +24,7 @@
 package com.jeometry.twod.segment;
 
 import com.aljebra.scalar.Throwing;
+import com.aljebra.scalar.condition.Ternary;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.circle.Circle;
@@ -73,16 +74,18 @@ public class CircleDiameter<T> extends PtsSegment<T> {
      */
     private static <T> Vect<T> extremity(final Vect<T> point, final Circle<T> circle) {
         final PointInCircle<T> predicate = new PointInCircle<>(point, circle);
-        final IllegalArgumentException err = new IllegalArgumentException(
-            String.format(
-                "Unable to build a chord of %s passing by the point %s.",
-                circle, point
+        final Throwing<T> err = new Throwing<>(
+            new IllegalArgumentException(
+                String.format(
+                    "Unable to build a chord of %s passing by the point %s.",
+                    circle, point
+                )
             )
         );
         return new FixedVector<>(
             Arrays.asList(
-                predicate.ifElse(point.coords()[0], err),
-                predicate.ifElse(point.coords()[1], err)
+                new Ternary<>(predicate, point.coords()[0], err),
+                new Ternary<>(predicate, point.coords()[1], err)
             )
         );
     }
