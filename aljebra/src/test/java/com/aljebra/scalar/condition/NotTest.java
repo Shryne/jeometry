@@ -24,10 +24,6 @@
 package com.aljebra.scalar.condition;
 
 import com.aljebra.field.mock.MkField;
-import com.aljebra.field.mock.SpyField;
-import com.aljebra.scalar.Scalar;
-import java.util.List;
-import java.util.Optional;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
@@ -68,30 +64,4 @@ public final class NotTest {
         );
     }
 
-    /**
-     * {@link Not} can build a ternary.
-     */
-    @Test
-    public void buildsTernary() {
-        final Scalar<Object> first = new Scalar.Default<>(new Object());
-        final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final SpyField<Object> field = new SpyField<>(new Object(), new Object());
-        new Not<>(new False<>()).ifElse(first, second).value(field);
-        final Optional<List<Scalar<Object>>> params = field.calls().actuals();
-        MatcherAssert.assertThat(params.isPresent(), Matchers.equalTo(true));
-        MatcherAssert.assertThat(params.get().contains(first), Matchers.equalTo(true));
-        MatcherAssert.assertThat(params.get().contains(second), Matchers.equalTo(false));
-    }
-
-    /**
-     * {@link Not} can build a throwing ternary.
-     */
-    @Test
-    public void buildsThrowing() {
-        final RuntimeException err = new RuntimeException();
-        this.thrown.expect(err.getClass());
-        new Not<>(new True<>()).ifElse(
-            new Scalar.Default<>(new Object()), err
-        ).value(new MkField<>(new Object(), new Object()));
-    }
 }
