@@ -74,4 +74,12 @@ public final class LineAnalytics<T> {
         return new Vertical<>(this.line);
     }
 
+    /**
+     * Calculates the ordinate of the line point by its abcissa.
+     * @param abcissa Point abcissa
+     * @return A scalar representing the ordinate
+     */
+    public Scalar<T> ordinate(final Scalar<T> abcissa) {
+        return new LinePointOrdinate<>(this.line, abcissa);
+    }
 }

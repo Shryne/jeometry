@@ -26,12 +26,13 @@ package com.jeometry.twod.point;
 import com.aljebra.scalar.Diff;
 import com.aljebra.scalar.Division;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.Throwing;
+import com.aljebra.scalar.condition.Ternary;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.analytics.Intersecting;
 import com.jeometry.twod.line.analytics.LineAnalytics;
-import com.jeometry.twod.line.analytics.LinePointOrdinate;
 import java.util.Arrays;
 import lombok.ToString;
 
@@ -78,9 +79,11 @@ public final class LineIntersectPoint<T> extends XyPoint<T> {
      */
     private static <T> Scalar<T> ordinate(final Line<T> first, final Line<T> second,
         final Scalar<T> abcissa) {
-        return new LineAnalytics<>(first).vertical().ifElse(
-            new LinePointOrdinate<>(second, abcissa),
-            new LinePointOrdinate<>(first, abcissa)
+        final LineAnalytics<T> fst = new LineAnalytics<>(first);
+        return new Ternary<>(
+            fst.vertical(),
+            new LineAnalytics<>(second).ordinate(abcissa),
+            fst.ordinate(abcissa)
         );
     }
 
@@ -94,10 +97,13 @@ public final class LineIntersectPoint<T> extends XyPoint<T> {
     private static <T> Scalar<T> abscissa(final Line<T> first, final Line<T> second) {
         final LineAnalytics<T> fst = new LineAnalytics<>(first);
         final LineAnalytics<T> snd = new LineAnalytics<>(second);
-        return new Intersecting<>(first, second).ifElse(
-            fst.vertical().ifElse(
+        return new Ternary<>(
+            new Intersecting<>(first, second),
+            new Ternary<>(
+                fst.vertical(),
                 first.point().coords()[0],
-                snd.vertical().ifElse(
+                new Ternary<>(
+                    snd.vertical(),
                     second.point().coords()[0],
                     new Division<T>(
                         new Diff<>(snd.intercept(), fst.intercept()),
@@ -105,8 +111,10 @@ public final class LineIntersectPoint<T> extends XyPoint<T> {
                     )
                 )
             ),
-            new IllegalStateException(
-                "Undefined intersecting point for two parallel lines."
+            new Throwing<>(
+                new IllegalStateException(
+                    "Undefined intersecting point for two parallel lines."
+                )
             )
         );
     }
