@@ -23,10 +23,9 @@
  */
 package com.jeometry.twod.point;
 
-import com.aljebra.scalar.Random;
-import com.aljebra.vector.Sum;
-import com.aljebra.vector.Times;
+import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.Line;
+import com.jeometry.twod.line.analytics.LinePointOrdinate;
 
 /**
  * A point defined by belonging to a line. The point is dynamic regarding to the
@@ -42,9 +41,15 @@ public final class InLinePoint<T> extends XyPoint<T> {
      * @param line The line to belong to
      */
     public InLinePoint(final Line<T> line) {
-        super(
-            new Sum<>(new Times<>(line.direction(), new Random<>()), line.point())
-        );
+        this(line, line.point().coords()[0]);
     }
 
+    /**
+     * Constructor. Builds a point in the line having the given abscissa.
+     * @param line The line to belong to
+     * @param abscissa Abscissa of the point to build
+     */
+    public InLinePoint(final Line<T> line, final Scalar<T> abscissa) {
+        super(abscissa, new LinePointOrdinate<>(line, abscissa));
+    }
 }
