@@ -23,12 +23,10 @@
  */
 package com.aljebra.scalar.condition;
 
-import com.aljebra.field.Field;
-
 /**
  * Predicate interface. A predicate could be resolved to true or false given
  * the field.
- * @param <T> scalar types
+ * @param <T> space type
  * @since 0.1
  */
 public interface Predicate<T> {
@@ -38,6 +36,6 @@ public interface Predicate<T> {
      * @param field Scalars field
      * @return A boolean evaluation of the predicate
      */
-    boolean resolve(Field<T> field);
+    boolean resolve(T field);
 
 }

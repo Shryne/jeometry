@@ -33,7 +33,7 @@ import com.aljebra.scalar.condition.Predicate;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class VectEquals<T> implements Predicate<T> {
+public final class VectEquals<T> implements Predicate<Field<T>> {
 
     /**
      * First vector.

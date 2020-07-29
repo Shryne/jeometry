@@ -21,52 +21,44 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar.condition;
+package com.aljebra.metric.angle;
 
-import com.aljebra.field.Field;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import java.util.Arrays;
+import com.aljebra.field.mock.MkField;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * A predicate that is true if one of the given predicates is true.
- * @param <T> scalar types
- * @since 0.1
+ * Tests for {@link IsRight}.
+ * @since 0.4
  */
-public final class Or<T> implements Predicate<Field<T>> {
+public final class IsRightTest {
 
     /**
-     * Predicates.
+     * {@link IsRight} resolves to true if given a right angle.
      */
-    private final Multiset<Predicate<Field<T>>> opers;
-
-    /**
-     * Constructor.
-     * @param operands Predicates
-     */
-    public Or(final Iterable<? extends Predicate<Field<T>>> operands) {
-        this.opers = HashMultiset.create(operands);
+    @Test
+    public void resolvesTrueIfRight() {
+        final MkField<Object> field = new MkField<>(new Object(), new Object());
+        MatcherAssert.assertThat(
+            new IsRight<>(new Degrees.Default<>(Math.PI / 2)).resolve(field), Matchers.is(true)
+        );
+        MatcherAssert.assertThat(
+            new IsRight<>(new Right<>()).resolve(field), Matchers.is(true)
+        );
     }
 
     /**
-     * Constructor. Build or with two predicates
-     * @param first First operand
-     * @param second Second operand
+     * {@link IsRight} resolves to false if given a non-right angle.
      */
-    public Or(final Predicate<Field<T>> first, final Predicate<Field<T>> second) {
-        this(Arrays.asList(first, second));
+    @Test
+    public void resolvesFalseIfNonRight() {
+        final MkField<Object> field = new MkField<>(new Object(), new Object());
+        MatcherAssert.assertThat(
+            new IsRight<>(new Degrees.Default<>(0)).resolve(field), Matchers.is(false)
+        );
+        MatcherAssert.assertThat(
+            new IsRight<>(new Flat<>()).resolve(field), Matchers.is(false)
+        );
     }
-
-    @Override
-    public boolean resolve(final Field<T> field) {
-        boolean result = false;
-        for (final Predicate<Field<T>> predicate : this.opers) {
-            if (predicate.resolve(field)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
-
 }

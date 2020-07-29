@@ -23,8 +23,7 @@
  */
 package com.aljebra.metric.angle;
 
-import com.aljebra.metric.InnerProduct;
-import com.aljebra.metric.MkProduct;
+import com.aljebra.field.mock.MkField;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import java.util.Arrays;
@@ -44,16 +43,16 @@ public final class RightTest {
     @Test
     public void resolvesRightAngle() {
         final double error = 1.e-6;
-        final InnerProduct<Object> product = new MkProduct<>();
+        final MkField<Object> field = new MkField<>(new Object(), new Object());
         MatcherAssert.assertThat(
-            new Right<>().resolve(product).doubleValue(),
+            new Right<>().resolve(field.product()).doubleValue(),
             Matchers.closeTo(Math.PI / 2, error)
         );
         MatcherAssert.assertThat(
-            new Right<>().right(product), Matchers.is(true)
+            new IsRight<>(new Right<>()).resolve(field), Matchers.is(true)
         );
         MatcherAssert.assertThat(
-            new Right<>().flat(product), Matchers.is(false)
+            new IsFlat<>(new Right<>()).resolve(field), Matchers.is(false)
         );
     }
 

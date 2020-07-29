@@ -37,7 +37,7 @@ import com.jeometry.twod.line.Line;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class PointInLine<T> implements Predicate<T> {
+public final class PointInLine<T> implements Predicate<Field<T>> {
 
     /**
      * Point.
@@ -62,7 +62,7 @@ public final class PointInLine<T> implements Predicate<T> {
     @Override
     public boolean resolve(final Field<T> field) {
         final Scalar<T> xcoor = this.point.coords()[0];
-        final Predicate<T> result;
+        final Predicate<Field<T>> result;
         if (new Vertical<>(this.line).resolve(field)) {
             result = new Equals<>(xcoor, this.line.point().coords()[0]);
         } else {

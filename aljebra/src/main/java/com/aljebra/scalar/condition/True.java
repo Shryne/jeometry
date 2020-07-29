@@ -30,7 +30,7 @@ import com.aljebra.field.Field;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class True<T> implements Predicate<T> {
+public final class True<T> implements Predicate<Field<T>> {
 
     @Override
     public boolean resolve(final Field<T> field) {

@@ -21,52 +21,36 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.aljebra.scalar.condition;
+package com.aljebra.metric.angle;
 
-import com.aljebra.field.Field;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import java.util.Arrays;
+import com.aljebra.field.MetricSpaceField;
+import com.aljebra.scalar.condition.Predicate;
 
 /**
- * A predicate that is true if one of the given predicates is true.
+ * A predicate to determine if an angle is flat.
  * @param <T> scalar types
- * @since 0.1
+ * @since 0.4
  */
-public final class Or<T> implements Predicate<Field<T>> {
+public final class IsFlat<T> implements Predicate<MetricSpaceField<T>> {
 
     /**
-     * Predicates.
+     * Angle.
      */
-    private final Multiset<Predicate<Field<T>>> opers;
+    private final Degrees<T> angle;
 
     /**
      * Constructor.
-     * @param operands Predicates
+     * @param angle Angle to check
      */
-    public Or(final Iterable<? extends Predicate<Field<T>>> operands) {
-        this.opers = HashMultiset.create(operands);
-    }
-
-    /**
-     * Constructor. Build or with two predicates
-     * @param first First operand
-     * @param second Second operand
-     */
-    public Or(final Predicate<Field<T>> first, final Predicate<Field<T>> second) {
-        this(Arrays.asList(first, second));
+    public IsFlat(final Degrees<T> angle) {
+        this.angle = angle;
     }
 
     @Override
-    public boolean resolve(final Field<T> field) {
-        boolean result = false;
-        for (final Predicate<Field<T>> predicate : this.opers) {
-            if (predicate.resolve(field)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
+    public boolean resolve(final MetricSpaceField<T> field) {
+        return Double.valueOf(
+            this.angle.resolve(field.product()).doubleValue() % (2 * Math.PI)
+        ).equals(Math.PI);
     }
 
 }

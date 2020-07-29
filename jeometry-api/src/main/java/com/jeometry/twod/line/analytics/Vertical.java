@@ -39,7 +39,7 @@ import lombok.EqualsAndHashCode;
  * @since 0.1
  */
 @EqualsAndHashCode
-public final class Vertical<T> implements Predicate<T> {
+public final class Vertical<T> implements Predicate<Field<T>> {
 
     /**
      * Line.
