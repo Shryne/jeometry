@@ -24,8 +24,8 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.scalar.Different;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.PtDirLine;
 import com.jeometry.twod.line.PtsLine;
 import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.point.InLinePoint;
@@ -58,9 +58,10 @@ public final class EqualTest {
     @Test
     public void resolvesTrueIfEqualLines() {
         final Line<Double> line = new RandomLine<>();
+        final InLinePoint<Double> first = new InLinePoint<>(line);
         MatcherAssert.assertThat(
             new Equal<>(
-                line, new PtsLine<>(new InLinePoint<>(line), new InLinePoint<>(line))
+                line, new PtsLine<>(first, new InLinePoint<>(line, new Different<>(first.xcoor())))
             ).resolve(new Decimal()),
             Matchers.is(true)
         );
@@ -75,7 +76,7 @@ public final class EqualTest {
         MatcherAssert.assertThat(
             new Equal<>(
                 line,
-                new PtDirLine<>(new OutsideLinePoint<>(line), line.direction())
+                new PtsLine<>(new OutsideLinePoint<>(line), line.point())
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
