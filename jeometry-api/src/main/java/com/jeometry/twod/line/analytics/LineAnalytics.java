@@ -23,6 +23,7 @@
  */
 package com.jeometry.twod.line.analytics;
 
+import com.aljebra.field.Field;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.condition.Predicate;
 import com.jeometry.twod.line.Line;
@@ -70,7 +71,7 @@ public final class LineAnalytics<T> {
      * Checks if the line is vertical.
      * @return A predicate for the line verticality
      */
-    public Predicate<T> vertical() {
+    public Predicate<Field<T>> vertical() {
         return new Vertical<>(this.line);
     }
 

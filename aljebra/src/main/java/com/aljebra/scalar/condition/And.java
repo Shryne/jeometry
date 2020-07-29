@@ -33,18 +33,18 @@ import java.util.Arrays;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class And<T> implements Predicate<T> {
+public final class And<T> implements Predicate<Field<T>> {
 
     /**
      * Predicates.
      */
-    private final Multiset<Predicate<T>> opers;
+    private final Multiset<Predicate<Field<T>>> opers;
 
     /**
      * Constructor.
      * @param operands Predicates
      */
-    public And(final Iterable<? extends Predicate<T>> operands) {
+    public And(final Iterable<? extends Predicate<Field<T>>> operands) {
         this.opers = HashMultiset.create(operands);
     }
 
@@ -53,14 +53,14 @@ public final class And<T> implements Predicate<T> {
      * @param first First operand
      * @param second Second operand
      */
-    public And(final Predicate<T> first, final Predicate<T> second) {
+    public And(final Predicate<Field<T>> first, final Predicate<Field<T>> second) {
         this(Arrays.asList(first, second));
     }
 
     @Override
     public boolean resolve(final Field<T> field) {
         boolean result = true;
-        for (final Predicate<T> predicate : this.opers) {
+        for (final Predicate<Field<T>> predicate : this.opers) {
             if (!predicate.resolve(field)) {
                 result = false;
                 break;

@@ -31,7 +31,7 @@ import com.aljebra.scalar.Scalar;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class Equals<T> implements Predicate<T> {
+public final class Equals<T> implements Predicate<Field<T>> {
 
     /**
      * First Scalar.

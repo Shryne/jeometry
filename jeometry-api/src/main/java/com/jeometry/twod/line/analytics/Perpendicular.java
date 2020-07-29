@@ -36,7 +36,7 @@ import com.jeometry.twod.line.Line;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class Perpendicular<T> implements Predicate<T> {
+public final class Perpendicular<T> implements Predicate<Field<T>> {
 
     /**
      * First vector.

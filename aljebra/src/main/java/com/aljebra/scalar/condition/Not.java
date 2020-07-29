@@ -30,18 +30,18 @@ import com.aljebra.field.Field;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class Not<T> implements Predicate<T> {
+public final class Not<T> implements Predicate<Field<T>> {
 
     /**
      * Predicate.
      */
-    private final Predicate<T> origin;
+    private final Predicate<Field<T>> origin;
 
     /**
      * Constructor.
      * @param origin Predicate
      */
-    public Not(final Predicate<T> origin) {
+    public Not(final Predicate<Field<T>> origin) {
         this.origin = origin;
     }
 

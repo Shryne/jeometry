@@ -42,26 +42,6 @@ public interface Degrees<T> {
     Number resolve(InnerProduct<T> product);
 
     /**
-     * Determines if this angle is right.
-     * @param product Related {@link InnerProduct}
-     * @return True if the angle is right
-     */
-    default boolean right(InnerProduct<T> product) {
-        return Double.valueOf(
-            this.resolve(product).doubleValue() % Math.PI
-        ).equals(Math.PI / 2);
-    }
-
-    /**
-     * Determines if this angle is flat.
-     * @param product Related {@link InnerProduct}
-     * @return True if the angle is flat
-     */
-    default boolean flat(InnerProduct<T> product) {
-        return this.resolve(product).doubleValue() % Math.PI == 0;
-    }
-
-    /**
      * Minimal representation of a degrees holding a reference to a number.
      * @param <T> scalar types
      * @since 0.1
