@@ -39,7 +39,7 @@ import com.jeometry.twod.segment.Segment;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class Parallel<T> implements Predicate<T> {
+public final class Parallel<T> implements Predicate<Field<T>> {
 
     /**
      * First line.

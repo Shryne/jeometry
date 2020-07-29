@@ -23,6 +23,7 @@
  */
 package com.aljebra.scalar.condition;
 
+import com.aljebra.field.Field;
 import com.aljebra.field.mock.SpyField;
 import com.aljebra.scalar.Scalar;
 import java.util.List;
@@ -76,7 +77,7 @@ public final class TernaryTest {
     public void printsAttributes() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Predicate<Object> pred = new Equals<>(first, second);
+        final Predicate<Field<Object>> pred = new Equals<>(first, second);
         MatcherAssert.assertThat(
             new Ternary<>(pred, first, second).toString(),
             Matchers.allOf(
@@ -94,7 +95,7 @@ public final class TernaryTest {
     public void respectsEqualAndHashcode() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
-        final Predicate<Object> pred = new Equals<>(first, second);
+        final Predicate<Field<Object>> pred = new Equals<>(first, second);
         MatcherAssert.assertThat(
             new Ternary<>(pred, first, second),
             Matchers.equalTo(new Ternary<>(pred, first, second))

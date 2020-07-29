@@ -32,7 +32,7 @@ import com.jeometry.twod.line.Line;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class Intersecting<T> implements Predicate<T> {
+public final class Intersecting<T> implements Predicate<Field<T>> {
 
     /**
      * First line.
