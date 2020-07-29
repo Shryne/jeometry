@@ -24,6 +24,8 @@
 package com.jeometry.twod.point;
 
 import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.scalar.Random;
+import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.line.analytics.PointInLine;
@@ -49,4 +51,21 @@ public final class InLinePointTest {
         );
     }
 
+    /**
+     * {@link InLinePoint} constructs a point belonging to the line with a given abscissa.
+     */
+    @Test
+    public void buildsAPointInLineWithAbscissa() {
+        final Line<Double> any = new RandomLine<>();
+        final Scalar<Double> scalar = new Random<>();
+        final InLinePoint<Double> point = new InLinePoint<>(any, scalar);
+        MatcherAssert.assertThat(
+            new PointInLine<>(point, any).resolve(new Decimal()),
+            Matchers.is(true)
+        );
+        MatcherAssert.assertThat(
+            new PointInLine<>(new XyPoint<>(scalar, point.ycoor()), any).resolve(new Decimal()),
+            Matchers.is(true)
+        );
+    }
 }
