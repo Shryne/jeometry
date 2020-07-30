@@ -23,51 +23,49 @@
  */
 package com.jeometry.render.awt;
 
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
+import javax.swing.JButton;
 
 /**
- * Control buttons panel.
- * @since 0.1
+ * AWT Button that triggers surface translation.
+ * @since 0.4
  */
-public final class Buttons extends JPanel {
+public final class TranslationButton extends JButton {
 
     /**
      * Serial version ID.
      */
-    private static final long serialVersionUID = -7413652639513091330L;
+    private static final long serialVersionUID = 4212678788815808659L;
 
     /**
-     * Translate increment/decrement amount.
+     * Vertical translation amount.
      */
-    private static final int TRANSLATE_AMOUNT = 2;
+    private final double ytrans;
 
     /**
-     * Drawable Panel.
+     * Horizontal translation amount.
      */
-    private final AwtDrawableSurface drawable;
+    private final double xtrans;
 
     /**
      * Ctor.
-     * @param drawable The drawable surface
+     * @param caption Text on the JButton
+     * @param xtrans X translation Amount to trigger
+     * @param ytrans Y translation Amount to trigger
      */
-    public Buttons(final AwtDrawableSurface drawable) {
-        super();
-        this.drawable = drawable;
+    public TranslationButton(final String caption, final double xtrans,
+        final double ytrans) {
+        super(caption);
+        this.xtrans = xtrans;
+        this.ytrans = ytrans;
     }
 
     /**
-     * Builds the component.
-     * @return This buttons JPanel
+     * Adds a listener to translate the given drawable.
+     * @param drawable Surface to translate
+     * @return This button
      */
-    public JPanel init() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(new TranslationButton("up", 0, Buttons.TRANSLATE_AMOUNT).react(this.drawable));
-        this.add(new TranslationButton("down", 0, -Buttons.TRANSLATE_AMOUNT).react(this.drawable));
-        this.add(new TranslationButton("right", Buttons.TRANSLATE_AMOUNT, 0).react(this.drawable));
-        this.add(new TranslationButton("left", -Buttons.TRANSLATE_AMOUNT, 0).react(this.drawable));
-        this.add(new ZoomInButton("zoomin").react(this.drawable));
-        this.add(new ZoomOutButton("zoomout").react(this.drawable));
+    public JButton react(final AwtDrawableSurface drawable) {
+        this.addMouseListener(new Translate(this.xtrans, this.ytrans, drawable));
         return this;
     }
 
