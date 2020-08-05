@@ -25,6 +25,7 @@ package com.jeometry.twod;
 
 import com.jeometry.twod.style.Style;
 import com.jeometry.twod.style.impl.DefaultStyle;
+import java.util.Optional;
 import lombok.ToString;
 
 /**
@@ -35,11 +36,6 @@ import lombok.ToString;
 public final class Shape {
 
     /**
-     * Reserved name for anonymous renderable.
-     */
-    private static final String NO_NAME = "NO_NAME";
-
-    /**
      * Renderable.
      */
     private final Renderable rndrable;
@@ -47,7 +43,7 @@ public final class Shape {
     /**
      * Renderable name.
      */
-    private final String symbol;
+    private final Optional<String> symbol;
 
     /**
      * Renderable style.
@@ -57,10 +53,10 @@ public final class Shape {
     /**
      * Ctor.
      * @param rndrable Renderable
-     * @param symbol Renderable name
+     * @param symbol Renderable name (or empty optional)
      * @param style Renderable style
      */
-    public Shape(final Renderable rndrable, final String symbol,
+    public Shape(final Renderable rndrable, final Optional<String> symbol,
         final Style style) {
         this.rndrable = rndrable;
         this.symbol = symbol;
@@ -73,7 +69,7 @@ public final class Shape {
      * @param symbol Renderable name
      */
     public Shape(final Renderable rndrable, final String symbol) {
-        this(rndrable, symbol, new DefaultStyle());
+        this(rndrable, Optional.of(symbol), new DefaultStyle());
     }
 
     /**
@@ -82,7 +78,7 @@ public final class Shape {
      * @param style Renderable style
      */
     public Shape(final Renderable rndrable, final Style style) {
-        this(rndrable, Shape.NO_NAME, style);
+        this(rndrable, Optional.empty(), style);
     }
 
     /**
@@ -90,7 +86,7 @@ public final class Shape {
      * @param rndrable Renderable
      */
     public Shape(final Renderable rndrable) {
-        this(rndrable, Shape.NO_NAME);
+        this(rndrable, Optional.empty(), new DefaultStyle());
     }
 
     /**
@@ -105,7 +101,7 @@ public final class Shape {
      * Accessor for the renderbale name.
      * @return The renderable name
      */
-    public String name() {
+    public Optional<String> name() {
         return this.symbol;
     }
 
@@ -114,7 +110,7 @@ public final class Shape {
      * @return True if the renderable is anonymous
      */
     public boolean anonymous() {
-        return Shape.NO_NAME.equals(this.symbol);
+        return !this.symbol.isPresent();
     }
 
     /**

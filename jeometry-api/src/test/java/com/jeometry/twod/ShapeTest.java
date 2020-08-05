@@ -25,6 +25,7 @@ package com.jeometry.twod;
 
 import com.jeometry.twod.style.Style;
 import com.jeometry.twod.style.impl.DefaultStyle;
+import java.util.Optional;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -43,10 +44,10 @@ public final class ShapeTest {
     public void exposesRenderableNameAndStyle() {
         final Renderable rend = Mockito.mock(Renderable.class);
         final Style style = Mockito.mock(Style.class);
-        final String name = "hello";
+        final Optional<String> name = Optional.of("hello");
         final Shape shape = new Shape(rend, name, style);
         MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
-        MatcherAssert.assertThat(shape.name(), Matchers.equalTo(name));
+        MatcherAssert.assertThat(shape.name().get(), Matchers.equalTo(name.get()));
         MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(false));
         MatcherAssert.assertThat(shape.style(), Matchers.equalTo(style));
     }
@@ -86,7 +87,7 @@ public final class ShapeTest {
         final Shape shape = new Shape(rend, name);
         MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
         MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(false));
-        MatcherAssert.assertThat(shape.name(), Matchers.equalTo(name));
+        MatcherAssert.assertThat(shape.name().get(), Matchers.equalTo(name));
         MatcherAssert.assertThat(
             shape.style(), Matchers.instanceOf(DefaultStyle.class)
         );
