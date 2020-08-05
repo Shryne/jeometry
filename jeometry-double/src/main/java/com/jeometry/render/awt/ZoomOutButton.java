@@ -23,52 +23,61 @@
  */
 package com.jeometry.render.awt;
 
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JButton;
 
 /**
- * Control buttons panel.
- * @since 0.1
+ * AWT Button that zooms out the surface.
+ * @since 0.4
  */
-public final class Buttons extends JPanel {
+public final class ZoomOutButton extends JButton {
 
     /**
      * Serial version ID.
      */
-    private static final long serialVersionUID = -7413652639513091330L;
-
-    /**
-     * Translate increment/decrement amount.
-     */
-    private static final int TRANSLATE_AMOUNT = 2;
-
-    /**
-     * Drawable Panel.
-     */
-    private final AwtDrawableSurface drawable;
+    private static final long serialVersionUID = 1196500784803227250L;
 
     /**
      * Ctor.
-     * @param drawable The drawable surface
+     * @param caption Text on the JButton
      */
-    public Buttons(final AwtDrawableSurface drawable) {
-        super();
-        this.drawable = drawable;
+    public ZoomOutButton(final String caption) {
+        super(caption);
     }
 
     /**
-     * Builds the component.
-     * @return This buttons JPanel
+     * Adds a listener to zooms out the given drawable.
+     * @param drawable Surface to translate
+     * @return This button
      */
-    public JPanel init() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(new TranslationButton("up", 0, Buttons.TRANSLATE_AMOUNT).react(this.drawable));
-        this.add(new TranslationButton("down", 0, -Buttons.TRANSLATE_AMOUNT).react(this.drawable));
-        this.add(new TranslationButton("right", Buttons.TRANSLATE_AMOUNT, 0).react(this.drawable));
-        this.add(new TranslationButton("left", -Buttons.TRANSLATE_AMOUNT, 0).react(this.drawable));
-        this.add(new ZoomInButton("zoomin").react(this.drawable));
-        this.add(new ZoomOutButton("zoomout").react(this.drawable));
+    public JButton react(final AwtDrawableSurface drawable) {
+        this.addMouseListener(new ZoomOutButton.Listener(drawable));
         return this;
     }
 
+    /**
+     * Mouse click listener to zoom out.
+     * @since 0.4
+     */
+    private static final class Listener extends MouseAdapter {
+        /**
+         * Drawable surface.
+         */
+        private final AwtDrawableSurface drawable;
+
+        /**
+         * Constructor.
+         * @param drawable Drawable surface
+         */
+        private Listener(final AwtDrawableSurface drawable) {
+            this.drawable = drawable;
+        }
+
+        @Override
+        public void mouseClicked(final MouseEvent event) {
+            this.drawable.zoomOut();
+            this.drawable.repaint();
+        }
+    }
 }
