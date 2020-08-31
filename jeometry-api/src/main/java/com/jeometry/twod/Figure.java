@@ -53,15 +53,15 @@ public final class Figure implements Iterable<Shape> {
      * @return This figure instance
      */
     public Figure add(final Shape shape) {
-        final String name = shape.name();
+        final Optional<String> name = shape.name();
         Preconditions.checkArgument(
-            !this.shaps.containsKey(name),
+            !(name.isPresent() && this.shaps.containsKey(name.get())),
             "A shape with name [%s] already exists in the figure", name
         );
         if (shape.anonymous()) {
             this.anonymous.add(shape);
         } else {
-            this.shaps.put(name, shape);
+            this.shaps.put(name.get(), shape);
         }
         return this;
     }
@@ -83,8 +83,7 @@ public final class Figure implements Iterable<Shape> {
      * @return This figure instance
      */
     public Figure add(final Renderable shape, final String name) {
-        final Shape shap = new Shape(shape, name);
-        return this.add(shap);
+        return this.add(new Shape(shape, name));
     }
 
     /**
