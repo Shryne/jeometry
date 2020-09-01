@@ -26,7 +26,6 @@ package com.aljebra.metric.angle;
 import com.aljebra.field.mock.MkField;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
-import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -73,8 +72,8 @@ public final class RightTest {
             Matchers.not(
                 Matchers.equalTo(
                     new VectsDegrees<>(
-                        new FixedVector<>(Arrays.asList(new Random<>())),
-                        new FixedVector<>(Arrays.asList(new Random<>()))
+                        new FixedVector<>(new Random<>()),
+                        new FixedVector<>(new Random<>())
                     )
                 )
             )

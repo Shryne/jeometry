@@ -52,6 +52,23 @@ public class FixedVector<T> implements Vect<T> {
         this.coors = Lists.newArrayList(coor).toArray(new Scalar[1]);
     }
 
+    /**
+     * Constructor. Build one dimension vector with the passed scalar.
+     * @param coor Vector coordinate
+     */
+    public FixedVector(final Scalar<T> coor) {
+        this(Arrays.asList(coor));
+    }
+
+    /**
+     * Constructor. Build a two-dimension vector with the passed scalars.
+     * @param first First vector coordinate
+     * @param second Second vector coordinate
+     */
+    public FixedVector(final Scalar<T> first, final Scalar<T> second) {
+        this(Arrays.asList(first, second));
+    }
+
     @Override
     public final Scalar<T>[] coords() {
         return Arrays.copyOf(this.coors, this.coors.length);

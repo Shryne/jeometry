@@ -31,7 +31,6 @@ import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.Arrays;
 import java.util.Optional;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -56,9 +55,7 @@ public final class NormTest {
      */
     @Test
     public void delegatesToInnerProduct() {
-        final Vect<Object> first = new FixedVector<>(
-            Arrays.asList(new Scalar.Default<>(new Object()))
-        );
+        final Vect<Object> first = new FixedVector<>(new Scalar.Default<>(new Object()));
         final MkProduct<Object> pdt = new MkProduct<>();
         final MetricSpaceField<Object> field = new MkField<>(new Object(), new Object(), pdt);
         new Norm<>(first).value(field);
@@ -75,7 +72,7 @@ public final class NormTest {
     @Test
     public void errorsWhenNoMetricSpace() {
         this.thrown.expect(UnsupportedOperationException.class);
-        new Norm<>(new FixedVector<>(Arrays.asList(new Random<>()))).value(
+        new Norm<>(new FixedVector<>(new Random<>())).value(
             new SpyField<>(new Object(), new Object())
         );
     }
@@ -85,9 +82,7 @@ public final class NormTest {
      */
     @Test
     public void printsAttributes() {
-        final Vect<Object> input = new FixedVector<>(
-            Arrays.asList(new Scalar.Default<>(new Object()))
-        );
+        final Vect<Object> input = new FixedVector<>(new Scalar.Default<>(new Object()));
         MatcherAssert.assertThat(
             new Norm<>(input).toString(),
             Matchers.containsString(input.toString())

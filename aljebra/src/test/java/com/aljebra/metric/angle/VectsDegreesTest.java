@@ -27,7 +27,6 @@ import com.aljebra.metric.MkProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.vector.FixedVector;
 import com.aljebra.vector.Vect;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.hamcrest.MatcherAssert;
@@ -46,8 +45,8 @@ public final class VectsDegreesTest {
      */
     @Test
     public void delegatesToInnerProduct() {
-        final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
-        final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
+        final Vect<Object> first = new FixedVector<>(new Random<>());
+        final Vect<Object> second = new FixedVector<>(new Random<>());
         final MkProduct<Object> pdt = new MkProduct<>();
         new VectsDegrees<>(first, second).resolve(pdt);
         final Optional<List<Vect<Object>>> params = pdt.angle();
@@ -63,8 +62,8 @@ public final class VectsDegreesTest {
      */
     @Test
     public void respectsEqual() {
-        final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
-        final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
+        final Vect<Object> first = new FixedVector<>(new Random<>());
+        final Vect<Object> second = new FixedVector<>(new Random<>());
         MatcherAssert.assertThat(
             new VectsDegrees<>(first, second),
             Matchers.equalTo(new VectsDegrees<>(first, second))
@@ -86,8 +85,8 @@ public final class VectsDegreesTest {
      */
     @Test
     public void toStringPrintsDegrees() {
-        final Vect<Object> first = new FixedVector<>(Arrays.asList(new Random<>()));
-        final Vect<Object> second = new FixedVector<>(Arrays.asList(new Random<>()));
+        final Vect<Object> first = new FixedVector<>(new Random<>());
+        final Vect<Object> second = new FixedVector<>(new Random<>());
         MatcherAssert.assertThat(
             new VectsDegrees<>(first, second).toString(),
             Matchers.allOf(

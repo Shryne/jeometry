@@ -30,7 +30,6 @@ import com.aljebra.metric.InnerProduct;
 import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.vector.FixedVector;
-import java.util.Arrays;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -53,7 +52,7 @@ public final class NormalizedTest {
             dec.actual(
                 pdt.norm(
                     new Normalized<Double>(
-                        new FixedVector<>(Arrays.asList(new Random<>(), new Random<>()))
+                        new FixedVector<>(new Random<>(), new Random<>())
                     )
                 )
             ),
@@ -63,7 +62,7 @@ public final class NormalizedTest {
             dec.actual(
                 pdt.norm(
                     new Normalized<Double>(
-                        new FixedVector<>(Arrays.asList(new Random<>(), new Random<>()))
+                        new FixedVector<>(new Random<>(), new Random<>())
                     )
                 )
             ),
@@ -77,7 +76,7 @@ public final class NormalizedTest {
     @Test
     public void printsCoords() {
         final Normalized<Double> vect = new Normalized<>(
-            new FixedVector<>(Arrays.asList(new Random<>(), new Random<>()))
+            new FixedVector<>(new Random<>(), new Random<>())
         );
         for (final Scalar<Double> scalar : vect.coords()) {
             MatcherAssert.assertThat(
