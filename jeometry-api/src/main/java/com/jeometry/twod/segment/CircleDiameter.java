@@ -31,7 +31,6 @@ import com.jeometry.twod.circle.Circle;
 import com.jeometry.twod.circle.analytics.PointInCircle;
 import com.jeometry.twod.point.InCirclePoint;
 import com.jeometry.twod.point.PtReflectionPoint;
-import java.util.Arrays;
 import lombok.ToString;
 
 /**
@@ -83,10 +82,8 @@ public class CircleDiameter<T> extends PtsSegment<T> {
             )
         );
         return new FixedVector<>(
-            Arrays.asList(
-                new Ternary<>(predicate, point.coords()[0], err),
-                new Ternary<>(predicate, point.coords()[1], err)
-            )
+            new Ternary<>(predicate, point.coords()[0], err),
+            new Ternary<>(predicate, point.coords()[1], err)
         );
     }
 

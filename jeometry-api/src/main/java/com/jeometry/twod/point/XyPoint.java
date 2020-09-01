@@ -44,7 +44,7 @@ public class XyPoint<T> extends FixedVector<T> implements Renderable {
      * @param ycoor Y coordinate
      */
     public XyPoint(final Scalar<T> xcoor, final Scalar<T> ycoor) {
-        super(Arrays.asList(xcoor, ycoor));
+        super(xcoor, ycoor);
     }
 
     /**
