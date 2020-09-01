@@ -40,17 +40,11 @@ public final class FixedVectorTest {
     @Test
     public void respectsEqual() {
         MatcherAssert.assertThat(
-            new FixedVector<Double>(
-                Arrays.asList(
-                    new Scalar.Default<>(0.), new Scalar.Default<>(1.)
-                )
-            ),
+            new FixedVector<Double>(new Scalar.Default<>(0.), new Scalar.Default<>(1.)),
             Matchers.equalTo(
                 new FixedVector<Double>(
-                    Arrays.asList(
-                        new Scalar.Default<>(0.),
-                        new Scalar.Default<>(1.)
-                    )
+                    new Scalar.Default<>(0.),
+                    new Scalar.Default<>(1.)
                 )
             )
         );
