@@ -29,7 +29,7 @@ import com.jeometry.twod.circle.Circle;
 import lombok.ToString;
 
 /**
- * Arc implementation class describing an arc by a circle a starting
+ * Arc implementation class describing an arc by a circle, a starting
  * and an ending angle.
  * @param <T> scalar types
  * @since 0.1

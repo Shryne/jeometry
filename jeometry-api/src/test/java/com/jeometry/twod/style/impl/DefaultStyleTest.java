@@ -44,10 +44,10 @@ public final class DefaultStyleTest {
     public void defaultsToTransparentAndDefaultStroke() {
         final Style style = new DefaultStyle();
         MatcherAssert.assertThat(
-            style.fillStyle(), Matchers.instanceOf(TransparentFill.class)
+            style.fill(), Matchers.instanceOf(TransparentFill.class)
         );
         MatcherAssert.assertThat(
-            style.strokeStyle(), Matchers.instanceOf(DefaultStroke.class)
+            style.stroke(), Matchers.instanceOf(DefaultStroke.class)
         );
     }
 
@@ -58,9 +58,9 @@ public final class DefaultStyleTest {
     public void acceptsFillOverride() {
         final Fill fill = Mockito.mock(Fill.class);
         final Style style = new DefaultStyle(fill);
-        MatcherAssert.assertThat(style.fillStyle(), Matchers.equalTo(fill));
+        MatcherAssert.assertThat(style.fill(), Matchers.equalTo(fill));
         MatcherAssert.assertThat(
-            style.strokeStyle(), Matchers.instanceOf(DefaultStroke.class)
+            style.stroke(), Matchers.instanceOf(DefaultStroke.class)
         );
     }
 
@@ -71,9 +71,9 @@ public final class DefaultStyleTest {
     public void acceptsStrokeOverride() {
         final Stroke stroke = Mockito.mock(Stroke.class);
         final Style style = new DefaultStyle(stroke);
-        MatcherAssert.assertThat(style.strokeStyle(), Matchers.equalTo(stroke));
+        MatcherAssert.assertThat(style.stroke(), Matchers.equalTo(stroke));
         MatcherAssert.assertThat(
-            style.fillStyle(), Matchers.instanceOf(TransparentFill.class)
+            style.fill(), Matchers.instanceOf(TransparentFill.class)
         );
     }
 }

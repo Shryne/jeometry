@@ -36,12 +36,12 @@ public class FixedStyle implements Style {
     /**
      * Stroke style.
      */
-    private final Stroke stroke;
+    private final Stroke strk;
 
     /**
      * Fill style.
      */
-    private final Fill fill;
+    private final Fill fll;
 
     /**
      * Ctor. Builds a style with the passed stroke and fill styles.
@@ -49,18 +49,18 @@ public class FixedStyle implements Style {
      * @param fill Fill style
      */
     public FixedStyle(final Stroke stroke, final Fill fill) {
-        this.stroke = stroke;
-        this.fill = fill;
+        this.strk = stroke;
+        this.fll = fill;
     }
 
     @Override
-    public final Stroke strokeStyle() {
-        return this.stroke;
+    public final Stroke stroke() {
+        return this.strk;
     }
 
     @Override
-    public final Fill fillStyle() {
-        return this.fill;
+    public final Fill fill() {
+        return this.fll;
     }
 
 }

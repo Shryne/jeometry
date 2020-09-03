@@ -53,7 +53,7 @@ public final class DefaultStyle extends FixedStyle {
 
     /**
      * Ctor. Builds a style with a {@link DefaultStroke} and a
-     * {@link FixedColorFill}.
+     * {@link TransparentFill}.
      */
     public DefaultStyle() {
         this(new DefaultStroke());

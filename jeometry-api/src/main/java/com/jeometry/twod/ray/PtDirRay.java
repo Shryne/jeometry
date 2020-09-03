@@ -40,7 +40,7 @@ public class PtDirRay<T> implements Ray<T> {
     private final Vect<T> dir;
 
     /**
-     * Point belonging to the line.
+     * Point representing the ray origin.
      */
     private final Vect<T> org;
 

@@ -76,7 +76,7 @@ public class CircleDiameter<T> extends PtsSegment<T> {
         final Throwing<T> err = new Throwing<>(
             new IllegalArgumentException(
                 String.format(
-                    "Unable to build a chord of %s passing by the point %s.",
+                    "Unable to build a diameter of %s passing by the point %s.",
                     circle, point
                 )
             )

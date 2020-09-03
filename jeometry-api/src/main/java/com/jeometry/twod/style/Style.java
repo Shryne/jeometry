@@ -34,12 +34,12 @@ public interface Style {
      * Gives the stroke style.
      * @return Stroke style
      */
-    Stroke strokeStyle();
+    Stroke stroke();
 
     /**
      * Gives the fill style.
      * @return Fill style
      */
-    Fill fillStyle();
+    Fill fill();
 
 }
