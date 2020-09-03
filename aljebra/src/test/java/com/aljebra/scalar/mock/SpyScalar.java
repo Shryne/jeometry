@@ -65,7 +65,8 @@ public final class SpyScalar<T> implements Scalar<T> {
 
     /**
      * Accessor for the last field passed when calling value method.
-     * @return The field
+     * @return Optional containing the field passed when last called value method.
+     *  If the optional is empty, that means the method was never called.
      */
     public Optional<Field<T>> field() {
         return this.fld;

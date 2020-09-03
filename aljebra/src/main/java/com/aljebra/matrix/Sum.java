@@ -35,7 +35,9 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * A Matrix represented as the sum of a set of matrices.
+ * A Matrix represented as the sum of a set of matrices. The set of matrices are considered
+ * to have the same dimensions and this implementation does not make any checks on
+ * dimensions.
  * @param <T> scalar types
  * @since 0.1
  */

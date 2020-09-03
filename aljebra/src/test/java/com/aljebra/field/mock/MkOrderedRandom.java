@@ -34,6 +34,9 @@ import java.util.Optional;
  * and lower.
  * It holds the parameters with which the methods were last called as optionals.
  * If the optional is empty, that means the method was never called.
+ * This mock can be forced to return values when calling `between` method
+ * by passing a list of scalars to be returned in the subsequent calls of
+ * the `between` method.
  * @param <T> scalar types
  * @since 0.3
  */

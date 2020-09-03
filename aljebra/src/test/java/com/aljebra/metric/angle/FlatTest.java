@@ -37,7 +37,7 @@ import org.junit.Test;
 public final class FlatTest {
 
     /**
-     * {@link Flat} resolves to an flat angle.
+     * {@link Flat} resolves to a flat angle.
      */
     @Test
     public void resolvesFlatAngle() {

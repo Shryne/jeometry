@@ -49,7 +49,7 @@ public final class RandomTest {
      * (object default equality).
      */
     @Test
-    public void equalsAsObject() {
+    public void differsFromOtherInstance() {
         MatcherAssert.assertThat(
             new Random<>(), Matchers.not(Matchers.equalTo(new Random<>()))
         );

@@ -24,7 +24,7 @@
 package com.aljebra.field;
 
 /**
- * Interface describing an scalar generator. Scalars are elements of an
+ * Interface describing a scalar generator. Scalars are elements of an
  * ordered field and implementations of this interface are capable of generating
  * scalars in an ordered manner.
  * @param <T> The actual objects constituting the field.
@@ -33,8 +33,8 @@ package com.aljebra.field;
 public interface OrderedRandom<T> {
 
     /**
-     * Generates a random scalar "between" two other scalars. The word "between"
-     * is defined as greater than the smaller scalar and smaller than
+     * Generates a random scalar "between" two other scalars (inclusive). The word "between"
+     * is defined as greater or equal than the smaller scalar and smaller or equal than
      * the greater scalar.
      * @param lower Lower bound scalar
      * @param upper Upper bound scalar

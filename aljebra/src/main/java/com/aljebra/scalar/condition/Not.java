@@ -26,7 +26,7 @@ package com.aljebra.scalar.condition;
 import com.aljebra.field.Field;
 
 /**
- * A predicate that is true if the given predicates is false.
+ * A predicate that is true if the given predicate is false.
  * @param <T> scalar types
  * @since 0.1
  */
