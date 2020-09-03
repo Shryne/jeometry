@@ -56,10 +56,10 @@ public final class RightTest {
     }
 
     /**
-     * {@link Right} respects equal.
+     * {@link Right} respects equal and hashcode.
      */
     @Test
-    public void respectsEqual() {
+    public void respectsEqualAndHashcode() {
         MatcherAssert.assertThat(
             new Right<>(), Matchers.equalTo(new Right<>())
         );

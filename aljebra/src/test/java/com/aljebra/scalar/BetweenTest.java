@@ -49,7 +49,7 @@ public final class BetweenTest {
      * {@link Between} relies on ordered field to calculate actual value.
      */
     @Test
-    public void betweenDelegatesToOrderedFieldRandomizer() {
+    public void betweenDelegatesToOrderedField() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> second = new Scalar.Default<>(new Object());
         final SpyMetricSpace<Object> field = new SpyMetricSpace<>(new Object(), new Object());

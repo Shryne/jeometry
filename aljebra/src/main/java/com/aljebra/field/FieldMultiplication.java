@@ -25,7 +25,7 @@ package com.aljebra.field;
 
 /**
  * Interface describing a field multiplication operation.
- * @param <T> The actual objects constituting the field.
+ * @param <T> The actual objects constituting the ring.
  * @since 0.1
  */
 public interface FieldMultiplication<T> {

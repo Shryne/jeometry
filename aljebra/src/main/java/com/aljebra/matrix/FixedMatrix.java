@@ -50,12 +50,12 @@ public class FixedMatrix<T> implements Matrix<T> {
     private final Scalar<T>[] coors;
 
     /**
-     * Source vector space dimension.
+     * Source vector space dimension corresponding to the columns count.
      */
     private final int source;
 
     /**
-     * Target vector space dimension.
+     * Target vector space dimension corresponding to the rows (lines) count.
      */
     private final int target;
 
@@ -134,7 +134,7 @@ public class FixedMatrix<T> implements Matrix<T> {
     /**
      * Calculates the product of the given vector by a matrix line.
      * @param input Given vector
-     * @param idx Matrix column index
+     * @param idx Matrix line index
      * @return Product
      */
     private Scalar<T> product(final Vect<T> input, final int idx) {

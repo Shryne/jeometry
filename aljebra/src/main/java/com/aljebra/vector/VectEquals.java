@@ -64,7 +64,7 @@ public final class VectEquals<T> implements Predicate<Field<T>> {
     }
 
     /**
-     * Checks if passed scalar arrays are one on one equals.
+     * Checks if passed scalar arrays are one to one equals.
      * @param first First scalars array
      * @param second Second scalars array
      * @param field Scalars field

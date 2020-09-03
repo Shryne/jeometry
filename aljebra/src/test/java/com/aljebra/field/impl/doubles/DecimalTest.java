@@ -49,7 +49,10 @@ public final class DecimalTest {
     public ExpectedException thrown = ExpectedException.none();
 
     /**
-     * Decimal can generate a different scalar.
+     * Decimal can generate a different scalar. This test forces the mocked
+     * "random" generator to return the same value at first. This ensures
+     * to test the actual capability of the field to request another scalar
+     * from the generator.
      */
     @Test
     public void returnsDifferentScalar() {

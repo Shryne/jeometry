@@ -25,7 +25,7 @@ package com.aljebra.field;
 
 /**
  * Interface describing a field addition operation.
- * @param <T> The actual objects constituting the field.
+ * @param <T> The actual objects constituting the group.
  * @since 0.1
  */
 public interface FieldAddition<T> {
