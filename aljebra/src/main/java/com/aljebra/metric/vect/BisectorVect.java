@@ -32,6 +32,7 @@ import lombok.ToString;
 
 /**
  * A vector defined as bisecting two other vectors.
+ * This vector will have the same norm as the first passed vector.
  * @param <T> scalar types
  * @since 0.1
  */

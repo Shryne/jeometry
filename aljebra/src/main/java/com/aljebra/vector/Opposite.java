@@ -39,7 +39,7 @@ import lombok.ToString;
 public final class Opposite<T> implements Vect<T> {
 
     /**
-     * Vector.
+     * The vector to oppose.
      */
     private final transient Vect<T> vector;
 

@@ -34,10 +34,10 @@ import org.junit.Test;
 public final class DegreesTest {
 
     /**
-     * {@link Degrees.Default} respects equals on value.
+     * {@link Degrees.Default} respects equals and hashcode on value.
      */
     @Test
-    public void respectsEqual() {
+    public void respectsEqualAndHashcode() {
         final double num = Math.random();
         MatcherAssert.assertThat(
             new Degrees.Default<>(num),

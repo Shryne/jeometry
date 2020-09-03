@@ -30,7 +30,6 @@ import com.aljebra.scalar.Scalar;
  * Giving the capability to:<br>
  * <ul>
  * <li>Generate random ordered scalars</li>
- * <li>Compare two scalars by order</li>
  * </ul>
  * @param <T> The actual objects constituting the field.
  * @since 0.1
@@ -38,8 +37,8 @@ import com.aljebra.scalar.Scalar;
 public interface OrderedField<T> extends Field<T> {
 
     /**
-     * Generates a random scalar "between" two other scalars. The word "between"
-     * is defined as greater than the smaller scalar and smaller than
+     * Generates a random scalar "between" two other scalars (inclusive). The word "between"
+     * is defined as greater or equal than the smaller scalar and smaller or equal than
      * the greater scalar.
      * @param lower Lower bound scalar
      * @param upper Upper bound scalar

@@ -45,9 +45,9 @@ public final class DblMatrix extends FixedMatrix<Double> {
     }
 
     /**
-     * Wraps double array into scalar array.
+     * Wraps double array into scalar list.
      * @param coords Double array
-     * @return A scalar array wrapping the doubles
+     * @return A scalar list wrapping the doubles
      */
     private static List<Scalar<Double>> wrap(final Double... coords) {
         final List<Scalar<Double>> result = new ArrayList<>(coords.length);

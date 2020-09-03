@@ -48,7 +48,7 @@ public final class GreaterTest {
      * {@link Greater} relies on ordered field to calculate actual value.
      */
     @Test
-    public void delegatesToOrderedFieldRandomizer() {
+    public void delegatesToOrderedField() {
         final Scalar<Object> first = new Scalar.Default<>(new Object());
         final Scalar<Object> greater = new Greater<>(first);
         final SpyMetricSpace<Object> field = new SpyMetricSpace<>(new Object(), new Object());

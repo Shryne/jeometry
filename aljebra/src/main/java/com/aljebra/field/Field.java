@@ -29,9 +29,9 @@ import com.aljebra.scalar.Scalar;
  * Interface describing a field of scalars. Giving the capability to:<br>
  * <ul>
  * <li>Generate random scalars</li>
- * <li>Define the sum identity</li>
- * <li>Define the multiplication identity</li>
- * <li>Compare two scalars for equality</li>
+ * <li>Define the sum operation</li>
+ * <li>Define the multiplication operation</li>
+ * <li>Checks two scalars for equality</li>
  * </ul>
  * @param <T> The actual objects constituting the field.
  * @since 0.1
