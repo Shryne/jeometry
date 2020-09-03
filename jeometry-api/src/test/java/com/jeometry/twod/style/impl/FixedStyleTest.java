@@ -45,8 +45,8 @@ public final class FixedStyleTest {
         final Fill fill = Mockito.mock(Fill.class);
         final Stroke stroke = Mockito.mock(Stroke.class);
         final Style style = new FixedStyle(stroke, fill);
-        MatcherAssert.assertThat(style.fillStyle(), Matchers.equalTo(fill));
-        MatcherAssert.assertThat(style.strokeStyle(), Matchers.equalTo(stroke));
+        MatcherAssert.assertThat(style.fill(), Matchers.equalTo(fill));
+        MatcherAssert.assertThat(style.stroke(), Matchers.equalTo(stroke));
     }
 
 }

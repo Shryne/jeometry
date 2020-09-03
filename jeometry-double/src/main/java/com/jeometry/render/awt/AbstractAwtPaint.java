@@ -97,7 +97,7 @@ public abstract class AbstractAwtPaint implements Renderer {
                 @Override
                 public void render(final Shape renderable) {
                     final Graphics2D graph = AbstractAwtPaint.this.graphics;
-                    final Stroke stroke = renderable.style().strokeStyle();
+                    final Stroke stroke = renderable.style().stroke();
                     graph.setStroke(new AwtStroke(stroke));
                     graph.setColor(stroke.color());
                     AbstractAwtPaint.this.draw(

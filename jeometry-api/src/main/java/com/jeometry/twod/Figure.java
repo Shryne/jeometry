@@ -77,7 +77,7 @@ public final class Figure implements Iterable<Shape> {
     }
 
     /**
-     * Adds an named renderable to the figure.
+     * Adds a named renderable to the figure.
      * @param shape The renderable to add
      * @param name The renderable name
      * @return This figure instance

@@ -47,7 +47,7 @@ public interface Angle<T> extends Renderable {
 
     /**
      * Gives The originating Point of the angle.
-     * @return A point by which the line passes
+     * @return A point representing the angle origin
      */
     Vect<T> origin();
 

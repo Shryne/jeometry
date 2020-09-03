@@ -41,7 +41,7 @@ public final class FillStyleTest {
     @Test
     public void defaultsToDefaultStroke() {
         MatcherAssert.assertThat(
-            new FillStyle(Mockito.mock(Color.class)).strokeStyle(),
+            new FillStyle(Mockito.mock(Color.class)).stroke(),
             Matchers.instanceOf(DefaultStroke.class)
         );
     }
@@ -53,7 +53,7 @@ public final class FillStyleTest {
     public void definesFillColor() {
         final Color color = Mockito.mock(Color.class);
         MatcherAssert.assertThat(
-            new FillStyle(color).fillStyle().color(),
+            new FillStyle(color).fill().color(),
             Matchers.equalTo(color)
         );
     }

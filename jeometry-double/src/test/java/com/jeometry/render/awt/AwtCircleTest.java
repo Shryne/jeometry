@@ -52,13 +52,13 @@ public final class AwtCircleTest {
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
         final Style style = Mockito.mock(Style.class);
-        Mockito.when(style.strokeStyle()).thenReturn(
+        Mockito.when(style.stroke()).thenReturn(
             Mockito.mock(Stroke.class)
         );
-        Mockito.when(style.fillStyle()).thenReturn(Mockito.mock(Fill.class));
+        Mockito.when(style.fill()).thenReturn(Mockito.mock(Fill.class));
         painter.render(new Shape(circle, style));
-        Mockito.verify(style).fillStyle();
-        Mockito.verify(style).strokeStyle();
+        Mockito.verify(style).fill();
+        Mockito.verify(style).stroke();
         MatcherAssert.assertThat(circle.centered(), Matchers.equalTo(true));
     }
 
