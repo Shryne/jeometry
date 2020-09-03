@@ -61,7 +61,7 @@ public final class PtReflectionPolyLine<T> extends PtsPolyline<T> {
      * @param center Reflection center
      * @param pts The points to reflect
      * @param <T> scalar types
-     * @return An array of reflected points
+     * @return List of reflected points
      */
     private static <T> List<Vect<T>> reflected(final Vect<T> center, final List<Vect<T>> pts) {
         final List<Vect<T>> result = new ArrayList<>(pts.size());

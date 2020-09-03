@@ -24,9 +24,8 @@
 package com.jeometry.twod.segment;
 
 import com.aljebra.field.impl.doubles.Decimal;
-import com.aljebra.metric.scalar.Norm;
-import com.aljebra.vector.Minus;
 import com.aljebra.vector.Vect;
+import com.jeometry.twod.scalar.SegmentLength;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -49,7 +48,7 @@ public final class RandomSegmentTest {
         MatcherAssert.assertThat(start, Matchers.not(Matchers.equalTo(end)));
         final double error = 1.e-6;
         MatcherAssert.assertThat(
-            new Norm<Double>(new Minus<>(end, start)).value(new Decimal()),
+            new SegmentLength<>(seg).value(new Decimal()),
             Matchers.not(Matchers.closeTo(0., error))
         );
     }

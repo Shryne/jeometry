@@ -26,13 +26,8 @@ package com.jeometry.twod.style;
 import java.awt.Color;
 
 /**
- * Stroke style interface defining stroke rendering styles like:
- * <ul>
- * <li>line color</li>
- * <li>line width</li>
- * <li>line dashing pattern</li>
- * </ul>
- * color and style.
+ * Stroke style interface defining stroke rendering styles like line color, line width
+ * and line dashing pattern.
  * @since 0.1
  */
 public interface Stroke {

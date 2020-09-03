@@ -51,7 +51,7 @@ public final class StrokeStyleTest {
         final Dash pattern = values[rnd.nextInt(values.length)];
         final Style style = new StrokeStyle(color, pattern, width);
         MatcherAssert.assertThat(
-            style.fillStyle(), Matchers.instanceOf(TransparentFill.class)
+            style.fill(), Matchers.instanceOf(TransparentFill.class)
         );
     }
 
@@ -66,7 +66,7 @@ public final class StrokeStyleTest {
         final float width = rnd.nextFloat();
         final Dash[] values = Dash.values();
         final Dash pattern = values[rnd.nextInt(values.length)];
-        final Stroke stroke = new StrokeStyle(color, pattern, width).strokeStyle();
+        final Stroke stroke = new StrokeStyle(color, pattern, width).stroke();
         MatcherAssert.assertThat(stroke.width(), Matchers.equalTo(width));
         MatcherAssert.assertThat(stroke.dash(), Matchers.equalTo(pattern));
         MatcherAssert.assertThat(stroke.color(), Matchers.equalTo(color));

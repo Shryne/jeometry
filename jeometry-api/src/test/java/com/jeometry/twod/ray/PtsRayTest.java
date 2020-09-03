@@ -41,7 +41,7 @@ import org.junit.Test;
 public final class PtsRayTest {
 
     /**
-     * {@link PtsRay} builds a with the given points.
+     * {@link PtsRay} builds a ray with the given points.
      */
     @Test
     public void buildsPointsRay() {
