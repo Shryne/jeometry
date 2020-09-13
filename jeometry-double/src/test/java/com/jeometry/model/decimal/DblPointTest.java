@@ -35,10 +35,10 @@ import org.junit.Test;
 public final class DblPointTest {
 
     /**
-     * {@link DblPoint} accepts double coordinates.
+     * {@link DblPoint} accepts and reports double coordinates.
      */
     @Test
-    public void acceptsDoubleRadius() {
+    public void reportsCoordinates() {
         final double xcoor = Math.random();
         final double ycoor = Math.random();
         final DblPoint point = new DblPoint(xcoor, ycoor);

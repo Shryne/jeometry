@@ -106,7 +106,7 @@ public final class Awt extends JFrame implements Output {
     }
 
     /**
-     * Builds the component and returns the drawable surface.
+     * Builds the component.
      */
     private void init() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

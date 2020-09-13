@@ -59,7 +59,7 @@ public final class DblPoint extends XyPoint<Double> {
     }
 
     /**
-     * Returns wrapped double value.
+     * Returns actual double value.
      * @param scalar Scalar
      * @return Double value
      */

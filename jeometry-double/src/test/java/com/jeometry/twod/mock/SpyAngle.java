@@ -29,7 +29,7 @@ import com.jeometry.twod.angle.VectsAngle;
 import com.jeometry.twod.point.RandomPoint;
 
 /**
- * Mock decorator for angle with spying (verifying) capabilities on the method: start.
+ * Mock decorator for angle with spying (verifying) capabilities on the methods start and origin.
  * @param <T> scalar types
  * @since 0.3
  */
