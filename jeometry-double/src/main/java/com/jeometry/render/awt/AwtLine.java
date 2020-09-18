@@ -64,7 +64,7 @@ public final class AwtLine extends AbstractAwtPaint {
         if (new Vertical<>(line).resolve(this.field())) {
             AwtLine.vertical(graphics, line, context);
         } else {
-            this.regular(graphics, line, context);
+            AwtLine.regular(graphics, line, context);
         }
     }
 
@@ -74,7 +74,7 @@ public final class AwtLine extends AbstractAwtPaint {
      * @param line Line to draw
      * @param context AwtContext
      */
-    private void regular(final Graphics2D graphics,
+    private static void regular(final Graphics2D graphics,
         final Line<Double> line, final Surface context) {
         final int width = context.width();
         final Transform transform = new Transform(context);
