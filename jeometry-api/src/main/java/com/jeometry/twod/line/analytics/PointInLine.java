@@ -24,8 +24,6 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.Field;
-import com.aljebra.scalar.Add;
-import com.aljebra.scalar.Multiplication;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.condition.Equals;
 import com.aljebra.scalar.condition.Predicate;
@@ -66,13 +64,9 @@ public final class PointInLine<T> implements Predicate<Field<T>> {
         if (new Vertical<>(this.line).resolve(field)) {
             result = new Equals<>(xcoor, this.line.point().coords()[0]);
         } else {
-            final LineAnalytics<T> analytics = new LineAnalytics<>(this.line);
             result = new Equals<>(
                 this.point.coords()[1],
-                new Add<T>(
-                    new Multiplication<>(xcoor, analytics.slope()),
-                    analytics.intercept()
-                )
+                new LinePointOrdinate<T>(this.line, xcoor)
             );
         }
         return result.resolve(field);
