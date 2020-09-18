@@ -37,8 +37,8 @@ import java.util.Arrays;
 /**
  * Represents an abstract AWT renderer accepting an AWT {@link Graphics2D} to
  * draw with and an {@link Surface} describing the context for drawing. This
- * renderer relies on {@link RenderSupport} and is built with classes to
- * support.
+ * renderer relies on {@link RenderSupport} and is built with
+ * the set of classes that this renderer can draw.
  * @since 0.1
  */
 public abstract class AbstractAwtPaint implements Renderer {
