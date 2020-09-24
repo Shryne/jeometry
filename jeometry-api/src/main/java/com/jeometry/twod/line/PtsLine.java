@@ -31,7 +31,7 @@ import com.aljebra.vector.Vect;
  * @param <T> scalar types
  * @since 0.1
  */
-public final class PtsLine<T> extends PtDirLine<T> {
+public class PtsLine<T> extends PtDirLine<T> {
 
     /**
      * Constructor.
