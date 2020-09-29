@@ -25,14 +25,13 @@ package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
 import com.aljebra.field.impl.doubles.Decimal;
-import com.jeometry.model.decimal.DblPoint;
+import com.aljebra.scalar.Scalar;
 import com.jeometry.render.Surface;
 import com.jeometry.render.Transform;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
-import com.jeometry.twod.line.analytics.Intercept;
-import com.jeometry.twod.line.analytics.Slope;
 import com.jeometry.twod.line.analytics.Vertical;
+import com.jeometry.twod.point.InLinePoint;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
@@ -65,7 +64,7 @@ public final class AwtLine extends AbstractAwtPaint {
         if (new Vertical<>(line).resolve(this.field())) {
             AwtLine.vertical(graphics, line, context);
         } else {
-            this.regular(graphics, line, context);
+            AwtLine.regular(graphics, line, context);
         }
     }
 
@@ -75,19 +74,17 @@ public final class AwtLine extends AbstractAwtPaint {
      * @param line Line to draw
      * @param context AwtContext
      */
-    private void regular(final Graphics2D graphics,
+    private static void regular(final Graphics2D graphics,
         final Line<Double> line, final Surface context) {
         final int width = context.width();
         final Transform transform = new Transform(context);
-        final Double xstart = transform.inverse(new Point(0, 0)).dblx();
-        final Double xend = transform.inverse(new Point(width, 0)).dblx();
-        final Double slope = this.field().actual(new Slope<>(line));
-        final Double intercept = this.field().actual(new Intercept<>(line));
+        final Scalar<Double> xstart = transform.inverse(new Point(0, 0)).xcoor();
+        final Scalar<Double> xend = transform.inverse(new Point(width, 0)).xcoor();
         final Point start = transform.transform(
-            new DblPoint(xstart, slope * xstart + intercept)
+            new InLinePoint<>(line, xstart)
         );
         final Point end = transform.transform(
-            new DblPoint(xend, slope * xend + intercept)
+            new InLinePoint<>(line, xend)
         );
         graphics.drawLine(start.x, start.y, end.x, end.y);
     }
