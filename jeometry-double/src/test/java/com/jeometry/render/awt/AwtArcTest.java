@@ -23,35 +23,47 @@
  */
 package com.jeometry.render.awt;
 
-import java.util.Arrays;
+import com.aljebra.field.impl.doubles.Decimal;
+import com.jeometry.twod.Shape;
+import com.jeometry.twod.mock.SpyArc;
+import com.jeometry.twod.mock.SpyLine;
+import java.awt.Graphics2D;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Tests for {@link Painters}.
- * @since 0.1
+ * Tests for {@link AwtArc}.
+ * @since 0.4
  */
-public final class PaintersTest {
+public final class AwtArcTest {
 
     /**
-     * {@link Painters} initializes with default painters.
+     * {@link AwtArc} renders arcs.
      */
     @Test
-    public void givesDefaultPainters() {
-        MatcherAssert.assertThat(
-            new Painters().defaults(),
-            Matchers.containsInAnyOrder(
-                Arrays.asList(
-                    Matchers.instanceOf(AwtAngle.class),
-                    Matchers.instanceOf(AwtArc.class),
-                    Matchers.instanceOf(AwtLine.class),
-                    Matchers.instanceOf(AwtSegment.class),
-                    Matchers.instanceOf(AwtRay.class),
-                    Matchers.instanceOf(AwtCircle.class),
-                    Matchers.instanceOf(AwtPoint.class)
-                )
-            )
-        );
+    public void rendersArcs() {
+        final SpyArc<Double> arc = new SpyArc<>();
+        final AwtArc painter = new AwtArc(new Decimal());
+        painter.setContext(new AwtDrawableSurface().context());
+        painter.setGraphics(Mockito.mock(Graphics2D.class));
+        painter.render(new Shape(arc));
+        MatcherAssert.assertThat(arc.centered(), Matchers.equalTo(true));
     }
+
+    /**
+     * {@link AwtArc} does not render other renderables.
+     */
+    @Test
+    public void doesNotRenderOthers() {
+        final SpyLine<Double> render = new SpyLine<>();
+        final AwtArc painter = new AwtArc(new Decimal());
+        painter.setContext(new AwtDrawableSurface().context());
+        painter.setGraphics(Mockito.mock(Graphics2D.class));
+        painter.render(new Shape(render));
+        MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
+        MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
+    }
+
 }

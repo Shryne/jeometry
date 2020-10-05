@@ -61,6 +61,7 @@ public final class Painters {
         final List<AbstractAwtPaint> defaults = new ArrayList<>(size);
         defaults.add(new AwtPoint());
         defaults.add(new AwtCircle());
+        defaults.add(new AwtArc());
         defaults.add(new AwtLine());
         defaults.add(new AwtRay());
         defaults.add(new AwtAngle());
