@@ -48,7 +48,7 @@ public final class AwtSegmentTest {
         final AwtSegment painter = new AwtSegment(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(segment));
+        painter.render(new Shape<>(segment));
         MatcherAssert.assertThat(segment.started(), Matchers.equalTo(true));
         MatcherAssert.assertThat(segment.ended(), Matchers.equalTo(true));
     }
@@ -62,7 +62,7 @@ public final class AwtSegmentTest {
         final AwtSegment painter = new AwtSegment(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(render));
+        painter.render(new Shape<>(render));
         MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
         MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
     }

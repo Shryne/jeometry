@@ -30,15 +30,16 @@ import lombok.ToString;
 
 /**
  * Represents a Shape. A shape is a {@link Renderable} with rendering options.
+ * @param <T> renderable type
  * @since 0.1
  */
 @ToString(includeFieldNames = false)
-public final class Shape {
+public final class Shape<T extends Renderable> {
 
     /**
      * Renderable.
      */
-    private final Renderable rndrable;
+    private final T rndrable;
 
     /**
      * Renderable name.
@@ -56,7 +57,7 @@ public final class Shape {
      * @param symbol Renderable name (or empty optional)
      * @param style Renderable style
      */
-    public Shape(final Renderable rndrable, final Optional<String> symbol,
+    public Shape(final T rndrable, final Optional<String> symbol,
         final Style style) {
         this.rndrable = rndrable;
         this.symbol = symbol;
@@ -68,7 +69,7 @@ public final class Shape {
      * @param rndrable Renderable
      * @param symbol Renderable name
      */
-    public Shape(final Renderable rndrable, final String symbol) {
+    public Shape(final T rndrable, final String symbol) {
         this(rndrable, Optional.of(symbol), new DefaultStyle());
     }
 
@@ -77,7 +78,7 @@ public final class Shape {
      * @param rndrable Renderable
      * @param style Renderable style
      */
-    public Shape(final Renderable rndrable, final Style style) {
+    public Shape(final T rndrable, final Style style) {
         this(rndrable, Optional.empty(), style);
     }
 
@@ -85,7 +86,7 @@ public final class Shape {
      * Ctor. Builds an anonymous renderable with a default style.
      * @param rndrable Renderable
      */
-    public Shape(final Renderable rndrable) {
+    public Shape(final T rndrable) {
         this(rndrable, Optional.empty(), new DefaultStyle());
     }
 

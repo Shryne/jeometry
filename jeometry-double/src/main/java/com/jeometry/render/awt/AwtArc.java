@@ -54,7 +54,7 @@ public final class AwtArc extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape renderable, final Graphics2D graphics,
+    public void draw(final Shape<?> renderable, final Graphics2D graphics,
         final Surface context) {
         @SuppressWarnings("unchecked")
         final Arc<Double> arc = (Arc<Double>) renderable.renderable();

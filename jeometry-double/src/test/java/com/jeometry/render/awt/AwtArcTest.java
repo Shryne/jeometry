@@ -48,7 +48,7 @@ public final class AwtArcTest {
         final AwtArc painter = new AwtArc(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(arc));
+        painter.render(new Shape<>(arc));
         MatcherAssert.assertThat(arc.centered(), Matchers.equalTo(true));
     }
 
@@ -61,7 +61,7 @@ public final class AwtArcTest {
         final AwtArc painter = new AwtArc(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(render));
+        painter.render(new Shape<>(render));
         MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
         MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
     }

@@ -29,6 +29,7 @@ import com.jeometry.model.decimal.DblPoint;
 import com.jeometry.render.Surface;
 import com.jeometry.render.awt.style.AwtStroke;
 import com.jeometry.twod.Shape;
+import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
 import com.jeometry.twod.style.impl.DefaultStroke;
 import java.awt.Color;
@@ -74,10 +75,10 @@ public final class AxisPaint {
      */
     public void paint(final Graphics2D graphics) {
         final DblPoint origin = new DblPoint(0., 0.);
-        final Shape xaxis = new Shape(
+        final Shape<Line<Double>> xaxis = new Shape<>(
             new PtDirLine<>(origin, new DblPoint(1.0, 0.))
         );
-        final Shape yaxis = new Shape(
+        final Shape<Line<Double>> yaxis = new Shape<>(
             new PtDirLine<>(origin, new DblPoint(0., 1.))
         );
         final Color color = graphics.getColor();

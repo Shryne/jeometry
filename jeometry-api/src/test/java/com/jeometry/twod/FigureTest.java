@@ -45,9 +45,10 @@ public final class FigureTest {
     /**
      * {@link Figure} can add an anonymous shape.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void addsAnonymousShape() {
-        final Shape shape = new Shape(Mockito.mock(Renderable.class));
+        final Shape<?> shape = new Shape<>(Mockito.mock(Renderable.class));
         MatcherAssert.assertThat(
             new Figure().add(shape), Matchers.contains(shape)
         );
@@ -56,9 +57,10 @@ public final class FigureTest {
     /**
      * {@link Figure} can add a named shape.
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void addsNamedShape() {
-        final Shape shape = new Shape(Mockito.mock(Renderable.class), "name");
+        final Shape<?> shape = new Shape<>(Mockito.mock(Renderable.class), "name");
         MatcherAssert.assertThat(
             new Figure().add(shape), Matchers.contains(shape)
         );
@@ -73,8 +75,8 @@ public final class FigureTest {
         this.thrown.expect(IllegalArgumentException.class);
         final String name = "twice";
         new Figure().add(
-            new Shape(Mockito.mock(Renderable.class), name)
-        ).add(new Shape(Mockito.mock(Renderable.class), name));
+            new Shape<>(Mockito.mock(Renderable.class), name)
+        ).add(new Shape<>(Mockito.mock(Renderable.class), name));
     }
 
     /**
@@ -108,7 +110,7 @@ public final class FigureTest {
     @Test
     public void retrievesShapeByName() {
         final String name = "hello";
-        final Shape shape = new Shape(Mockito.mock(Renderable.class), name);
+        final Shape<?> shape = new Shape<>(Mockito.mock(Renderable.class), name);
         MatcherAssert.assertThat(
             new Figure().add(shape).shape(name).get(), Matchers.equalTo(shape)
         );
