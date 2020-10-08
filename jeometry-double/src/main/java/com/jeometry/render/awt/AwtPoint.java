@@ -54,7 +54,7 @@ public final class AwtPoint extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape renderable, final Graphics2D graphics,
+    public void draw(final Shape<?> renderable, final Graphics2D graphics,
         final Surface context) {
         final int size = 4;
         @SuppressWarnings("unchecked")

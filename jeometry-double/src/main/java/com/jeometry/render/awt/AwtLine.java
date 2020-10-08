@@ -57,7 +57,7 @@ public final class AwtLine extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape renderable, final Graphics2D graphics,
+    public void draw(final Shape<?> renderable, final Graphics2D graphics,
         final Surface context) {
         @SuppressWarnings("unchecked")
         final Line<Double> line = (Line<Double>) renderable.renderable();

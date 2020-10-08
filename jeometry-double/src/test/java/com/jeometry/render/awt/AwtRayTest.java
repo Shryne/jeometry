@@ -51,7 +51,7 @@ public final class AwtRayTest {
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(ray));
+        painter.render(new Shape<>(ray));
         MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
@@ -67,7 +67,7 @@ public final class AwtRayTest {
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(ray));
+        painter.render(new Shape<>(ray));
         MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
@@ -83,7 +83,7 @@ public final class AwtRayTest {
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(ray));
+        painter.render(new Shape<>(ray));
         MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
@@ -99,7 +99,7 @@ public final class AwtRayTest {
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(ray));
+        painter.render(new Shape<>(ray));
         MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
@@ -113,7 +113,7 @@ public final class AwtRayTest {
         final AwtRay painter = new AwtRay(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(render));
+        painter.render(new Shape<>(render));
         MatcherAssert.assertThat(render.origined(), Matchers.equalTo(false));
     }
 

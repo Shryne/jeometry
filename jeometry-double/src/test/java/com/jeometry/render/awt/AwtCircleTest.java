@@ -56,7 +56,7 @@ public final class AwtCircleTest {
             Mockito.mock(Stroke.class)
         );
         Mockito.when(style.fill()).thenReturn(Mockito.mock(Fill.class));
-        painter.render(new Shape(circle, style));
+        painter.render(new Shape<>(circle, style));
         Mockito.verify(style).fill();
         Mockito.verify(style).stroke();
         MatcherAssert.assertThat(circle.centered(), Matchers.equalTo(true));
@@ -71,7 +71,7 @@ public final class AwtCircleTest {
         final AwtCircle painter = new AwtCircle(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(render));
+        painter.render(new Shape<>(render));
         MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
         MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
     }

@@ -116,7 +116,7 @@ public final class AwtDrawableSurface extends JPanel {
             for (final AbstractAwtPaint painter : this.painters) {
                 painter.setGraphics(surface);
                 painter.setContext(context);
-                for (final Shape shape : this.figure) {
+                for (final Shape<?> shape : this.figure) {
                     painter.render(shape);
                 }
             }

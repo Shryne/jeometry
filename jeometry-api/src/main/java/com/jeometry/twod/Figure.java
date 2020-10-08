@@ -35,24 +35,24 @@ import java.util.Optional;
  * Represents a figure composed of shapes to output.
  * @since 0.1
  */
-public final class Figure implements Iterable<Shape> {
+public final class Figure implements Iterable<Shape<?>> {
 
     /**
      * Anonymous shapes list.
      */
-    private final List<Shape> anonymous = new ArrayList<>(10);
+    private final List<Shape<?>> anonymous = new ArrayList<>(10);
 
     /**
      * Named shapes map.
      */
-    private final Map<String, Shape> shaps = new HashMap<>();
+    private final Map<String, Shape<?>> shaps = new HashMap<>();
 
     /**
      * Adds a shape to the figure.
      * @param shape The shape to add
      * @return This figure instance
      */
-    public Figure add(final Shape shape) {
+    public Figure add(final Shape<?> shape) {
         final Optional<String> name = shape.name();
         Preconditions.checkArgument(
             !(name.isPresent() && this.shaps.containsKey(name.get())),
@@ -72,7 +72,7 @@ public final class Figure implements Iterable<Shape> {
      * @return This figure instance
      */
     public Figure add(final Renderable shape) {
-        this.anonymous.add(new Shape(shape));
+        this.anonymous.add(new Shape<>(shape));
         return this;
     }
 
@@ -83,7 +83,7 @@ public final class Figure implements Iterable<Shape> {
      * @return This figure instance
      */
     public Figure add(final Renderable shape, final String name) {
-        return this.add(new Shape(shape, name));
+        return this.add(new Shape<>(shape, name));
     }
 
     /**
@@ -91,13 +91,13 @@ public final class Figure implements Iterable<Shape> {
      * @param name Shape name
      * @return The shape
      */
-    public Optional<Shape> shape(final String name) {
+    public Optional<Shape<?>> shape(final String name) {
         return Optional.ofNullable(this.shaps.get(name));
     }
 
     @Override
-    public Iterator<Shape> iterator() {
-        final List<Shape> all =
+    public Iterator<Shape<?>> iterator() {
+        final List<Shape<?>> all =
             new ArrayList<>(this.shaps.size() + this.anonymous.size());
         all.addAll(this.shaps.values());
         all.addAll(this.anonymous);

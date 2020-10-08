@@ -115,7 +115,7 @@ public final class AwtDrawableSurfaceTest {
             new Decimal(), Line.class
         ) {
             @Override
-            protected void draw(final Shape renderable,
+            protected void draw(final Shape<?> renderable,
                 final Graphics2D graphic, final Surface ctx) {
                 ((Line<?>) renderable.renderable()).direction();
                 latch.countDown();
