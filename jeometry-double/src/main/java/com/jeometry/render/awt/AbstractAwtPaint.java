@@ -32,7 +32,6 @@ import com.jeometry.twod.Renderer;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.style.Stroke;
 import java.awt.Graphics2D;
-import java.util.Arrays;
 
 /**
  * Represents an abstract AWT renderer accepting an AWT {@link Graphics2D} to
@@ -59,19 +58,19 @@ public abstract class AbstractAwtPaint implements Renderer {
     private Surface context;
 
     /**
-     * Supported classes that can be drawn.
+     * Supported class that can be drawn.
      */
-    private final Class<?>[] clazz;
+    private final Class<?> clazz;
 
     /**
      * Ctor.
      * @param field Field for scalar operations
-     * @param clazz Supported classes
+     * @param clazz Supported class
      */
     public AbstractAwtPaint(final Field<Double> field,
-        final Class<?>... clazz) {
+        final Class<?> clazz) {
         this.fld = field;
-        this.clazz = Arrays.copyOf(clazz, clazz.length);
+        this.clazz = clazz;
     }
 
     /**
@@ -91,11 +90,11 @@ public abstract class AbstractAwtPaint implements Renderer {
     }
 
     @Override
-    public final void render(final Shape renderable) {
+    public final void render(final Shape<?> renderable) {
         new RenderSupport(
             new Renderer() {
                 @Override
-                public void render(final Shape renderable) {
+                public void render(final Shape<?> renderable) {
                     final Graphics2D graph = AbstractAwtPaint.this.graphics;
                     final Stroke stroke = renderable.style().stroke();
                     graph.setStroke(new AwtStroke(stroke));
@@ -123,6 +122,6 @@ public abstract class AbstractAwtPaint implements Renderer {
      * @param graphic AWT {@link Graphics2D} to draw
      * @param ctx Drawing {@link Surface}
      */
-    protected abstract void draw(Shape renderable, Graphics2D graphic,
+    protected abstract void draw(Shape<?> renderable, Graphics2D graphic,
         Surface ctx);
 }

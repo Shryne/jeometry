@@ -57,7 +57,7 @@ public final class AwtRay extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape renderable, final Graphics2D graphics,
+    public void draw(final Shape<?> renderable, final Graphics2D graphics,
         final Surface context) {
         @SuppressWarnings("unchecked")
         final Ray<Double> ray = (Ray<Double>) renderable.renderable();

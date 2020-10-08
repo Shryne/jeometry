@@ -45,7 +45,7 @@ public final class ShapeTest {
         final Renderable rend = Mockito.mock(Renderable.class);
         final Style style = Mockito.mock(Style.class);
         final Optional<String> name = Optional.of("hello");
-        final Shape shape = new Shape(rend, name, style);
+        final Shape<?> shape = new Shape<>(rend, name, style);
         MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
         MatcherAssert.assertThat(shape.name().get(), Matchers.equalTo(name.get()));
         MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(false));
@@ -58,7 +58,7 @@ public final class ShapeTest {
     @Test
     public void acceptsAnonymousRenderable() {
         final Renderable rend = Mockito.mock(Renderable.class);
-        final Shape shape = new Shape(rend);
+        final Shape<?> shape = new Shape<>(rend);
         MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
         MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(true));
     }
@@ -70,7 +70,7 @@ public final class ShapeTest {
     public void acceptsAnonymousRenderableWithStyle() {
         final Renderable rend = Mockito.mock(Renderable.class);
         final Style style = Mockito.mock(Style.class);
-        final Shape shape = new Shape(rend, style);
+        final Shape<?> shape = new Shape<>(rend, style);
         MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
         MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(true));
         MatcherAssert.assertThat(shape.style(), Matchers.equalTo(style));
@@ -84,7 +84,7 @@ public final class ShapeTest {
     public void acceptsNamedRenderableWithoutStyle() {
         final Renderable rend = Mockito.mock(Renderable.class);
         final String name = "default";
-        final Shape shape = new Shape(rend, name);
+        final Shape<?> shape = new Shape<>(rend, name);
         MatcherAssert.assertThat(shape.renderable(), Matchers.equalTo(rend));
         MatcherAssert.assertThat(shape.anonymous(), Matchers.equalTo(false));
         MatcherAssert.assertThat(shape.name().get(), Matchers.equalTo(name));

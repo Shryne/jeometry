@@ -33,5 +33,5 @@ public interface Renderer {
      * Renders a {@link Shape}.
      * @param renderable Renderable to render
      */
-    void render(Shape renderable);
+    void render(Shape<?> renderable);
 }

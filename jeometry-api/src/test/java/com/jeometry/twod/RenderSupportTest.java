@@ -40,7 +40,7 @@ public final class RenderSupportTest {
     @Test
     public void delegatesToWrappedWhenSupported() {
         final Renderer rend = Mockito.mock(Renderer.class);
-        final Shape shape = new Shape(Mockito.mock(Line.class));
+        final Shape<?> shape = new Shape<>(Mockito.mock(Line.class));
         final RenderSupport renderer = new RenderSupport(rend, Line.class);
         renderer.render(shape);
         Mockito.verify(rend).render(shape);
@@ -52,7 +52,7 @@ public final class RenderSupportTest {
     @Test
     public void ignoresUnsupportedShape() {
         final Renderer rend = Mockito.mock(Renderer.class);
-        final Shape shape = new Shape(Mockito.mock(Renderable.class));
+        final Shape<?> shape = new Shape<>(Mockito.mock(Renderable.class));
         final RenderSupport renderer = new RenderSupport(rend, Line.class);
         renderer.render(shape);
         Mockito.verify(rend, Mockito.never()).render(shape);

@@ -49,7 +49,7 @@ public final class AwtLineTest {
         final AwtLine painter = new AwtLine(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(line));
+        painter.render(new Shape<>(line));
         MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(line.pointed(), Matchers.equalTo(true));
     }
@@ -63,7 +63,7 @@ public final class AwtLineTest {
         final AwtLine painter = new AwtLine(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(line));
+        painter.render(new Shape<>(line));
         MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(line.pointed(), Matchers.equalTo(true));
     }
@@ -77,7 +77,7 @@ public final class AwtLineTest {
         final AwtLine painter = new AwtLine(new Decimal());
         painter.setContext(new AwtDrawableSurface().context());
         painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape(render));
+        painter.render(new Shape<>(render));
         MatcherAssert.assertThat(render.origined(), Matchers.equalTo(false));
     }
 
