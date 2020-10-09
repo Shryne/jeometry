@@ -94,7 +94,7 @@ public final class Shape<T extends Renderable> {
      * Accessor for the renderbale.
      * @return The renderbale
      */
-    public Renderable renderable() {
+    public T renderable() {
         return this.rndrable;
     }
 

@@ -38,9 +38,10 @@ import java.awt.Graphics2D;
  * draw with and an {@link Surface} describing the context for drawing. This
  * renderer relies on {@link RenderSupport} and is built with
  * the set of classes that this renderer can draw.
+ * @param <T> renderable type
  * @since 0.1
  */
-public abstract class AbstractAwtPaint implements Renderer {
+public abstract class AbstractAwtPaint<T extends Renderable> implements Renderer {
 
     /**
      * Field for scalar operations.
@@ -93,6 +94,7 @@ public abstract class AbstractAwtPaint implements Renderer {
     public final void render(final Shape<?> renderable) {
         new RenderSupport(
             new Renderer() {
+                @SuppressWarnings("unchecked")
                 @Override
                 public void render(final Shape<?> renderable) {
                     final Graphics2D graph = AbstractAwtPaint.this.graphics;
@@ -100,7 +102,8 @@ public abstract class AbstractAwtPaint implements Renderer {
                     graph.setStroke(new AwtStroke(stroke));
                     graph.setColor(stroke.color());
                     AbstractAwtPaint.this.draw(
-                        renderable, graph, AbstractAwtPaint.this.context
+                        ((Class<Shape<T>>) (Class<?>) Shape.class).cast(renderable), graph,
+                        AbstractAwtPaint.this.context
                     );
                 }
             },
@@ -122,6 +125,6 @@ public abstract class AbstractAwtPaint implements Renderer {
      * @param graphic AWT {@link Graphics2D} to draw
      * @param ctx Drawing {@link Surface}
      */
-    protected abstract void draw(Shape<?> renderable, Graphics2D graphic,
+    protected abstract void draw(Shape<T> renderable, Graphics2D graphic,
         Surface ctx);
 }

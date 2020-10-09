@@ -36,7 +36,7 @@ import java.awt.Point;
  * Awt Segment painter that draws a segment on an AWT graphics.
  * @since 0.1
  */
-public final class AwtSegment extends AbstractAwtPaint {
+public final class AwtSegment extends AbstractAwtPaint<Segment<Double>> {
 
     /**
      * Ctor.
@@ -54,10 +54,9 @@ public final class AwtSegment extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape<?> renderable, final Graphics2D graphics,
+    public void draw(final Shape<Segment<Double>> renderable, final Graphics2D graphics,
         final Surface context) {
-        @SuppressWarnings("unchecked")
-        final Segment<Double> seg = (Segment<Double>) renderable.renderable();
+        final Segment<Double> seg = renderable.renderable();
         final Transform transform = new Transform(context);
         final Point start = transform.transform(seg.start());
         final Point end = transform.transform(seg.end());
