@@ -65,7 +65,7 @@ public final class AwtDrawableSurface extends JPanel {
     /**
      * List of {@link AbstractAwtPaint}s to paint shapes.
      */
-    private final transient List<AbstractAwtPaint> painters;
+    private final transient List<AbstractAwtPaint<?>> painters;
 
     /**
      * Reference to the figure to draw.
@@ -113,7 +113,7 @@ public final class AwtDrawableSurface extends JPanel {
             );
             final Surface context = this.context();
             surface.setColor(Color.BLACK);
-            for (final AbstractAwtPaint painter : this.painters) {
+            for (final AbstractAwtPaint<?> painter : this.painters) {
                 painter.setGraphics(surface);
                 painter.setContext(context);
                 for (final Shape<?> shape : this.figure) {
@@ -176,7 +176,7 @@ public final class AwtDrawableSurface extends JPanel {
      * Adds an {@link AbstractAwtPaint} to the registered painters.
      * @param painter Painter to add
      */
-    public void add(final AbstractAwtPaint painter) {
+    public void add(final AbstractAwtPaint<?> painter) {
         this.painters.add(painter);
     }
 

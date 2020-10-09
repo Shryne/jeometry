@@ -39,7 +39,7 @@ import java.awt.Point;
  * Awt Line painter that draws a line on an AWT graphics.
  * @since 0.1
  */
-public final class AwtLine extends AbstractAwtPaint {
+public final class AwtLine extends AbstractAwtPaint<Line<Double>> {
 
     /**
      * Ctor.
@@ -57,10 +57,9 @@ public final class AwtLine extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape<?> renderable, final Graphics2D graphics,
+    public void draw(final Shape<Line<Double>> renderable, final Graphics2D graphics,
         final Surface context) {
-        @SuppressWarnings("unchecked")
-        final Line<Double> line = (Line<Double>) renderable.renderable();
+        final Line<Double> line = renderable.renderable();
         if (new Vertical<>(line).resolve(this.field())) {
             AwtLine.vertical(graphics, line, context);
         } else {

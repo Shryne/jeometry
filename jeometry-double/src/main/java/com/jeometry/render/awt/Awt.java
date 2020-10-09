@@ -100,7 +100,7 @@ public final class Awt extends JFrame implements Output {
      * @param painter Painter to add
      * @return This awt reference
      */
-    public Awt add(final AbstractAwtPaint painter) {
+    public Awt add(final AbstractAwtPaint<?> painter) {
         this.drawable.add(painter);
         return this;
     }

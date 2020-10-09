@@ -39,7 +39,7 @@ import java.awt.Point;
  * Awt Ray painter that draws a ray on an AWT graphics.
  * @since 0.1
  */
-public final class AwtRay extends AbstractAwtPaint {
+public final class AwtRay extends AbstractAwtPaint<Ray<Double>> {
 
     /**
      * Ctor.
@@ -57,10 +57,9 @@ public final class AwtRay extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape<?> renderable, final Graphics2D graphics,
+    public void draw(final Shape<Ray<Double>> renderable, final Graphics2D graphics,
         final Surface context) {
-        @SuppressWarnings("unchecked")
-        final Ray<Double> ray = (Ray<Double>) renderable.renderable();
+        final Ray<Double> ray = renderable.renderable();
         if (new Vertical<>(ray).resolve(this.field())) {
             this.vertical(graphics, ray, context);
         } else {

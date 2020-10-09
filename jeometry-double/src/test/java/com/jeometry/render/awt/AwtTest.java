@@ -88,11 +88,11 @@ public final class AwtTest {
     public void addsPainter() throws InterruptedException {
         final Awt awt = new Awt();
         final CountDownLatch latch = new CountDownLatch(1);
-        final AbstractAwtPaint painter = new AbstractAwtPaint(
+        final AbstractAwtPaint<?> painter = new AbstractAwtPaint<Line<Double>>(
             new Decimal(), Line.class
         ) {
             @Override
-            protected void draw(final Shape<?> renderable,
+            protected void draw(final Shape<Line<Double>> renderable,
                 final Graphics2D graphic, final Surface ctx) {
                 ((Line<?>) renderable.renderable()).direction();
                 latch.countDown();
