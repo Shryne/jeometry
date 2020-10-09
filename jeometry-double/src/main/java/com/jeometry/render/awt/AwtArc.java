@@ -36,7 +36,7 @@ import java.awt.Point;
  * Awt Arc painter that draws an arc on an AWT graphics.
  * @since 0.4
  */
-public final class AwtArc extends AbstractAwtPaint {
+public final class AwtArc extends AbstractAwtPaint<Arc<Double>> {
 
     /**
      * Ctor.
@@ -54,10 +54,9 @@ public final class AwtArc extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape<?> renderable, final Graphics2D graphics,
+    public void draw(final Shape<Arc<Double>> renderable, final Graphics2D graphics,
         final Surface context) {
-        @SuppressWarnings("unchecked")
-        final Arc<Double> arc = (Arc<Double>) renderable.renderable();
+        final Arc<Double> arc = renderable.renderable();
         final int size = (int) (context.scale() * this.field().actual(
             arc.radius()
         ));

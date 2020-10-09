@@ -36,7 +36,7 @@ import java.awt.Point;
  * Awt Circle painter that draws a circle on an AWT graphics.
  * @since 0.1
  */
-public final class AwtCircle extends AbstractAwtPaint {
+public final class AwtCircle extends AbstractAwtPaint<Circle<Double>> {
 
     /**
      * Ctor.
@@ -54,10 +54,9 @@ public final class AwtCircle extends AbstractAwtPaint {
     }
 
     @Override
-    public void draw(final Shape<?> renderable, final Graphics2D graphics,
+    public void draw(final Shape<Circle<Double>> renderable, final Graphics2D graphics,
         final Surface context) {
-        @SuppressWarnings("unchecked")
-        final Circle<Double> circle = (Circle<Double>) renderable.renderable();
+        final Circle<Double> circle = renderable.renderable();
         final int size = (int) (context.scale() * this.field().actual(
             circle.radius()
         ));

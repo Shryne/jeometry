@@ -35,7 +35,7 @@ public final class Painters {
     /**
      * Default painters.
      */
-    private final transient List<AbstractAwtPaint> def;
+    private final transient List<AbstractAwtPaint<?>> def;
 
     /**
      * Ctor.
@@ -48,7 +48,7 @@ public final class Painters {
      * Accessor for the default AWT painters.
      * @return A list of default painters
      */
-    public List<AbstractAwtPaint> defaults() {
+    public List<AbstractAwtPaint<?>> defaults() {
         return new ArrayList<>(this.def);
     }
 
@@ -56,9 +56,9 @@ public final class Painters {
      * Initializes the list of the default painters.
      * @return A list of default painters
      */
-    private static List<AbstractAwtPaint> init() {
+    private static List<AbstractAwtPaint<?>> init() {
         final int size = 6;
-        final List<AbstractAwtPaint> defaults = new ArrayList<>(size);
+        final List<AbstractAwtPaint<?>> defaults = new ArrayList<>(size);
         defaults.add(new AwtPoint());
         defaults.add(new AwtCircle());
         defaults.add(new AwtArc());
