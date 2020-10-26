@@ -42,7 +42,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode
 @ToString
-public class FixedMatrix<T> implements Matrix<T> {
+public final class FixedMatrix<T> implements Matrix<T> {
 
     /**
      * Coordinates.
@@ -74,18 +74,18 @@ public class FixedMatrix<T> implements Matrix<T> {
     }
 
     @Override
-    public final Scalar<T>[] coords() {
+    public Scalar<T>[] coords() {
         return Arrays.copyOf(this.coors, this.coors.length);
     }
 
     @Override
-    public final Scalar<T>[] column(final int index) {
+    public Scalar<T>[] column(final int index) {
         final int first = this.index(1, index);
         return Arrays.copyOfRange(this.coors, first, first + this.target);
     }
 
     @Override
-    public final Scalar<T>[] line(final int index) {
+    public Scalar<T>[] line(final int index) {
         final int first = this.index(index, 1);
         final Scalar<T>[] result = Arrays.copyOf(this.coors, this.source);
         for (int idx = 0; idx < this.source; ++idx) {
@@ -95,7 +95,7 @@ public class FixedMatrix<T> implements Matrix<T> {
     }
 
     @Override
-    public final Vect<T> apply(final Vect<T> input) {
+    public Vect<T> apply(final Vect<T> input) {
         if (input.coords().length != this.source) {
             throw new IllegalArgumentException(
                 String.format(
@@ -112,12 +112,12 @@ public class FixedMatrix<T> implements Matrix<T> {
     }
 
     @Override
-    public final int columns() {
+    public int columns() {
         return this.source;
     }
 
     @Override
-    public final int lines() {
+    public int lines() {
         return this.target;
     }
 

@@ -24,6 +24,7 @@
 package com.aljebra.matrix;
 
 import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,16 +36,54 @@ import lombok.ToString;
  * @param <T> scalar types
  * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-public class TransposeMatrix<T> extends FixedMatrix<T> {
+@EqualsAndHashCode()
+@ToString()
+public final class TransposeMatrix<T> implements Matrix<T> {
+
+    /**
+     * Actual representation of this transposed matrix.
+     */
+    private final Matrix<T> actual;
 
     /**
      * Constructor.
      * @param mat Matrix to transpose
      */
     public TransposeMatrix(final Matrix<T> mat) {
-        super(mat.columns(), mat.lines(), TransposeMatrix.transpose(mat));
+        this.actual = new FixedMatrix<>(
+            mat.columns(), mat.lines(),
+            TransposeMatrix.transpose(mat)
+        );
+    }
+
+    @Override
+    public Scalar<T>[] coords() {
+        return this.actual.coords();
+    }
+
+    @Override
+    public Scalar<T>[] column(final int index) {
+        return this.actual.column(index);
+    }
+
+    @Override
+    public Scalar<T>[] line(final int index) {
+        return this.actual.line(index);
+    }
+
+    @Override
+    public Vect<T> apply(final Vect<T> input) {
+        return this.actual.apply(input);
+    }
+
+    @Override
+    public int columns() {
+        return this.actual.columns();
+    }
+
+    @Override
+    public int lines() {
+        return this.actual.lines();
     }
 
     /**

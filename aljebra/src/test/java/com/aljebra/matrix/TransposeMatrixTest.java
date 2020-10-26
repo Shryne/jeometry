@@ -23,9 +23,15 @@
  */
 package com.aljebra.matrix;
 
+import com.aljebra.metric.scalar.Product;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.scalar.mock.Scalars;
+import com.aljebra.vector.FixedVector;
+import com.aljebra.vector.Vect;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -61,10 +67,10 @@ public final class TransposeMatrixTest {
     }
 
     /**
-     * {@link TransposeMatrix} can return lines and columns.
+     * {@link TransposeMatrix} can return lines and columns count.
      */
     @Test
-    public void returnsLinesAndColumns() {
+    public void returnsLinesAndColumnsCount() {
         final int lines = 3;
         final int cols = 4;
         final Matrix<Object> matrix = new TransposeMatrix<>(
@@ -74,6 +80,56 @@ public final class TransposeMatrixTest {
         );
         MatcherAssert.assertThat(matrix.lines(), Matchers.equalTo(cols));
         MatcherAssert.assertThat(matrix.columns(), Matchers.equalTo(lines));
+    }
+
+    /**
+     * {@link TransposeMatrix} can return lines and columns elements.
+     */
+    @Test
+    public void returnsLinesAndColumns() {
+        final Default<String> scalara = new Scalar.Default<>("a");
+        final Default<String> scalarb = new Scalar.Default<>("b");
+        final Default<String> scalarc = new Scalar.Default<>("c");
+        final Default<String> scalard = new Scalar.Default<>("d");
+        final Matrix<String> matrix = new TransposeMatrix<>(
+            new FixedMatrix<>(
+                2, 2, Arrays.asList(scalara, scalarb, scalarc, scalard)
+            )
+        );
+        MatcherAssert.assertThat(
+            matrix.column(1), Matchers.equalTo(new Scalar[] {scalara, scalarc})
+        );
+        MatcherAssert.assertThat(
+            matrix.column(2), Matchers.equalTo(new Scalar[] {scalarb, scalard})
+        );
+        MatcherAssert.assertThat(
+            matrix.line(1), Matchers.equalTo(new Scalar[] {scalara, scalarb})
+        );
+        MatcherAssert.assertThat(
+            matrix.line(2), Matchers.equalTo(new Scalar[] {scalarc, scalard})
+        );
+    }
+
+    /**
+     * {@link FixedMatrix} can apply transformation.
+     */
+    @Test
+    public void appliesTransformation() {
+        final int lines = 3;
+        final int cols = 4;
+        final Matrix<Object> matrix = new TransposeMatrix<>(
+            new FixedMatrix<>(
+                lines, cols, new Scalars<>(lines * cols)
+            )
+        );
+        final List<Scalar<Object>> expected = new ArrayList<>(cols);
+        final Vect<Object> input = new FixedVector<>(new Scalars<>(lines));
+        for (int idx = 0; idx < cols; ++idx) {
+            expected.add(TransposeMatrixTest.pdt(input, Arrays.asList(matrix.line(idx + 1))));
+        }
+        MatcherAssert.assertThat(
+            Arrays.asList(matrix.apply(input).coords()), Matchers.equalTo(expected)
+        );
     }
 
     /**
@@ -112,5 +168,17 @@ public final class TransposeMatrixTest {
                 matrix.toString(), Matchers.containsString(scalar.toString())
             );
         }
+    }
+
+    /**
+     * Gives a scalar representing the product value of the given vector
+     * by a coordinate array.
+     * @param input Input vector
+     * @param scalars Scalar list by which to operate the dot product
+     * @return A {@link Scalar}, value of the product
+     */
+    private static Scalar<Object> pdt(final Vect<Object> input,
+        final List<Scalar<Object>> scalars) {
+        return new Product<Object>(input, new FixedVector<Object>(scalars));
     }
 }
