@@ -48,10 +48,12 @@ public final class AwtPointTest {
     @Test
     public void rendersPoints() {
         final AwtPoint painter = new AwtPoint(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
-        painter.setGraphics(graphics);
-        painter.render(new Shape<>(new RandomPoint<>()));
+        painter.render(
+            new Shape<>(new RandomPoint<>()),
+            new AwtDrawableSurface().context(),
+            graphics
+        );
         Mockito.verify(graphics).drawRect(
             Mockito.anyInt(), Mockito.anyInt(),
             Mockito.anyInt(), Mockito.anyInt()
@@ -64,14 +66,13 @@ public final class AwtPointTest {
     @Test
     public void usesRightColor() {
         final AwtPoint painter = new AwtPoint(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
         final Graphics2D graphics = Mockito.mock(Graphics2D.class);
-        painter.setGraphics(graphics);
         painter.render(
             new Shape<>(
                 new RandomPoint<>(),
                 new StrokeStyle(Color.CYAN, Dash.SOLID, 1.f)
-            )
+            ),
+            new AwtDrawableSurface().context(), graphics
         );
         Mockito.verify(graphics).drawRect(
             Mockito.anyInt(), Mockito.anyInt(),
@@ -87,9 +88,11 @@ public final class AwtPointTest {
     public void doesNotRenderOthers() {
         final SpyLine<Double> render = new SpyLine<>();
         final AwtPoint painter = new AwtPoint(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(render));
+        painter.render(
+            new Shape<>(render),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
         MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
     }

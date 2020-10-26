@@ -63,4 +63,23 @@ public final class SurfaceTest {
         );
     }
 
+    /**
+     * {@link Surface} can build a default surface.
+     */
+    @Test
+    public void buildsDefault() {
+        final Surface ctx = new Surface();
+        MatcherAssert.assertThat(
+            ctx.center(), Matchers.equalTo(new DblPoint(0., 0.))
+        );
+        MatcherAssert.assertThat(
+            ctx.height(), Matchers.equalTo(0)
+        );
+        MatcherAssert.assertThat(
+            ctx.width(), Matchers.equalTo(0)
+        );
+        MatcherAssert.assertThat(
+            ctx.scale(), Matchers.equalTo(1.)
+        );
+    }
 }

@@ -21,7 +21,10 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod;
+package com.jeometry.render;
+
+import com.jeometry.twod.Shape;
+import java.awt.Graphics2D;
 
 /**
  * Renderer interface capable of rendering a {@link Shape}.
@@ -32,6 +35,8 @@ public interface Renderer {
     /**
      * Renders a {@link Shape}.
      * @param renderable Renderable to render
+     * @param context Surface to draw on
+     * @param graphics Graphics object with which to draw
      */
-    void render(Shape<?> renderable);
+    void render(Shape<?> renderable, Surface context, Graphics2D graphics);
 }

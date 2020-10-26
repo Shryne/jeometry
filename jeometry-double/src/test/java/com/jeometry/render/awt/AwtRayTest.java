@@ -49,9 +49,11 @@ public final class AwtRayTest {
             new DblPoint(0., 0.), new DblPoint(1., 1.)
         );
         final AwtRay painter = new AwtRay(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(ray));
+        painter.render(
+            new Shape<>(ray),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
@@ -65,9 +67,11 @@ public final class AwtRayTest {
             new DblPoint(0., 0.), new DblPoint(-1., -1.)
         );
         final AwtRay painter = new AwtRay(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(ray));
+        painter.render(
+            new Shape<>(ray),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
@@ -81,9 +85,11 @@ public final class AwtRayTest {
             new DblPoint(0., 0.), new DblPoint(0., 1.)
         );
         final AwtRay painter = new AwtRay(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(ray));
+        painter.render(
+            new Shape<>(ray),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
@@ -97,9 +103,11 @@ public final class AwtRayTest {
             new DblPoint(0., 0.), new DblPoint(0., -1.)
         );
         final AwtRay painter = new AwtRay(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(ray));
+        painter.render(
+            new Shape<>(ray),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(ray.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(ray.origined(), Matchers.equalTo(true));
     }
@@ -111,9 +119,11 @@ public final class AwtRayTest {
     public void doesNotRenderOthers() {
         final SpyAngle<Double> render = new SpyAngle<>();
         final AwtRay painter = new AwtRay(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(render));
+        painter.render(
+            new Shape<>(render),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(render.origined(), Matchers.equalTo(false));
     }
 

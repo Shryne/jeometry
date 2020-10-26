@@ -68,6 +68,13 @@ public final class Surface {
     }
 
     /**
+     * Default Ctor especially for testing purposes, with 1-scale, 0 dimesions and 0,0 center.
+     */
+    public Surface() {
+        this(new Dimension(0, 0), 1, new DblPoint(0., 0.));
+    }
+
+    /**
      * Accessor for the height.
      * @return Height of drawable surface
      */
