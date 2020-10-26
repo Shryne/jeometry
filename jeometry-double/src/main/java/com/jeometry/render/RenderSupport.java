@@ -21,8 +21,10 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod;
+package com.jeometry.render;
 
+import com.jeometry.twod.Shape;
+import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,9 +58,10 @@ public final class RenderSupport implements Renderer {
     }
 
     @Override
-    public void render(final Shape<?> renderable) {
+    public void render(final Shape<?> renderable, final Surface context,
+        final Graphics2D graphics) {
         if (this.supports(renderable)) {
-            this.origin.render(renderable);
+            this.origin.render(renderable, context, graphics);
         }
     }
 

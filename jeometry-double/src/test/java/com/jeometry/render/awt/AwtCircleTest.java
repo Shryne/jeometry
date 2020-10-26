@@ -49,14 +49,16 @@ public final class AwtCircleTest {
     public void rendersCircles() {
         final SpyCircle<Double> circle = new SpyCircle<>();
         final AwtCircle painter = new AwtCircle(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
         final Style style = Mockito.mock(Style.class);
         Mockito.when(style.stroke()).thenReturn(
             Mockito.mock(Stroke.class)
         );
         Mockito.when(style.fill()).thenReturn(Mockito.mock(Fill.class));
-        painter.render(new Shape<>(circle, style));
+        painter.render(
+            new Shape<>(circle, style),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         Mockito.verify(style).fill();
         Mockito.verify(style).stroke();
         MatcherAssert.assertThat(circle.centered(), Matchers.equalTo(true));
@@ -69,9 +71,11 @@ public final class AwtCircleTest {
     public void doesNotRenderOthers() {
         final SpyLine<Double> render = new SpyLine<>();
         final AwtCircle painter = new AwtCircle(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(render));
+        painter.render(
+            new Shape<>(render),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
         MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
     }

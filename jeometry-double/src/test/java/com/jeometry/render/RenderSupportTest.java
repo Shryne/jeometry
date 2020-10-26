@@ -21,9 +21,12 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.jeometry.twod;
+package com.jeometry.render;
 
+import com.jeometry.twod.Renderable;
+import com.jeometry.twod.Shape;
 import com.jeometry.twod.line.Line;
+import java.awt.Graphics2D;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -40,10 +43,12 @@ public final class RenderSupportTest {
     @Test
     public void delegatesToWrappedWhenSupported() {
         final Renderer rend = Mockito.mock(Renderer.class);
+        final Graphics2D graphics = Mockito.mock(Graphics2D.class);
+        final Surface surface = new Surface();
         final Shape<?> shape = new Shape<>(Mockito.mock(Line.class));
         final RenderSupport renderer = new RenderSupport(rend, Line.class);
-        renderer.render(shape);
-        Mockito.verify(rend).render(shape);
+        renderer.render(shape, surface, graphics);
+        Mockito.verify(rend).render(shape, surface, graphics);
     }
 
     /**
@@ -52,10 +57,12 @@ public final class RenderSupportTest {
     @Test
     public void ignoresUnsupportedShape() {
         final Renderer rend = Mockito.mock(Renderer.class);
+        final Graphics2D graphics = Mockito.mock(Graphics2D.class);
+        final Surface surface = new Surface();
         final Shape<?> shape = new Shape<>(Mockito.mock(Renderable.class));
         final RenderSupport renderer = new RenderSupport(rend, Line.class);
-        renderer.render(shape);
-        Mockito.verify(rend, Mockito.never()).render(shape);
+        renderer.render(shape, surface, graphics);
+        Mockito.verify(rend, Mockito.never()).render(shape, surface, graphics);
     }
 
 }

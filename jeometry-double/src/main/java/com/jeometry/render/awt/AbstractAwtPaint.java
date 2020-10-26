@@ -24,11 +24,11 @@
 package com.jeometry.render.awt;
 
 import com.aljebra.field.Field;
+import com.jeometry.render.RenderSupport;
+import com.jeometry.render.Renderer;
 import com.jeometry.render.Surface;
 import com.jeometry.render.awt.style.AwtStroke;
-import com.jeometry.twod.RenderSupport;
 import com.jeometry.twod.Renderable;
-import com.jeometry.twod.Renderer;
 import com.jeometry.twod.Shape;
 import com.jeometry.twod.style.Stroke;
 import java.awt.Graphics2D;
@@ -49,16 +49,6 @@ public abstract class AbstractAwtPaint<T extends Renderable> implements Renderer
     private final Field<Double> fld;
 
     /**
-     * {@link Graphics2D} to draw on.
-     */
-    private Graphics2D graphics;
-
-    /**
-     * {@link Surface} describing drawing context.
-     */
-    private Surface context;
-
-    /**
      * Supported class that can be drawn.
      */
     private final Class<?> clazz;
@@ -74,41 +64,26 @@ public abstract class AbstractAwtPaint<T extends Renderable> implements Renderer
         this.clazz = clazz;
     }
 
-    /**
-     * Sets current {@link Graphics2D} to draw on.
-     * @param graphic Graphics to set
-     */
-    public final void setGraphics(final Graphics2D graphic) {
-        this.graphics = graphic;
-    }
-
-    /**
-     * Sets current {@link Surface} for drawing.
-     * @param ctx Passed {@link Surface} to set
-     */
-    public final void setContext(final Surface ctx) {
-        this.context = ctx;
-    }
-
     @Override
-    public final void render(final Shape<?> renderable) {
+    public final void render(final Shape<?> renderable, final Surface context,
+        final Graphics2D graphics) {
         new RenderSupport(
             new Renderer() {
                 @SuppressWarnings("unchecked")
                 @Override
-                public void render(final Shape<?> renderable) {
-                    final Graphics2D graph = AbstractAwtPaint.this.graphics;
+                public void render(final Shape<?> renderable, final Surface context,
+                    final Graphics2D graphics) {
                     final Stroke stroke = renderable.style().stroke();
-                    graph.setStroke(new AwtStroke(stroke));
-                    graph.setColor(stroke.color());
+                    graphics.setStroke(new AwtStroke(stroke));
+                    graphics.setColor(stroke.color());
                     AbstractAwtPaint.this.draw(
-                        ((Class<Shape<T>>) (Class<?>) Shape.class).cast(renderable), graph,
-                        AbstractAwtPaint.this.context
+                        ((Class<Shape<T>>) (Class<?>) Shape.class).cast(renderable), graphics,
+                        context
                     );
                 }
             },
             this.clazz
-        ).render(renderable);
+        ).render(renderable, context, graphics);
     }
 
     /**

@@ -47,9 +47,11 @@ public final class AwtLineTest {
     public void rendersLines() {
         final SpyLine<Double> line = new SpyLine<>();
         final AwtLine painter = new AwtLine(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(line));
+        painter.render(
+            new Shape<>(line),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(line.pointed(), Matchers.equalTo(true));
     }
@@ -61,9 +63,11 @@ public final class AwtLineTest {
     public void rendersVertical() {
         final SpyLine<Double> line = new SpyLine<>(new VerticalLine<>());
         final AwtLine painter = new AwtLine(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(line));
+        painter.render(
+            new Shape<>(line),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(line.directioned(), Matchers.equalTo(true));
         MatcherAssert.assertThat(line.pointed(), Matchers.equalTo(true));
     }
@@ -75,9 +79,11 @@ public final class AwtLineTest {
     public void doesNotRenderOthers() {
         final SpyAngle<Double> render = new SpyAngle<>();
         final AwtLine painter = new AwtLine(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(render));
+        painter.render(
+            new Shape<>(render),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(render.origined(), Matchers.equalTo(false));
     }
 

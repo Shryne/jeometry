@@ -114,10 +114,8 @@ public final class AwtDrawableSurface extends JPanel {
             final Surface context = this.context();
             surface.setColor(Color.BLACK);
             for (final AbstractAwtPaint<?> painter : this.painters) {
-                painter.setGraphics(surface);
-                painter.setContext(context);
                 for (final Shape<?> shape : this.figure) {
-                    painter.render(shape);
+                    painter.render(shape, context, surface);
                 }
             }
             this.axis(surface);

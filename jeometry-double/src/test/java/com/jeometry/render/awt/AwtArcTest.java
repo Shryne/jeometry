@@ -46,9 +46,11 @@ public final class AwtArcTest {
     public void rendersArcs() {
         final SpyArc<Double> arc = new SpyArc<>();
         final AwtArc painter = new AwtArc(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(arc));
+        painter.render(
+            new Shape<>(arc),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(arc.centered(), Matchers.equalTo(true));
     }
 
@@ -59,9 +61,11 @@ public final class AwtArcTest {
     public void doesNotRenderOthers() {
         final SpyLine<Double> render = new SpyLine<>();
         final AwtArc painter = new AwtArc(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(render));
+        painter.render(
+            new Shape<>(render),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
         MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
     }
