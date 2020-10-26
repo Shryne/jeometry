@@ -23,7 +23,7 @@
  */
 package com.aljebra.field.impl.doubles;
 
-import com.aljebra.matrix.FixedMatrix;
+import com.aljebra.matrix.Matrix;
 import com.aljebra.metric.InnerProduct;
 import com.aljebra.metric.angle.Degrees;
 import com.aljebra.scalar.Add;
@@ -86,7 +86,7 @@ public final class Dot implements InnerProduct<Double> {
     @Override
     public Vect<Double> rot(final Vect<Double> vect, final Degrees<Double> ang) {
         final Double angle = ang.resolve(this).doubleValue();
-        final FixedMatrix<Double> rot = new DblMatrix(
+        final Matrix<Double> rot = new DblMatrix(
             2, 2,
             Math.cos(angle),
             Math.sin(angle),

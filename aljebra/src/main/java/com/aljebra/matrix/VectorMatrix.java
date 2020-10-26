@@ -34,8 +34,13 @@ import lombok.EqualsAndHashCode;
  * @param <T> scalar types
  * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-public class VectorMatrix<T> extends FixedMatrix<T> {
+@EqualsAndHashCode()
+public final class VectorMatrix<T> implements Matrix<T> {
+
+    /**
+     * Actual representation of this vector matrix.
+     */
+    private final Matrix<T> actual;
 
     /**
      * Constructor.
@@ -50,6 +55,36 @@ public class VectorMatrix<T> extends FixedMatrix<T> {
      * @param vector Vector to build the matrix from
      */
     public VectorMatrix(final Vect<T> vector) {
-        super(1, vector.coords().length, Arrays.asList(vector.coords()));
+        this.actual = new FixedMatrix<>(1, vector.coords().length, Arrays.asList(vector.coords()));
+    }
+
+    @Override
+    public Scalar<T>[] coords() {
+        return this.actual.coords();
+    }
+
+    @Override
+    public Scalar<T>[] column(final int index) {
+        return this.actual.column(index);
+    }
+
+    @Override
+    public Scalar<T>[] line(final int index) {
+        return this.actual.line(index);
+    }
+
+    @Override
+    public Vect<T> apply(final Vect<T> input) {
+        return this.actual.apply(input);
+    }
+
+    @Override
+    public int columns() {
+        return this.actual.columns();
+    }
+
+    @Override
+    public int lines() {
+        return this.actual.lines();
     }
 }
