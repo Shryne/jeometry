@@ -57,4 +57,46 @@ public final class DblMatrixTest {
             )
         );
     }
+
+    /**
+     * {@link DblMatrix} can return lines and columns elements.
+     */
+    @Test
+    public void returnsLinesAndColumns() {
+        final double coora = Math.random();
+        final double coorb = Math.random();
+        final double coorc = Math.random();
+        final double coord = Math.random();
+        final DblMatrix mat = new DblMatrix(2, 2, coora, coorb, coorc, coord);
+        MatcherAssert.assertThat(
+            mat.line(1),
+            Matchers.equalTo(
+                new Scalar[] {new Scalar.Default<>(coora), new Scalar.Default<>(coorc)}
+            )
+        );
+        MatcherAssert.assertThat(
+            mat.line(2),
+            Matchers.equalTo(
+                new Scalar[] {new Scalar.Default<>(coorb), new Scalar.Default<>(coord)}
+            )
+        );
+        MatcherAssert.assertThat(
+            mat.column(1),
+            Matchers.equalTo(
+                new Scalar[] {new Scalar.Default<>(coora), new Scalar.Default<>(coorb)}
+            )
+        );
+        MatcherAssert.assertThat(
+            mat.column(2),
+            Matchers.equalTo(
+                new Scalar[] {new Scalar.Default<>(coorc), new Scalar.Default<>(coord)}
+            )
+        );
+        MatcherAssert.assertThat(
+            mat.lines(), Matchers.equalTo(2)
+        );
+        MatcherAssert.assertThat(
+            mat.columns(), Matchers.equalTo(2)
+        );
+    }
 }

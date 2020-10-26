@@ -23,11 +23,15 @@
  */
 package com.aljebra.matrix;
 
+import com.aljebra.metric.scalar.Product;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.scalar.Scalar.Default;
 import com.aljebra.scalar.mock.Scalars;
 import com.aljebra.vector.FixedVector;
+import com.aljebra.vector.Vect;
 import com.google.common.collect.Lists;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -68,6 +72,54 @@ public final class VectorMatrixTest {
     }
 
     /**
+     * {@link VectorMatrix} can return lines and columns.
+     */
+    @Test
+    public void returnsLinesAndColumns() {
+        final Default<String> scalara = new Scalar.Default<>("a");
+        final Default<String> scalarb = new Scalar.Default<>("b");
+        final Default<String> scalarc = new Scalar.Default<>("c");
+        final Default<String> scalard = new Scalar.Default<>("d");
+        final Matrix<String> matrix = new VectorMatrix<>(
+            Arrays.asList(scalara, scalarb, scalarc, scalard)
+        );
+        MatcherAssert.assertThat(
+            matrix.line(1), Matchers.equalTo(new Scalar[] {scalara, scalarb, scalarc, scalard})
+        );
+        int idx = 0;
+        MatcherAssert.assertThat(
+            matrix.column(++idx), Matchers.equalTo(new Scalar[] {scalara})
+        );
+        MatcherAssert.assertThat(
+            matrix.column(++idx), Matchers.equalTo(new Scalar[] {scalarb})
+        );
+        MatcherAssert.assertThat(
+            matrix.column(++idx), Matchers.equalTo(new Scalar[] {scalarc})
+        );
+        MatcherAssert.assertThat(
+            matrix.column(++idx), Matchers.equalTo(new Scalar[] {scalard})
+        );
+    }
+
+    /**
+     * {@link VectorMatrix} can apply transformation.
+     */
+    @Test
+    public void appliesTransformation() {
+        final int cols = 4;
+        final Matrix<Object> matrix = new VectorMatrix<>(
+            new Scalars<>(cols)
+        );
+        final Vect<Object> input = new FixedVector<>(new Scalars<>(cols));
+        final Scalar<Object> expected = VectorMatrixTest.pdt(
+            input, Arrays.asList(matrix.line(1))
+        );
+        MatcherAssert.assertThat(
+            matrix.apply(input).coords()[0], Matchers.equalTo(expected)
+        );
+    }
+
+    /**
      * {@link VectorMatrix} instances are considered equals if they have the
      * same coordinates.
      */
@@ -94,5 +146,17 @@ public final class VectorMatrixTest {
             new VectorMatrix<Object>(coords).hashCode(),
             Matchers.equalTo(new VectorMatrix<Object>(coords).hashCode())
         );
+    }
+
+    /**
+     * Gives a scalar representing the product value of the given vector
+     * by a coordinate array.
+     * @param input Input vector
+     * @param scalars Scalar list by which to operate the dot product
+     * @return A {@link Scalar}, value of the product
+     */
+    private static Scalar<Object> pdt(final Vect<Object> input,
+        final List<Scalar<Object>> scalars) {
+        return new Product<Object>(input, new FixedVector<Object>(scalars));
     }
 }

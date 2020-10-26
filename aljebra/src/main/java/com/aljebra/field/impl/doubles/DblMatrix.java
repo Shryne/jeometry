@@ -24,7 +24,9 @@
 package com.aljebra.field.impl.doubles;
 
 import com.aljebra.matrix.FixedMatrix;
+import com.aljebra.matrix.Matrix;
 import com.aljebra.scalar.Scalar;
+import com.aljebra.vector.Vect;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,12 @@ import java.util.List;
  * A convenient class for double matrices.
  * @since 0.1
  */
-public final class DblMatrix extends FixedMatrix<Double> {
+public final class DblMatrix implements Matrix<Double> {
+
+    /**
+     * Actual representation of this double matrix.
+     */
+    private final Matrix<Double> actual;
 
     /**
      * Constructor.
@@ -41,7 +48,37 @@ public final class DblMatrix extends FixedMatrix<Double> {
      * @param coords Double matrix coordinates
      */
     public DblMatrix(final int lines, final int cols, final Double... coords) {
-        super(lines, cols, DblMatrix.wrap(coords));
+        this.actual = new FixedMatrix<>(lines, cols, DblMatrix.wrap(coords));
+    }
+
+    @Override
+    public Scalar<Double>[] coords() {
+        return this.actual.coords();
+    }
+
+    @Override
+    public Scalar<Double>[] column(final int index) {
+        return this.actual.column(index);
+    }
+
+    @Override
+    public Scalar<Double>[] line(final int index) {
+        return this.actual.line(index);
+    }
+
+    @Override
+    public Vect<Double> apply(final Vect<Double> input) {
+        return this.actual.apply(input);
+    }
+
+    @Override
+    public int columns() {
+        return this.actual.columns();
+    }
+
+    @Override
+    public int lines() {
+        return this.actual.lines();
     }
 
     /**
