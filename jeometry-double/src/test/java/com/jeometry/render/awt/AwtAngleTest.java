@@ -46,9 +46,11 @@ public final class AwtAngleTest {
     public void rendersAngles() {
         final SpyAngle<Double> angle = new SpyAngle<>();
         final AwtAngle painter = new AwtAngle(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(angle));
+        painter.render(
+            new Shape<>(angle),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(angle.started(), Matchers.equalTo(true));
     }
 
@@ -59,9 +61,11 @@ public final class AwtAngleTest {
     public void doesNotRenderOthers() {
         final SpyLine<Double> render = new SpyLine<>();
         final AwtAngle painter = new AwtAngle(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(render));
+        painter.render(
+            new Shape<>(render),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
         MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
     }

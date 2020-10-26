@@ -46,9 +46,11 @@ public final class AwtSegmentTest {
     public void rendersSegments() {
         final SpySegment<Double> segment = new SpySegment<>();
         final AwtSegment painter = new AwtSegment(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(segment));
+        painter.render(
+            new Shape<>(segment),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(segment.started(), Matchers.equalTo(true));
         MatcherAssert.assertThat(segment.ended(), Matchers.equalTo(true));
     }
@@ -60,9 +62,11 @@ public final class AwtSegmentTest {
     public void doesNotRenderOthers() {
         final SpyLine<Double> render = new SpyLine<>();
         final AwtSegment painter = new AwtSegment(new Decimal());
-        painter.setContext(new AwtDrawableSurface().context());
-        painter.setGraphics(Mockito.mock(Graphics2D.class));
-        painter.render(new Shape<>(render));
+        painter.render(
+            new Shape<>(render),
+            new AwtDrawableSurface().context(),
+            Mockito.mock(Graphics2D.class)
+        );
         MatcherAssert.assertThat(render.directioned(), Matchers.equalTo(false));
         MatcherAssert.assertThat(render.pointed(), Matchers.equalTo(false));
     }
