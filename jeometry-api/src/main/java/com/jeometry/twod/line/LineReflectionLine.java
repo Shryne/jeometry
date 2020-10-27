@@ -25,7 +25,6 @@ package com.jeometry.twod.line;
 
 import com.aljebra.vector.Sum;
 import com.jeometry.twod.point.LineReflectionPoint;
-import lombok.ToString;
 
 /**
  * A line defined as the reflection of a line, across a line (axial symmetry
@@ -33,7 +32,6 @@ import lombok.ToString;
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
 public final class LineReflectionLine<T> extends PtsLine<T> {
 
     /**

@@ -80,4 +80,20 @@ public final class PerpLineTest {
             Matchers.equalTo(true)
         );
     }
+
+    /**
+     * {@link PerpLine} toString prints underlying line and point.
+     */
+    @Test
+    public void printsAttributes() {
+        final Line<Double> line = new RandomLine<>();
+        final Vect<Double> point = new RandomPoint<>();
+        final String print = new PerpLine<>(line, point).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(line.toString())
+        );
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(point.toString())
+        );
+    }
 }

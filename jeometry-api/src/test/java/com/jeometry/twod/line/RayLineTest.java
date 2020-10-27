@@ -57,4 +57,16 @@ public final class RayLineTest {
             Matchers.is(true)
         );
     }
+
+    /**
+     * {@link RayLine} toString prints underlying ray.
+     */
+    @Test
+    public void printsAttributes() {
+        final Ray<Double> ray = new PtsRay<>(new RandomPoint<>(), new RandomPoint<>());
+        final String print = new RayLine<>(ray).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(ray.toString())
+        );
+    }
 }

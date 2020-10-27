@@ -51,4 +51,20 @@ public final class PtRadCircleTest {
             circle.radius(), Matchers.equalTo(rdx)
         );
     }
+
+    /**
+     * {@link PtRadCircle} toString prints center and radius.
+     */
+    @Test
+    public void printsAttributes() {
+        final RandomPoint<Object> point = new RandomPoint<>();
+        final Scalar<Object> rdx = new Random<>();
+        final String print = new PtRadCircle<>(point, rdx).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(point.toString())
+        );
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(rdx.toString())
+        );
+    }
 }

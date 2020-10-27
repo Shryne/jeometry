@@ -63,4 +63,26 @@ public final class PtsPolylineTest {
             points.next(), Matchers.equalTo(pointd)
         );
     }
+
+    /**
+     * {@link PtsPolyline} toString prints underlying points.
+     */
+    @Test
+    public void printsAttributes() {
+        final RandomPoint<Object> pointa = new RandomPoint<>();
+        final RandomPoint<Object> pointb = new RandomPoint<>();
+        final RandomPoint<Object> pointc = new RandomPoint<>();
+        final String print = new PtsPolyline<>(
+            Arrays.asList(pointa, pointb, pointc)
+        ).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(pointa.toString())
+        );
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(pointb.toString())
+        );
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(pointc.toString())
+        );
+    }
 }

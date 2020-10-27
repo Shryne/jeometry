@@ -25,14 +25,12 @@ package com.jeometry.twod.circle;
 
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.point.LineReflectionPoint;
-import lombok.ToString;
 
 /**
  * A circle defined as the reflection of a circle, across a given line.
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString
 public final class LineReflectionCircle<T> extends PtRadCircle<T> {
 
     /**

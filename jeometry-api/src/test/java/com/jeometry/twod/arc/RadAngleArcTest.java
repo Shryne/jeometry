@@ -61,4 +61,26 @@ public final class RadAngleArcTest {
             arc.end().doubleValue(), Matchers.closeTo(end, error)
         );
     }
+
+    /**
+     * {@link RadAngleArc} toString prints angles and circle center.
+     */
+    @Test
+    public void printsAttributes() {
+        final RandomPoint<Double> pnt = new RandomPoint<>();
+        final Scalar<Double> rdx = new Random<>();
+        final double start = Math.random();
+        final double end = Math.random();
+        final PtRadCircle<Double> circle = new PtRadCircle<>(pnt, rdx);
+        final String print = new RadAngleArc<>(circle, start, end).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(String.valueOf(start))
+        );
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(String.valueOf(end))
+        );
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(circle.center().toString())
+        );
+    }
 }
