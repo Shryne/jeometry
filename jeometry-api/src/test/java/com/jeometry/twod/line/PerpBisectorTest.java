@@ -80,4 +80,17 @@ public final class PerpBisectorTest {
         );
     }
 
+    /**
+     * {@link PerpBisector} toString prints underlying segment.
+     */
+    @Test
+    public void printsAttributes() {
+        final Segment<Double> seg = new PtsSegment<>(
+            new RandomPoint<>(), new RandomPoint<>()
+        );
+        final String print = new PerpBisector<>(seg).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(seg.toString())
+        );
+    }
 }

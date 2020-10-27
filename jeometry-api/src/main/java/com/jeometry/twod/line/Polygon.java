@@ -26,14 +26,12 @@ package com.jeometry.twod.line;
 import com.aljebra.vector.Vect;
 import com.google.common.collect.Lists;
 import java.util.List;
-import lombok.ToString;
 
 /**
  * Closed polyline implementation.
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString(includeFieldNames = false)
 public final class Polygon<T> extends PtsPolyline<T> {
 
     /**

@@ -24,19 +24,28 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.field.mock.SpyField;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.ParallelLine;
 import com.jeometry.twod.line.PerpLine;
 import com.jeometry.twod.line.RandomLine;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * Tests for {@link Perpendicular}.
  * @since 0.1
  */
 public final class PerpendicularTest {
+
+    /**
+     * Junit rule for expected exceptions.
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /**
      * {@link Perpendicular} resolves to true when lines are perpendicular.
@@ -75,6 +84,19 @@ public final class PerpendicularTest {
                 any.direction(), new PerpLine<>(any).direction()
             ).resolve(new Decimal()),
             Matchers.is(true)
+        );
+    }
+
+    /**
+     * {@link Perpendicular} throws exception when not operating on a metric space.
+     */
+    @Test
+    public void errorsWhenNoMetricSpace() {
+        this.thrown.expect(UnsupportedOperationException.class);
+        new Perpendicular<>(
+            new RandomLine<>(), new RandomLine<>()
+        ).resolve(
+            new SpyField<>(new Object(), new Object())
         );
     }
 }
