@@ -73,4 +73,21 @@ public final class MeasureAngleTest {
         MatcherAssert.assertThat(angle.origin(), Matchers.equalTo(origin));
         MatcherAssert.assertThat(angle.start(), Matchers.equalTo(start));
     }
+
+    /**
+     * {@link MeasureAngle} toString prints origin and starting vectors.
+     */
+    @Test
+    public void printsAttributes() {
+        final Vect<Double> origin = new RandomPoint<>();
+        final Vect<Double> start = new RandomPoint<>();
+        final double measure = Math.random();
+        final Angle<Double> angle = new MeasureAngle<>(origin, start, measure);
+        MatcherAssert.assertThat(
+            angle.toString(), Matchers.containsString(origin.toString())
+        );
+        MatcherAssert.assertThat(
+            angle.toString(), Matchers.containsString(start.toString())
+        );
+    }
 }

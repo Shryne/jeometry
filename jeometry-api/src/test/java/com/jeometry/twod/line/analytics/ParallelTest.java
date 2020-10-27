@@ -26,10 +26,10 @@ package com.jeometry.twod.line.analytics;
 import com.aljebra.field.impl.doubles.Decimal;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.PtDirLine;
-import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.line.VerticalLine;
 import com.jeometry.twod.point.DifferentPoint;
 import com.jeometry.twod.point.RandomPoint;
+import com.jeometry.twod.ray.PtDirRay;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -62,7 +62,7 @@ public final class ParallelTest {
         MatcherAssert.assertThat(
             new Parallel<Double>(
                 new VerticalLine<>(),
-                new RandomLine<>()
+                new PtDirLine<>(new RandomPoint<>(), new RandomPoint<>())
             ).resolve(new Decimal()),
             Matchers.is(false)
         );
@@ -73,7 +73,7 @@ public final class ParallelTest {
      */
     @Test
     public void resolvesFalseIfDifferentDirs() {
-        final Line<Double> any = new RandomLine<>();
+        final Line<Double> any = new PtDirLine<>(new RandomPoint<>(), new RandomPoint<>());
         MatcherAssert.assertThat(
             new Parallel<>(
                 any,
@@ -90,10 +90,25 @@ public final class ParallelTest {
      */
     @Test
     public void resolvesTrueIfSameDirs() {
-        final Line<Double> any = new RandomLine<>();
+        final Line<Double> any = new PtDirLine<>(new RandomPoint<>(), new RandomPoint<>());
         MatcherAssert.assertThat(
             new Parallel<>(
                 any, new PtDirLine<>(new RandomPoint<>(), any.direction())
+            ).resolve(new Decimal()),
+            Matchers.is(true)
+        );
+    }
+
+    /**
+     * {@link Parallel} resolves to true when rays have same directions.
+     */
+    @Test
+    public void resolvesTrueIfSameRayDirs() {
+        final Line<Double> any = new PtDirLine<>(new RandomPoint<>(), new RandomPoint<>());
+        MatcherAssert.assertThat(
+            new Parallel<>(
+                new PtDirRay<>(new RandomPoint<>(), any.direction()),
+                new PtDirRay<>(new RandomPoint<>(), any.direction())
             ).resolve(new Decimal()),
             Matchers.is(true)
         );

@@ -115,4 +115,16 @@ public final class InterceptTest {
         final Line<Double> line = new VerticalLine<>();
         new Intercept<>(line).value(new Decimal());
     }
+
+    /**
+     * {@link Intercept} toString prints line.
+     */
+    @Test
+    public void printsAttributes() {
+        final Line<Double> line = new RandomLine<>();
+        final String print = new Intercept<>(line).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(line.toString())
+        );
+    }
 }

@@ -27,7 +27,6 @@ import com.aljebra.field.Field;
 import com.aljebra.scalar.Scalar;
 import com.aljebra.scalar.condition.Predicate;
 import com.jeometry.twod.line.Line;
-import lombok.EqualsAndHashCode;
 
 /**
  * Convenience class to regroup line analytics predicates and scalars like
@@ -35,7 +34,6 @@ import lombok.EqualsAndHashCode;
  * @param <T> scalar types
  * @since 0.1
  */
-@EqualsAndHashCode
 public final class LineAnalytics<T> {
 
     /**

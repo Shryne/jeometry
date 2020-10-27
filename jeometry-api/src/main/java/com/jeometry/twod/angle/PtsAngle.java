@@ -25,7 +25,6 @@ package com.jeometry.twod.angle;
 
 import com.aljebra.vector.Minus;
 import com.aljebra.vector.Vect;
-import lombok.ToString;
 
 /**
  * An angle defined by three points: a summit, a point belonging
@@ -33,7 +32,6 @@ import lombok.ToString;
  * @param <T> scalar types
  * @since 0.1
  */
-@ToString
 public final class PtsAngle<T> extends VectsAngle<T> {
 
     /**
