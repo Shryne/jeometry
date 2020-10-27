@@ -109,4 +109,16 @@ public final class SlopeTest {
         final Line<Double> line = new VerticalLine<>();
         new Slope<>(line).value(new Decimal());
     }
+
+    /**
+     * {@link Slope} toString prints line.
+     */
+    @Test
+    public void printsAttributes() {
+        final Line<Double> line = new RandomLine<>();
+        final String print = new Slope<>(line).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(line.toString())
+        );
+    }
 }

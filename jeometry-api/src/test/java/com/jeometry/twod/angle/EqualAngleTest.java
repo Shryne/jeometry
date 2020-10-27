@@ -87,4 +87,23 @@ public final class EqualAngleTest {
         MatcherAssert.assertThat(angle.origin(), Matchers.equalTo(origin));
         MatcherAssert.assertThat(angle.start(), Matchers.equalTo(start));
     }
+
+    /**
+     * {@link EqualAngle} toString prints origin and starting vectors.
+     */
+    @Test
+    public void printsAttributes() {
+        final Angle<Double> ref = new VectsAngle<>(
+            new RandomPoint<>(), new RandomPoint<>(), new RandomPoint<>()
+        );
+        final Vect<Double> origin = new RandomPoint<>();
+        final Vect<Double> start = new RandomPoint<>();
+        final Angle<Double> angle = new EqualAngle<>(origin, start, ref);
+        MatcherAssert.assertThat(
+            angle.toString(), Matchers.containsString(origin.toString())
+        );
+        MatcherAssert.assertThat(
+            angle.toString(), Matchers.containsString(start.toString())
+        );
+    }
 }

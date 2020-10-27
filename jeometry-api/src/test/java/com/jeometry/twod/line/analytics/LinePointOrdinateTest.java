@@ -24,6 +24,7 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.scalar.Random;
 import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.Line;
 import com.jeometry.twod.line.RandomLine;
@@ -94,5 +95,21 @@ public final class LinePointOrdinateTest {
         final RandomPoint<Double> point = new RandomPoint<>();
         final Line<Double> line = new VerticalLine<>(point);
         new LinePointOrdinate<>(line, point.xcoor()).value(new Decimal());
+    }
+
+    /**
+     * {@link LinePointOrdinate} toString prints line and abscissa.
+     */
+    @Test
+    public void printsAttributes() {
+        final Line<Double> line = new RandomLine<>();
+        final Scalar<Double> abscissa = new Random<>();
+        final String print = new LinePointOrdinate<>(line, abscissa).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(abscissa.toString())
+        );
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(line.toString())
+        );
     }
 }

@@ -24,8 +24,13 @@
 package com.jeometry.twod.line.analytics;
 
 import com.aljebra.field.impl.doubles.Decimal;
+import com.aljebra.scalar.Scalar;
 import com.jeometry.twod.line.RandomLine;
 import com.jeometry.twod.line.VerticalLine;
+import com.jeometry.twod.point.XPoint;
+import com.jeometry.twod.ray.PtsRay;
+import com.jeometry.twod.ray.Ray;
+import com.jeometry.twod.segment.RandomSegment;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -57,6 +62,32 @@ public final class VerticalTest {
             new Vertical<Double>(
                 new RandomLine<>()
             ).resolve(new Decimal()), Matchers.is(false)
+        );
+    }
+
+    /**
+     * {@link Vertical} resolves false when the segment is not vertical.
+     */
+    @Test
+    public void resolvesFalseWhenNotVerticalSegment() {
+        MatcherAssert.assertThat(
+            new Vertical<Double>(
+                new RandomSegment<>()
+            ).resolve(new Decimal()), Matchers.is(false)
+        );
+    }
+
+    /**
+     * {@link Vertical} resolves true when the ray is vertical.
+     */
+    @Test
+    public void resolvesTrueWhenVerticalRay() {
+        final Scalar<Double> abscissa = new RandomLine<Double>().direction().coords()[0];
+        final Ray<Double> vertical = new PtsRay<>(new XPoint<>(abscissa), new XPoint<>(abscissa));
+        MatcherAssert.assertThat(
+            new Vertical<Double>(
+                vertical
+            ).resolve(new Decimal()), Matchers.is(true)
         );
     }
 }

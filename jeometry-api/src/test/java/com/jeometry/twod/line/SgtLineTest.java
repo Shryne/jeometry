@@ -56,4 +56,18 @@ public final class SgtLineTest {
             Matchers.is(true)
         );
     }
+
+    /**
+     * {@link SgtLine} toString prints underlying segment.
+     */
+    @Test
+    public void printsAttributes() {
+        final Segment<Double> sgt = new PtsSegment<>(
+            new RandomPoint<>(), new RandomPoint<>()
+        );
+        final String print = new SgtLine<>(sgt).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(sgt.toString())
+        );
+    }
 }

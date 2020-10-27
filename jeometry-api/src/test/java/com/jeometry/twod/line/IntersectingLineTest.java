@@ -71,4 +71,15 @@ public final class IntersectingLineTest {
         );
     }
 
+    /**
+     * {@link IntersectingLine} toString prints underlying point.
+     */
+    @Test
+    public void printsAttributes() {
+        final Vect<Double> point = new RandomPoint<>();
+        final String print = new IntersectingLine<>(new RandomLine<>(), point).toString();
+        MatcherAssert.assertThat(
+            print, Matchers.containsString(point.toString())
+        );
+    }
 }
