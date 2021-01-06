@@ -39,7 +39,7 @@ public final class Shape<T extends Renderable> {
     /**
      * Renderable.
      */
-    private final T rndrable;
+    private final T renderable;
 
     /**
      * Renderable name.
@@ -53,53 +53,53 @@ public final class Shape<T extends Renderable> {
 
     /**
      * Ctor.
-     * @param rndrable Renderable
+     * @param renderable Renderable
      * @param symbol Renderable name (or empty optional)
      * @param style Renderable style
      */
-    public Shape(final T rndrable, final Optional<String> symbol,
+    public Shape(final T renderable, final Optional<String> symbol,
         final Style style) {
-        this.rndrable = rndrable;
+        this.renderable = renderable;
         this.symbol = symbol;
         this.options = style;
     }
 
     /**
      * Ctor. Builds a named renderable with a default style.
-     * @param rndrable Renderable
+     * @param renderable Renderable
      * @param symbol Renderable name
      */
-    public Shape(final T rndrable, final String symbol) {
-        this(rndrable, Optional.of(symbol), new DefaultStyle());
+    public Shape(final T renderable, final String symbol) {
+        this(renderable, Optional.of(symbol), new DefaultStyle());
     }
 
     /**
      * Ctor. Builds an anonymous renderable with a the given style.
-     * @param rndrable Renderable
+     * @param renderable Renderable
      * @param style Renderable style
      */
-    public Shape(final T rndrable, final Style style) {
-        this(rndrable, Optional.empty(), style);
+    public Shape(final T renderable, final Style style) {
+        this(renderable, Optional.empty(), style);
     }
 
     /**
      * Ctor. Builds an anonymous renderable with a default style.
-     * @param rndrable Renderable
+     * @param renderable Renderable
      */
-    public Shape(final T rndrable) {
-        this(rndrable, Optional.empty(), new DefaultStyle());
+    public Shape(final T renderable) {
+        this(renderable, Optional.empty(), new DefaultStyle());
     }
 
     /**
-     * Accessor for the renderbale.
-     * @return The renderbale
+     * Accessor for the renderable.
+     * @return The renderable
      */
     public T renderable() {
-        return this.rndrable;
+        return this.renderable;
     }
 
     /**
-     * Accessor for the renderbale name.
+     * Accessor for the renderable name.
      * @return The renderable name
      */
     public Optional<String> name() {
@@ -115,7 +115,7 @@ public final class Shape<T extends Renderable> {
     }
 
     /**
-     * Accessor for the renderbale style.
+     * Accessor for the renderable style.
      * @return The renderable style.
      */
     public Style style() {
